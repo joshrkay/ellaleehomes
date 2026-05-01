@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ella Lee Homes — All Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #002855; --gold: #C9A96E;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+}
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+/* ── NAV ── */
+#nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 56px;
+  background: rgba(234,229,220,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+.nav-logo { height: 40px; display: flex; align-items: center; }
+.nav-logo svg { height: 22px; width: auto; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(43,43,43,0.55); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--paper); border: none; padding: 10px 22px; cursor: pointer; font-family: var(--sans); transition: background .2s; }
+.nav-cta:hover { background: var(--gold); color: var(--ink); }
+
+/* ── PAGE HEADER ── */
+#header {
+  padding: 80px 56px 56px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+.header-left .eyebrow { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--nickel); margin-bottom: 12px; }
+.header-title { font-size: clamp(36px,5vw,64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
+.header-title em { font-style: italic; color: var(--gold); }
+.header-right { font-size: 13px; color: var(--nickel); text-align: right; }
+#result-count { font-size: 28px; font-weight: 300; color: var(--ink); display: block; margin-bottom: 4px; }
+
+/* ── SQFT TABS ── */
+#sqft-tabs {
+  display: flex; align-items: center; gap: 0;
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+  padding: 0 56px;
+  background: var(--paper);
+  position: sticky; top: 73px; z-index: 90;
+}
+.sqft-tab {
+  padding: 18px 28px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(43,43,43,0.45); background: none; border: none; cursor: pointer;
+  font-family: var(--sans); position: relative; border-bottom: 2px solid transparent;
+  transition: color .2s; white-space: nowrap;
+}
+.sqft-tab.active { color: var(--ink); border-bottom-color: var(--navy); font-weight: 500; }
+.sqft-tab:hover { color: var(--ink); }
+.sqft-tab-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%; background: rgba(43,43,43,0.1);
+  font-size: 9px; font-weight: 600; margin-left: 6px;
+}
+.sqft-tab.active .sqft-tab-count { background: var(--navy); color: var(--paper); }
+
+.tab-divider { flex: 1; }
+
+/* Sort */
+.sort-select {
+  font-family: var(--sans); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink); background: none; border: 1px solid rgba(43,43,43,0.2);
+  padding: 8px 14px; cursor: pointer; outline: none;
+}
+
+/* ── SECTION HEADER ── */
+.section-band {
+  padding: 28px 56px 0;
+  display: flex; align-items: center; gap: 16px;
+}
+.section-band-title {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nickel);
+}
+.section-band-line { flex: 1; height: 1px; background: rgba(43,43,43,0.1); }
+.section-band-count { font-size: 11px; color: var(--nickel); }
+
+/* ── PROJECT GRID ── */
+.projects-grid {
+  padding: 28px 56px 72px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.proj-card {
+  background: #ddd8cf; overflow: hidden; cursor: pointer;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+  position: relative;
+}
+.proj-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(43,43,43,0.15); }
+
+.proj-card.hidden { display: none; }
+
+.proj-card-img { overflow: hidden; aspect-ratio: 4/3; }
+.proj-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease); filter: saturate(0.85); }
+.proj-card:hover .proj-card-img img { transform: scale(1.05); filter: saturate(1); }
+
+.proj-card-body { padding: 24px 28px 28px; }
+.proj-card-location { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nickel); margin-bottom: 6px; }
+.proj-card-name { font-size: 22px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 16px; line-height: 1.1; }
+.proj-card-specs {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  padding-top: 14px; border-top: 1px solid rgba(43,43,43,0.1);
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--nickel);
+}
+.proj-card-price { font-size: 16px; font-weight: 400; color: var(--ink); margin-bottom: 12px; letter-spacing: -0.01em; }
+.proj-card-year {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(234,229,220,0.9); backdrop-filter: blur(8px);
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--nickel); padding: 5px 12px; border-radius: 100px;
+}
+.proj-card-sold {
+  position: absolute; top: 16px; left: 16px;
+  background: var(--ink);
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--paper); padding: 5px 12px; border-radius: 100px;
+}
+.proj-card-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--navy); text-decoration: none; margin-top: 16px;
+  border-bottom: 1px solid rgba(0,40,85,0.2); padding-bottom: 2px;
+  transition: border-color .2s;
+}
+.proj-card-link:hover { border-color: var(--navy); }
+.proj-card-link::after { content: '→'; }
+
+/* ── EMPTY STATE ── */
+#empty-state {
+  display: none; padding: 80px 56px; text-align: center;
+}
+#empty-state.show { display: block; }
+.empty-title { font-size: 24px; font-weight: 300; margin-bottom: 12px; }
+.empty-sub { font-size: 14px; color: var(--nickel); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 48px 56px;
+  border-top: 1px solid rgba(43,43,43,0.1);
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--ink); color: var(--paper);
+}
+.footer-brand { font-size: 13px; font-weight: 300; letter-spacing: 0.15em; }
+.footer-copy { font-size: 10px; color: rgba(234,229,220,0.35); }
+
+/* Mobile */
+@media(max-width:900px){
+  .projects-grid { grid-template-columns: 1fr 1fr; padding: 20px 24px 48px; gap: 16px; }
+  #header { padding: 48px 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .header-right { text-align: left; }
+  #sqft-tabs { padding: 0 24px; overflow-x: auto; }
+  .section-band { padding: 20px 24px 0; }
+  #nav { padding: 14px 24px; }
+  footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+}
+@media(max-width:600px){
+  .projects-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo" aria-label="Ella Lee Homes">
+    <svg viewBox="0 0 240 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <text x="0" y="20" font-family="Inter, sans-serif" font-size="14" font-weight="300" letter-spacing="4" fill="#2B2B2B">ELLA LEE HOMES</text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">About</a></li>
+    <li><a href="#">Process</a></li>
+    <li><a href="#">Investors</a></li>
+  </ul>
+  <button class="nav-cta">Inquire</button>
+</nav>
+
+<!-- PAGE HEADER -->
+<div id="header">
+  <div class="header-left">
+    <div class="eyebrow">Ella Lee Homes</div>
+    <h1 class="header-title">Our <em>Portfolio.</em></h1>
+  </div>
+  <div class="header-right">
+    <span id="result-count">6</span>
+    homes built across Arizona
+  </div>
+</div>
+
+<!-- SQFT TABS -->
+<div id="sqft-tabs">
+  <button class="sqft-tab active" data-filter="all" onclick="filterTab(this,'all')">
+    All Homes <span class="sqft-tab-count" id="count-all">6</span>
+  </button>
+  <button class="sqft-tab" data-filter="small" onclick="filterTab(this,'small')">
+    Up to 4,000 sqft <span class="sqft-tab-count" id="count-small">2</span>
+  </button>
+  <button class="sqft-tab" data-filter="mid" onclick="filterTab(this,'mid')">
+    4,000 – 6,000 sqft <span class="sqft-tab-count" id="count-mid">3</span>
+  </button>
+  <button class="sqft-tab" data-filter="large" onclick="filterTab(this,'large')">
+    6,000+ sqft <span class="sqft-tab-count" id="count-large">1</span>
+  </button>
+  <div class="tab-divider"></div>
+  <select class="sort-select" onchange="sortCards(this.value)">
+    <option value="year-desc">Newest First</option>
+    <option value="year-asc">Oldest First</option>
+    <option value="price-desc">Price: High to Low</option>
+    <option value="price-asc">Price: Low to High</option>
+    <option value="sqft-desc">SqFt: Largest First</option>
+  </select>
+</div>
+
+<!-- PROJECT GRID -->
+<div id="grid-container">
+  <!-- SECTION: Up to 4k -->
+  <div class="section-band" id="band-small">
+    <span class="section-band-title">Up to 4,000 sqft</span>
+    <div class="section-band-line"></div>
+    <span class="section-band-count">2 homes</span>
+  </div>
+  <div class="projects-grid" id="grid-small">
+
+    <div class="proj-card" data-sqft="3900" data-price="3645000" data-year="2022" data-band="small">
+      <div class="proj-card-year">2022</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg" alt="Earll"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">Earll Drive</div>
+        <div class="proj-card-price">$3,645,000</div>
+        <div class="proj-card-specs">
+          <span>4 BD</span><span>4.5 BA</span><span>3,900 sqft</span>
+        </div>
+        <a href="Project Page - Wireframe.html" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="3750" data-price="3200000" data-year="2021" data-band="small">
+      <div class="proj-card-year">2021</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg" alt="Oak St"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Arcadia, Arizona</div>
+        <div class="proj-card-name">Oak Street</div>
+        <div class="proj-card-price">$3,200,000</div>
+        <div class="proj-card-specs">
+          <span>4 BD</span><span>4 BA</span><span>3,750 sqft</span>
+        </div>
+        <a href="Project Page - Wireframe.html" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION: 4k–6k -->
+  <div class="section-band" id="band-mid">
+    <span class="section-band-title">4,000 – 6,000 sqft</span>
+    <div class="section-band-line"></div>
+    <span class="section-band-count">3 homes</span>
+  </div>
+  <div class="projects-grid" id="grid-mid">
+
+    <div class="proj-card" data-sqft="4833" data-price="7035000" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Charter Oak"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">Charter Oak</div>
+        <div class="proj-card-price">$7,035,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5.2 BA</span><span>4,833 sqft</span>
+        </div>
+        <a href="Project Page - Wireframe.html" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="5214" data-price="7035000" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="68TH"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Paradise Valley, Arizona</div>
+        <div class="proj-card-name">68th &amp; Camelback</div>
+        <div class="proj-card-price">$7,035,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5.5 BA</span><span>5,214 sqft</span>
+        </div>
+        <a href="Project Page - Wireframe.html" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="5874" data-price="4400000" data-year="2023" data-band="mid">
+      <div class="proj-card-year">2023</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="DC2"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Arcadia, Arizona</div>
+        <div class="proj-card-name">Desert Contemporary II</div>
+        <div class="proj-card-price">$4,400,000</div>
+        <div class="proj-card-specs">
+          <span>6 BD</span><span>7.5 BA</span><span>5,874 sqft</span>
+        </div>
+        <a href="Project Page - Wireframe.html" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION: 6k+ -->
+  <div class="section-band" id="band-large">
+    <span class="section-band-title">6,000+ sqft</span>
+    <div class="section-band-line"></div>
+    <span class="section-band-count">1 home</span>
+  </div>
+  <div class="projects-grid" id="grid-large">
+
+    <div class="proj-card" data-sqft="6222" data-price="5450000" data-year="2023" data-band="large">
+      <div class="proj-card-year">2023</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Via Estrella"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">Via Estrella</div>
+        <div class="proj-card-price">$5,450,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>6.5 BA</span><span>6,222 sqft</span>
+        </div>
+        <a href="Project Page - Wireframe.html" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="empty-state">
+  <div class="empty-title">No homes in this range</div>
+  <div class="empty-sub">Try a different size filter above.</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Ella Lee Homes</div>
+  <div class="footer-copy">© 2026 Ella Lee Homes. ROC KB2-333410</div>
+</footer>
+
+<script>
+const allCards = Array.from(document.querySelectorAll('.proj-card'));
+
+function filterTab(btn, filter) {
+  document.querySelectorAll('.sqft-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+
+  const bands = ['small','mid','large'];
+  bands.forEach(band => {
+    const bandEl = document.getElementById(`band-${band}`);
+    const gridEl = document.getElementById(`grid-${band}`);
+    const show = filter === 'all' || filter === band;
+    bandEl.style.display = show ? 'flex' : 'none';
+    gridEl.style.display = show ? 'grid' : 'none';
+  });
+
+  const visible = filter === 'all' ? allCards.length :
+    allCards.filter(c => c.dataset.band === filter).length;
+  document.getElementById('result-count').textContent = visible;
+
+  const empty = document.getElementById('empty-state');
+  empty.classList.toggle('show', visible === 0);
+}
+
+function sortCards(val) {
+  ['grid-small','grid-mid','grid-large'].forEach(id => {
+    const grid = document.getElementById(id);
+    const cards = Array.from(grid.querySelectorAll('.proj-card'));
+    cards.sort((a,b) => {
+      if (val === 'year-desc') return b.dataset.year - a.dataset.year;
+      if (val === 'year-asc') return a.dataset.year - b.dataset.year;
+      if (val === 'price-desc') return b.dataset.price - a.dataset.price;
+      if (val === 'price-asc') return a.dataset.price - b.dataset.price;
+      if (val === 'sqft-desc') return b.dataset.sqft - a.dataset.sqft;
+      return 0;
+    });
+    cards.forEach(c => grid.appendChild(c));
+  });
+}
+</script>
+
+</body>
+</html>
