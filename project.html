@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ella Lee Homes — Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #2B2B2B;
+  --paper: #EAE5DC;
+  --nickel: #A5A09D;
+  --navy: #002855;
+  --gold: #C9A96E;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+}
+body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit-font-smoothing: antialiased; padding-top: 88px; }
+
+/* ── NAV (matches site glass-pill style) ── */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 48px;
+  background: none; border: none;
+}
+.nav-pill {
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  background: rgba(234,229,220,0.82);
+  border: 1px solid rgba(43,43,43,0.12);
+  border-radius: 100px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+.nav-logo {
+  display: flex; align-items: center; text-decoration: none; padding: 8px 16px;
+}
+.nav-logo img { height: 52px; width: auto; }
+.nav-links { display: flex; gap: 4px; list-style: none; align-items: center; padding: 8px 16px; }
+.nav-links a {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(43,43,43,0.65); text-decoration: none; transition: color .2s; padding: 4px 12px;
+}
+.nav-links a:hover, .nav-links a[aria-current] { color: var(--ink); }
+.nav-cta {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  border: 1px solid rgba(43,43,43,0.2); color: var(--ink);
+  background: rgba(43,43,43,0.06); padding: 10px 24px;
+  font-family: var(--sans); border-radius: 100px;
+  transition: all .25s; text-decoration: none; display: inline-block;
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+}
+.nav-cta:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* Back link strip */
+#back-strip {
+  padding: 18px 48px;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+  background: rgba(234,229,220,0.6);
+}
+.nav-back {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid rgba(43,43,43,0.2); padding-bottom: 2px;
+  transition: color .2s, border-color .2s;
+}
+.nav-back:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ── HERO ── */
+#hero {
+  position: relative; height: 80vh; min-height: 520px;
+  overflow: hidden;
+}
+.hero-img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+#hero:hover .hero-img { transform: scale(1.02); }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(43,43,43,0.7) 100%);
+}
+.hero-tag {
+  position: absolute; top: 32px; left: 48px;
+  background: rgba(234,229,220,0.15); backdrop-filter: blur(12px);
+  border: 1px solid rgba(234,229,220,0.25);
+  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--paper); padding: 8px 16px; border-radius: 100px;
+}
+.hero-title {
+  position: absolute; bottom: 48px; left: 48px; right: 48px;
+}
+.hero-location {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(234,229,220,0.6); margin-bottom: 12px;
+}
+.hero-name {
+  font-size: clamp(40px, 6vw, 80px); font-weight: 300;
+  line-height: 1.0; letter-spacing: -0.02em; color: var(--paper);
+}
+.hero-status {
+  position: absolute; bottom: 48px; right: 48px;
+  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); border-bottom: 1px solid rgba(201,169,110,0.4);
+  padding-bottom: 4px;
+}
+
+/* ── STAT BOXES ── */
+#stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+.stat-box {
+  padding: 32px 40px;
+  border-right: 1px solid rgba(43,43,43,0.1);
+  background: var(--paper);
+  transition: background 0.2s;
+}
+.stat-box:last-child { border-right: none; }
+.stat-box:hover { background: #e2ddd4; }
+.stat-key {
+  font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 10px;
+}
+.stat-val {
+  font-size: 28px; font-weight: 300; letter-spacing: -0.02em; color: var(--ink);
+  line-height: 1;
+}
+.stat-unit { font-size: 12px; font-weight: 400; color: var(--nickel); margin-left: 2px; }
+
+/* Section header */
+.section-label {
+  font-size: 8px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(24px, 3vw, 36px); font-weight: 300; letter-spacing: -0.02em;
+  margin-bottom: 32px; line-height: 1.1;
+}
+.section-title em { font-style: italic; color: var(--navy); }
+
+.description {
+  font-size: 15px; line-height: 1.85; color: rgba(43,43,43,0.75);
+  max-width: 680px; margin-bottom: 24px;
+}
+
+/* ── AMENITIES + PHOTOS ── */
+#content {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+#amenities-col {
+  padding: 64px 56px;
+  border-right: 1px solid rgba(43,43,43,0.1);
+  background: var(--paper);
+}
+#photos-col {
+  padding: 64px 48px;
+  background: #e2ddd4;
+}
+.amenities-list { display: flex; flex-direction: column; gap: 0; }
+.amenity-row {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 18px 0; border-bottom: 1px solid rgba(43,43,43,0.07);
+}
+.amenity-row:last-child { border-bottom: none; }
+.amenity-icon {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(0,40,85,0.07); border: 1px solid rgba(0,40,85,0.15);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.amenity-icon svg { width: 15px; height: 15px; }
+.amenity-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.amenity-detail { font-size: 12px; color: var(--nickel); }
+
+/* Gallery in right col */
+#photos-col .gallery-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto; gap: 6px;
+}
+#photos-col .gallery-img { overflow: hidden; cursor: pointer; }
+#photos-col .gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 4/3; transition: transform 0.5s var(--ease); }
+#photos-col .gallery-img:hover img { transform: scale(1.04); }
+#photos-col .gallery-img.main { grid-column: 1 / 3; }
+#photos-col .gallery-img.main img { aspect-ratio: 16/9; }
+#photos-col .gallery-more {
+  position: relative; overflow: hidden; cursor: pointer;
+  background: var(--ink); display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 4/3;
+}
+#photos-col .gallery-more img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; }
+.gallery-more-label { position: relative; z-index: 2; text-align: center; color: var(--paper); }
+.gallery-more-num { font-size: 28px; font-weight: 200; display: block; margin-bottom: 2px; }
+
+/* ── STORY ── */
+#story {
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+  background: var(--paper);
+}
+.story-inner { max-width: 1100px; padding: 72px 64px; }
+.story-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 8px; }
+
+/* ── INQUIRY CTA ── */
+#inquiry-cta {
+  padding: 80px 64px;
+  background: var(--ink); color: var(--paper);
+  display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: center;
+}
+.inquiry-eyebrow { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(234,229,220,0.5); margin-bottom: 20px; }
+.inquiry-title { font-size: clamp(28px, 3.5vw, 44px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; }
+.inquiry-title em { font-style: italic; color: var(--gold); }
+.inquiry-sub { margin-top: 20px; font-size: 14px; line-height: 1.8; color: rgba(234,229,220,0.7); max-width: 480px; }
+.inquiry-actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.inquiry-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+  padding: 16px 32px; text-decoration: none;
+  background: var(--gold); color: var(--ink); border: none;
+  transition: background 0.25s, color 0.25s;
+}
+.inquiry-btn:hover { background: var(--paper); color: var(--ink); }
+.inquiry-btn::after { content: '→'; transition: transform 0.2s; }
+.inquiry-btn:hover::after { transform: translateX(4px); }
+.inquiry-meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(234,229,220,0.5); }
+
+/* ── RELATED ── */
+#related {
+  padding: 72px 64px;
+  border-top: 1px solid rgba(43,43,43,0.1);
+  background: var(--paper);
+}
+.related-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 40px; }
+.related-card { cursor: pointer; text-decoration: none; color: inherit; display: block; }
+.related-card-img { overflow: hidden; aspect-ratio: 4/3; margin-bottom: 16px; }
+.related-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s var(--ease); }
+.related-card:hover .related-card-img img { transform: scale(1.04); }
+.related-card-loc { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--nickel); margin-bottom: 4px; }
+.related-card-name { font-size: 18px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 4px; }
+.related-card-price { font-size: 13px; color: var(--gold); font-weight: 400; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 48px 64px;
+  border-top: 1px solid rgba(43,43,43,0.1);
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--ink); color: var(--paper);
+}
+.footer-brand { font-size: 14px; font-weight: 300; letter-spacing: 0.15em; }
+.footer-copy { font-size: 10px; color: rgba(234,229,220,0.35); }
+
+/* ── NOT FOUND ── */
+#not-found {
+  display: none; padding: 120px 48px; text-align: center;
+}
+#not-found h1 { font-size: 36px; font-weight: 300; margin-bottom: 16px; }
+#not-found p { color: var(--nickel); margin-bottom: 32px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  #stats { grid-template-columns: repeat(2, 1fr); }
+  .stat-box:nth-child(2) { border-right: none; }
+  .stat-box:nth-child(1), .stat-box:nth-child(2) { border-bottom: 1px solid rgba(43,43,43,0.1); }
+  #content { grid-template-columns: 1fr; }
+  #amenities-col { border-right: none; border-bottom: 1px solid rgba(43,43,43,0.1); }
+  #inquiry-cta { grid-template-columns: 1fr; gap: 32px; padding: 56px 32px; }
+  .related-grid { grid-template-columns: 1fr; }
+  .story-cols { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  body { padding-top: 80px; }
+  #nav { padding: 12px 20px; }
+  .nav-logo img { height: 40px; }
+  .nav-links { display: none; }
+  #back-strip { padding: 14px 20px; }
+  #hero { height: 60vh; min-height: 380px; }
+  .hero-tag { top: 20px; left: 20px; }
+  .hero-title { left: 20px; right: 20px; bottom: 24px; }
+  .hero-status { right: 20px; bottom: 24px; }
+  #stats { grid-template-columns: 1fr; }
+  .stat-box { border-right: none !important; border-bottom: 1px solid rgba(43,43,43,0.1); }
+  #amenities-col, #photos-col { padding: 40px 24px; }
+  .story-inner { padding: 48px 24px; }
+  #related { padding: 48px 24px; }
+  footer { padding: 32px 24px; flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo nav-pill" aria-label="Ella Lee Homes">
+    <img src="uploads/Monogram_Navy.png" alt="Ella Lee Homes">
+  </a>
+  <ul class="nav-links nav-pill">
+    <li><a href="projects.html">Portfolio</a></li>
+    <li><a href="process.html">Process</a></li>
+    <li><a href="index.html#meet">About</a></li>
+    <li><a href="#">Investors</a></li>
+  </ul>
+  <a href="index.html#cta" class="nav-cta">Inquire</a>
+</nav>
+
+<!-- BACK STRIP -->
+<div id="back-strip">
+  <a href="projects.html" class="nav-back">← All Projects</a>
+</div>
+
+<!-- NOT FOUND (shown if slug doesn't match) -->
+<div id="not-found">
+  <h1>Project not found</h1>
+  <p>The project you're looking for doesn't exist.</p>
+  <a href="projects.html" class="nav-back">← View All Projects</a>
+</div>
+
+<!-- PROJECT CONTENT (populated by JS based on ?slug=) -->
+<div id="project-content" style="display:none;">
+
+  <!-- HERO -->
+  <section id="hero">
+    <img class="hero-img" id="hero-img" src="" alt="">
+    <div class="hero-overlay"></div>
+    <div class="hero-tag" id="hero-tag">Completed</div>
+    <div class="hero-title">
+      <div class="hero-location" id="hero-location"></div>
+      <div class="hero-name" id="hero-name"></div>
+    </div>
+    <div class="hero-status" id="hero-status">Sold</div>
+  </section>
+
+  <!-- STAT BOXES -->
+  <div id="stats">
+    <div class="stat-box">
+      <div class="stat-key">Sales Price</div>
+      <div class="stat-val" id="stat-price"></div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-key">Square Footage</div>
+      <div class="stat-val" id="stat-sqft"></div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-key">Bathrooms</div>
+      <div class="stat-val" id="stat-baths"></div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-key">Bedrooms</div>
+      <div class="stat-val" id="stat-beds"></div>
+    </div>
+  </div>
+
+  <!-- AMENITIES + PHOTOS -->
+  <div id="content">
+    <div id="amenities-col">
+      <div class="section-label">Amenities &amp; Features</div>
+      <div class="section-title">Included in <em>This Home</em></div>
+      <div class="amenities-list" id="amenities-list"></div>
+    </div>
+
+    <div id="photos-col">
+      <div class="section-label">Photo Gallery</div>
+      <div class="section-title">Inside the <em>Home</em></div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <div id="story">
+    <div class="story-inner">
+      <div class="section-label">About This Home</div>
+      <div class="section-title" id="story-title"></div>
+      <div class="story-cols" id="story-body"></div>
+    </div>
+  </div>
+
+  <!-- INQUIRY CTA -->
+  <section id="inquiry-cta">
+    <div>
+      <div class="inquiry-eyebrow">Interested in Building Like This?</div>
+      <div class="inquiry-title">Start your <em>own legacy.</em></div>
+      <p class="inquiry-sub">Every Ella Lee home begins with a conversation. Tell us about your vision and we'll help you bring it to life.</p>
+    </div>
+    <div class="inquiry-actions">
+      <a href="index.html#cta" class="inquiry-btn">Begin the Conversation</a>
+      <div class="inquiry-meta">(480) 340-8700 · hello@ellaleehomes.com</div>
+    </div>
+  </section>
+
+  <!-- RELATED -->
+  <section id="related">
+    <div class="section-label">More From Ella Lee Homes</div>
+    <div class="section-title">Similar <em>Projects</em></div>
+    <div class="related-grid" id="related-grid"></div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">ELLA LEE HOMES</div>
+  <div class="footer-copy">© 2026 Ella Lee Homes · ROC KB2-333410</div>
+</footer>
+
+<script>
+const PROJECTS = {
+  '68th-camelback': {
+    name: '68th &amp; Camelback',
+    location: 'Paradise Valley, Arizona',
+    year: 2024,
+    status: 'Sold 2024',
+    price: '$7,035,000',
+    sqft: '5,214',
+    beds: '5',
+    baths: '5.5',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg',
+    gallery: [
+      'https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg',
+      'uploads/IMG_0455.jpg',
+      'uploads/IMG_0590.jpg',
+      'uploads/IMG_0614.jpg',
+      'uploads/IMG_9825.jpg',
+      'uploads/IMG_9854.jpg'
+    ],
+    storyTitle: 'Desert Modern Living at Its <em>Finest.</em>',
+    storyParas: [
+      "Nestled in the heart of Paradise Valley, this stunning 5-bedroom desert modern masterpiece redefines luxury living. Every detail has been meticulously crafted — from the custom steel-and-glass entry to the resort-style backyard complete with a zero-edge pool and outdoor kitchen.",
+      "The open-concept great room flows seamlessly to the covered patio through 20-foot pocketing doors, creating an unparalleled indoor-outdoor living experience. The chef's kitchen features Taj Mahal quartzite countertops, Wolf appliances, and custom cabinetry throughout."
+    ],
+    amenities: [
+      ['Chef\'s Kitchen', 'Wolf & Sub-Zero appliances, Taj Mahal quartzite'],
+      ['Smart Home System', 'Savant full-home automation'],
+      ['Zero-Edge Pool & Spa', 'Heated, with outdoor shower'],
+      ['Outdoor Kitchen', 'Gas grill, pizza oven, bar seating'],
+      ['Home Theater', '120" screen, Dolby Atmos surround'],
+      ['Primary Suite', 'Spa bath, his & hers closets, private patio'],
+      ['4-Car Garage', 'Epoxy floors, EV charger, storage'],
+      ['Builder Warranty', '2-10 comprehensive warranty'],
+      ['Solar Ready', 'Pre-wired conduit throughout']
+    ]
+  },
+  'desert-contemporary-ii': {
+    name: 'Desert Contemporary II',
+    location: 'Arcadia, Arizona',
+    year: 2023,
+    status: 'Sold 2023',
+    price: '$4,400,000',
+    sqft: '5,874',
+    beds: '6',
+    baths: '7.5',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg',
+    gallery: [
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
+      'uploads/IMG_0429.jpg',
+      'uploads/IMG_9854.jpg',
+      'uploads/IMG_0590.jpg'
+    ],
+    storyTitle: 'Refined Minimalism in <em>Arcadia.</em>',
+    storyParas: [
+      "Set against the backdrop of Camelback Mountain, Desert Contemporary II is a meditation on negative space and natural materials. White oak floors run throughout, paired with limewashed walls and oversized steel-frame windows that frame the desert landscape.",
+      "Six bedrooms, including a guest casita, are arranged around a central courtyard with a linear water feature. The primary suite occupies its own private wing with a soaking tub overlooking the gardens."
+    ],
+    amenities: [
+      ['Chef\'s Kitchen', 'Miele appliances, Calacatta marble island'],
+      ['Guest Casita', 'Private entrance, kitchenette, full bath'],
+      ['Linear Water Feature', 'Central courtyard, custom limestone'],
+      ['White Oak Floors', 'Wide plank, hand-finished throughout'],
+      ['Primary Suite Wing', 'Private patio, soaking tub, dual closets'],
+      ['Wine Room', 'Climate-controlled, 600-bottle capacity'],
+      ['Home Office', 'Dedicated study with built-ins'],
+      ['Smart Lighting', 'Lutron RadioRA full-home system'],
+      ['3-Car Garage', 'EV charging, custom cabinetry']
+    ]
+  },
+  'via-estrella': {
+    name: 'Via Estrella',
+    location: 'Scottsdale, Arizona',
+    year: 2023,
+    status: 'Sold 2023',
+    price: '$5,450,000',
+    sqft: '6,222',
+    beds: '5',
+    baths: '6.5',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
+    gallery: [
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
+      'uploads/IMG_9825.jpg',
+      'uploads/IMG_0614.jpg',
+      'uploads/IMG_0455.jpg'
+    ],
+    storyTitle: 'A Star Among <em>Arizona Estates.</em>',
+    storyParas: [
+      "Via Estrella is the largest project in our portfolio — over 6,200 square feet of curated luxury on a 1.2-acre lot. The architectural language balances Spanish Colonial heritage with modern restraint: arched openings, hand-troweled plaster walls, and reclaimed pecky cypress beams.",
+      "The resort-caliber backyard features a 75-foot lap pool, sunken fire lounge, full outdoor kitchen, and a separate pool house with full bath. A six-car garage with showroom finish completes the estate."
+    ],
+    amenities: [
+      ['Chef\'s Kitchen', 'La Cornue range, butler\'s pantry'],
+      ['75ft Lap Pool', 'Heated, automated cover'],
+      ['Pool House', 'Full bath, kitchenette, lounge'],
+      ['Sunken Fire Lounge', 'Custom limestone surround'],
+      ['Wine Cellar', '1,200-bottle climate-controlled'],
+      ['Home Theater', 'Tiered seating, Dolby Atmos'],
+      ['Primary Suite', 'Sitting room, dual baths, dual closets'],
+      ['6-Car Garage', 'Showroom finish, two EV chargers'],
+      ['Casita & Office', 'Detached, with private entrance']
+    ]
+  },
+  'charter-oak': {
+    name: 'Charter Oak',
+    location: 'Scottsdale, Arizona',
+    year: 2024,
+    status: 'Sold 2024',
+    price: '$7,035,000',
+    sqft: '4,833',
+    beds: '5',
+    baths: '5.2',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
+    gallery: [
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
+      'uploads/IMG_0429.jpg',
+      'uploads/IMG_9825.jpg',
+      'uploads/IMG_0590.jpg'
+    ],
+    storyTitle: 'Quiet Luxury, <em>Effortlessly Refined.</em>',
+    storyParas: [
+      "Charter Oak embodies a softer take on luxury — warm woods, plaster walls, and brass detailing create an interior that feels both elevated and lived-in. The home's siting captures filtered morning light through full-height windows in the great room.",
+      "Outside, a heated pool, lounging sun-shelf, and shade pergola transform the backyard into a year-round retreat. Mature olive trees and natural-stone pathways complete the Mediterranean atmosphere."
+    ],
+    amenities: [
+      ['Chef\'s Kitchen', 'La Cornue range, custom cerused oak cabinetry'],
+      ['Plaster Walls', 'Hand-troweled lime plaster throughout'],
+      ['Heated Pool & Sun Shelf', 'Saltwater, with shade pergola'],
+      ['Brass Hardware', 'Unlacquered, develops natural patina'],
+      ['Primary Suite', 'Sitting area, freestanding tub, walk-in shower'],
+      ['Office / Den', 'Built-in bookcases, fireplace'],
+      ['Mudroom', 'Custom storage, dog wash'],
+      ['3-Car Garage', 'Epoxy floor, EV pre-wire'],
+      ['Olive Tree Grove', 'Mature trees, natural-stone paths']
+    ]
+  },
+  'earll-drive': {
+    name: 'Earll Drive',
+    location: 'Scottsdale, Arizona',
+    year: 2022,
+    status: 'Sold 2022',
+    price: '$3,645,000',
+    sqft: '3,900',
+    beds: '4',
+    baths: '4.5',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
+    gallery: [
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg',
+      'uploads/IMG_0455.jpg',
+      'uploads/IMG_9854.jpg',
+      'uploads/IMG_0429.jpg'
+    ],
+    storyTitle: 'Modern Comfort on a <em>Quiet Street.</em>',
+    storyParas: [
+      "Earll Drive proves luxury isn't about size — it's about intention. Every square foot of this 3,900-sqft home was designed for daily living: an open kitchen at the center of family life, a covered outdoor lounge for year-round entertaining, and four bedrooms thoughtfully arranged for privacy.",
+      "Walnut floors, white oak cabinetry, and limestone countertops set a calm, neutral palette. The result is a home that wears well — stylish without trying, generous without excess."
+    ],
+    amenities: [
+      ['Chef\'s Kitchen', 'Walnut floors, limestone island, Wolf range'],
+      ['Covered Outdoor Lounge', 'Built-in heaters, ceiling fans'],
+      ['Heated Pool & Spa', 'Pebble-finish, automated controls'],
+      ['Primary Suite', 'Walk-in closet, dual vanity, soaking tub'],
+      ['Open Floor Plan', 'Great room, kitchen, dining flow together'],
+      ['Office Nook', 'Built-in desk, two work stations'],
+      ['Smart Thermostats', 'Multi-zone, energy-efficient'],
+      ['2-Car Garage', 'Storage, EV pre-wire'],
+      ['Low-Maintenance Yard', 'Drought-tolerant, drip irrigation']
+    ]
+  },
+  'oak-street': {
+    name: 'Oak Street',
+    location: 'Arcadia, Arizona',
+    year: 2021,
+    status: 'Sold 2021',
+    price: '$3,200,000',
+    sqft: '3,750',
+    beds: '4',
+    baths: '4',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg',
+    gallery: [
+      'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
+      'uploads/IMG_0614.jpg',
+      'uploads/IMG_9825.jpg',
+      'uploads/IMG_0590.jpg'
+    ],
+    storyTitle: 'Where Arcadia Meets <em>Effortless Style.</em>',
+    storyParas: [
+      "Oak Street was Ella Lee Homes' early statement on what \"approachable luxury\" could look like in Arcadia. A four-bedroom plan organized around a courtyard pool, the home is a study in proportion: every room opens to outdoor living, every window frames a view.",
+      "Materials are honest — board-and-batten siding, smooth-finish stucco, white oak cabinetry, and Carrara marble. The kitchen flows directly into a covered patio with built-in fireplace, where the family spends most of their evenings."
+    ],
+    amenities: [
+      ['Chef\'s Kitchen', 'Carrara marble, Sub-Zero & Wolf'],
+      ['Courtyard Pool', 'Pebble-finish, with shallow lounge'],
+      ['Outdoor Fireplace', 'Built-in, gas-powered, on covered patio'],
+      ['Board-and-Batten Exterior', 'Custom millwork, smooth stucco'],
+      ['White Oak Cabinetry', 'Throughout kitchen and baths'],
+      ['Primary Suite', 'Vaulted ceiling, dual closets'],
+      ['Family-Friendly Layout', 'Open kitchen, three secondary bedrooms'],
+      ['Smart Lock System', 'August Pro full-home'],
+      ['2-Car Garage', 'Side-load, EV pre-wire']
+    ]
+  },
+
+  // ─── Stub entries from ellaleehomes.com/previous-projects/ ──────────────
+  // Names and locations are real. Specs (price/sqft/beds/baths) are TBD —
+  // fill in from the live project pages when accessible.
+  'mitchell-home': {
+    name: 'The Mitchell Home',
+    location: 'Phoenix, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '3,164',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'hazelwood-estate': {
+    name: 'The Hazelwood Estate',
+    location: 'Scottsdale, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '4,153',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'desert-oasis': {
+    name: 'Desert Oasis',
+    location: 'Paradise Valley, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'arcadia-crest': {
+    name: 'Arcadia Crest',
+    location: 'Arcadia, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'paradise-ridge': {
+    name: 'Paradise Ridge Residence',
+    location: 'Paradise Valley, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'silverleaf-retreat': {
+    name: 'Silverleaf Retreat',
+    location: 'Scottsdale, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'sierra-vista-modern': {
+    name: 'Sierra Vista Modern',
+    location: 'Paradise Valley, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'oakwood-contemporary': {
+    name: 'Oakwood Contemporary',
+    location: 'Arcadia, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'hawthorne-residence': {
+    name: 'The Hawthorne Residence',
+    location: 'Paradise Valley, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'canyon-edge-estate': {
+    name: 'Canyon Edge Estate',
+    location: 'Scottsdale, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'scottsdale-summit': {
+    name: 'Scottsdale Summit',
+    location: 'Scottsdale, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  },
+  'camelback-vista': {
+    name: 'Camelback Vista Estate',
+    location: 'Paradise Valley, Arizona',
+    year: '',
+    status: 'Sold',
+    price: '—',
+    sqft: '—',
+    beds: '—',
+    baths: '—',
+    heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
+    gallery: ['https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg'],
+    storyTitle: 'Project details <em>coming soon.</em>',
+    storyParas: ['Full project specifications and story copy will be added here from the live ellaleehomes.com project page.'],
+    amenities: []
+  }
+};
+
+const AMENITY_ICONS = [
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
+];
+
+function renderProject() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('slug') || '68th-camelback';
+  const project = PROJECTS[slug];
+
+  if (!project) {
+    document.getElementById('not-found').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('project-content').style.display = 'block';
+  document.title = `Ella Lee Homes — ${project.name.replace(/&amp;/g, '&')}`;
+
+  // Hero
+  const heroImg = document.getElementById('hero-img');
+  heroImg.src = project.heroImg;
+  heroImg.alt = project.name.replace(/&amp;/g, '&');
+  document.getElementById('hero-tag').textContent = project.year ? `Completed · ${project.year}` : 'Previous Project';
+  document.getElementById('hero-location').textContent = project.location;
+  document.getElementById('hero-name').innerHTML = project.name;
+  document.getElementById('hero-status').textContent = project.status;
+
+  // Stats
+  document.getElementById('stat-price').textContent = project.price;
+  document.getElementById('stat-sqft').innerHTML = project.sqft === '—'
+    ? '—'
+    : `${project.sqft}<span class="stat-unit"> sqft</span>`;
+  document.getElementById('stat-baths').textContent = project.baths;
+  document.getElementById('stat-beds').textContent = project.beds;
+
+  // Amenities (hide section if none)
+  const amList = document.getElementById('amenities-list');
+  const amCol = document.getElementById('amenities-col');
+  if (project.amenities && project.amenities.length) {
+    amList.innerHTML = project.amenities.map((a, i) => `
+      <div class="amenity-row">
+        <div class="amenity-icon">${AMENITY_ICONS[i % AMENITY_ICONS.length]}</div>
+        <div>
+          <div class="amenity-name">${a[0]}</div>
+          <div class="amenity-detail">${a[1]}</div>
+        </div>
+      </div>
+    `).join('');
+  } else {
+    // Replace amenities column with a "details coming soon" placeholder so
+    // the two-column layout still balances visually.
+    amCol.innerHTML = `
+      <div class="section-label">Amenities &amp; Features</div>
+      <div class="section-title">Coming <em>Soon</em></div>
+      <p class="description">Detailed feature list and amenities for this home will be added here.</p>
+    `;
+  }
+
+  // Gallery
+  const gallery = document.getElementById('gallery-grid');
+  const g = project.gallery;
+  if (g.length === 1) {
+    // Single-image gallery: show just the hero spanning full width
+    gallery.innerHTML = `
+      <div class="gallery-img main" style="grid-column: 1 / 3;"><img src="${g[0]}" alt=""></div>
+    `;
+  } else {
+    const extra = Math.max(0, g.length - 3);
+    gallery.innerHTML = `
+      <div class="gallery-img main"><img src="${g[0]}" alt=""></div>
+      <div class="gallery-img"><img src="${g[1] || g[0]}" alt=""></div>
+      <div class="gallery-more">
+        <img src="${g[2] || g[0]}" alt="">
+        <div class="gallery-more-label">
+          ${extra > 0 ? `<span class="gallery-more-num">+${extra}</span>` : ''}
+          View All Photos
+        </div>
+      </div>
+    `;
+  }
+
+  // Story
+  document.getElementById('story-title').innerHTML = project.storyTitle;
+  document.getElementById('story-body').innerHTML = project.storyParas
+    .map(p => `<p class="description">${p}</p>`)
+    .join('');
+
+  // Related: pick 3 other projects
+  const relatedSlugs = Object.keys(PROJECTS).filter(s => s !== slug).slice(0, 3);
+  const grid = document.getElementById('related-grid');
+  grid.innerHTML = relatedSlugs.map(s => {
+    const p = PROJECTS[s];
+    return `
+      <a class="related-card" href="project.html?slug=${s}">
+        <div class="related-card-img"><img src="${p.heroImg}" alt="${p.name.replace(/&amp;/g, '&')}"></div>
+        <div class="related-card-loc">${p.location.split(',')[0]}, AZ</div>
+        <div class="related-card-name">${p.name}</div>
+        <div class="related-card-price">${p.price} · ${p.sqft} sqft</div>
+      </a>
+    `;
+  }).join('');
+}
+
+renderProject();
+</script>
+</body>
+</html>
