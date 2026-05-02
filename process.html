@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ella Lee Homes — Our Process</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #002855; --gold: #C9A96E;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+  --nav-h: 73px;
+  --strip-w: 56px;
+}
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+/* ── NAV ── */
+#nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 56px;
+  background: rgba(234,229,220,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+.nav-logo { height: 40px; display: flex; align-items: center; }
+.nav-logo svg { height: 22px; width: auto; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(43,43,43,0.55); text-decoration: none; transition: color .2s; }
+.nav-links a:hover, .nav-links a[aria-current] { color: var(--ink); }
+.nav-cta { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--paper); border: none; padding: 10px 22px; cursor: pointer; font-family: var(--sans); transition: background .2s; }
+.nav-cta:hover { background: var(--gold); color: var(--ink); }
+
+/* ── PAGE HEADER ── */
+#header {
+  padding: 80px 56px 56px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+.header-left .eyebrow { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--nickel); margin-bottom: 12px; }
+.header-title { font-size: clamp(36px,5vw,64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
+.header-title em { font-style: italic; color: var(--gold); }
+.header-right { font-size: 13px; color: var(--nickel); text-align: right; line-height: 1.6; }
+
+/* ── HERO BANNER ── */
+#hero-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 42vw, 520px);
+  overflow: hidden;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+#hero-banner img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.95) brightness(0.85);
+}
+#hero-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.25) 50%, rgba(0,40,85,0.55) 100%);
+}
+.hero-caption {
+  position: absolute; left: 56px; bottom: 40px; z-index: 2;
+  color: #fff;
+}
+.hero-caption .eyebrow {
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.75); margin-bottom: 10px;
+}
+.hero-caption h2 {
+  font-size: clamp(28px, 3.6vw, 44px); font-weight: 300; letter-spacing: -0.02em;
+  line-height: 1.05; max-width: 640px;
+}
+.hero-caption h2 em { font-style: italic; color: var(--gold); }
+
+/* ── PROCESS SCROLL ZONE ── */
+#process-scroll-zone {
+  height: 500vh;
+}
+
+#process-sticky {
+  position: sticky;
+  top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
+  overflow: hidden;
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+
+.phase-row {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+/* ── PHASE CARD ── */
+.phase-card {
+  flex: 0 0 var(--strip-w);
+  height: 100%;
+  overflow: hidden;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  background: var(--ink);
+  transition: flex 0.72s var(--ease), background 0.4s;
+}
+.phase-card:last-child { border-right: none; }
+.phase-card.active {
+  flex: 1;
+  background: var(--paper);
+}
+
+/* ── STRIP LABEL (vertical, shown when not active) ── */
+.phase-strip {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.18s;
+  z-index: 2;
+}
+.phase-card.active .phase-strip {
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.phase-strip-text {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  transform: rotate(90deg);
+  user-select: none;
+}
+.phase-strip-num {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  white-space: nowrap;
+  transform: rotate(90deg);
+  margin-bottom: 14px;
+  user-select: none;
+  font-weight: 600;
+}
+
+/* ── FULL CARD CONTENT (shown when active) ── */
+.phase-full {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s;
+  min-width: 400px;
+  z-index: 1;
+}
+.phase-card.active .phase-full {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.32s 0.38s;
+}
+
+/* Card header — phase name displayed horizontally */
+.phase-hdr {
+  padding: 36px 52px 28px;
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+  flex-shrink: 0;
+}
+.phase-num {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.phase-name {
+  font-size: clamp(32px, 3.5vw, 56px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+/* Card body */
+.phase-body {
+  padding: 36px 52px 52px;
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-content: start;
+}
+
+.phase-duration {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--nickel);
+  margin-bottom: 18px;
+}
+.phase-desc {
+  font-size: 15px;
+  line-height: 1.72;
+  font-weight: 300;
+  color: var(--ink);
+}
+
+.phase-deliverables-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--nickel);
+  margin-bottom: 18px;
+}
+.phase-deliverables {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+.phase-deliverables li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.phase-deliverables li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 48px 56px;
+  border-top: 1px solid rgba(43,43,43,0.1);
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--ink); color: var(--paper);
+}
+.footer-brand { font-size: 13px; font-weight: 300; letter-spacing: 0.15em; }
+.footer-copy { font-size: 10px; color: rgba(234,229,220,0.35); }
+
+/* ── MOBILE: stack vertically, no horizontal effect ── */
+@media (max-width: 900px) {
+  #header { padding: 48px 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .header-right { text-align: left; }
+  #nav { padding: 14px 24px; }
+  footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+  .hero-caption { left: 24px; bottom: 28px; }
+
+  #process-scroll-zone { height: auto; }
+  #process-sticky { position: static; height: auto; overflow: visible; }
+  .phase-row { flex-direction: column; }
+
+  .phase-card {
+    flex: none !important;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(43,43,43,0.1);
+    background: var(--paper) !important;
+  }
+  .phase-card:last-child { border-bottom: none; }
+  .phase-strip { display: none; }
+  .phase-full {
+    position: static;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    min-width: 0;
+    transition: none;
+  }
+  .phase-hdr { padding: 28px 24px 22px; }
+  .phase-body { padding: 24px 24px 36px; grid-template-columns: 1fr; gap: 28px; }
+  .phase-name { font-size: 28px; }
+}
+
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo" aria-label="Ella Lee Homes">
+    <svg viewBox="0 0 240 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <text x="0" y="20" font-family="Inter, sans-serif" font-size="14" font-weight="300" letter-spacing="4" fill="#2B2B2B">ELLA LEE HOMES</text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="process.html" aria-current="page">Process</a></li>
+    <li><a href="#">Investors</a></li>
+  </ul>
+  <button class="nav-cta">Inquire</button>
+</nav>
+
+<!-- PAGE HEADER -->
+<div id="header">
+  <div class="header-left">
+    <div class="eyebrow">Ella Lee Homes</div>
+    <h1 class="header-title">Our <em>Process.</em></h1>
+  </div>
+  <div class="header-right">
+    4 phases<br>end to end
+  </div>
+</div>
+
+<!-- HERO BANNER -->
+<section id="hero-banner" aria-label="A completed Ella Lee home">
+  <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Completed Ella Lee home">
+  <div class="hero-caption">
+    <div class="eyebrow">The Finished Home</div>
+    <h2>From first sketch to <em>final key.</em></h2>
+  </div>
+</section>
+
+<!-- PROCESS SCROLL ZONE -->
+<div id="process-scroll-zone">
+  <div id="process-sticky">
+    <div class="phase-row" id="phase-row">
+
+      <!-- 01 DESIGN -->
+      <div class="phase-card active" id="card-0">
+        <div class="phase-strip">
+          <span class="phase-strip-num">01</span>
+          <span class="phase-strip-text">Design</span>
+        </div>
+        <div class="phase-full">
+          <div class="phase-hdr">
+            <span class="phase-num">01</span>
+            <div class="phase-name">Design</div>
+          </div>
+          <div class="phase-body">
+            <div>
+              <div class="phase-duration">8 – 12 weeks</div>
+              <p class="phase-desc">Everything starts with a vision. We work alongside you to define the architecture, interior palette, and material selections — translating your goals into a buildable, beautiful plan before a single shovel breaks ground.</p>
+            </div>
+            <div>
+              <div class="phase-deliverables-label">Deliverables</div>
+              <ul class="phase-deliverables">
+                <li>Architectural drawings</li>
+                <li>Interior design selections</li>
+                <li>Structural &amp; MEP coordination</li>
+                <li>Preliminary project budget</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 PERMITTING -->
+      <div class="phase-card" id="card-1">
+        <div class="phase-strip">
+          <span class="phase-strip-num">02</span>
+          <span class="phase-strip-text">Permitting</span>
+        </div>
+        <div class="phase-full">
+          <div class="phase-hdr">
+            <span class="phase-num">02</span>
+            <div class="phase-name">Permitting</div>
+          </div>
+          <div class="phase-body">
+            <div>
+              <div class="phase-duration">4 – 8 weeks</div>
+              <p class="phase-desc">We handle every city and county submission, coordinate directly with engineers, and navigate HOA approvals on your behalf — so you never have to manage the red tape.</p>
+            </div>
+            <div>
+              <div class="phase-deliverables-label">Deliverables</div>
+              <ul class="phase-deliverables">
+                <li>City permit submission</li>
+                <li>Engineering sign-off</li>
+                <li>HOA approval coordination</li>
+                <li>Final permit issuance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 CONSTRUCTION -->
+      <div class="phase-card" id="card-2">
+        <div class="phase-strip">
+          <span class="phase-strip-num">03</span>
+          <span class="phase-strip-text">Construction</span>
+        </div>
+        <div class="phase-full">
+          <div class="phase-hdr">
+            <span class="phase-num">03</span>
+            <div class="phase-name">Construction</div>
+          </div>
+          <div class="phase-body">
+            <div>
+              <div class="phase-duration">9 – 14 months</div>
+              <p class="phase-desc">Our crews break ground once permits are in hand. You work directly with the Ella Lee team throughout — no hand-offs, no intermediaries. Clear, consistent communication from foundation to final trim.</p>
+            </div>
+            <div>
+              <div class="phase-deliverables-label">Deliverables</div>
+              <ul class="phase-deliverables">
+                <li>Site preparation &amp; foundation</li>
+                <li>Framing &amp; MEP rough-in</li>
+                <li>Interior &amp; exterior finishes</li>
+                <li>Weekly progress updates</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 MOVE IN -->
+      <div class="phase-card" id="card-3">
+        <div class="phase-strip">
+          <span class="phase-strip-num">04</span>
+          <span class="phase-strip-text">Move In</span>
+        </div>
+        <div class="phase-full">
+          <div class="phase-hdr">
+            <span class="phase-num">04</span>
+            <div class="phase-name">Move In</div>
+          </div>
+          <div class="phase-body">
+            <div>
+              <div class="phase-duration">2 – 4 weeks</div>
+              <p class="phase-desc">We walk every inch of the home with you before keys change hands. Our punch list process is thorough, and our warranty coverage means you're supported long after move-in day.</p>
+            </div>
+            <div>
+              <div class="phase-deliverables-label">Deliverables</div>
+              <ul class="phase-deliverables">
+                <li>Final walkthrough &amp; punch list</li>
+                <li>Certificate of occupancy</li>
+                <li>Keys &amp; access transfer</li>
+                <li>1-year workmanship warranty</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Ella Lee Homes</div>
+  <div class="footer-copy">&copy; 2026 Ella Lee Homes. ROC KB2-333410</div>
+</footer>
+
+<script>
+const scrollZone = document.getElementById('process-scroll-zone');
+const cards = Array.from(document.querySelectorAll('.phase-card'));
+const N = cards.length;
+
+function updatePhase() {
+  const rect = scrollZone.getBoundingClientRect();
+  const scrollableH = scrollZone.offsetHeight - window.innerHeight;
+  const scrolled = -rect.top;
+  const progress = Math.max(0, Math.min(1, scrolled / scrollableH));
+
+  const activeIndex = Math.min(N - 1, Math.floor(progress * N));
+
+  cards.forEach((card, i) => {
+    card.classList.toggle('active', i === activeIndex);
+  });
+}
+
+window.addEventListener('scroll', updatePhase, { passive: true });
+updatePhase();
+</script>
+
+</body>
+</html>
