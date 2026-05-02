@@ -32,7 +32,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .nav-links { display: flex; gap: 28px; list-style: none; }
 .nav-links a { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(43,43,43,0.55); text-decoration: none; transition: color .2s; }
 .nav-links a:hover, .nav-links a[aria-current] { color: var(--ink); }
-.nav-cta { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--paper); border: none; padding: 10px 22px; cursor: pointer; font-family: var(--sans); transition: background .2s; }
+.nav-cta { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--paper); border: none; padding: 10px 22px; cursor: pointer; font-family: var(--sans); transition: background .2s; text-decoration: none; display: inline-block; }
 .nav-cta:hover { background: var(--gold); color: var(--ink); }
 
 /* ── PAGE HEADER ── */
@@ -307,11 +307,12 @@ footer {
     </svg>
   </a>
   <ul class="nav-links">
-    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="projects.html">Portfolio</a></li>
     <li><a href="process.html" aria-current="page">Process</a></li>
+    <li><a href="index.html#meet">About</a></li>
     <li><a href="#">Investors</a></li>
   </ul>
-  <button class="nav-cta">Inquire</button>
+  <a href="index.html#cta" class="nav-cta">Inquire</a>
 </nav>
 
 <!-- PAGE HEADER -->
