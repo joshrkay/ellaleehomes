@@ -46,6 +46,37 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .header-title em { font-style: italic; color: var(--gold); }
 .header-right { font-size: 13px; color: var(--nickel); text-align: right; line-height: 1.6; }
 
+/* ── HERO BANNER ── */
+#hero-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 42vw, 520px);
+  overflow: hidden;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+#hero-banner img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.95) brightness(0.85);
+}
+#hero-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.25) 50%, rgba(0,40,85,0.55) 100%);
+}
+.hero-caption {
+  position: absolute; left: 56px; bottom: 40px; z-index: 2;
+  color: #fff;
+}
+.hero-caption .eyebrow {
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.75); margin-bottom: 10px;
+}
+.hero-caption h2 {
+  font-size: clamp(28px, 3.6vw, 44px); font-weight: 300; letter-spacing: -0.02em;
+  line-height: 1.05; max-width: 640px;
+}
+.hero-caption h2 em { font-style: italic; color: var(--gold); }
+
 /* ── PROCESS SCROLL ZONE ── */
 #process-scroll-zone {
   height: 500vh;
@@ -70,9 +101,9 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   flex: 0 0 var(--strip-w);
   height: 100%;
   overflow: hidden;
-  border-right: 1px solid rgba(43,43,43,0.1);
+  border-right: 1px solid rgba(255,255,255,0.06);
   position: relative;
-  background: #ddd8cf;
+  background: var(--ink);
   transition: flex 0.72s var(--ease), background 0.4s;
 }
 .phase-card:last-child { border-right: none; }
@@ -99,23 +130,25 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 .phase-strip-text {
   display: block;
-  font-size: 9px;
+  font-size: 18px;
+  font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--nickel);
+  color: #fff;
   white-space: nowrap;
   transform: rotate(90deg);
   user-select: none;
 }
 .phase-strip-num {
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.15em;
   color: var(--gold);
   white-space: nowrap;
   transform: rotate(90deg);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   user-select: none;
+  font-weight: 600;
 }
 
 /* ── FULL CARD CONTENT (shown when active) ── */
@@ -232,6 +265,7 @@ footer {
   .header-right { text-align: left; }
   #nav { padding: 14px 24px; }
   footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+  .hero-caption { left: 24px; bottom: 28px; }
 
   #process-scroll-zone { height: auto; }
   #process-sticky { position: static; height: auto; overflow: visible; }
@@ -290,6 +324,15 @@ footer {
     4 phases<br>end to end
   </div>
 </div>
+
+<!-- HERO BANNER -->
+<section id="hero-banner" aria-label="A completed Ella Lee home">
+  <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Completed Ella Lee home">
+  <div class="hero-caption">
+    <div class="eyebrow">The Finished Home</div>
+    <h2>From first sketch to <em>final key.</em></h2>
+  </div>
+</section>
 
 <!-- PROCESS SCROLL ZONE -->
 <div id="process-scroll-zone">
