@@ -15,23 +15,42 @@
   --sans: 'Inter', Helvetica, sans-serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
 }
-body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; padding-top: 88px; }
 
 /* ── NAV ── */
 #nav {
-  position: sticky; top: 0; z-index: 100;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 56px;
-  background: rgba(234,229,220,0.92); backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(43,43,43,0.1);
+  padding: 16px 48px;
+  background: none; border: none;
 }
-.nav-logo { height: 40px; display: flex; align-items: center; }
-.nav-logo svg { height: 22px; width: auto; }
-.nav-links { display: flex; gap: 28px; list-style: none; }
-.nav-links a { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(43,43,43,0.55); text-decoration: none; transition: color .2s; }
-.nav-links a:hover { color: var(--ink); }
-.nav-cta { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--paper); border: none; padding: 10px 22px; cursor: pointer; font-family: var(--sans); transition: background .2s; text-decoration: none; display: inline-block; }
-.nav-cta:hover { background: var(--gold); color: var(--ink); }
+.nav-pill {
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  background: rgba(234,229,220,0.82);
+  border: 1px solid rgba(43,43,43,0.12);
+  border-radius: 100px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+.nav-logo {
+  display: flex; align-items: center; text-decoration: none; padding: 8px 16px;
+}
+.nav-logo img { height: 52px; width: auto; }
+.nav-links { display: flex; gap: 4px; list-style: none; align-items: center; padding: 8px 16px; }
+.nav-links a {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(43,43,43,0.65); text-decoration: none; transition: color .2s; padding: 4px 12px;
+}
+.nav-links a:hover, .nav-links a[aria-current] { color: var(--ink); }
+.nav-cta {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  border: 1px solid rgba(43,43,43,0.2); color: var(--ink);
+  background: rgba(43,43,43,0.06); padding: 10px 24px;
+  font-family: var(--sans); border-radius: 100px;
+  transition: all .25s; text-decoration: none; display: inline-block;
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+}
+.nav-cta:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
 /* ── PAGE HEADER ── */
 #header {
@@ -51,7 +70,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   border-bottom: 1px solid rgba(43,43,43,0.1);
   padding: 0 56px;
   background: var(--paper);
-  position: sticky; top: 73px; z-index: 90;
+  position: sticky; top: 88px; z-index: 90;
 }
 .sqft-tab {
   padding: 18px 28px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
@@ -177,12 +196,10 @@ footer {
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="index.html" class="nav-logo" aria-label="Ella Lee Homes">
-    <svg viewBox="0 0 240 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <text x="0" y="20" font-family="Inter, sans-serif" font-size="14" font-weight="300" letter-spacing="4" fill="#2B2B2B">ELLA LEE HOMES</text>
-    </svg>
+  <a href="index.html" class="nav-logo nav-pill" aria-label="Ella Lee Homes">
+    <img src="uploads/Monogram_Navy.png" alt="Ella Lee Homes">
   </a>
-  <ul class="nav-links">
+  <ul class="nav-links nav-pill">
     <li><a href="projects.html" aria-current="page">Portfolio</a></li>
     <li><a href="process.html">Process</a></li>
     <li><a href="index.html#meet">About</a></li>
