@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" style="--gold: #C9A96E; --ink: #2B2B2B; --ink-deep: #1a1a1a; --paper: #EAE5DC; --nickel: #A5A09D; --navy: #002855;"><plasmo-csui id="jobright-helper-plugin"></plasmo-csui><head></head><body class="" data-cc-id="cc-15" style="font-family: Georgia; background-color: rgb(20, 19, 18); cursor: crosshair;"><plasmo-csui id="jobright-helper-plugin"></plasmo-csui>
+<!DOCTYPE html><html lang="en"><head></head><body data-cc-id="cc-15">
 
 
 
@@ -948,7 +948,7 @@ footer {
 
 <!-- â•â•â• HERO â•â•â• -->
 <div id="hero-scroll-zone" style="position:relative;height:300vh;">
-<div id="hero-wrapper" style="opacity: 0; transform: scale(0.96);">
+<div id="hero-wrapper">
 <section id="hero" class="grain">
   <div id="hero-media" style="opacity: 0;"></div>
   <div id="hero-media" style="opacity:0;"></div>
@@ -1186,7 +1186,7 @@ Built Right</span>
       <div class="r-mask"><span class="r-up d1 fired">Ready to build</span></div>
       <div class="r-mask"><span class="r-up d2 fired">your <em>legacy?</em></span></div>
     </div>
-    <p class="cta-sub r-fade d3 fired">Tell us about your vision. Whether you're building from the ground up, selling a custom home, or simply exploring what's possible, we'd love to hear from you.</p>.</p>
+    <p class="cta-sub r-fade d3 fired">Tell us about your vision. Whether you're building from the ground up, selling a custom home, or simply exploring what's possible, we'd love to hear from you.</p>
     <div class="cta-meta r-fade d4 fired">
       <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
       <div class="cta-meta-row"><span class="cta-meta-label">Email</span><span class="cta-meta-val">hello@ellaleehomes.com</span></div>
@@ -1353,8 +1353,8 @@ const navEl = document.getElementById('nav');
       loaderCount.textContent = 100;
       setTimeout(()=>{
         loaderEl.classList.add('exit');
-        // nav intentionally hidden "” shows only via scroll
         fireHero();
+        onScroll();
         setTimeout(initReveals, 600);
       }, 400);
     }
