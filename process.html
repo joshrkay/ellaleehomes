@@ -35,16 +35,36 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .nav-cta { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; background: var(--ink); color: var(--paper); border: none; padding: 10px 22px; cursor: pointer; font-family: var(--sans); transition: background .2s; }
 .nav-cta:hover { background: var(--gold); color: var(--ink); }
 
-/* ── PAGE HEADER ── */
-#header {
-  padding: 80px 56px 56px;
-  display: flex; justify-content: space-between; align-items: flex-end;
-  border-bottom: 1px solid rgba(43,43,43,0.1);
+/* ── HERO ── */
+#hero {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
 }
-.header-left .eyebrow { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--nickel); margin-bottom: 12px; }
-.header-title { font-size: clamp(36px,5vw,64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
-.header-title em { font-style: italic; color: var(--gold); }
-.header-right { font-size: 13px; color: var(--nickel); text-align: right; line-height: 1.6; }
+#hero img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.8) brightness(0.88);
+}
+#hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(43,43,43,0.55) 0%, transparent 55%);
+}
+#hero-caption {
+  position: absolute;
+  bottom: 48px; left: 56px;
+}
+#hero-caption .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.6); margin-bottom: 10px;
+}
+#hero-caption .hero-title {
+  font-size: clamp(36px,5vw,64px); font-weight: 300;
+  letter-spacing: -0.03em; line-height: 1; color: var(--paper);
+}
+#hero-caption .hero-title em { font-style: italic; color: var(--gold); }
 
 /* ── PROCESS SCROLL ZONE ── */
 #process-scroll-zone {
@@ -70,9 +90,9 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   flex: 0 0 var(--strip-w);
   height: 100%;
   overflow: hidden;
-  border-right: 1px solid rgba(43,43,43,0.1);
+  border-right: 1px solid rgba(43,43,43,0.25);
   position: relative;
-  background: #ddd8cf;
+  background: var(--ink);
   transition: flex 0.72s var(--ease), background 0.4s;
 }
 .phase-card:last-child { border-right: none; }
@@ -99,22 +119,23 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 .phase-strip-text {
   display: block;
-  font-size: 9px;
-  letter-spacing: 0.22em;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--nickel);
+  color: #fff;
   white-space: nowrap;
   transform: rotate(90deg);
   user-select: none;
 }
 .phase-strip-num {
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.15em;
   color: var(--gold);
   white-space: nowrap;
   transform: rotate(90deg);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   user-select: none;
 }
 
@@ -228,8 +249,8 @@ footer {
 
 /* ── MOBILE: stack vertically, no horizontal effect ── */
 @media (max-width: 900px) {
-  #header { padding: 48px 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
-  .header-right { text-align: left; }
+  #hero { height: 55vh; }
+  #hero-caption { bottom: 32px; left: 24px; }
   #nav { padding: 14px 24px; }
   footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
 
@@ -280,14 +301,13 @@ footer {
   <button class="nav-cta">Inquire</button>
 </nav>
 
-<!-- PAGE HEADER -->
-<div id="header">
-  <div class="header-left">
+<!-- HERO -->
+<div id="hero">
+  <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="Ella Lee Homes interior">
+  <div id="hero-overlay"></div>
+  <div id="hero-caption">
     <div class="eyebrow">Ella Lee Homes</div>
-    <h1 class="header-title">Our <em>Process.</em></h1>
-  </div>
-  <div class="header-right">
-    4 phases<br>end to end
+    <h1 class="hero-title">Our <em>Process.</em></h1>
   </div>
 </div>
 
