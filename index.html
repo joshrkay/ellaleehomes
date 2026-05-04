@@ -465,115 +465,6 @@ body {
 .meet-link:hover { color: var(--gold); border-color: var(--gold); }
 .meet-link:hover::after { transform: translateX(5px); }
 
-/* â”€â”€â”€ ABOUT NARRATIVE â”€â”€â”€ */
-#about {
-  position: relative; background: var(--ink);
-  padding: 140px 56px 120px; z-index: 1;
-  border-top: 1px solid rgba(244,241,234,0.06);
-}
-.about-eyebrow {
-  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(234,229,220,0.45); margin-bottom: 28px;
-}
-.about-hd {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-  align-items: end; margin-bottom: 96px;
-  max-width: 1440px; margin-left: auto; margin-right: auto;
-}
-.about-hd h2 {
-  font-family: var(--sans); font-weight: 300;
-  font-size: clamp(40px, 5vw, 76px); line-height: 1.0; letter-spacing: -0.03em;
-  color: var(--paper);
-}
-.about-hd h2 em { font-style: italic; color: var(--gold); }
-.about-hd-right {
-  font-size: 15px; line-height: 1.85; color: rgba(234,229,220,0.7);
-  max-width: 520px; padding-bottom: 8px;
-}
-.about-hd-right p + p { margin-top: 18px; }
-
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-  max-width: 1440px; margin: 0 auto 96px;
-}
-.about-grid-left h3 {
-  font-family: var(--sans); font-weight: 300;
-  font-size: clamp(28px, 3vw, 42px); line-height: 1.1; letter-spacing: -0.02em;
-  color: var(--paper); margin-bottom: 28px;
-}
-.about-grid-left h3 em { font-style: italic; color: var(--gold); }
-.about-list {
-  list-style: none; padding: 0; margin: 0;
-}
-.about-list li {
-  display: grid; grid-template-columns: 28px 1fr; gap: 20px;
-  padding: 22px 0; border-top: 1px solid rgba(244,241,234,0.08);
-  font-size: 14px; line-height: 1.75; color: rgba(234,229,220,0.72);
-}
-.about-list li:last-child { border-bottom: 1px solid rgba(244,241,234,0.08); }
-.about-list .num {
-  font-size: 10px; letter-spacing: 0.18em; color: var(--gold);
-  padding-top: 4px; font-variant-numeric: tabular-nums;
-}
-.about-list strong {
-  display: block; font-weight: 500; color: var(--paper);
-  margin-bottom: 4px; letter-spacing: -0.005em;
-}
-
-.about-features {
-  max-width: 1440px; margin: 0 auto;
-  border-top: 1px solid rgba(244,241,234,0.08);
-  padding-top: 64px;
-}
-.about-features-hd {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 56px; gap: 40px; flex-wrap: wrap;
-}
-.about-features-hd h3 {
-  font-family: var(--sans); font-weight: 300;
-  font-size: clamp(28px, 3.2vw, 46px); line-height: 1.1; letter-spacing: -0.02em;
-  color: var(--paper); max-width: 560px;
-}
-.about-features-hd h3 em { font-style: italic; color: var(--gold); }
-.about-features-hd .about-link {
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--paper); text-decoration: none; cursor: none;
-  border-bottom: 1px solid rgba(244,241,234,0.25); padding-bottom: 4px;
-  transition: color .2s, border-color .2s;
-}
-.about-features-hd .about-link:hover { color: var(--gold); border-color: var(--gold); }
-
-.feature-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1px; background: rgba(244,241,234,0.08);
-}
-.feature-cell {
-  background: var(--ink); padding: 36px 32px 40px;
-  display: flex; flex-direction: column; gap: 14px;
-  min-height: 220px;
-}
-.feature-cell .num {
-  font-size: 10px; letter-spacing: 0.22em; color: var(--gold);
-  font-variant-numeric: tabular-nums;
-}
-.feature-cell h4 {
-  font-family: var(--sans); font-weight: 400;
-  font-size: 17px; line-height: 1.35; letter-spacing: -0.005em;
-  color: var(--paper);
-}
-.feature-cell p {
-  font-size: 13px; line-height: 1.7; color: rgba(234,229,220,0.6);
-}
-
-@media (max-width: 880px) {
-  #about { padding: 90px 24px 80px; }
-  .about-hd, .about-grid { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
-  .about-hd { align-items: start; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .about-features { padding-top: 48px; }
-  .about-features-hd { margin-bottom: 36px; }
-}
-
 /* â”€â”€â”€ EXPAND â”€â”€â”€ */
 .expand-zone { position: relative; height: 420vh; }
 .expand-sticky {
@@ -1047,7 +938,7 @@ footer {
   <ul class="nav-left nav-pill">
     <li><a href="#experience">Why Us</a></li>
     <li><a href="projects.html">Portfolio</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="about.html">About</a></li>
     <li><a href="process.html">Process</a></li>
   </ul>
   <div class="nav-right">
@@ -1161,86 +1052,6 @@ Built Right</span>
   </div>
 
 </section>
-
-<!-- ABOUT NARRATIVE -->
-<section id="about" class="grain">
-  <div class="about-hd">
-    <div>
-      <div class="about-eyebrow">About Ella Lee Homes</div>
-      <h2>Born from a <em>promise.</em><br>Built for a <em>legacy.</em></h2>
-    </div>
-    <div class="about-hd-right">
-      <p>Ella Lee Homes was born from a simple, heartfelt promise &mdash; to build something that would stand the test of time for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others.</p>
-      <p>Every home we build carries that same devotion: a foundation of love, care, and legacy designed to nurture life&rsquo;s most meaningful moments.</p>
-    </div>
-  </div>
-
-  <div class="about-grid">
-    <div class="about-grid-left">
-      <h3>A design and build construction <em>company.</em></h3>
-      <p style="font-size: 15px; line-height: 1.85; color: rgba(234,229,220,0.7); margin-bottom: 18px;">As a leading design and build construction company in Arizona, we take pride in our expertise in creating distinctive spaces tailored to your unique needs and aesthetic vision.</p>
-      <p style="font-size: 15px; line-height: 1.85; color: rgba(234,229,220,0.7);">Together, we&rsquo;ll navigate construction, architecture, and design to deliver living spaces that embody luxury, functionality, and sustainability.</p>
-    </div>
-    <ul class="about-list">
-      <li>
-        <span class="num">01</span>
-        <span><strong>Collaborate.</strong>Work alongside skilled contractors, architects, and designers dedicated to understanding your vision and bringing it to life.</span>
-      </li>
-      <li>
-        <span class="num">02</span>
-        <span><strong>Communicate.</strong>Experience seamless communication and full transparency throughout the entire design and build process.</span>
-      </li>
-      <li>
-        <span class="num">03</span>
-        <span><strong>Innovate.</strong>Incorporate the latest construction techniques, sustainable materials, and energy-efficient solutions for a truly eco-friendly home.</span>
-      </li>
-      <li>
-        <span class="num">04</span>
-        <span><strong>Trust.</strong>Enjoy peace of mind with regular updates, photos, and videos &mdash; knowing your home is in experienced, quality-driven hands.</span>
-      </li>
-    </ul>
-  </div>
-
-  <div class="about-features">
-    <div class="about-features-hd">
-      <h3>Why choose <em>Ella Lee Homes.</em></h3>
-      <a href="#cta" class="about-link">Begin the Conversation</a>
-    </div>
-    <div class="feature-grid">
-      <div class="feature-cell">
-        <span class="num">01 / Craft</span>
-        <h4>Unmatched craftsmanship.</h4>
-        <p>Every detail meticulously crafted by skilled artisans, ensuring your home is built to last for generations.</p>
-      </div>
-      <div class="feature-cell">
-        <span class="num">02 / Process</span>
-        <h4>Turnkey solutions.</h4>
-        <p>From floor plans to finishing touches, we expertly guide you through every step &mdash; turning your dream home into a reality with ease.</p>
-      </div>
-      <div class="feature-cell">
-        <span class="num">03 / Delivery</span>
-        <h4>Stress-free management.</h4>
-        <p>Rely on our expert team to manage every aspect of your build, ensuring timely delivery of your home within budget.</p>
-      </div>
-      <div class="feature-cell">
-        <span class="num">04 / Design</span>
-        <h4>Innovative design.</h4>
-        <p>Partner with award-winning designers to create a home that is functional and beautiful &mdash; a reflection of your unique style.</p>
-      </div>
-      <div class="feature-cell">
-        <span class="num">05 / Service</span>
-        <h4>Personalized service.</h4>
-        <p>A seamless, dedicated journey with a team focused on bringing your vision to life from sketch to keys.</p>
-      </div>
-      <div class="feature-cell">
-        <span class="num">06 / Trust</span>
-        <h4>Comprehensive warranty.</h4>
-        <p>Long-term protection and security for your investment with our builder warranty &mdash; well beyond move-in day.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- â•â•â• PROJECTS "” REMOVED â•â•â• -->
 <template id="projects-removed">
 <section id="projects" data-om-id="021145ab:120">
@@ -1435,7 +1246,7 @@ Built Right</span>
   </div>
   <div class="footer-col">
     <h4>Navigate</h4>
-    <a href="projects.html">Portfolio</a><a href="#about">About</a>
+    <a href="projects.html">Portfolio</a><a href="about.html">About</a>
     <a href="process.html">Process</a><a href="#">Investors</a><a href="#cta">Contact</a>
   </div>
   <div class="footer-col">
