@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-footer.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -236,22 +238,11 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   margin-top: 5px;
 }
 
-/* ── FOOTER ── */
-footer {
-  padding: 48px 56px;
-  border-top: 1px solid rgba(43,43,43,0.1);
-  display: flex; justify-content: space-between; align-items: center;
-  background: var(--ink); color: var(--paper);
-}
-.footer-brand { font-size: 13px; font-weight: 300; letter-spacing: 0.15em; }
-.footer-copy { font-size: 10px; color: rgba(234,229,220,0.35); }
-
 /* ── MOBILE: stack vertically, no horizontal effect ── */
 @media (max-width: 900px) {
   #header { padding: 48px 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
   .header-right { text-align: left; }
   #nav { padding: 14px 24px; }
-  footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
   .hero-caption { left: 24px; bottom: 28px; }
 
   #process-scroll-zone { height: auto; }
@@ -280,8 +271,10 @@ footer {
 }
 
 </style>
+<link rel="stylesheet" href="assets/site-cursor.css">
 </head>
 <body>
+<!-- CURSOR_PARTIAL -->
 
 <!-- NAV_PARTIAL -->
 
@@ -430,11 +423,7 @@ footer {
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">Ella Lee Homes</div>
-  <div class="footer-copy">&copy; 2026 Ella Lee Homes. ROC KB2-333410</div>
-</footer>
+<!-- FOOTER_PARTIAL -->
 
 <script>
 const scrollZone = document.getElementById('process-scroll-zone');

@@ -8,6 +8,7 @@
 <title>Ella Lee Homes &mdash; Luxury Custom Home Builder &middot; Arizona</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,300;1,300&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-footer.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -27,17 +28,11 @@ html { scroll-behavior: auto; }
 body {
   background: var(--ink-deep); color: var(--paper);
   font-family: var(--sans); overflow-x: hidden;
-  cursor: none; -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
   font-weight: 400;
 }
 
-/* â”€â”€â”€ CURSOR â”€â”€â”€ */
-#cur { position: fixed; z-index: 9999; pointer-events: none; mix-blend-mode: difference; }
-#cur-dot {
-  width: 30px; height: 30px; background: #EAE5DC; border-radius: 50%;
-  transform: translate(-50%,-50%);
-}
-#cur-ring { display: none; }
+/* Custom cursor: assets/site-cursor.css */
 
 /* â”€â”€â”€ LOADER â”€â”€â”€ */
 #loader {
@@ -662,33 +657,6 @@ body {
 .cta-submit:hover svg { transform: translateX(4px); }
 .btn-outline:hover { border-color: var(--paper); }
 
-/* â”€â”€â”€ FOOTER â”€â”€â”€ */
-footer {
-  padding: 72px 56px 32px;
-  border-top: 1px solid rgba(244,241,234,0.07);
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
-}
-.footer-brand {
-  font-family: var(--sans); font-size: 16px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase;
-  margin-bottom: 14px;
-}
-.footer-copy { font-size: 13px; line-height: 1.85; color: var(--nickel); max-width: 260px; }
-.footer-roc { font-size: 9px; letter-spacing: .1em; color: rgba(244,241,234,.18); margin-top: 12px; }
-.footer-col h4 {
-  font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); margin-bottom: 18px;
-}
-.footer-col a {
-  display: block; font-size: 12px; color: rgba(244,241,234,.35); text-decoration: none;
-  cursor: none; margin-bottom: 10px; transition: color .2s;
-}
-.footer-col a:hover { color: var(--paper); }
-.footer-btm {
-  padding: 20px 56px;
-  display: flex; justify-content: space-between;
-  font-size: 9px; color: rgba(244,241,234,.18); letter-spacing: .06em;
-  border-top: 1px solid rgba(244,241,234,.05);
-}
-
 /* â”€â”€â”€ REVEAL UTILITIES â”€â”€â”€ */
 .r-mask { overflow: hidden; }
 .r-up {
@@ -736,9 +704,6 @@ footer {
 
 /* â”€â”€â”€ MOBILE RESPONSIVE â”€â”€â”€ */
 @media (max-width: 768px) {
-  body { cursor: auto; }
-  #cur, #cur-ring { display: none; }
-
   /* Nav */
   #nav { padding: 18px 24px; }
   .nav-center { display: none; }
@@ -790,10 +755,6 @@ footer {
   .cta-form-row .cta-field { border-right: none; padding-right: 0; padding-left: 0; border-bottom: 1px solid rgba(244,241,234,0.08); }
   .cta-form-actions { flex-direction: column; align-items: flex-start; gap: 16px; }
 
-  /* Footer */
-  footer { grid-template-columns: 1fr 1fr; gap: 32px; padding: 48px 24px 24px; }
-  .footer-btm { padding: 16px 24px; flex-direction: column; gap: 8px; }
-
   /* Expand clip */
   .expand-clip { width: 90vw !important; }
 
@@ -813,7 +774,6 @@ footer {
 @media (max-width: 480px) {
   .exp-card { grid-template-columns: 1fr; gap: 10px; padding: 18px 20px; }
   .exp-card-num { display: none; }
-  footer { grid-template-columns: 1fr; }
   .meet-stats { grid-template-columns: 1fr 1fr; }
   .cta-actions { flex-direction: column; }
 }
@@ -838,20 +798,12 @@ footer {
   padding: 6px 4px; cursor: pointer; font-family: var(--sans); transition: all .15s;
 }
 .tw-opt.on, .tw-opt:hover { border-color: var(--gold); color: var(--gold); }
-
-.grain { position: relative; }
-.grain::before {
-  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  background-size: 200px 200px; mix-blend-mode: overlay; opacity: 0.35;
-}
 </style>
+<link rel="stylesheet" href="assets/site-cursor.css">
 
 
 
-<!-- CURSOR -->
-<div id="cur" style="left: 2481px; top: 106px; position: fixed; z-index: 9999; pointer-events: none; mix-blend-mode: difference;"><div id="cur-dot" style="width: 30px; height: 30px; background: var(--paper); border-radius: 50%; transform: translate(-50%, -50%);"></div></div>
-<div id="cur-ring" style="left: 2481px; top: 106px;"></div>
+<!-- CURSOR_PARTIAL -->
 
 <!-- LOADER -->
 <div id="loader" data-cc-id="cc-1" class="exit">
@@ -1180,35 +1132,7 @@ Built Right</span>
   </form>
 </section>
 
-<!-- FOOTER -->
-<footer class="grain">
-  <div>
-    <div class="footer-brand">Ella Lee Homes</div>
-    <p class="footer-copy">Arizona's premier luxury custom home builder. Built to last. Built for you.</p>
-    <div class="footer-roc">ROC License: KB2-333410</div>
-  </div>
-  <div class="footer-col">
-    <h4>Navigate</h4>
-    <a href="projects.html">Portfolio</a><a href="#meet">About</a>
-    <a href="process.html">Process</a><a href="#">Investors</a><a href="#cta">Contact</a>
-  </div>
-  <div class="footer-col">
-    <h4>Services</h4>
-    <a href="#cta">Build Your Home</a><a href="#cta">Sell a Home</a>
-    <a href="#cta">Developers</a><a href="#">Client Portal</a>
-  </div>
-  <div class="footer-col">
-    <h4>Contact</h4>
-    <a href="#">hello@ellaleehomes.com</a>
-    <a href="#">(480) 340-8700</a>
-    <a href="#">4408 N 12th St</a>
-    <a href="#">Phoenix, AZ 85014</a>
-  </div>
-</footer>
-<div class="footer-btm">
-  <span>© 2026 Ella Lee Homes. All rights reserved.</span>
-  <span style="font-family:var(--serif);font-style:italic;">Building Arizona's finest homes.</span>
-</div>
+<!-- FOOTER_PARTIAL -->
 
 <!-- TWEAKS -->
 <div id="tweaks" class="">
@@ -1259,23 +1183,6 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "heroMedia": "video",
   "cardSpeed": 1200
 }/*EDITMODE-END*/;
-
-/* â”€â”€ CURSOR â”€â”€ */
-const curDot = document.getElementById('cur');
-const curRing = document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-(function loop(){
-  curDot.style.cssText = `left:${mx}px;top:${my}px;position:fixed;z-index:9999;pointer-events:none;mix-blend-mode:difference`;
-  curDot.querySelector('#cur-dot').style.cssText = `width:30px;height:30px;background:var(--paper);border-radius:50%;transform:translate(-50%,-50%)`;
-  rx += (mx-rx)*.1; ry += (my-ry)*.1;
-  curRing.style.left = rx+'px'; curRing.style.top = ry+'px';
-  requestAnimationFrame(loop);
-})();
-document.querySelectorAll('a,button').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-grow'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-grow'));
-});
 
 /* â”€â”€ LOADER â”€â”€ */
 const loaderEl = document.getElementById('loader');

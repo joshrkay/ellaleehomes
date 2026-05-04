@@ -1,0 +1,112 @@
+/**
+ * Shared site footer (matches home): dark band, columns, bottom strip.
+ * Load after tokens (--ink, --paper, --nickel, --sans) are defined on the page.
+ */
+:root {
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --dim: rgba(234, 229, 220, 0.28);
+}
+
+.grain {
+  position: relative;
+}
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  opacity: 0.35;
+}
+
+.site-footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 72px 56px 32px;
+  border-top: 1px solid rgba(244, 241, 234, 0.07);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+.site-footer > * {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-brand {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.footer-copy {
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--nickel);
+  max-width: 260px;
+}
+.footer-roc {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(244, 241, 234, 0.18);
+  margin-top: 12px;
+}
+.footer-col h4 {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 18px;
+}
+.footer-col a {
+  display: block;
+  font-size: 12px;
+  color: rgba(244, 241, 234, 0.35);
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: color 0.2s;
+}
+.footer-col a:hover {
+  color: var(--paper);
+}
+
+.footer-btm {
+  padding: 20px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9px;
+  color: rgba(244, 241, 234, 0.18);
+  letter-spacing: 0.06em;
+  border-top: 1px solid rgba(244, 241, 234, 0.05);
+  background: var(--ink);
+}
+.footer-btm-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 48px 24px 24px;
+  }
+  .footer-btm {
+    padding: 16px 24px;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+  }
+}

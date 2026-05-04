@@ -28,10 +28,29 @@ const PAGES = [
 const RE = /https:\/\/ellaleehomes\.com\/wp-content\/uploads\/[^"'\\s<>)]+\.(?:jpe?g|webp|png)/gi;
 const SIZE_SUFFIX = /-\d+x\d+(?=\.(jpe?g|webp|png)$)/i;
 
+const SKIP = /FAVVV|favicon|logo|placeholder|icon/i;
+
 function normalizeUrl(u) {
   let s = u.replace(SIZE_SUFFIX, '');
   if (s.endsWith('-scaled.jpg')) s = s.replace(/-scaled\.jpg$/, '.jpg');
   return s;
+}
+
+/** First-seen order, deduped, normalized — matches hero/carousel order on page. */
+function orderedImages(html) {
+  const seen = new Set();
+  const list = [];
+  RE.lastIndex = 0;
+  let m;
+  while ((m = RE.exec(html)) !== null) {
+    const n = normalizeUrl(m[0]);
+    if (SKIP.test(n)) continue;
+    if (!seen.has(n)) {
+      seen.add(n);
+      list.push(n);
+    }
+  }
+  return list;
 }
 
 async function fetchHtml(path) {
@@ -45,15 +64,15 @@ async function fetchHtml(path) {
 const out = {};
 for (const { slug, url } of PAGES) {
   const html = await fetchHtml(url);
-  const raw = [...html.matchAll(RE)].map((m) => m[0]);
-  const normalized = [...new Set(raw.map(normalizeUrl))];
-  normalized.sort();
+  const normalized = orderedImages(html);
+  const og = html.match(/property="og:image"\s+content="([^"]+)"/i);
+  let hero = og ? normalizeUrl(og[1]) : normalized[0] || null;
+  if (hero && SKIP.test(hero)) hero = normalized[0] || null;
   out[slug] = {
     url: BASE + url,
     images: normalized,
-    hero: normalized[0] || null,
+    hero,
   };
-  console.error(`${slug}: ${normalized.length} images`);
 }
 
 console.log(JSON.stringify(out, null, 2));
