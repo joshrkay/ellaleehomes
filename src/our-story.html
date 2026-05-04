@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ella Lee Homes — Our Story</title>
+<meta name="description" content="Ella Lee Homes — Arizona luxury custom home builder. Our story: legacy, craft, and a collaborative journey from first sketch to final walkthrough.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-footer.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #2B2B2B;
+  --ink-deep: #1a1a1a;
+  --paper: #EAE5DC;
+  --nickel: #A5A09D;
+  --navy: #002855;
+  --gold: #C9A96E;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-h: 88px;
+  --door-p: 0;
+  --hero-cream: #f2efe9;
+}
+html { scroll-behavior: auto; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+/* ── ARCH HERO: tombstone mask (round top, straight sides) on cream → scroll expands to full-bleed ── */
+#door-scroll-zone {
+  height: 260vh;
+  position: relative;
+}
+#door-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 520px;
+  overflow: hidden;
+  background: var(--hero-cream);
+  --door-p: 0;
+}
+.clip-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+/* Photo clipped to animated tombstone path (see #archPath d updated in JS) */
+#door-bg {
+  position: absolute;
+  inset: -6%;
+  background: url('https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg') center / cover no-repeat;
+  transform-origin: center center;
+  transform: scale(calc(1.07 - var(--door-p) * 0.07));
+  will-change: clip-path, transform;
+  -webkit-clip-path: url(#archClip);
+  clip-path: url(#archClip);
+}
+/* Decorative dot — reference layout */
+.door-accent-dot {
+  position: absolute;
+  z-index: 5;
+  left: calc(50% + clamp(72px, 16vw, 180px));
+  top: 42%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--navy);
+  pointer-events: none;
+  opacity: clamp(0, calc(1 - var(--door-p) * 1.15), 1);
+  transition: opacity 0.2s linear;
+}
+
+#door-copy {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: calc(var(--nav-h) + 36px) 56px 48px;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease);
+}
+#door-copy .door-home-word {
+  font-family: var(--sans);
+  font-size: clamp(52px, 12vw, 160px);
+  font-weight: 200;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: rgba(43, 43, 43, 0.88);
+  margin: 0;
+  padding: 0;
+}
+#door-copy .door-sub {
+  margin-top: 28px;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--nickel);
+}
+#door-copy .door-tag {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: rgba(43, 43, 43, 0.45);
+  max-width: 320px;
+  text-align: center;
+  line-height: 1.5;
+}
+.door-hint {
+  margin-top: auto;
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(43, 43, 43, 0.35);
+}
+.door-hint span.line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, rgba(0, 40, 85, 0.25), transparent);
+  animation: doorPulse 2.2s ease-in-out infinite;
+}
+@keyframes doorPulse {
+  0%, 100% { opacity: 0.35; transform: scaleY(1); }
+  50% { opacity: 0.85; transform: scaleY(1.15); }
+}
+
+/* ── Scroll reveals (below hero) ── */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition:
+    opacity 0.85s var(--ease),
+    transform 0.95s var(--ease),
+    border-color 0.5s ease,
+    box-shadow 0.65s var(--ease);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.reveal-delay-1 { transition-delay: 0.06s; }
+.reveal-delay-2 { transition-delay: 0.14s; }
+.reveal-delay-3 { transition-delay: 0.22s; }
+.reveal-delay-4 { transition-delay: 0.30s; }
+.reveal-delay-5 { transition-delay: 0.38s; }
+.reveal-delay-6 { transition-delay: 0.46s; }
+.reveal-delay-7 { transition-delay: 0.54s; }
+.reveal-delay-8 { transition-delay: 0.62s; }
+
+.story-pull.reveal:not(.is-visible) {
+  transform: translate3d(-14px, 28px, 0);
+}
+.story-pull.reveal.is-visible {
+  transform: translate3d(0, 0, 0);
+}
+
+.pillar-card.reveal {
+  transform: translate3d(0, 40px, 0);
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+.pillar-card.reveal.is-visible {
+  box-shadow: 0 18px 48px rgba(43,43,43,0.06);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pillar-card.reveal.is-visible:hover {
+    transform: translate3d(0, -3px, 0);
+    box-shadow: 0 24px 56px rgba(43,43,43,0.09);
+  }
+}
+
+details.story-faq.reveal {
+  transform: translate3d(0, 24px, 0);
+}
+
+/* ── NARRATIVE SECTIONS ── */
+.story-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+.story-section {
+  padding: 96px 0;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+}
+.story-section:last-of-type { border-bottom: none; }
+.story-kicker {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--nickel);
+  margin-bottom: 16px;
+}
+/* Micro / mega: one display line between kicker and body */
+.story-display {
+  font-family: var(--sans);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 200;
+  font-style: italic;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  margin: 0 0 20px;
+  color: rgba(43, 43, 43, 0.92);
+}
+.story-display em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--navy);
+}
+.story-display:has(br) {
+  line-height: 1.06;
+}
+.story-h2-sub {
+  font-family: var(--sans);
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0 0 28px;
+  color: var(--ink);
+}
+.story-h2-sub em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--navy);
+}
+.story-section h2 {
+  font-family: var(--sans);
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 28px;
+  color: var(--ink);
+}
+.story-section h2 em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--navy);
+}
+.story-lede {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 300;
+  line-height: 1.45;
+  color: rgba(43,43,43,0.88);
+  margin-bottom: 24px;
+}
+.story-body {
+  font-size: 16px;
+  line-height: 1.85;
+  font-weight: 300;
+  color: rgba(43,43,43,0.78);
+}
+.story-body p + p { margin-top: 1.25em; }
+.story-body strong { font-weight: 500; color: var(--ink); }
+
+/* Pull quote */
+.story-pull {
+  margin: 48px 0;
+  padding: 32px 0 32px 28px;
+  border-left: 3px solid var(--gold);
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgba(43,43,43,0.85);
+}
+.story-pull.reveal {
+  border-left-color: transparent;
+}
+.story-pull.reveal.is-visible {
+  border-left-color: var(--gold);
+}
+.story-pull .pull-attrib {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  color: var(--nickel);
+}
+
+/* Pillars */
+.pillar-board {
+  padding: 96px 56px 112px;
+  background: rgba(43,43,43,0.03);
+  border-top: 1px solid rgba(43,43,43,0.06);
+}
+.pillar-inner { max-width: 1040px; margin: 0 auto; }
+.pillar-inner > .story-kicker { text-align: center; margin-bottom: 12px; }
+.pillar-inner > .story-display {
+  text-align: center;
+  margin-bottom: 52px;
+}
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+}
+.pillar-card {
+  padding: 28px 24px;
+  background: var(--paper);
+  border: 1px solid rgba(43,43,43,0.08);
+  min-height: 100%;
+}
+.pillar-num {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.pillar-card h3 {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.pillar-card p {
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 300;
+  color: rgba(43,43,43,0.65);
+}
+
+/* Q&A */
+#conversation {
+  padding: 96px 56px 120px;
+}
+.conv-inner { max-width: 720px; margin: 0 auto; }
+.conv-inner > .story-display {
+  margin-bottom: 16px;
+}
+.conv-inner > .sub {
+  font-size: 15px;
+  color: var(--nickel);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+details.story-faq {
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+  padding: 22px 0;
+}
+details.story-faq:first-of-type { border-top: 1px solid rgba(43,43,43,0.1); }
+details.story-faq summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding-right: 32px;
+  position: relative;
+  color: var(--ink);
+}
+details.story-faq summary::-webkit-details-marker { display: none; }
+details.story-faq summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-weight: 300;
+  font-size: 20px;
+  color: var(--gold);
+  transition: transform 0.25s var(--ease);
+}
+details.story-faq[open] summary::after { transform: rotate(45deg); }
+.story-faq .faq-a {
+  margin-top: 16px;
+  font-size: 15px;
+  line-height: 1.75;
+  font-weight: 300;
+  color: rgba(43,43,43,0.72);
+}
+.faq-attrib {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--nickel);
+}
+details.story-faq .faq-a p + p {
+  margin-top: 14px;
+}
+
+@media (max-width: 900px) {
+  .door-accent-dot {
+    left: calc(50% + clamp(48px, 28vw, 120px));
+    top: 40%;
+  }
+  #door-copy { padding: calc(var(--nav-h) + 20px) 24px 40px; }
+  .story-wrap { padding: 0 24px; }
+  .story-section { padding: 64px 0; }
+  .pillar-board { padding: 64px 24px 80px; }
+  .pillar-grid { grid-template-columns: 1fr; gap: 20px; }
+  #conversation { padding: 64px 24px 88px; }
+  #door-scroll-zone { height: 200vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #door-scroll-zone { height: auto; min-height: 100vh; }
+  #door-stage { position: relative; min-height: 85vh; }
+  #door-bg {
+    transform: none;
+    -webkit-clip-path: none !important;
+    clip-path: none !important;
+  }
+  .door-accent-dot { opacity: 0; }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+  }
+  .story-pull.reveal { border-left-color: var(--gold) !important; }
+}
+</style>
+<link rel="stylesheet" href="assets/site-cursor.css">
+</head>
+<body class="theme-our-story">
+
+<!-- CURSOR_PARTIAL -->
+
+<!-- NAV_PARTIAL -->
+
+<main id="main">
+  <svg class="clip-svg" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="archClip" clipPathUnits="objectBoundingBox">
+        <path id="archPath" d="M 0.38 1 L 0.38 0.44 Q 0.5 0.218 0.62 0.44 L 0.62 1 Z"></path>
+      </clipPath>
+    </defs>
+  </svg>
+  <!-- Tall scroll zone: sticky viewport; tombstone clip expands with scroll -->
+  <div id="door-scroll-zone" aria-label="Introduction">
+    <div id="door-stage">
+      <div id="door-bg" aria-hidden="true"></div>
+      <span class="door-accent-dot" aria-hidden="true"></span>
+      <div id="door-copy">
+        <p class="door-home-word"><em>home.</em></p>
+        <p class="door-sub">Arizona&rsquo;s luxury home builder</p>
+        <p class="door-tag">Built to last. Built for you.</p>
+        <div class="door-hint">
+          <span class="line" aria-hidden="true"></span>
+          Scroll to reveal
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <article class="story-article">
+    <section class="story-section" aria-labelledby="h-journey">
+      <div class="story-wrap">
+        <p class="story-kicker reveal reveal-delay-1">Our Story</p>
+        <p class="story-display reveal reveal-delay-2" id="h-journey">You Dream it,<br><em>we build it.</em></p>
+        <h2 class="story-h2-sub reveal reveal-delay-3">Arizona&rsquo;s premier luxury custom home builder.</h2>
+        <p class="story-lede reveal reveal-delay-4">Ella Lee Homes was born from a simple, heartfelt promise&mdash;to build something that would stand the test of time for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others. Every home we build carries that same devotion: a foundation of love, care, and legacy designed to nurture life&rsquo;s most meaningful moments.</p>
+        <div class="story-body">
+          <p class="reveal reveal-delay-5">Close your eyes and imagine your dream home: a beautifully crafted luxury custom home that balances modern elegance with timeless charm. Nestled in one of Arizona&rsquo;s most sought-after neighborhoods, your home is surrounded by thoughtful landscaping and architectural details that invite you in before you ever step through the front door.</p>
+          <p class="reveal reveal-delay-6">Inside, natural light fills an open-concept floor plan designed with intention. A gourmet kitchen becomes the heart of the home, while cozy living areas and serene bedrooms offer both functionality and quiet luxury. Whether it&rsquo;s morning coffee in the sun-drenched kitchen or evenings spent in your private backyard retreat, every square foot is tailored to how you live.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section" aria-labelledby="h-vision">
+      <div class="story-wrap">
+        <p class="story-kicker reveal reveal-delay-1">Our Philosophy</p>
+        <p class="story-display reveal reveal-delay-2" id="h-vision">We build <em>legacies.</em></p>
+        <h2 class="story-h2-sub reveal reveal-delay-3">We don&rsquo;t build houses.</h2>
+        <div class="story-body">
+          <p class="reveal reveal-delay-4">Transparent process. Uncompromising craft. Every Ella Lee home is a collaborative journey from the first sketch to the final walkthrough.</p>
+          <p class="story-pull reveal reveal-delay-5">&ldquo;Completed on time, within budget, and exceeded our expectations. The craftsmanship and attention to detail were simply amazing.&rdquo;<span class="pull-attrib">Mike &middot; Scottsdale, AZ &middot; 2023</span></p>
+          <p class="reveal reveal-delay-6">Whether you&rsquo;re building from the ground up, selling a custom home, or simply exploring what&rsquo;s possible, we bring the same clarity to the conversation: steady communication, realistic schedules, and respect for the vision you&rsquo;re trusting us to deliver.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pillar-board" aria-labelledby="h-different">
+      <div class="pillar-inner">
+        <p class="story-kicker reveal reveal-delay-1">Why Ella Lee Homes</p>
+        <p class="story-display reveal reveal-delay-2" id="h-different">Built to last. <em>Built for you.</em></p>
+        <div class="pillar-grid">
+          <div class="pillar-card reveal reveal-delay-3">
+            <div class="pillar-num">01</div>
+            <h3>A collaborative journey</h3>
+            <p>Every Ella Lee home is a collaborative journey from the first sketch to the final walkthrough—transparent process, uncompromising craft, and one aligned team.</p>
+          </div>
+          <div class="pillar-card reveal reveal-delay-4">
+            <div class="pillar-num">02</div>
+            <h3>Expertise through close—and after</h3>
+            <p>Clients tell us our follow-up and attention to detail after close is second to none—the same meticulous mindset that carries from framing to finishing touches.</p>
+          </div>
+          <div class="pillar-card reveal reveal-delay-5">
+            <div class="pillar-num">03</div>
+            <h3>On time, on budget, extraordinary results</h3>
+            <p>Disciplined scheduling and honest communication so your investment lands where we promised—without sacrificing the warmth and detail that make a house your home.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="conversation" aria-labelledby="h-conv">
+      <div class="conv-inner">
+        <p class="story-kicker reveal reveal-delay-1">Client Stories</p>
+        <p class="story-display reveal reveal-delay-2" id="h-conv">What they <em>say.</em></p>
+        <p class="sub reveal reveal-delay-3">The same spirit as our home page testimonials—real homeowners across Arizona. Ask us anything; whether you&rsquo;re building from the ground up or exploring what&rsquo;s possible, we&rsquo;d love to hear from you.</p>
+
+        <details class="story-faq reveal reveal-delay-4" open>
+          <summary>Where does the Ella Lee Homes story start?</summary>
+          <div class="faq-a">
+            <p>With a simple promise: to build something that would stand the test of time for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others—every build still carries that devotion.</p>
+          </div>
+        </details>
+        <details class="story-faq reveal reveal-delay-5">
+          <summary>What do clients say about craftsmanship and follow-through?</summary>
+          <div class="faq-a">
+            <p>&ldquo;Real experts in luxury homes. Their follow-up and attention to detail after close was second to none.&rdquo; <span class="faq-attrib">Mark &middot; Paradise Valley, AZ &middot; 2024</span></p>
+            <p>&ldquo;Blown away by the quality. Shay &amp; team have been so meticulous—something most builders completely disregard.&rdquo; <span class="faq-attrib">Anastasia &middot; Arcadia, AZ &middot; 2024</span></p>
+          </div>
+        </details>
+        <details class="story-faq reveal reveal-delay-6">
+          <summary>How does your process stay transparent?</summary>
+          <div class="faq-a">
+            <p>Transparent process. Uncompromising craft. You get a collaborative journey from the first sketch to the final walkthrough—with steady communication and realistic schedules so you always know where things stand.</p>
+          </div>
+        </details>
+        <details class="story-faq reveal reveal-delay-7">
+          <summary>How can we begin the conversation?</summary>
+          <div class="faq-a">
+            <p>Tell us about your vision. Reach us at <strong>(480) 340-8700</strong>, <strong>hello@ellaleehomes.com</strong>, or visit our studio at <strong>4408 N 12th St, Phoenix, AZ 85014</strong>—the same contact points featured across ellaleehomes.com.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+  </article>
+</main>
+
+<!-- FOOTER_PARTIAL -->
+
+<script>
+(function () {
+  const zone = document.getElementById('door-scroll-zone');
+  const stage = document.getElementById('door-stage');
+  const bg = document.getElementById('door-bg');
+  const copy = document.getElementById('door-copy');
+  const archPath = document.getElementById('archPath');
+
+  /** Tombstone in 0–1 box: flat bottom, vertical sides, round top (quadratic bezier ≈ reference portal). */
+  function archPathD(p) {
+    const left = 0.38 * (1 - p);
+    const right = 0.62 + 0.38 * p;
+    const topY = 0.44 * (1 - p);
+    const rad = (right - left) / 2;
+    const mid = (left + right) / 2;
+    const apex = Math.max(0.015, topY - rad * 1.85);
+    return `M ${left} 1 L ${left} ${topY} Q ${mid} ${apex} ${right} ${topY} L ${right} 1 Z`;
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    stage.style.setProperty('--door-p', '1');
+    if (copy) copy.style.opacity = '0';
+    if (bg) {
+      bg.style.webkitClipPath = 'none';
+      bg.style.clipPath = 'none';
+    }
+    return;
+  }
+
+  function tick() {
+    const rect = zone.getBoundingClientRect();
+    const scrollable = zone.offsetHeight - window.innerHeight;
+    const scrolled = -rect.top;
+    const p = Math.max(0, Math.min(1, scrollable > 0 ? scrolled / scrollable : 0));
+    stage.style.setProperty('--door-p', String(p));
+
+    if (bg) {
+      if (p >= 0.997) {
+        bg.style.webkitClipPath = 'none';
+        bg.style.clipPath = 'none';
+      } else {
+        bg.style.webkitClipPath = 'url(#archClip)';
+        bg.style.clipPath = 'url(#archClip)';
+        if (archPath) archPath.setAttribute('d', archPathD(p));
+      }
+    }
+
+    if (copy) copy.style.opacity = String(Math.max(0, 1 - p * 1.15));
+  }
+
+  window.addEventListener('scroll', tick, { passive: true });
+  window.addEventListener('resize', tick, { passive: true });
+  tick();
+})();
+
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+  const nodes = document.querySelectorAll('.reveal');
+  if (!nodes.length) return;
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-visible');
+          io.unobserve(en.target);
+        }
+      });
+    },
+    { root: null, rootMargin: '0px 0px -6% 0px', threshold: 0.05 }
+  );
+  nodes.forEach((el) => io.observe(el));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+/**
+ * Custom cursor — matches homepage (blend dot + hover grow) site-wide.
+ */
+#cur {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+#cur-dot {
+  width: 30px;
+  height: 30px;
+  background: var(--paper, #eae5dc);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.15s ease, height 0.15s ease;
+}
+#cur-ring {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  /* !important: page-level <style> blocks load before this file on some templates */
+  body {
+    cursor: none !important;
+  }
+  a,
+  button,
+  [role="button"],
+  .proj-card,
+  .related-card,
+  .gallery-img,
+  .sqft-tab,
+  .sort-select,
+  .tw-opt {
+    cursor: none !important;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="search"],
+  input[type="number"],
+  textarea {
+    cursor: text !important;
+  }
+  select {
+    cursor: pointer !important;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto !important;
+  }
+  #cur,
+  #cur-ring {
+    display: none !important;
+  }
+}

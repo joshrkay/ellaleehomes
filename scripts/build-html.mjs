@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Injects partials/nav.html into src/*.html at <!-- NAV_PARTIAL --> and emits dist/.
+ * Injects partials (nav, footer, cursor) into src/*.html and emits dist/.
  */
 import fs from 'fs';
 import path from 'path';
@@ -11,10 +11,16 @@ const root = path.join(__dirname, '..');
 const distDir = path.join(root, 'dist');
 const srcDir = path.join(root, 'src');
 const partialPath = path.join(root, 'partials', 'nav.html');
+const footerPath = path.join(root, 'partials', 'footer.html');
+const cursorPath = path.join(root, 'partials', 'cursor.html');
 
 const PLACEHOLDER = '<!-- NAV_PARTIAL -->';
+const FOOTER_PLACEHOLDER = '<!-- FOOTER_PARTIAL -->';
+const CURSOR_PLACEHOLDER = '<!-- CURSOR_PARTIAL -->';
 
 const partialTemplate = fs.readFileSync(partialPath, 'utf8');
+const footerTemplate = fs.readFileSync(footerPath, 'utf8');
+const cursorTemplate = fs.readFileSync(cursorPath, 'utf8');
 
 /**
  * @typedef {{ file: string; navClass: string; active: Partial<Record<'why'|'portfolio'|'process'|'about'|'investors', boolean>> }} PageCfg
@@ -26,6 +32,7 @@ const PAGES = [
   { file: 'projects.html', navClass: '', active: { portfolio: true } },
   { file: 'process.html', navClass: '', active: { process: true } },
   { file: 'project.html', navClass: '', active: { portfolio: true } },
+  { file: 'our-story.html', navClass: '', active: { about: true } },
 ];
 
 function aria(on) {
@@ -52,6 +59,15 @@ function renderNav(active, navClass) {
   return html;
 }
 
+/**
+ * @param {boolean} isHome
+ */
+function renderFooter(isHome) {
+  const hrefMeet = 'our-story.html';
+  const hrefCta = isHome ? '#cta' : 'index.html#cta';
+  return footerTemplate.replaceAll('__HREF_MEET__', hrefMeet).replaceAll('__HREF_CTA__', hrefCta);
+}
+
 function copyDir(from, to) {
   if (!fs.existsSync(from)) return;
   fs.mkdirSync(to, { recursive: true });
@@ -76,8 +92,19 @@ for (const page of PAGES) {
     console.error('Missing', PLACEHOLDER, 'in', page.file);
     process.exit(1);
   }
+  if (!content.includes(FOOTER_PLACEHOLDER)) {
+    console.error('Missing', FOOTER_PLACEHOLDER, 'in', page.file);
+    process.exit(1);
+  }
+  if (!content.includes(CURSOR_PLACEHOLDER)) {
+    console.error('Missing', CURSOR_PLACEHOLDER, 'in', page.file);
+    process.exit(1);
+  }
   const nav = renderNav(page.active, page.navClass);
   content = content.split(PLACEHOLDER).join(nav);
+  const isHome = page.file === 'index.html';
+  content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(isHome));
+  content = content.split(CURSOR_PLACEHOLDER).join(cursorTemplate);
   fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
   console.log('Wrote', path.join('dist', page.file));
 }

@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-footer.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -92,6 +94,14 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .proj-card.hidden { display: none; }
 
 .proj-card-img { overflow: hidden; aspect-ratio: 4/3; }
+.proj-card-img-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
 .proj-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease); filter: saturate(0.85); }
 .proj-card:hover .proj-card-img img { transform: scale(1.05); filter: saturate(1); }
 
@@ -134,16 +144,6 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .empty-title { font-size: 24px; font-weight: 300; margin-bottom: 12px; }
 .empty-sub { font-size: 14px; color: var(--nickel); }
 
-/* ── FOOTER ── */
-footer {
-  padding: 48px 56px;
-  border-top: 1px solid rgba(43,43,43,0.1);
-  display: flex; justify-content: space-between; align-items: center;
-  background: var(--ink); color: var(--paper);
-}
-.footer-brand { font-size: 13px; font-weight: 300; letter-spacing: 0.15em; }
-.footer-copy { font-size: 10px; color: rgba(234,229,220,0.35); }
-
 /* Mobile */
 @media(max-width:900px){
   .projects-grid { grid-template-columns: 1fr 1fr; padding: 20px 24px 48px; gap: 16px; }
@@ -152,14 +152,15 @@ footer {
   #sqft-tabs { padding: 0 24px; overflow-x: auto; }
   .section-band { padding: 20px 24px 0; }
   #nav { padding: 14px 24px; }
-  footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
 }
 @media(max-width:600px){
   .projects-grid { grid-template-columns: 1fr; }
 }
 </style>
+<link rel="stylesheet" href="assets/site-cursor.css">
 </head>
 <body>
+<!-- CURSOR_PARTIAL -->
 
 <!-- NAV_PARTIAL -->
 
@@ -170,7 +171,7 @@ footer {
     <h1 class="header-title">Our <em>Portfolio.</em></h1>
   </div>
   <div class="header-right">
-    <span id="result-count">24</span>
+    <span id="result-count">17</span>
     homes built across Arizona
   </div>
 </div>
@@ -178,16 +179,16 @@ footer {
 <!-- SQFT TABS -->
 <div id="sqft-tabs">
   <button class="sqft-tab active" data-filter="all" onclick="filterTab(this,'all')">
-    All Homes <span class="sqft-tab-count" id="count-all">24</span>
+    All Homes <span class="sqft-tab-count" id="count-all">17</span>
   </button>
   <button class="sqft-tab" data-filter="small" onclick="filterTab(this,'small')">
-    Up to 4,000 sqft <span class="sqft-tab-count" id="count-small">5</span>
+    Up to 4,000 sqft <span class="sqft-tab-count" id="count-small">1</span>
   </button>
   <button class="sqft-tab" data-filter="mid" onclick="filterTab(this,'mid')">
-    4,000 – 6,000 sqft <span class="sqft-tab-count" id="count-mid">17</span>
+    4,000 – 6,000 sqft <span class="sqft-tab-count" id="count-mid">15</span>
   </button>
   <button class="sqft-tab" data-filter="large" onclick="filterTab(this,'large')">
-    6,000+ sqft <span class="sqft-tab-count" id="count-large">2</span>
+    6,000+ sqft <span class="sqft-tab-count" id="count-large">1</span>
   </button>
   <div class="tab-divider"></div>
   <select class="sort-select" onchange="sortCards(this.value)">
@@ -201,83 +202,27 @@ footer {
 
 <!-- PROJECT GRID -->
 <div id="grid-container">
+<!-- PROJECT GRID (synced from ellaleehomes.com/previous-projects/) -->
   <!-- SECTION: Up to 4k -->
   <div class="section-band" id="band-small">
     <span class="section-band-title">Up to 4,000 sqft</span>
     <div class="section-band-line"></div>
-    <span class="section-band-count">5 homes</span>
+    <span class="section-band-count">1 home</span>
   </div>
   <div class="projects-grid" id="grid-small">
 
-    <div class="proj-card" data-sqft="3900" data-price="3645000" data-year="2022" data-band="small">
-      <div class="proj-card-year">2022</div>
+    <div class="proj-card" data-sqft="3957" data-price="2171500" data-year="2024" data-band="small">
+      <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg" alt="Earll"></div>
+      <div class="proj-card-img"><a href="project.html?slug=mitchell" class="proj-card-img-link" aria-label="View Mitchell project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A6650.jpg" alt="Mitchell"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Earll Drive</div>
-        <div class="proj-card-price">$3,645,000</div>
+        <div class="proj-card-name">Mitchell</div>
+        <div class="proj-card-price">$2,171,500</div>
         <div class="proj-card-specs">
-          <span>4 BD</span><span>4.5 BA</span><span>3,900 sqft</span>
+          <span>4 BD</span><span>3.5 BA</span><span>3,957 sqft</span>
         </div>
-        <a href="project.html?slug=earll-drive" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="3750" data-price="3200000" data-year="2021" data-band="small">
-      <div class="proj-card-year">2021</div>
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg" alt="Oak St"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Arcadia, Arizona</div>
-        <div class="proj-card-name">Oak Street</div>
-        <div class="proj-card-price">$3,200,000</div>
-        <div class="proj-card-specs">
-          <span>4 BD</span><span>4 BA</span><span>3,750 sqft</span>
-        </div>
-        <a href="project.html?slug=oak-street" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="3164" data-price="0" data-year="0" data-band="small">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/0H0A6650.jpg" alt="The Mitchell Home"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">The Mitchell Home</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>4 BD</span><span>3.5 BA</span><span>3,164 sqft</span>
-        </div>
-        <a href="project.html?slug=mitchell-home" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="3506" data-price="0" data-year="0" data-band="small">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0350.jpg" alt="Apache"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Apache</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>5 BD</span><span>5 BA</span><span>3,506 sqft</span>
-        </div>
-        <a href="project.html?slug=desert-oasis" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="3326" data-price="0" data-year="0" data-band="small">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/4-2.jpg" alt="41st"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">41st</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>4 BD</span><span>3.5 BA</span><span>3,326 sqft</span>
-        </div>
-        <a href="project.html?slug=silverleaf-retreat" class="proj-card-link">View Project</a>
+        <a href="project.html?slug=mitchell" class="proj-card-link">View Project</a>
       </div>
     </div>
 
@@ -287,14 +232,14 @@ footer {
   <div class="section-band" id="band-mid">
     <span class="section-band-title">4,000 – 6,000 sqft</span>
     <div class="section-band-line"></div>
-    <span class="section-band-count">17 homes</span>
+    <span class="section-band-count">15 homes</span>
   </div>
   <div class="projects-grid" id="grid-mid">
 
     <div class="proj-card" data-sqft="4833" data-price="7035000" data-year="2024" data-band="mid">
       <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Charter Oak"></div>
+      <div class="proj-card-img"><a href="project.html?slug=charter-oak" class="proj-card-img-link" aria-label="View Charter Oak project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2787.jpg" alt="Charter Oak"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
         <div class="proj-card-name">Charter Oak</div>
@@ -309,232 +254,210 @@ footer {
     <div class="proj-card" data-sqft="5214" data-price="7035000" data-year="2024" data-band="mid">
       <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="68TH"></div>
+      <div class="proj-card-img"><a href="project.html?slug=68th" class="proj-card-img-link" aria-label="View 68TH &amp; Camelback project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5254.jpg" alt="68TH &amp; Camelback"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Paradise Valley, Arizona</div>
-        <div class="proj-card-name">68th &amp; Camelback</div>
+        <div class="proj-card-name">68TH &amp; Camelback</div>
         <div class="proj-card-price">$7,035,000</div>
         <div class="proj-card-specs">
           <span>5 BD</span><span>5.5 BA</span><span>5,214 sqft</span>
         </div>
-        <a href="project.html?slug=68th-camelback" class="proj-card-link">View Project</a>
+        <a href="project.html?slug=68th" class="proj-card-link">View Project</a>
       </div>
     </div>
 
     <div class="proj-card" data-sqft="5874" data-price="4400000" data-year="2023" data-band="mid">
       <div class="proj-card-year">2023</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="DC2"></div>
+      <div class="proj-card-img"><a href="project.html?slug=dc2" class="proj-card-img-link" aria-label="View DC2 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2330-2.jpg" alt="DC2"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Arcadia, Arizona</div>
-        <div class="proj-card-name">Desert Contemporary II</div>
+        <div class="proj-card-name">DC2</div>
         <div class="proj-card-price">$4,400,000</div>
         <div class="proj-card-specs">
           <span>6 BD</span><span>7.5 BA</span><span>5,874 sqft</span>
         </div>
-        <a href="project.html?slug=desert-contemporary-ii" class="proj-card-link">View Project</a>
+        <a href="project.html?slug=dc2" class="proj-card-link">View Project</a>
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="0" data-band="mid">
+    <div class="proj-card" data-sqft="5197" data-price="3750000" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg" alt="The Hazelwood Estate"></div>
+      <div class="proj-card-img"><a href="project.html?slug=68th-2" class="proj-card-img-link" aria-label="View 68TH 2 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6759.jpg" alt="68TH 2"></a></div>
       <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">The Hazelwood Estate</div>
-        <div class="proj-card-price">—</div>
+        <div class="proj-card-location">Paradise Valley, Arizona</div>
+        <div class="proj-card-name">68TH 2</div>
+        <div class="proj-card-price">$3,750,000</div>
         <div class="proj-card-specs">
-          <span>5 BD</span><span>5.5 BA</span><span>4,153 sqft</span>
+          <span>6 BD</span><span>6.5 BA</span><span>5,197 sqft</span>
         </div>
-        <a href="project.html?slug=hazelwood-estate" class="proj-card-link">View Project</a>
+        <a href="project.html?slug=68th-2" class="proj-card-link">View Project</a>
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="0" data-band="mid">
+    <div class="proj-card" data-sqft="5547" data-price="4365000" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2304-2.jpg" alt="DC2"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">DC2</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>6 BD</span><span>7.5 BA</span><span>4,153 sqft</span>
-        </div>
-        <a href="project.html?slug=arcadia-crest" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="0" data-band="mid">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1-1.jpg" alt="68th 2"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">68th 2</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>6 BD</span><span>6.5 BA</span><span>4,153 sqft</span>
-        </div>
-        <a href="project.html?slug=paradise-ridge" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="0" data-band="mid">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8192.jpg" alt="Earll"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Earll</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>5 BD</span><span>6 BA</span><span>4,153 sqft</span>
-        </div>
-        <a href="project.html?slug=sierra-vista-modern" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="4833" data-price="0" data-year="0" data-band="mid">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2777.jpg" alt="Charter Oak"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Charter Oak</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>5 BD</span><span>7 BA</span><span>4,833 sqft</span>
-        </div>
-        <a href="project.html?slug=oakwood-contemporary" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="0" data-band="mid">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0171.jpg" alt="Via Estrella"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Via Estrella</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>5 BD</span><span>6.5 BA</span><span>4,153 sqft</span>
-        </div>
-        <a href="project.html?slug=hawthorne-residence" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="0" data-band="mid">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A3663.jpg" alt="5th St"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">5th St</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>5 BD</span><span>5.5 BA</span><span>4,153 sqft</span>
-        </div>
-        <a href="project.html?slug=canyon-edge-estate" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="0" data-band="mid">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2942-1.jpg" alt="DC1"></div>
+      <div class="proj-card-img"><a href="project.html?slug=dc1" class="proj-card-img-link" aria-label="View DC1 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_6059.jpg" alt="DC1"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
         <div class="proj-card-name">DC1</div>
-        <div class="proj-card-price">—</div>
+        <div class="proj-card-price">$4,365,000</div>
         <div class="proj-card-specs">
-          <span>6 BD</span><span>7.5 BA</span><span>4,153 sqft</span>
+          <span>6 BD</span><span>7.5 BA</span><span>5,547 sqft</span>
         </div>
-        <a href="project.html?slug=scottsdale-summit" class="proj-card-link">View Project</a>
+        <a href="project.html?slug=dc1" class="proj-card-link">View Project</a>
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="2025" data-band="mid">
-      <div class="proj-card-year">2025</div>
+    <div class="proj-card" data-sqft="4650" data-price="3645000" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/img51-1.jpg" alt="4th St"></div>
+      <div class="proj-card-img"><a href="project.html?slug=earll" class="proj-card-img-link" aria-label="View Earll project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="Earll"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">4th St</div>
-        <div class="proj-card-price">—</div>
+        <div class="proj-card-name">Earll</div>
+        <div class="proj-card-price">$3,645,000</div>
         <div class="proj-card-specs">
-          <span>5 BD</span><span>5.5 BA</span><span>4,153 sqft</span>
+          <span>5 BD</span><span>6 BA</span><span>4,650 sqft</span>
         </div>
-        <a href="project.html?slug=4th-street" class="proj-card-link">View Project</a>
+        <a href="project.html?slug=earll" class="proj-card-link">View Project</a>
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="2025" data-band="mid">
+    <div class="proj-card" data-sqft="5578" data-price="3200000" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=hazelwood-1" class="proj-card-img-link" aria-label="View Hazelwood 1 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A2493.jpg" alt="Hazelwood 1"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">Hazelwood 1</div>
+        <div class="proj-card-price">$3,200,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5.5 BA</span><span>5,578 sqft</span>
+        </div>
+        <a href="project.html?slug=hazelwood-1" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=hazelwood-2" class="proj-card-img-link" aria-label="View Hazelwood 2 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg" alt="Hazelwood 2"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">Hazelwood 2</div>
+        <div class="proj-card-price">—</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5.5 BA</span><span>5,578 sqft</span>
+        </div>
+        <a href="project.html?slug=hazelwood-2" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="4200" data-price="0" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=apache" class="proj-card-img-link" aria-label="View Apache project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0350.jpg" alt="Apache"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">Apache</div>
+        <div class="proj-card-price">—</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5 BA</span><span>4,200 sqft</span>
+        </div>
+        <a href="project.html?slug=apache" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="4606" data-price="0" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=41st" class="proj-card-img-link" aria-label="View 41ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/4-2.jpg" alt="41ST"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">41ST</div>
+        <div class="proj-card-price">—</div>
+        <div class="proj-card-specs">
+          <span>4 BD</span><span>3.5 BA</span><span>4,606 sqft</span>
+        </div>
+        <a href="project.html?slug=41st" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=5th-st" class="proj-card-img-link" aria-label="View 5TH ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A3895.jpg" alt="5TH ST"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">5TH ST</div>
+        <div class="proj-card-price">—</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5.5 BA</span><span>5,578 sqft</span>
+        </div>
+        <a href="project.html?slug=5th-st" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2025" data-band="mid">
       <div class="proj-card-year">2025</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_4680.jpg" alt="Coolidge"></div>
+      <div class="proj-card-img"><a href="project.html?slug=4th-st" class="proj-card-img-link" aria-label="View 4TH ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/img51-1.jpg" alt="4TH ST"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">4TH ST</div>
+        <div class="proj-card-price">—</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5.5 BA</span><span>5,578 sqft</span>
+        </div>
+        <a href="project.html?slug=4th-st" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=2nd-st" class="proj-card-img-link" aria-label="View 2ND ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/608A6138_page-0001.jpg" alt="2ND ST"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-name">2ND ST</div>
+        <div class="proj-card-price">—</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5.5 BA</span><span>5,578 sqft</span>
+        </div>
+        <a href="project.html?slug=2nd-st" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2025" data-band="mid">
+      <div class="proj-card-year">2025</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=coolidge" class="proj-card-img-link" aria-label="View Coolidge project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_4680.jpg" alt="Coolidge"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
         <div class="proj-card-name">Coolidge</div>
         <div class="proj-card-price">—</div>
         <div class="proj-card-specs">
-          <span>3 BD</span><span>3.5 BA</span><span>4,153 sqft</span>
+          <span>3 BD</span><span>3.5 BA</span><span>5,578 sqft</span>
         </div>
         <a href="project.html?slug=coolidge" class="proj-card-link">View Project</a>
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="4153" data-price="0" data-year="2025" data-band="mid">
+    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2025" data-band="mid">
       <div class="proj-card-year">2025</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg" alt="Larkspur"></div>
+      <div class="proj-card-img"><a href="project.html?slug=larkspur" class="proj-card-img-link" aria-label="View Larkspur project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg" alt="Larkspur"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
         <div class="proj-card-name">Larkspur</div>
         <div class="proj-card-price">—</div>
         <div class="proj-card-specs">
-          <span>3 BD</span><span>3.5 BA</span><span>4,153 sqft</span>
+          <span>3 BD</span><span>3.5 BA</span><span>5,578 sqft</span>
         </div>
         <a href="project.html?slug=larkspur" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="0" data-price="0" data-year="2025" data-band="mid">
-      <div class="proj-card-year">2025</div>
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/01/placeholder.jpg" alt="Camino"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Camino</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>— BD</span><span>— BA</span><span>— sqft</span>
-        </div>
-        <a href="project.html?slug=camino" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="0" data-price="0" data-year="2025" data-band="mid">
-      <div class="proj-card-year">2025</div>
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/01/placeholder.jpg" alt="Moody"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Moody</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>— BD</span><span>— BA</span><span>— sqft</span>
-        </div>
-        <a href="project.html?slug=moody" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="0" data-price="0" data-year="2025" data-band="mid">
-      <div class="proj-card-year">2025</div>
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/01/placeholder.jpg" alt="Glenrosa"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Glenrosa</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>— BD</span><span>— BA</span><span>— sqft</span>
-        </div>
-        <a href="project.html?slug=glenrosa" class="proj-card-link">View Project</a>
       </div>
     </div>
 
@@ -544,14 +467,14 @@ footer {
   <div class="section-band" id="band-large">
     <span class="section-band-title">6,000+ sqft</span>
     <div class="section-band-line"></div>
-    <span class="section-band-count">2 homes</span>
+    <span class="section-band-count">1 home</span>
   </div>
   <div class="projects-grid" id="grid-large">
 
     <div class="proj-card" data-sqft="6222" data-price="5450000" data-year="2023" data-band="large">
       <div class="proj-card-year">2023</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Via Estrella"></div>
+      <div class="proj-card-img"><a href="project.html?slug=via-estrella" class="proj-card-img-link" aria-label="View Via Estrella project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0171.jpg" alt="Via Estrella"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
         <div class="proj-card-name">Via Estrella</div>
@@ -563,20 +486,6 @@ footer {
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="0" data-price="0" data-year="0" data-band="large">
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Camelback Vista Estate"></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Paradise Valley, Arizona</div>
-        <div class="proj-card-name">Camelback Vista Estate</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>— BD</span><span>— BA</span><span>— sqft</span>
-        </div>
-        <a href="project.html?slug=camelback-vista" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -585,11 +494,7 @@ footer {
   <div class="empty-sub">Try a different size filter above.</div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">Ella Lee Homes</div>
-  <div class="footer-copy">© 2026 Ella Lee Homes. ROC KB2-333410</div>
-</footer>
+<!-- FOOTER_PARTIAL -->
 
 <script>
 const allCards = Array.from(document.querySelectorAll('.proj-card'));
