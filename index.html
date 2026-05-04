@@ -20,7 +20,12 @@
   --dim: rgba(234,229,220,0.28);
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Inter', Helvetica, sans-serif;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-cinematic: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 420ms;
+  --dur-base: 720ms;
+  --dur-slow: 1100ms;
 }
 html { scroll-behavior: auto; }
 body {
@@ -96,17 +101,17 @@ body {
 .nav-left { display: flex; gap: 8px; list-style: none; align-items: center; padding: 10px 20px; }
 .nav-left a {
   font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: rgba(244,241,234,0.75); text-decoration: none; cursor: none;
-  transition: color .2s; padding: 4px 12px;
+  color: rgba(244,241,234,0.75); text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-luxe); padding: 4px 12px;
 }
 .nav-left a:hover { color: var(--paper); }
 .nav-right { display: flex; align-items: center; }
 .nav-cta {
   font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
   border: 1px solid rgba(244,241,234,0.3); color: var(--paper);
-  background: rgba(255,255,255,0.08); padding: 10px 24px; cursor: none;
+  background: rgba(255,255,255,0.08); padding: 10px 24px;
   font-family: var(--sans); border-radius: 100px;
-  transition: all .25s;
+  transition: background var(--dur-base) var(--ease-luxe), border-color var(--dur-base) var(--ease-luxe), color var(--dur-base) var(--ease-luxe);
   backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 2px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
 }
@@ -887,6 +892,17 @@ footer {
   content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   background-size: 200px 200px; mix-blend-mode: overlay; opacity: 0.35;
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-headline .line, .r-up, .r-fade { opacity: 1 !important; transform: none !important; }
 }
 </style>
 
