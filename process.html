@@ -29,30 +29,31 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .nav-pill {
   backdrop-filter: blur(24px) saturate(1.8);
   -webkit-backdrop-filter: blur(24px) saturate(1.8);
-  background: rgba(234,229,220,0.82);
-  border: 1px solid rgba(43,43,43,0.12);
+  background: rgba(13,12,11,0.35);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 100px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 .nav-logo {
   display: flex; align-items: center; text-decoration: none; padding: 8px 16px;
 }
-.nav-logo img { height: 52px; width: auto; }
+.nav-logo img { height: 52px; width: auto; filter: brightness(0) invert(1); }
 .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; padding: 8px 16px; }
 .nav-links a {
   font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: rgba(43,43,43,0.65); text-decoration: none; transition: color .2s; padding: 4px 12px;
+  color: rgba(244,241,234,0.75); text-decoration: none; transition: color .2s; padding: 4px 12px;
 }
-.nav-links a:hover, .nav-links a[aria-current] { color: var(--ink); }
+.nav-links a:hover, .nav-links a[aria-current] { color: var(--paper); }
 .nav-cta {
   font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  border: 1px solid rgba(43,43,43,0.2); color: var(--ink);
-  background: rgba(43,43,43,0.06); padding: 10px 24px;
+  border: 1px solid rgba(244,241,234,0.3); color: var(--paper);
+  background: rgba(255,255,255,0.08); padding: 10px 24px;
   font-family: var(--sans); border-radius: 100px;
   transition: all .25s; text-decoration: none; display: inline-block;
   backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
 }
-.nav-cta:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.nav-cta:hover { background: rgba(255,255,255,0.18); border-color: rgba(244,241,234,0.6); }
 
 /* ── PAGE HEADER ── */
 #header {
