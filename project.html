@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 :root {
   --ink: #2B2B2B;
   --paper: #EAE5DC;
@@ -48,8 +49,16 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 .nav-links a {
   font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
   color: rgba(244,241,234,0.75); text-decoration: none; transition: color var(--dur-fast) var(--ease-luxe); padding: 4px 12px;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; left: 12px; right: 12px; bottom: 0;
+  height: 1px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform var(--dur-base) var(--ease-luxe);
 }
 .nav-links a:hover, .nav-links a[aria-current] { color: var(--paper); }
+.nav-links a:hover::after, .nav-links a[aria-current]::after { transform: scaleX(1); }
 .nav-cta {
   font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
   border: 1px solid rgba(244,241,234,0.3); color: var(--paper);
@@ -84,8 +93,24 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 1.6s var(--ease-luxe);
   will-change: transform;
+  animation: heroReveal 1.4s var(--ease-cinematic) both;
+}
+@keyframes heroReveal {
+  from { clip-path: inset(0 100% 0 0); transform: scale(1.06); }
+  to   { clip-path: inset(0 0 0 0);    transform: scale(1); }
 }
 #hero:hover .hero-img { transform: scale(1.04); }
+.hero-name, .hero-location, .hero-status, .hero-tag {
+  opacity: 0; transform: translateY(14px);
+  animation: heroTextRise 1s var(--ease-luxe) both;
+}
+.hero-tag      { animation-delay: 0.65s; }
+.hero-location { animation-delay: 0.80s; }
+.hero-name     { animation-delay: 0.92s; }
+.hero-status   { animation-delay: 1.05s; }
+@keyframes heroTextRise {
+  to { opacity: 1; transform: translateY(0); }
+}
 .hero-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to bottom, transparent 40%, rgba(43,43,43,0.7) 100%);
