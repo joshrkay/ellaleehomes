@@ -1,0 +1,156 @@
+/* Shared header / navigation — included by all pages after build */
+:root {
+  --nav-logo-h: 52px;
+}
+
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  background: none;
+  border: none;
+  transition: opacity 0.4s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s;
+}
+
+/* Home (dark immersive layout): slightly taller padding + entrance states */
+body.theme-home #nav {
+  padding: 24px 48px;
+  transform: translateY(-8px);
+}
+
+body.theme-home #nav.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+body.theme-home #nav:not(.show) {
+  opacity: 0.92;
+}
+
+body.theme-home #nav.compact {
+  padding: 20px 48px;
+}
+
+.nav-pill {
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  background: rgba(13, 12, 11, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 8px 16px;
+}
+
+body.theme-home .nav-logo {
+  cursor: none;
+  padding: 10px 20px;
+}
+
+.nav-logo-img {
+  height: var(--nav-logo-h);
+  width: auto;
+  filter: brightness(0) invert(1);
+  display: block;
+}
+
+/* Legacy alias from home stylesheet */
+.nav-left,
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+body.theme-home .nav-links {
+  padding: 10px 20px;
+  gap: 8px;
+}
+
+.nav-links a,
+.nav-left a {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.75);
+  text-decoration: none;
+  transition: color 0.2s;
+  padding: 4px 12px;
+}
+
+body.theme-home .nav-links a,
+body.theme-home .nav-left a {
+  cursor: none;
+}
+
+.nav-links a:hover,
+.nav-left a:hover,
+.nav-links a[aria-current='page'],
+.nav-left a[aria-current='page'] {
+  color: #eae5dc;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-cta {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid rgba(244, 241, 234, 0.3);
+  color: #eae5dc;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 10px 24px;
+  font-family: Inter, Helvetica, sans-serif;
+  border-radius: 100px;
+  transition: all 0.25s;
+  text-decoration: none;
+  display: inline-block;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+body.theme-home .nav-cta {
+  cursor: none;
+}
+
+.nav-cta:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(244, 241, 234, 0.6);
+}
+
+@media (max-width: 900px) {
+  #nav {
+    padding: 14px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Inner pages previously hid the link row; home keeps links for primary CTAs */
+  body:not(.theme-home) .nav-links,
+  body:not(.theme-home) .nav-left {
+    display: none;
+  }
+
+  .nav-logo-img {
+    height: 40px;
+  }
+}

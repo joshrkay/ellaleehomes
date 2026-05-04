@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head></head><body data-cc-id="cc-15">
+<!DOCTYPE html><html lang="en"><head></head><body class="theme-home" data-cc-id="cc-15">
 
 
 
@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ella Lee Homes &mdash; Luxury Custom Home Builder &middot; Arizona</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,300;1,300&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site-nav.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -66,51 +67,7 @@ body {
 }
 #loader-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--gold); width: 0%; transition: width .05s linear; }
 
-/* â”€â”€â”€ NAV â”€â”€â”€ */
-#nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 24px 48px; opacity: 1; visibility: visible; pointer-events: auto;
-  transition: opacity .4s, transform .4s cubic-bezier(0.16,1,0.3,1), padding .4s;
-  background: none; border: none;
-  transform: translateY(-8px);
-}
-#nav.show { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
-#nav:not(.show) { opacity: 0.92; }
-#nav.compact { padding: 20px 48px; }
-
-/* Liquid glass pills */
-.nav-pill {
-  backdrop-filter: blur(24px) saturate(1.8);
-  -webkit-backdrop-filter: blur(24px) saturate(1.8);
-  background: rgba(13,12,11,0.35);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 100px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
-}
-
-.nav-logo {
-  display: flex; align-items: center; cursor: none;
-  text-decoration: none; padding: 10px 20px;
-}
-.nav-left { display: flex; gap: 8px; list-style: none; align-items: center; padding: 10px 20px; }
-.nav-left a {
-  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: rgba(244,241,234,0.75); text-decoration: none; cursor: none;
-  transition: color .2s; padding: 4px 12px;
-}
-.nav-left a:hover { color: var(--paper); }
-.nav-right { display: flex; align-items: center; }
-.nav-cta {
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  border: 1px solid rgba(244,241,234,0.3); color: var(--paper);
-  background: rgba(255,255,255,0.08); padding: 10px 24px; cursor: none;
-  font-family: var(--sans); border-radius: 100px;
-  transition: all .25s;
-  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
-}
-.nav-cta:hover { background: rgba(255,255,255,0.18); border-color: rgba(244,241,234,0.6); }
+/* Nav: assets/site-nav.css (+ body.theme-home) */
 
 /* â”€â”€â”€ HERO â”€â”€â”€ */
 #hero {
@@ -930,28 +887,13 @@ footer {
   </div>
 </div>
 
-<!-- NAV -->
-<nav id="nav" class="compact" data-cc-id="cc-14">
-  <a href="index.html" class="nav-logo nav-pill" id="navLogo" style="transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s; transform: translate(0px, 0px) scale(1); opacity: 1;">
-    <img src="uploads/Monogram_Navy.png" alt="Ella Lee Homes" style="height:88px;width:auto;filter:brightness(0) invert(1);">
-  </a>
-  <ul class="nav-left nav-pill">
-    <li><a href="#experience">Why Us</a></li>
-    <li><a href="projects.html">Portfolio</a></li>
-    <li><a href="#meet">About</a></li>
-    <li><a href="process.html">Process</a></li>
-  </ul>
-  <div class="nav-right">
-    <a href="#cta" class="nav-cta">Inquire</a>
-  </div>
-</nav>
+<!-- NAV_PARTIAL -->
 
 <!-- â•â•â• HERO â•â•â• -->
 <div id="hero-scroll-zone" style="position:relative;height:300vh;">
 <div id="hero-wrapper">
 <section id="hero" class="grain">
   <div id="hero-media" style="opacity: 0;"></div>
-  <div id="hero-media" style="opacity:0;"></div>
   <!-- Hero video from ellaleehomes.com -->
   <video id="hero-video" autoplay="" muted="" loop="" playsinline="" style="display:block;">
     <source src="https://ellaleehomes.com/wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v" type="video/mp4">
@@ -1013,9 +955,9 @@ Built Right</span>
       <!-- RIGHT: two image columns scrolling opposite directions -->
       <div id="exp-right">
         <div class="exp-col" id="expColA" style="transform: translateY(-400px);">
-          <div class="exp-img-wrap"><img src="uploads/IMG_0429.jpg" alt=""></div>
-          <div class="exp-img-wrap"><img src="uploads/IMG_0455.jpg" alt=""></div>
-          <div class="exp-img-wrap"><img src="uploads/IMG_9825.jpg" alt=""></div>
+          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt=""></div>
+          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt=""></div>
+          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt=""></div>
           <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt=""></div>
         </div>
         <div class="exp-col" id="expColB" style="transform: translateY(200px);">
@@ -1033,11 +975,11 @@ Built Right</span>
 <!-- â•â•â• MEET SECTION "” IMAGE SWITCHER â•â•â• -->
 <section id="meet">
   <div id="meet-bg">
-    <img id="meet-img-el" class="meet-bg-img" src="uploads/IMG_0455.jpg" alt="Kitchen">
-    <img id="meet-img-ki" class="meet-bg-img" src="uploads/IMG_0590.jpg" alt="Bathroom">
-    <img id="meet-img-ba" class="meet-bg-img" src="uploads/IMG_0614.jpg" alt="Powder">
-    <img id="meet-img-po" class="meet-bg-img" src="uploads/IMG_9854.jpg" alt="Outdoor">
-    <img id="meet-img-bt" class="meet-bg-img active" src="uploads/IMG_9825.jpg" alt="Elevations">
+    <img id="meet-img-el" class="meet-bg-img" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2327-2.jpg" alt="Kitchen">
+    <img id="meet-img-ki" class="meet-bg-img" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2442-2.jpg" alt="Bathroom">
+    <img id="meet-img-ba" class="meet-bg-img" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2407-2.jpg" alt="Powder">
+    <img id="meet-img-po" class="meet-bg-img" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2468-2.jpg" alt="Outdoor">
+    <img id="meet-img-bt" class="meet-bg-img active" src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Elevations">
   </div>
   <div id="meet-overlay"></div>
   <div id="meet-labels">

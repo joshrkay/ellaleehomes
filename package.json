@@ -1,0 +1,15 @@
+{
+  "name": "ellaleehomes-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-html.mjs",
+    "watch": "node scripts/watch.mjs",
+    "dev": "npm run build && concurrently -k \"npm run watch\" \"browser-sync start --server dist --files dist --no-open\""
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "chokidar": "^4.0.3",
+    "concurrently": "^9.1.0"
+  }
+}

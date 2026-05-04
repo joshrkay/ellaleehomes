@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site-nav.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -20,41 +21,7 @@
 }
 body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit-font-smoothing: antialiased; padding-top: 88px; }
 
-/* ── NAV (matches site glass-pill style) ── */
-#nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 48px;
-  background: none; border: none;
-}
-.nav-pill {
-  backdrop-filter: blur(24px) saturate(1.8);
-  -webkit-backdrop-filter: blur(24px) saturate(1.8);
-  background: rgba(13,12,11,0.35);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 100px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
-}
-.nav-logo {
-  display: flex; align-items: center; text-decoration: none; padding: 8px 16px;
-}
-.nav-logo img { height: 52px; width: auto; filter: brightness(0) invert(1); }
-.nav-links { display: flex; gap: 4px; list-style: none; align-items: center; padding: 8px 16px; }
-.nav-links a {
-  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: rgba(244,241,234,0.75); text-decoration: none; transition: color .2s; padding: 4px 12px;
-}
-.nav-links a:hover, .nav-links a[aria-current] { color: var(--paper); }
-.nav-cta {
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  border: 1px solid rgba(244,241,234,0.3); color: var(--paper);
-  background: rgba(255,255,255,0.08); padding: 10px 24px;
-  font-family: var(--sans); border-radius: 100px;
-  transition: all .25s; text-decoration: none; display: inline-block;
-  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
-}
-.nav-cta:hover { background: rgba(255,255,255,0.18); border-color: rgba(244,241,234,0.6); }
+/* Nav: assets/site-nav.css */
 
 /* Back link strip */
 #back-strip {
@@ -275,8 +242,6 @@ footer {
 @media (max-width: 640px) {
   body { padding-top: 80px; }
   #nav { padding: 12px 20px; }
-  .nav-logo img { height: 40px; }
-  .nav-links { display: none; }
   #back-strip { padding: 14px 20px; }
   #hero { height: 60vh; min-height: 380px; }
   .hero-tag { top: 20px; left: 20px; }
@@ -293,19 +258,7 @@ footer {
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="index.html" class="nav-logo nav-pill" aria-label="Ella Lee Homes">
-    <img src="uploads/Monogram_Navy.png" alt="Ella Lee Homes">
-  </a>
-  <ul class="nav-links nav-pill">
-    <li><a href="projects.html">Portfolio</a></li>
-    <li><a href="process.html">Process</a></li>
-    <li><a href="index.html#meet">About</a></li>
-    <li><a href="#">Investors</a></li>
-  </ul>
-  <a href="index.html#cta" class="nav-cta">Inquire</a>
-</nav>
+<!-- NAV_PARTIAL -->
 
 <!-- BACK STRIP -->
 <div id="back-strip">
@@ -420,11 +373,11 @@ const PROJECTS = {
     heroImg: 'https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg',
     gallery: [
       'https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg',
-      'uploads/IMG_0455.jpg',
-      'uploads/IMG_0590.jpg',
-      'uploads/IMG_0614.jpg',
-      'uploads/IMG_9825.jpg',
-      'uploads/IMG_9854.jpg'
+      'https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg'
     ],
     storyTitle: 'Resort Living in <em>Paradise Valley.</em>',
     storyParas: [
@@ -455,9 +408,9 @@ const PROJECTS = {
     gallery: [
       'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg',
       'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
-      'uploads/IMG_0429.jpg',
-      'uploads/IMG_9854.jpg',
-      'uploads/IMG_0590.jpg'
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg'
     ],
     storyTitle: 'Refined Minimalism in <em>Arcadia.</em>',
     storyParas: [
@@ -489,9 +442,9 @@ const PROJECTS = {
     gallery: [
       'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
       'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
-      'uploads/IMG_9825.jpg',
-      'uploads/IMG_0614.jpg',
-      'uploads/IMG_0455.jpg'
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg'
     ],
     storyTitle: 'A Star Among <em>Arizona Estates.</em>',
     storyParas: [
@@ -523,9 +476,9 @@ const PROJECTS = {
     gallery: [
       'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
       'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
-      'uploads/IMG_0429.jpg',
-      'uploads/IMG_9825.jpg',
-      'uploads/IMG_0590.jpg'
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg'
     ],
     storyTitle: 'Quiet Luxury, <em>Effortlessly Refined.</em>',
     storyParas: [
@@ -557,9 +510,9 @@ const PROJECTS = {
     gallery: [
       'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
       'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg',
-      'uploads/IMG_0455.jpg',
-      'uploads/IMG_9854.jpg',
-      'uploads/IMG_0429.jpg'
+      'https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg'
     ],
     storyTitle: 'Modern Comfort on a <em>Quiet Street.</em>',
     storyParas: [
@@ -591,9 +544,9 @@ const PROJECTS = {
     gallery: [
       'https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg',
       'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg',
-      'uploads/IMG_0614.jpg',
-      'uploads/IMG_9825.jpg',
-      'uploads/IMG_0590.jpg'
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg',
+      'https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg'
     ],
     storyTitle: 'Where Arcadia Meets <em>Effortless Style.</em>',
     storyParas: [
