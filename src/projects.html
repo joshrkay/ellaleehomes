@@ -171,7 +171,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
     <h1 class="header-title">Our <em>Portfolio.</em></h1>
   </div>
   <div class="header-right">
-    <span id="result-count">17</span>
+    <span id="result-count">22</span>
     homes built across Arizona
   </div>
 </div>
@@ -179,16 +179,16 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 <!-- SQFT TABS -->
 <div id="sqft-tabs">
   <button class="sqft-tab active" data-filter="all" onclick="filterTab(this,'all')">
-    All Homes <span class="sqft-tab-count" id="count-all">17</span>
+    All Homes <span class="sqft-tab-count" id="count-all">22</span>
   </button>
   <button class="sqft-tab" data-filter="small" onclick="filterTab(this,'small')">
-    Up to 4,000 sqft <span class="sqft-tab-count" id="count-small">1</span>
+    Up to 4,000 sqft <span class="sqft-tab-count" id="count-small">3</span>
   </button>
   <button class="sqft-tab" data-filter="mid" onclick="filterTab(this,'mid')">
-    4,000 – 6,000 sqft <span class="sqft-tab-count" id="count-mid">15</span>
+    4,000 – 6,000 sqft <span class="sqft-tab-count" id="count-mid">17</span>
   </button>
   <button class="sqft-tab" data-filter="large" onclick="filterTab(this,'large')">
-    6,000+ sqft <span class="sqft-tab-count" id="count-large">1</span>
+    6,000+ sqft <span class="sqft-tab-count" id="count-large">2</span>
   </button>
   <div class="tab-divider"></div>
   <select class="sort-select" onchange="sortCards(this.value)">
@@ -207,7 +207,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   <div class="section-band" id="band-small">
     <span class="section-band-title">Up to 4,000 sqft</span>
     <div class="section-band-line"></div>
-    <span class="section-band-count">1 home</span>
+    <span class="section-band-count">3 homes</span>
   </div>
   <div class="projects-grid" id="grid-small">
 
@@ -226,15 +226,75 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
       </div>
     </div>
 
+    <div class="proj-card" data-sqft="3689" data-price="2450000" data-year="2025" data-band="small">
+      <div class="proj-card-year">2025</div>
+      <div class="proj-card-sold">For Sale</div>
+      <div class="proj-card-img"><a href="project.html?slug=glenrosa" class="proj-card-img-link" aria-label="View Glenrosa project"><img src="https://photos.zillowstatic.com/fp/fe797b10bdd35f316268521f26c22510-cc_ft_1536.jpg" alt="Glenrosa"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Arcadia, Phoenix</div>
+        <div class="proj-card-name">Glenrosa</div>
+        <div class="proj-card-price">$2,450,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>6 BA</span><span>3,689 sqft</span>
+        </div>
+        <a href="project.html?slug=glenrosa" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="3480" data-price="1850000" data-year="2023" data-band="small">
+      <div class="proj-card-year">2023</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=5th-st-2" class="proj-card-img-link" aria-label="View 5TH ST 2 project"><img src="https://photos.zillowstatic.com/fp/97bd9efd44d0083b51918b51c8523452-cc_ft_1536.jpg" alt="5TH ST 2"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Southwest Village, Scottsdale</div>
+        <div class="proj-card-name">5TH ST 2</div>
+        <div class="proj-card-price">$1,850,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>4 BA</span><span>3,480 sqft</span>
+        </div>
+        <a href="project.html?slug=5th-st-2" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
   </div>
 
   <!-- SECTION: 4k–6k -->
   <div class="section-band" id="band-mid">
     <span class="section-band-title">4,000 – 6,000 sqft</span>
     <div class="section-band-line"></div>
-    <span class="section-band-count">15 homes</span>
+    <span class="section-band-count">17 homes</span>
   </div>
   <div class="projects-grid" id="grid-mid">
+
+    <div class="proj-card" data-sqft="5644" data-price="4950000" data-year="2025" data-band="mid">
+      <div class="proj-card-year">2025</div>
+      <div class="proj-card-sold">For Sale</div>
+      <div class="proj-card-img"><a href="project.html?slug=desert-cove" class="proj-card-img-link" aria-label="View Desert Cove project"><img src="https://photos.zillowstatic.com/fp/0b3b9e11641a06e1ca8f9f1645dbb1ea-cc_ft_1536.jpg" alt="Desert Cove"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">85260, Scottsdale</div>
+        <div class="proj-card-name">Desert Cove</div>
+        <div class="proj-card-price">$4,950,000</div>
+        <div class="proj-card-specs">
+          <span>6 BD</span><span>8 BA</span><span>5,644 sqft</span>
+        </div>
+        <a href="project.html?slug=desert-cove" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="4258" data-price="4940000" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=cudia" class="proj-card-img-link" aria-label="View Cudia City project"><img src="https://photos.zillowstatic.com/fp/7b74a0e5540fc8e59e48cbb69806d577-cc_ft_1536.jpg" alt="Cudia City"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Camelback East, Phoenix</div>
+        <div class="proj-card-name">Cudia City</div>
+        <div class="proj-card-price">$4,940,000</div>
+        <div class="proj-card-specs">
+          <span>6 BD</span><span>7 BA</span><span>4,258 sqft</span>
+        </div>
+        <a href="project.html?slug=cudia" class="proj-card-link">View Project</a>
+      </div>
+    </div>
 
     <div class="proj-card" data-sqft="4833" data-price="7035000" data-year="2024" data-band="mid">
       <div class="proj-card-year">2024</div>
@@ -467,9 +527,24 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   <div class="section-band" id="band-large">
     <span class="section-band-title">6,000+ sqft</span>
     <div class="section-band-line"></div>
-    <span class="section-band-count">1 home</span>
+    <span class="section-band-count">2 homes</span>
   </div>
   <div class="projects-grid" id="grid-large">
+
+    <div class="proj-card" data-sqft="8002" data-price="10000000" data-year="2024" data-band="large">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=camino-sin-nombre" class="proj-card-img-link" aria-label="View Camino Sin Nombre project"><img src="https://photos.zillowstatic.com/fp/8ea6e618f87c33678f4afe243740ef94-cc_ft_1536.jpg" alt="Camino Sin Nombre"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Paradise Valley, Arizona</div>
+        <div class="proj-card-name">Camino Sin Nombre</div>
+        <div class="proj-card-price">$10,000,000</div>
+        <div class="proj-card-specs">
+          <span>6 BD</span><span>8 BA</span><span>8,002 sqft</span>
+        </div>
+        <a href="project.html?slug=camino-sin-nombre" class="proj-card-link">View Project</a>
+      </div>
+    </div>
 
     <div class="proj-card" data-sqft="6222" data-price="5450000" data-year="2023" data-band="large">
       <div class="proj-card-year">2023</div>
