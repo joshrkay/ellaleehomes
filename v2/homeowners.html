@@ -12,6 +12,11 @@
 </head>
 <body>
 
+<!-- ENTRANCE CURTAIN (plays when arriving from the gateway) -->
+<div class="page-curtain"><div class="pc-fill"><div class="pc-mark">Residences</div></div></div>
+<!-- SCROLL PROGRESS -->
+<div class="scroll-prog"></div>
+
 <!-- PRELOADER -->
 <div id="pre">
   <div id="pre-mark"><span>Residences</span></div>
@@ -35,7 +40,7 @@
 
 <!-- HERO -->
 <header class="hero grain">
-  <div class="hero-media">
+  <div class="hero-media" data-parallax="0.06">
     <video autoplay muted loop playsinline poster="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg">
       <source src="https://ellaleehomes.com/wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v" type="video/mp4">
     </video>
@@ -62,6 +67,31 @@
       <h3 class="reveal d1">Every square foot, <em>tailored to how you live.</em></h3>
       <p class="reveal d2">A beautifully crafted luxury custom home that balances modern elegance with timeless charm — nestled in one of Arizona's most sought-after neighborhoods, surrounded by thoughtful landscaping and architecture that invites you in before you step through the door.</p>
       <p class="reveal d3">Inside, natural light fills an open-concept floor plan designed with intention. A gourmet kitchen becomes the heart of the home, while serene bedrooms and quiet living areas offer both function and luxury. From morning coffee in a sun-drenched kitchen to evenings in your private retreat — it's all yours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PINNED PARALLAX SCENE -->
+<section class="scene grain">
+  <div class="scene-sticky">
+    <div class="scene-text">
+      <div class="lead">Inside an Ella Lee home</div>
+      <h2>Light, space, and <em>quiet luxury.</em></h2>
+      <p>Open-concept plans flooded with Arizona light. A gourmet kitchen at the heart of the home. Serene bedrooms and private retreats — every surface chosen by hand, every detail made to last.</p>
+    </div>
+    <div class="scene-cols">
+      <div class="scene-col" data-col="a">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2327-2.jpg" alt="Kitchen detail">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2442-2.jpg" alt="Bathroom">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg" alt="Living space">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="Interior">
+      </div>
+      <div class="scene-col" data-col="b">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2407-2.jpg" alt="Powder room">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2468-2.jpg" alt="Outdoor living">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Exterior">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg" alt="Detail">
+      </div>
     </div>
   </div>
 </section>
@@ -271,6 +301,7 @@
   </div>
 </footer>
 
+<script src="lenis.min.js"></script>
 <script src="v2.js"></script>
 </body>
 </html>
