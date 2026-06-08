@@ -24,7 +24,10 @@ large imagery and a **"choose your journey" gateway** where visitors pick the **
 | `v2/index.html` | Gateway — homeowners vs investors split (hover-expand) |
 | `v2/homeowners.html` | Residences experience (build your forever home) |
 | `v2/investors.html` | Investment experience (build lasting returns) |
-| `v2/v2.css` / `v2/v2.js` | Shared styles + interactions for the edition |
+| `v2/residences.html` | Filterable residences catalog (by status / neighborhood) |
+| `v2/residence.html` | Residence detail, data-driven via `?id=` |
+| `v2/v2.css` / `v2/v2.js` | Shared styles + motion (Lenis smooth scroll, parallax, reveals, custom cursor) |
+| `v2/lenis.min.js` | Vendored smooth-scroll engine (offline; MIT) |
 
 It does **not** use the nav/footer/cursor partial pipeline — open `v2/index.html` directly, or run
 `npm run build` (the folder is copied verbatim to `dist/v2/`).

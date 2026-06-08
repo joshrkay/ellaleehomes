@@ -231,6 +231,56 @@
   }
 
   /* ---------------------------------------------------------
+     CUSTOM CURSOR (pointer devices)
+     --------------------------------------------------------- */
+  function initCursor() {
+    if (isTouch || reduce || !window.matchMedia('(hover: hover)').matches) return;
+    var dot = document.createElement('div'); dot.className = 'cursor-dot hide';
+    var ring = document.createElement('div'); ring.className = 'cursor-ring hide';
+    document.body.appendChild(dot); document.body.appendChild(ring);
+    docEl.classList.add('has-cursor');
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, vis = false;
+    window.addEventListener('mousemove', function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      if (!vis) { vis = true; dot.classList.remove('hide'); ring.classList.remove('hide'); }
+    });
+    window.addEventListener('mouseout', function (e) { if (!e.relatedTarget) { dot.classList.add('hide'); ring.classList.add('hide'); vis = false; } });
+    var hotSel = 'a, button, .gw-panel, .chip, input, select, textarea, [data-cursor]';
+    document.addEventListener('mouseover', function (e) { if (e.target.closest && e.target.closest(hotSel)) ring.classList.add('hot'); });
+    document.addEventListener('mouseout', function (e) { if (e.target.closest && e.target.closest(hotSel)) ring.classList.remove('hot'); });
+    (function ring_loop() {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+      requestAnimationFrame(ring_loop);
+    })();
+  }
+
+  /* ---------------------------------------------------------
+     CATALOG FILTER
+     --------------------------------------------------------- */
+  function initFilters() {
+    var bar = document.querySelector('.filterbar');
+    if (!bar) return;
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.catalog .card'));
+    var empty = document.querySelector('.catalog-empty');
+    bar.addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      bar.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var f = chip.getAttribute('data-filter');
+      var shown = 0;
+      cards.forEach(function (card) {
+        var ok = f === 'all' || (card.getAttribute('data-tags') || '').split(' ').indexOf(f) > -1;
+        card.classList.toggle('hide', !ok);
+        if (ok) shown++;
+      });
+      if (empty) empty.style.display = shown ? 'none' : 'block';
+    });
+  }
+
+  /* ---------------------------------------------------------
      PRELOADER + BOOT
      --------------------------------------------------------- */
   function boot() {
@@ -238,6 +288,8 @@
     initCounters();
     initLenis();
     initGateway();
+    initCursor();
+    initFilters();
     update();
     var gw = document.querySelector('.gw');
     if (gw) requestAnimationFrame(function () { gw.classList.add('ready'); });
