@@ -626,3 +626,49 @@ html.js .clip-img.fired > img, html.js .clip-img.fired > video { transform: scal
 .cursor-dot.hide, .cursor-ring.hide { opacity: 0; }
 html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor .gw-panel, html.has-cursor .chip, html.has-cursor input, html.has-cursor select, html.has-cursor textarea { cursor: none; }
 @media (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+.timeline { display: flex; flex-direction: column; }
+.tl-row { display: grid; grid-template-columns: 170px 1fr; gap: 44px; padding: 30px 0; border-top: 1px solid var(--line-cream); }
+.tl-row:last-child { border-bottom: 1px solid var(--line-cream); }
+.tl-year { font-family: var(--serif); font-weight: 300; font-size: clamp(28px, 3vw, 46px); color: var(--gold-soft); line-height: 1; }
+.tl-body h4 { font-size: 17px; font-weight: 500; margin-bottom: 8px; }
+.tl-body p { font-size: 14px; line-height: 1.8; color: rgba(223,216,207,0.62); max-width: 56ch; }
+@media (max-width: 680px) { .tl-row { grid-template-columns: 84px 1fr; gap: 20px; } }
+
+/* ============================================================
+   MENU OVERLAY + BURGER (built by v2.js)
+   ============================================================ */
+.v2nav-burger {
+  display: none; width: 44px; height: 44px; border: 1px solid currentColor; border-radius: 50%;
+  background: none; position: relative; cursor: pointer; flex: 0 0 auto; color: inherit;
+}
+.v2nav-burger span { position: absolute; left: 12px; right: 12px; height: 1.5px; background: currentColor; transition: top .3s var(--ease), transform .3s var(--ease); }
+.v2nav-burger span:nth-child(1) { top: 19px; }
+.v2nav-burger span:nth-child(2) { top: 25px; }
+@media (max-width: 880px) { .v2nav-burger { display: block; } .v2nav.scrolled .v2nav-cta, .v2nav-cta { display: none; } }
+
+.v2menu {
+  position: fixed; inset: 0; z-index: 850; background: var(--slate-deep); color: var(--cream);
+  display: flex; flex-direction: column; justify-content: center; padding: var(--pad);
+  clip-path: inset(0 0 100% 0); visibility: hidden; transition: clip-path .7s var(--ease), visibility .7s;
+}
+.v2menu.open { clip-path: inset(0 0 0 0); visibility: visible; }
+.v2menu-links { display: flex; flex-direction: column; gap: 4px; }
+.v2menu .ml {
+  font-family: var(--serif); font-weight: 300; font-size: clamp(38px, 9vw, 76px); line-height: 1.12;
+  color: var(--cream); opacity: 0; transform: translateY(34px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease), color .25s, padding-left .25s;
+}
+.v2menu.open .ml { opacity: 1; transform: none; transition-delay: calc(var(--i) * 0.06s + 0.12s); }
+.v2menu .ml:hover { color: var(--gold-soft); padding-left: 14px; }
+.v2menu-close {
+  position: absolute; top: 20px; right: var(--pad); width: 48px; height: 48px; border-radius: 50%;
+  border: 1px solid var(--line-cream); background: none; color: var(--cream); font-size: 22px; line-height: 1; cursor: pointer;
+  transition: background .25s, color .25s, transform .4s var(--ease);
+}
+.v2menu-close:hover { background: var(--gold); color: var(--slate-deep); transform: rotate(90deg); }
+.v2menu-foot { position: absolute; bottom: var(--pad); left: var(--pad); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(223,216,207,0.5); }
+html.menu-open, html.menu-open body { overflow: hidden; }

@@ -257,6 +257,47 @@
   }
 
   /* ---------------------------------------------------------
+     MENU OVERLAY (built from the page's own nav links)
+     --------------------------------------------------------- */
+  function initMenu() {
+    var nav = document.querySelector('.v2nav');
+    if (!nav || document.querySelector('.v2menu')) return;
+    var linkEls = Array.prototype.slice.call(nav.querySelectorAll('.v2nav-links a'));
+    var cta = nav.querySelector('.v2nav-cta');
+
+    var burger = document.createElement('button');
+    burger.className = 'v2nav-burger'; burger.setAttribute('aria-label', 'Open menu');
+    burger.innerHTML = '<span></span><span></span>';
+    nav.appendChild(burger);
+
+    var menu = document.createElement('div');
+    menu.className = 'v2menu';
+    var items = linkEls.map(function (a) { return { href: a.getAttribute('href'), text: a.textContent.trim() }; });
+    if (cta) items.push({ href: cta.getAttribute('href'), text: cta.textContent.trim() });
+    var html = '<button class="v2menu-close" aria-label="Close menu">&times;</button><nav class="v2menu-links">';
+    items.forEach(function (it, i) { html += '<a class="ml" style="--i:' + i + '" href="' + it.href + '">' + it.text + '</a>'; });
+    html += '</nav><div class="v2menu-foot">hello@ellaleehomes.com · (480) 340-8700</div>';
+    menu.innerHTML = html;
+    document.body.appendChild(menu);
+
+    function open() { menu.classList.add('open'); docEl.classList.add('menu-open'); if (lenis) lenis.stop(); }
+    function close() { menu.classList.remove('open'); docEl.classList.remove('menu-open'); if (lenis) lenis.start(); }
+    burger.addEventListener('click', function () { menu.classList.contains('open') ? close() : open(); });
+    menu.querySelector('.v2menu-close').addEventListener('click', close);
+    menu.querySelectorAll('.ml').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var href = a.getAttribute('href');
+        if (href && href.charAt(0) === '#') {
+          var t = document.querySelector(href);
+          if (t) { e.preventDefault(); close(); if (lenis) lenis.scrollTo(t, { offset: -8 }); else t.scrollIntoView({ behavior: 'smooth' }); return; }
+        }
+        close();
+      });
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  }
+
+  /* ---------------------------------------------------------
      CATALOG FILTER
      --------------------------------------------------------- */
   function initFilters() {
@@ -288,6 +329,7 @@
     initCounters();
     initLenis();
     initGateway();
+    initMenu();
     initCursor();
     initFilters();
     update();
