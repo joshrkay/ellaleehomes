@@ -111,4 +111,7 @@ for (const page of PAGES) {
 
 copyDir(path.join(root, 'assets'), path.join(distDir, 'assets'));
 copyDir(path.join(root, 'uploads'), path.join(distDir, 'uploads'));
-console.log('Copied assets/ and uploads/ → dist/');
+// v2/ is a self-contained alternate edition (gateway + homeowners + investors);
+// copied verbatim — it does not use the nav/footer/cursor partial pipeline.
+copyDir(path.join(root, 'v2'), path.join(distDir, 'v2'));
+console.log('Copied assets/, uploads/ and v2/ → dist/');
