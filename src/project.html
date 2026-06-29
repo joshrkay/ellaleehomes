@@ -16,7 +16,7 @@
   --ink: #2B2B2B;
   --paper: #EAE5DC;
   --nickel: #A5A09D;
-  --navy: #002855;
+  --navy: #001F33;
   --gold: #C9A96E;
   --sans: 'Inter', Helvetica, sans-serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
@@ -110,7 +110,7 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
   font-size: clamp(24px, 3vw, 36px); font-weight: 300; letter-spacing: -0.02em;
   margin-bottom: 32px; line-height: 1.1;
 }
-.section-title em { font-style: italic; color: var(--navy); }
+.section-title em { font-style: normal; font-weight: 500; color: var(--navy); }
 
 .description {
   font-size: 15px; line-height: 1.85; color: rgba(43,43,43,0.75);
@@ -139,7 +139,7 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 .amenity-row:last-child { border-bottom: none; }
 .amenity-icon {
   width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-  background: rgba(0,40,85,0.07); border: 1px solid rgba(0,40,85,0.15);
+  background: rgba(0,31,51,0.07); border: 1px solid rgba(0,31,51,0.15);
   display: flex; align-items: center; justify-content: center;
   margin-top: 2px;
 }
@@ -182,7 +182,7 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 }
 .inquiry-eyebrow { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(234,229,220,0.5); margin-bottom: 20px; }
 .inquiry-title { font-size: clamp(28px, 3.5vw, 44px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; }
-.inquiry-title em { font-style: italic; color: var(--gold); }
+.inquiry-title em { font-style: normal; font-weight: 500; color: var(--gold); }
 .inquiry-sub { margin-top: 20px; font-size: 14px; line-height: 1.8; color: rgba(234,229,220,0.7); max-width: 480px; }
 .inquiry-actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
 .inquiry-btn {
@@ -1747,15 +1747,15 @@ const SLUG_ALIASES = {
 
 
 const AMENITY_ICONS = [
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
 ];
 
 function renderProject() {

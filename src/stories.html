@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ella Lee Homes — Stories</title>
+<meta name="description" content="Home building tips, design trends, cost guides, and expert insights from Ella Lee Homes, Arizona's luxury custom home builder.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-footer.css">
+<link rel="stylesheet" href="assets/site-pages.css">
+<link rel="stylesheet" href="assets/site-cursor.css">
+<style>
+:root {
+  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001F33; --gold: #C9A96E;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+}
+.mid-cta { grid-column: 1 / -1; background:var(--navy); color:var(--paper); padding:48px 40px; text-align:center; }
+.mid-cta h3 { font-size:clamp(24px,3vw,34px); font-weight:300; margin:0 0 18px; }
+.mid-cta h3 em { font-style:normal; font-weight:500; color:var(--gold); }
+</style>
+</head>
+<body class="page">
+<!-- CURSOR_PARTIAL -->
+
+<!-- NAV_PARTIAL -->
+
+<!-- PAGE HEADER -->
+<div id="header">
+  <div class="header-left">
+    <div class="eyebrow">Ella Lee Homes</div>
+    <h1 class="header-title">Stories &amp; <em>insights.</em></h1>
+  </div>
+  <div class="header-right">
+    From our<br>Arizona studio
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-head">
+    <div class="eyebrow">Journal</div>
+    <h2>Home building tips, design trends, and <em>expert insights.</em></h2>
+    <p>Notes from the field on building, buying, and living well in Arizona's finest neighborhoods.</p>
+  </div>
+
+  <div class="filter-bar" id="filter-bar">
+    <button class="active" data-filter="all">All</button>
+    <button data-filter="Building">Building</button>
+    <button data-filter="Guide">Guide</button>
+    <button data-filter="Investment">Investment</button>
+    <button data-filter="Design">Design</button>
+    <button data-filter="Costs">Costs</button>
+  </div>
+
+  <div class="card-grid" id="card-grid">
+    <a class="article-card" href="#" data-cat="Guide">
+      <div class="art-img" style="background-image:url('https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg');"></div>
+      <div class="art-body"><div class="art-tag">Guide</div><h3>How to choose a luxury custom home builder in Arizona</h3><p>The questions to ask, the credentials to verify, and the red flags to avoid before you sign.</p><span class="art-more">Read Story →</span></div>
+    </a>
+    <a class="article-card" href="#" data-cat="Investment">
+      <div class="art-img" style="background-image:url('https://ellaleehomes.com/wp-content/uploads/2025/02/6.jpg');"></div>
+      <div class="art-body"><div class="art-tag">Investment</div><h3>The ROI of building versus buying in Paradise Valley</h3><p>What drives long-term value in a custom build, and how to think about it as an investment.</p><span class="art-more">Read Story →</span></div>
+    </a>
+    <a class="article-card" href="#" data-cat="Design">
+      <div class="art-img" style="background-image:url('https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2442-2.jpg');"></div>
+      <div class="art-body"><div class="art-tag">Design</div><h3>Seven essentials of a true luxury home</h3><p>The details that separate a beautiful house from a home built to last generations.</p><span class="art-more">Read Story →</span></div>
+    </a>
+    <div class="mid-cta">
+      <h3>Ready to stop reading and <em>start building?</em></h3>
+      <a href="contact.html" class="btn gold">Let's Talk</a>
+    </div>
+    <a class="article-card" href="#" data-cat="Building">
+      <div class="art-img" style="background-image:url('https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg');"></div>
+      <div class="art-body"><div class="art-tag">Building</div><h3>The steps of building a custom home, start to finish</h3><p>From first sketch to final key — what each phase involves and how long it takes.</p><span class="art-more">Read Story →</span></div>
+    </a>
+    <a class="article-card" href="#" data-cat="Costs">
+      <div class="art-img" style="background-image:url('https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg');"></div>
+      <div class="art-body"><div class="art-tag">Costs</div><h3>What it really costs to build in Arcadia</h3><p>An honest look at the ranges, the variables, and where the budget actually goes.</p><span class="art-more">Read Story →</span></div>
+    </a>
+    <a class="article-card" href="#" data-cat="Guide">
+      <div class="art-img" style="background-image:url('https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg');"></div>
+      <div class="art-body"><div class="art-tag">Guide</div><h3>Can you build a custom home on your own lot?</h3><p>How to evaluate land, navigate Valley ordinances, and get from lot to livable.</p><span class="art-more">Read Story →</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER_PARTIAL -->
+
+<script>
+var buttons = document.querySelectorAll('#filter-bar button');
+var cards = document.querySelectorAll('#card-grid .article-card');
+buttons.forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    buttons.forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var f = btn.getAttribute('data-filter');
+    cards.forEach(function (c) {
+      c.style.display = (f === 'all' || c.getAttribute('data-cat') === f) ? '' : 'none';
+    });
+  });
+});
+</script>
+
+</body>
+</html>

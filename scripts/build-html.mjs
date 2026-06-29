@@ -33,6 +33,16 @@ const PAGES = [
   { file: 'process.html', navClass: '', active: { process: true } },
   { file: 'project.html', navClass: '', active: { portfolio: true } },
   { file: 'our-story.html', navClass: '', active: { about: true } },
+  { file: 'why-us.html', navClass: '', active: { why: true } },
+  { file: 'investors.html', navClass: '', active: { investors: true } },
+  { file: 'contact.html', navClass: '', active: {} },
+  { file: 'sell.html', navClass: '', active: {} },
+  { file: 'client-portal.html', navClass: '', active: {} },
+  { file: 'stories.html', navClass: '', active: {} },
+  { file: 'faq.html', navClass: '', active: {} },
+  { file: 'privacy.html', navClass: '', active: {} },
+  { file: 'terms.html', navClass: '', active: {} },
+  { file: 'disclaimer.html', navClass: '', active: {} },
 ];
 
 function aria(on) {
