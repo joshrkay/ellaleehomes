@@ -799,6 +799,13 @@ body {
   padding: 6px 4px; cursor: pointer; font-family: var(--sans); transition: all .15s;
 }
 .tw-opt.on, .tw-opt:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Giving / 10% strip */
+#giving .giving-inner { grid-template-columns: auto 1fr; }
+@media (max-width: 720px) {
+  #giving { padding: 64px 24px !important; }
+  #giving .giving-inner { grid-template-columns: 1fr !important; gap: 20px !important; }
+}
 </style>
 <link rel="stylesheet" href="assets/site-cursor.css">
 
@@ -1074,13 +1081,6 @@ Built Right</span>
 </section>
 
 <!-- â•â•â• CONTACT â•â•â• -->
-<style>
-#giving .giving-inner { grid-template-columns: auto 1fr; }
-@media (max-width: 720px) {
-  #giving { padding: 64px 24px !important; }
-  #giving .giving-inner { grid-template-columns: 1fr !important; gap: 20px !important; }
-}
-</style>
 <section id="giving" style="background:var(--navy);color:var(--paper);padding:96px 56px;">
   <div class="giving-inner" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;">
     <div style="font-size:clamp(72px,12vw,140px);font-weight:300;line-height:0.9;letter-spacing:-0.04em;color:var(--gold);">10%</div>

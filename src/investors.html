@@ -127,14 +127,14 @@
       <p>All inquiries are handled confidentially.</p>
     </div>
     <form class="contact-form" onsubmit="return false;">
-      <div class="field"><label>First Name</label><input type="text" placeholder="Jane"></div>
-      <div class="field"><label>Last Name</label><input type="text" placeholder="Doe"></div>
-      <div class="field"><label>Email</label><input type="email" placeholder="jane@email.com"></div>
-      <div class="field"><label>Phone</label><input type="tel" placeholder="(480) 555-0100"></div>
-      <div class="field full"><label>Inquiry type</label>
-        <select><option>Investor partnership</option><option>Off-market inventory</option><option>Multi-unit build</option><option>General inquiry</option></select>
+      <div class="field"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="Jane"></div>
+      <div class="field"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="Doe"></div>
+      <div class="field"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="jane@email.com"></div>
+      <div class="field"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" placeholder="(480) 555-0100"></div>
+      <div class="field full"><label for="inquiryType">Inquiry type</label>
+        <select id="inquiryType" name="inquiryType"><option>Investor partnership</option><option>Off-market inventory</option><option>Multi-unit build</option><option>General inquiry</option></select>
       </div>
-      <div class="field full"><label>Tell us about the opportunity</label><textarea placeholder="Location, scope, timeline, target returns..."></textarea></div>
+      <div class="field full"><label for="opportunity">Tell us about the opportunity</label><textarea id="opportunity" name="opportunity" placeholder="Location, scope, timeline, target returns..."></textarea></div>
       <div class="form-actions">
         <p class="form-note">All inquiries are handled confidentially.</p>
         <button type="submit" class="btn gold">Start the Conversation
@@ -149,11 +149,13 @@
 
 <script>
 document.querySelectorAll('.faq-q').forEach(function (q) {
+  q.setAttribute('aria-expanded', 'false');
   q.addEventListener('click', function () {
     var item = q.closest('.faq-item');
     var ans = item.querySelector('.faq-a');
     var open = item.classList.toggle('open');
     ans.style.maxHeight = open ? ans.scrollHeight + 'px' : null;
+    q.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 });
 </script>

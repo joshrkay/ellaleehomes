@@ -72,20 +72,20 @@
       </div>
     </div>
     <form class="contact-form" onsubmit="return false;">
-      <div class="field"><label>First Name</label><input type="text" placeholder="Jane"></div>
-      <div class="field"><label>Last Name</label><input type="text" placeholder="Doe"></div>
-      <div class="field"><label>Email</label><input type="email" placeholder="jane@email.com"></div>
-      <div class="field"><label>Phone</label><input type="tel" placeholder="(480) 555-0100"></div>
-      <div class="field full"><label>I'm interested in</label>
-        <select>
+      <div class="field"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="Jane"></div>
+      <div class="field"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="Doe"></div>
+      <div class="field"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="jane@email.com"></div>
+      <div class="field"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" placeholder="(480) 555-0100"></div>
+      <div class="field full"><label for="interest">I'm interested in</label>
+        <select id="interest" name="interest">
           <option>Building a custom home</option>
           <option>Selling my home</option>
           <option>Investor / development opportunity</option>
           <option>General inquiry</option>
         </select>
       </div>
-      <div class="field full"><label>Tell us about your project</label>
-        <textarea placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
+      <div class="field full"><label for="projectDetails">Tell us about your project</label>
+        <textarea id="projectDetails" name="projectDetails" placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
       </div>
       <div class="form-actions">
         <p class="form-note">We read every message personally and respond within one business day.</p>
