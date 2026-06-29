@@ -72,10 +72,9 @@ function renderNav(active, navClass) {
 /**
  * @param {boolean} isHome
  */
-function renderFooter(isHome) {
+function renderFooter() {
   const hrefMeet = 'our-story.html';
-  const hrefCta = isHome ? '#cta' : 'index.html#cta';
-  return footerTemplate.replaceAll('__HREF_MEET__', hrefMeet).replaceAll('__HREF_CTA__', hrefCta);
+  return footerTemplate.replaceAll('__HREF_MEET__', hrefMeet);
 }
 
 function copyDir(from, to) {
@@ -112,8 +111,7 @@ for (const page of PAGES) {
   }
   const nav = renderNav(page.active, page.navClass);
   content = content.split(PLACEHOLDER).join(nav);
-  const isHome = page.file === 'index.html';
-  content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(isHome));
+  content = content.split(FOOTER_PLACEHOLDER).join(renderFooter());
   content = content.split(CURSOR_PLACEHOLDER).join(cursorTemplate);
   fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
   console.log('Wrote', path.join('dist', page.file));

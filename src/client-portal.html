@@ -22,6 +22,10 @@
 .portal-actions { display:flex; flex-wrap:wrap; gap:16px; margin-top:8px; }
 .video-frame { position:relative; width:100%; max-width:880px; aspect-ratio:16/9; background:var(--ink); border:1px solid rgba(244,241,234,0.12); }
 .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.video-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; text-decoration:none; }
+.video-placeholder .video-play { width:64px; height:64px; border-radius:50%; border:1px solid rgba(244,241,234,0.4); display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--gold); transition:background .2s,color .2s; }
+.video-placeholder:hover .video-play { background:var(--gold); color:var(--ink); }
+.video-placeholder .video-cta { font-size:14px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(244,241,234,0.8); }
 .support-box { border:1px solid rgba(43,43,43,0.14); border-radius:10px; padding:28px 30px; max-width:720px; }
 .support-box p { font-size:17px; line-height:1.7; color:var(--ink); }
 .support-box a { color:var(--gold); text-decoration:none; }
@@ -63,9 +67,11 @@
     <h2>New to the portal? <em>Start here.</em></h2>
     <p>A short walkthrough of how to navigate schedules, daily photos, approvals, and messaging with your Ella Lee project team.</p>
   </div>
-  <div class="video-frame">
-    <iframe src="https://www.youtube.com/embed/?listType=user_uploads&list=ellaleehomes" title="Client portal walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
+  <!-- TODO: replace with an embedded <iframe> once the real walkthrough video ID is available -->
+  <a class="video-frame video-placeholder" href="https://www.youtube.com/@ellaleehomes" target="_blank" rel="noopener" aria-label="Watch the client portal walkthrough on YouTube">
+    <span class="video-play" aria-hidden="true">▶</span>
+    <span class="video-cta">Watch the walkthrough on YouTube</span>
+  </a>
 </section>
 
 <!-- SUPPORT -->

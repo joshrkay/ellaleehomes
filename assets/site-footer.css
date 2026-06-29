@@ -3,7 +3,6 @@
  * Load after tokens (--ink, --paper, --nickel, --sans) are defined on the page.
  */
 :root {
-  --serif: 'Cormorant Garamond', Georgia, serif;
   --dim: rgba(234, 229, 220, 0.28);
 }
 

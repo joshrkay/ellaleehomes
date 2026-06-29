@@ -182,6 +182,10 @@ body.page {
 .page .section.ink .form-note, .page .section.dark .form-note { color: rgba(234,229,220,0.65); }
 .page .section.ink .contact-form select option, .page .section.dark .contact-form select option { color: var(--ink); }
 
+/* ── LEGAL PAGES (privacy / terms / disclaimer) ── */
+.page .legal-note { background: rgba(201,169,110,0.12); border-left: 3px solid var(--gold); padding: 18px 22px; font-size: 15px; color: var(--ink); max-width: 720px; margin-bottom: 32px; }
+.page .legal h2 { font-size: 22px; font-weight: 400; margin: 32px 0 12px; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 860px) {
   .page #header { flex-direction: column; align-items: flex-start; padding: 56px 24px 36px; }

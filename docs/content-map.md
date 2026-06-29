@@ -4,12 +4,15 @@ Canonical site structure (information architecture) after unification:
 
 | Label | Target |
 |--------|--------|
-| Why Us | `index.html#experience` |
+| Why Us | `why-us.html` |
 | Portfolio | `projects.html` |
 | Process | `process.html` |
-| About | `index.html#meet` |
-| Investors | `#` (placeholder until a page exists) |
-| Inquire | `index.html#cta` |
+| About | `our-story.html` |
+| Investors | `investors.html` |
+| Schedule a Consultation (nav CTA) | `contact.html` |
+
+Footer also links: Sell a Home → `sell.html`, Client Portal → `client-portal.html`,
+Stories → `stories.html`, FAQ → `faq.html`, and Privacy/Terms/Disclaimer.
 
 ---
 
@@ -26,10 +29,21 @@ Canonical site structure (information architecture) after unification:
 
 | File | Role |
 |------|------|
-| [`src/index.html`](../src/index.html) | Home: loader, hero video, experience, meet team, featured homes, CTA |
+| [`src/index.html`](../src/index.html) | Home: loader, hero video, experience, meet team, featured homes, 10% giving strip, CTA |
 | [`src/projects.html`](../src/projects.html) | Portfolio grid, filters |
 | [`src/process.html`](../src/process.html) | Process phases |
 | [`src/project.html`](../src/project.html) | Project detail shell; content driven by `?slug=` + embedded `PROJECTS` data |
+| [`src/our-story.html`](../src/our-story.html) | About / origin story |
+| [`src/why-us.html`](../src/why-us.html) | Trust & differentiation: 7 reasons, testimonials |
+| [`src/investors.html`](../src/investors.html) | Developers & investors: pillars, stats, inventory |
+| [`src/contact.html`](../src/contact.html) | Conversion endpoint: contact info + inquiry form (nav CTA target) |
+| [`src/sell.html`](../src/sell.html) | Sell Your Home: comparison table, cash-offer form |
+| [`src/client-portal.html`](../src/client-portal.html) | Buildertrend login utility page |
+| [`src/stories.html`](../src/stories.html) | Journal/blog index with category filter |
+| [`src/faq.html`](../src/faq.html) | FAQ accordion |
+| [`src/privacy.html`](../src/privacy.html), [`terms.html`](../src/terms.html), [`disclaimer.html`](../src/disclaimer.html) | Legal placeholders (pending legal review) |
+
+New content pages share `assets/site-pages.css` (and `assets/site-pages.js` for the FAQ accordion). All pages are registered in the `PAGES` array in `scripts/build-html.mjs`.
 
 Build output: **`dist/`** (run `npm run build`). Preview: `npm run dev`. The former root-level `*.html` files were removed; **edit `src/` and `partials/`, not `dist/` directly**.
 

@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -108,8 +107,6 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .proj-card-body { padding: 24px 28px 28px; }
 .proj-card-location { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nickel); margin-bottom: 6px; }
 .proj-card-name { font-size: 22px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 16px; line-height: 1.1; }
-/* Architectural style chip — rendered from each card's data-style attribute (see script at end). */
-.proj-card-style { display: inline-block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(201,169,110,0.4); border-radius: 100px; padding: 4px 12px; margin-bottom: 14px; }
 .proj-card-specs {
   display: flex; gap: 16px; flex-wrap: wrap;
   padding-top: 14px; border-top: 1px solid rgba(43,43,43,0.1);
@@ -537,21 +534,6 @@ function sortCards(val) {
     cards.forEach(c => grid.appendChild(c));
   });
 }
-
-/* Architectural-style chip: renders a tag on any card that has a non-empty
-   data-style attribute. TODO (client): add the real style to each card, e.g.
-   <div class="proj-card" data-style="Modern Farmhouse" ...>, or have the
-   project-sync script (scripts/apply-projects-from-wp.mjs) populate it. */
-allCards.forEach(function (card) {
-  var style = (card.dataset.style || '').trim();
-  if (!style) return;
-  var loc = card.querySelector('.proj-card-location');
-  if (!loc) return;
-  var chip = document.createElement('div');
-  chip.className = 'proj-card-style';
-  chip.textContent = style;
-  loc.insertAdjacentElement('afterend', chip);
-});
 </script>
 
 </body>

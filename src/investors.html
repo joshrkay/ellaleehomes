@@ -147,18 +147,7 @@
 
 <!-- FOOTER_PARTIAL -->
 
-<script>
-document.querySelectorAll('.faq-q').forEach(function (q) {
-  q.setAttribute('aria-expanded', 'false');
-  q.addEventListener('click', function () {
-    var item = q.closest('.faq-item');
-    var ans = item.querySelector('.faq-a');
-    var open = item.classList.toggle('open');
-    ans.style.maxHeight = open ? ans.scrollHeight + 'px' : null;
-    q.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-});
-</script>
+<script defer src="assets/site-pages.js"></script>
 
 </body>
 </html>
