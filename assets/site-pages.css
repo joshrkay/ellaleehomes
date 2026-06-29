@@ -86,8 +86,8 @@ body.page {
 .page .btn.solid:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
 .page .btn.gold { background: var(--gold); border-color: var(--gold); color: var(--ink); }
 .page .btn.gold:hover { background: transparent; color: var(--gold); }
-.page .section.dark .btn, .page .section.ink .btn { border-color: var(--gold); color: var(--gold); }
-.page .section.dark .btn:hover, .page .section.ink .btn:hover { background: var(--gold); color: var(--ink); }
+.page .section.dark .btn:not(.gold):not(.solid), .page .section.ink .btn:not(.gold):not(.solid) { border-color: var(--gold); color: var(--gold); }
+.page .section.dark .btn:not(.gold):not(.solid):hover, .page .section.ink .btn:not(.gold):not(.solid):hover { background: var(--gold); color: var(--ink); }
 
 /* ── INFO STRIP (contact details) ── */
 .page .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
@@ -171,6 +171,16 @@ body.page {
 .page .contact-form textarea { resize: vertical; min-height: 90px; }
 .page .form-actions { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
 .page .form-note { font-size: 15px; color: var(--nickel); }
+
+/* Forms placed on dark sections (.section.ink / .section.dark): light field text */
+.page .section.ink .contact-form input, .page .section.dark .contact-form input,
+.page .section.ink .contact-form select, .page .section.dark .contact-form select,
+.page .section.ink .contact-form textarea, .page .section.dark .contact-form textarea { color: var(--paper); border-bottom-color: rgba(244,241,234,0.3); }
+.page .section.ink .contact-form input::placeholder, .page .section.dark .contact-form input::placeholder,
+.page .section.ink .contact-form textarea::placeholder, .page .section.dark .contact-form textarea::placeholder { color: rgba(234,229,220,0.45); }
+.page .section.ink .contact-form label, .page .section.dark .contact-form label,
+.page .section.ink .form-note, .page .section.dark .form-note { color: rgba(234,229,220,0.65); }
+.page .section.ink .contact-form select option, .page .section.dark .contact-form select option { color: var(--ink); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 860px) {

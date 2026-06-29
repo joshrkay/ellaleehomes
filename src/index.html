@@ -251,12 +251,12 @@ body {
 
 /* card variations "” navy on cream bg */
 .exp-card:nth-child(1) { background: #001F33; }
-.exp-card:nth-child(2) { background: #002f63; }
-.exp-card:nth-child(3) { background: #003370; }
-.exp-card:nth-child(4) { background: #00387a; }
-.exp-card:nth-child(5) { background: #003d85; }
-.exp-card:nth-child(6) { background: #004190; }
-.exp-card:nth-child(7) { background: #00469a; }
+.exp-card:nth-child(2) { background: #002544; }
+.exp-card:nth-child(3) { background: #002C55; }
+.exp-card:nth-child(4) { background: #003266; }
+.exp-card:nth-child(5) { background: #003977; }
+.exp-card:nth-child(6) { background: #003F89; }
+.exp-card:nth-child(7) { background: #00469A; }
 
 /* â”€â”€â”€ EXPERIENCE SPLIT SCROLL â”€â”€â”€ */
 #experience { position: relative; background: var(--ink); z-index: 1; }
@@ -1110,27 +1110,27 @@ Built Right</span>
   <form class="cta-form r-fade d2 fired" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We\u2019ll be in touch.';">
     <div class="cta-form-row">
       <div class="cta-field">
-        <label>First Name</label>
-        <input type="text" placeholder="Jane" required="">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Jane" required="">
       </div>
       <div class="cta-field">
-        <label>Last Name</label>
-        <input type="text" placeholder="Doe" required="">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Doe" required="">
       </div>
     </div>
     <div class="cta-form-row">
       <div class="cta-field">
-        <label>Email</label>
-        <input type="email" placeholder="jane@email.com" required="">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="jane@email.com" required="">
       </div>
       <div class="cta-field">
-        <label>Phone</label>
-        <input type="tel" placeholder="(480) 555-0100">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" placeholder="(480) 555-0100">
       </div>
     </div>
     <div class="cta-field">
-      <label>I'm interested in</label>
-      <select>
+      <label for="interest">I'm interested in</label>
+      <select id="interest" name="interest">
         <option>Building a custom home</option>
         <option>Selling my home</option>
         <option>Investor / development opportunity</option>
@@ -1138,8 +1138,8 @@ Built Right</span>
       </select>
     </div>
     <div class="cta-field">
-      <label>Tell us about your project</label>
-      <textarea placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
+      <label for="projectDetails">Tell us about your project</label>
+      <textarea id="projectDetails" name="projectDetails" placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
     </div>
     <div class="cta-form-actions">
       <p class="cta-form-note">We respond personally within one business day.</p>
