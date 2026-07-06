@@ -16,19 +16,36 @@
   --ink: #2B2B2B;
   --paper: #EAE5DC;
   --nickel: #A5A09D;
-  --navy: #002855;
+  --navy: #001F33;
   --gold: #C9A96E;
   --sans: 'Inter', Helvetica, sans-serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
 }
-body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit-font-smoothing: antialiased; padding-top: 88px; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
 /* Nav: assets/site-nav.css */
 
-/* Back link strip */
+/* ── NAV: dark text on light background ── */
+#nav .nav-links a,
+#nav .nav-dd-trigger,
+#nav .nav-cta {
+  color: var(--ink) !important;
+}
+#nav .nav-cta {
+  border-color: rgba(43,43,43,0.25) !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+#nav .nav-cta:hover { background: rgba(43,43,43,0.06) !important; }
+#nav .nav-logo-img { filter: none !important; }
+
+/* Floating back chip over the hero (no top strip — hero is full-bleed) */
 #back-strip {
+  position: absolute; top: 0; left: 0; z-index: 400;
   padding: 18px 48px;
-  border-bottom: 1px solid rgba(43,43,43,0.08);
+  display: none;
   background: rgba(234,229,220,0.6);
 }
 .nav-back {
@@ -39,11 +56,24 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 }
 .nav-back:hover { color: var(--gold); border-color: var(--gold); }
 
-/* ── HERO ── */
+/* ── HERO (full-bleed: runs to the very top behind the fixed nav) ── */
 #hero {
-  position: relative; height: 80vh; min-height: 520px;
+  position: relative; height: 100vh; min-height: 620px;
   overflow: hidden;
 }
+/* Floating glass back link over the image, tucked under the nav */
+.hero-back {
+  position: absolute; top: 104px; left: 48px; z-index: 30;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--paper); text-decoration: none;
+  background: rgba(234,229,220,0.12); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(234,229,220,0.25);
+  padding: 9px 18px; border-radius: 100px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.hero-back:hover { background: rgba(234,229,220,0.22); border-color: rgba(234,229,220,0.5); }
 .hero-img {
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 0.8s var(--ease);
@@ -54,7 +84,7 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
   background: linear-gradient(to bottom, transparent 40%, rgba(43,43,43,0.7) 100%);
 }
 .hero-tag {
-  position: absolute; top: 32px; left: 48px;
+  position: absolute; top: 104px; right: 48px;
   background: rgba(234,229,220,0.15); backdrop-filter: blur(12px);
   border: 1px solid rgba(234,229,220,0.25);
   font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
@@ -90,7 +120,7 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
   transition: background 0.2s;
 }
 .stat-box:last-child { border-right: none; }
-.stat-box:hover { background: #e2ddd4; }
+.stat-box:hover { background: rgba(43, 43, 43, 0.06); }
 .stat-key {
   font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase;
   color: var(--nickel); margin-bottom: 10px;
@@ -110,7 +140,7 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
   font-size: clamp(24px, 3vw, 36px); font-weight: 300; letter-spacing: -0.02em;
   margin-bottom: 32px; line-height: 1.1;
 }
-.section-title em { font-style: italic; color: var(--navy); }
+.section-title em { font-style: normal; color: var(--navy); }
 
 .description {
   font-size: 15px; line-height: 1.85; color: rgba(43,43,43,0.75);
@@ -129,7 +159,7 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 }
 #photos-col {
   padding: 64px 48px;
-  background: #e2ddd4;
+  background: rgba(43, 43, 43, 0.06);
 }
 .amenities-list { display: flex; flex-direction: column; gap: 0; }
 .amenity-row {
@@ -139,7 +169,7 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 .amenity-row:last-child { border-bottom: none; }
 .amenity-icon {
   width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-  background: rgba(0,40,85,0.07); border: 1px solid rgba(0,40,85,0.15);
+  background: rgba(0,31,51,0.07); border: 1px solid rgba(0,31,51,0.15);
   display: flex; align-items: center; justify-content: center;
   margin-top: 2px;
 }
@@ -166,6 +196,67 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 .gallery-more-label { position: relative; z-index: 2; text-align: center; color: var(--paper); }
 .gallery-more-num { font-size: 28px; font-weight: 200; display: block; margin-bottom: 2px; }
 
+/* ── LIGHTBOX ── */
+#lightbox {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(13,12,11,0.96); backdrop-filter: blur(20px);
+  display: none; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s var(--ease);
+}
+#lightbox.open { display: flex; opacity: 1; }
+#lightbox-img-wrap {
+  position: relative; width: 86vw; height: 84vh;
+  display: flex; align-items: center; justify-content: center;
+}
+#lightbox-img {
+  max-width: 100%; max-height: 100%; object-fit: contain;
+  box-shadow: 0 12px 60px rgba(0,0,0,0.5);
+}
+.lb-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(234,229,220,0.1); border: 1px solid rgba(234,229,220,0.2);
+  color: var(--paper); font-size: 24px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); transition: all 0.2s;
+  backdrop-filter: blur(12px);
+}
+.lb-btn:hover { background: rgba(234,229,220,0.2); border-color: rgba(234,229,220,0.4); }
+#lb-prev { left: -80px; }
+#lb-next { right: -80px; }
+#lb-close {
+  position: absolute; top: 24px; right: 24px;
+  width: 44px; height: 44px;
+}
+#lb-counter {
+  position: absolute; bottom: -36px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(234,229,220,0.55);
+}
+#lb-thumbs {
+  position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px; max-width: 90vw; overflow-x: auto;
+  padding: 8px 12px; background: rgba(13,12,11,0.6);
+  border-radius: 100px; backdrop-filter: blur(12px);
+}
+#lb-thumbs::-webkit-scrollbar { display: none; }
+.lb-thumb {
+  width: 56px; height: 40px; flex-shrink: 0; cursor: pointer;
+  overflow: hidden; opacity: 0.45; border: 1px solid transparent;
+  transition: all 0.2s;
+}
+.lb-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.lb-thumb.active { opacity: 1; border-color: var(--gold); }
+.lb-thumb:hover { opacity: 0.85; }
+
+@media (max-width: 900px) {
+  #lightbox-img-wrap { width: 92vw; height: 70vh; }
+  #lb-prev { left: 8px; }
+  #lb-next { right: 8px; }
+  .lb-btn { width: 44px; height: 44px; }
+  #lb-thumbs { bottom: 12px; max-width: 95vw; }
+}
+
 /* ── STORY ── */
 #story {
   border-bottom: 1px solid rgba(43,43,43,0.1);
@@ -182,7 +273,7 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 }
 .inquiry-eyebrow { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(234,229,220,0.5); margin-bottom: 20px; }
 .inquiry-title { font-size: clamp(28px, 3.5vw, 44px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; }
-.inquiry-title em { font-style: italic; color: var(--gold); }
+.inquiry-title em { font-style: normal; color: var(--gold); }
 .inquiry-sub { margin-top: 20px; font-size: 14px; line-height: 1.8; color: rgba(234,229,220,0.7); max-width: 480px; }
 .inquiry-actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
 .inquiry-btn {
@@ -235,8 +326,9 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
   body { padding-top: 80px; }
   #nav { padding: 12px 20px; }
   #back-strip { padding: 14px 20px; }
-  #hero { height: 60vh; min-height: 380px; }
-  .hero-tag { top: 20px; left: 20px; }
+  #hero { height: 100vh; min-height: 460px; }
+  .hero-back { top: 88px; left: 20px; }
+  .hero-tag { top: 88px; right: 20px; }
   .hero-title { left: 20px; right: 20px; bottom: 24px; }
   .hero-status { right: 20px; bottom: 24px; }
   #stats { grid-template-columns: 1fr; }
@@ -247,16 +339,166 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 }
 </style>
 <link rel="stylesheet" href="assets/site-cursor.css">
+<!-- @localbusiness-schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "@id": "https://ellaleehomes.com/#business",
+  "name": "Ella Lee Homes",
+  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
+  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "url": "https://ellaleehomes.com/",
+  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "telephone": "+1-480-340-8700",
+  "email": "hello@ellaleehomes.com",
+  "priceRange": "$$",
+  "foundingLocation": "Phoenix, Arizona",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4408 N 12th St",
+    "addressLocality": "Phoenix",
+    "addressRegion": "AZ",
+    "postalCode": "85014",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 33.5004403,
+    "longitude": -112.0567192
+  },
+  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "Place",
+      "name": "Arcadia, Phoenix"
+    },
+    {
+      "@type": "City",
+      "name": "Phoenix",
+      "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    }
+  ],
+  "knowsAbout": [
+    "Custom home building",
+    "Luxury home construction",
+    "Home design",
+    "Residential development"
+  ],
+  "sameAs": [
+    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "12",
+    "bestRating": "5"
+  }
+}
+</script>
 </head>
 <body>
-<!-- CURSOR_PARTIAL -->
+<div id="cur"><div id="cur-dot"></div></div>
+<div id="cur-ring"></div>
+<script defer src="assets/site-cursor.js"></script>
+<script defer src="assets/site-nav-dd.js"></script>
 
-<!-- NAV_PARTIAL -->
 
-<!-- BACK STRIP -->
-<div id="back-strip">
-  <a href="projects.html" class="nav-back">← All Projects</a>
+<!-- Canonical site nav — edit once; injected by scripts/build-html.mjs -->
+<nav id="nav" class="theme-portfolio">
+  <a href="index.html" class="nav-logo" id="navLogo" aria-label="Ella Lee Homes">
+    <img class="nav-logo-img" src="uploads/Monogram_Navy.png" alt="Ella Lee Homes">
+  </a>
+  <ul class="nav-links nav-pill">
+    <li><a href="projects.html">Portfolio</a></li>
+    <li><a href="process.html">Build</a></li>
+    <li><a href="sell.html">Sell</a></li>
+    <li><a href="our-story.html">Our Story</a></li>
+    <li class="nav-has-dd">
+      <button class="nav-dd-trigger" type="button" aria-expanded="false" aria-haspopup="true">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <a href="tel:4803408700" class="nav-phone">(480) 340-8700</a>
+    <a href="index.html#cta" class="nav-cta">Schedule a Consultation</a>
+  </div>
+  <a href="tel:4803408700" class="nav-phone-mobile" aria-label="Call Ella Lee Homes at (480) 340-8700"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M4.5 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.6 1.5A15.5 15.5 0 013 4.6 1.5 1.5 0 014.5 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+  <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" type="button">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-dd-panel" role="region" aria-label="Learn menu">
+  <div class="nav-dd-intro">
+    <div class="nav-dd-intro-title">About Ella Lee Homes</div>
+    <div class="nav-dd-intro-sub">Sustainable, energy efficient, on time &amp; on budget homes</div>
+  </div>
+  <div class="nav-dd-grid">
+    <div class="nav-dd-col">
+      <a href="why-us.html">Why Ella Lee</a>
+      <a href="investors.html">Developers &amp; Investors</a>
+      <a href="stories.html">Stories &amp; Insights</a>
+    </div>
+    <div class="nav-dd-col">
+      <a href="client-portal.html">Client Portal</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </div>
 </div>
+
+<div class="nav-mobile-overlay" aria-hidden="true">
+  <div class="nav-mobile-panel">
+    <a href="projects.html" class="nav-mobile-link">Portfolio</a>
+    <a href="process.html" class="nav-mobile-link">Build</a>
+    <a href="sell.html" class="nav-mobile-link">Sell</a>
+    <a href="our-story.html" class="nav-mobile-link">Our Story</a>
+    <div class="nav-mobile-learn-section">
+      <button class="nav-mobile-learn-btn" type="button">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="nav-mobile-learn-items">
+        <a href="why-us.html">Why Ella Lee</a>
+        <a href="investors.html">Developers &amp; Investors</a>
+        <a href="stories.html">Stories &amp; Insights</a>
+        <a href="client-portal.html">Client Portal</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="nav-mobile-sep"></div>
+    <a href="index.html#cta" class="nav-mobile-cta">Schedule a Consultation</a>
+  </div>
+</div>
+
 
 <!-- NOT FOUND (shown if slug doesn't match) -->
 <div id="not-found">
@@ -270,8 +512,9 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 
   <!-- HERO -->
   <section id="hero">
-    <img class="hero-img" id="hero-img" src="" alt="">
+    <img class="hero-img" id="hero-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E" alt="">
     <div class="hero-overlay"></div>
+    <a href="projects.html" class="hero-back">← All Projects</a>
     <div class="hero-tag" id="hero-tag">Completed</div>
     <div class="hero-title">
       <div class="hero-location" id="hero-location"></div>
@@ -346,7 +589,37 @@ body { font-family: var(--sans); background: #f0ede6; color: var(--ink); -webkit
 
 </div>
 
-<!-- FOOTER_PARTIAL -->
+<!-- FOOTER (injected on every page; index.html#meet / index.html#cta resolved at build) -->
+<footer class="grain site-footer">
+  <div>
+    <div class="footer-brand">Ella Lee Homes</div>
+    <p class="footer-copy">Ella Lee Homes. Arcadia, Paradise Valley, and Scottsdale’s premier custom home builder. BUILT RIGHT.</p>
+    <div class="footer-roc">ROC License: KB2-333410</div>
+  </div>
+  <div class="footer-col">
+    <h4>Navigate</h4>
+    <a href="projects.html">Previous Projects</a><a href="index.html#meet">Our Story</a>
+    <a href="process.html">Process</a><a href="investors.html">Developers</a><a href="stories.html">Stories</a><a href="index.html#cta">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <a href="index.html#cta">Build Your Home</a><a href="sell.html">Sell a Home</a>
+    <a href="index.html#cta">Developers</a><a href="client-portal.html">Client Portal</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a>
+    <a href="tel:4803408700">(480) 340-8700</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">4408 N 12th St</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">Phoenix, AZ 85014</a>
+    <div class="footer-hours">Mon–Fri 9am–5pm · Sat by appointment</div>
+  </div>
+</footer>
+<div class="footer-btm">
+  <span>© 2026 Ella Lee Homes. All rights reserved.</span>
+  <div class="footer-btm-right"><nav class="footer-legal"><a href="faq.html">FAQ</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></nav><div class="footer-social"><a href="https://www.instagram.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg></a><a href="https://www.facebook.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 8.5h2.2V5.3H14c-1.9 0-3.2 1.3-3.2 3.3v1.6H8.6v3.1h2.2V21h3.3v-7.6h2.2l.4-3.1h-2.6V8.9c0-.3.2-.4.5-.4z" fill="currentColor"/></svg></a><a href="https://www.houzz.com/" target="_blank" rel="noopener" aria-label="Houzz"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l7 4v13.6h-5v-5.6H10v5.6H5V7.2z"/></svg></a></div></div>
+</div>
+
 
 <script>
 const PROJECTS = {
@@ -359,47 +632,47 @@ const PROJECTS = {
     sqft: "4,833",
     beds: "5",
     baths: "5.2",
-    heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2787.jpg",
+    heroImg: "https://lh3.googleusercontent.com/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO",
     gallery: [
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2787.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2777.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2922.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2919.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2915.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2910.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2906.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2903.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2899.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2896.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2891.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2888.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2885.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2882.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2879.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2877.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2871.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2863.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2860.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2857.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2855.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2853.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2845.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2836.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2833.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2830.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2827.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2821.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2818.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2816.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2814.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2809.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2808.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2803.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2800.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2798.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2793.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2790.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg"
+      "https://lh3.googleusercontent.com/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO",
+      "https://lh3.googleusercontent.com/d/1wX0JEXcxu3aZrNS_edf9KogjW6Kthml8",
+      "https://lh3.googleusercontent.com/d/1qHPo1bPEflWmDqodwVDGVv5XNbWs2zHq",
+      "https://lh3.googleusercontent.com/d/1B8CNf2paRKiG7qY_AAGg_tPgxmy3mpfp",
+      "https://lh3.googleusercontent.com/d/1HFbjtwj0ig2rjuNpvIt6NqV2IHeHHu3x",
+      "https://lh3.googleusercontent.com/d/1yWCSGw5cATXwuj0xD9U63UmhSvRfiv9f",
+      "https://lh3.googleusercontent.com/d/1K3uRh7VPzFxw_ZoYgB24WFTlx4SW7dAI",
+      "https://lh3.googleusercontent.com/d/12Cv5BUk_aYFkx0Q4HQ-sbyVrwVEtkEnT",
+      "https://lh3.googleusercontent.com/d/1lLxmqouhDosRBQ9RGdZKgdmq5jWgKAs9",
+      "https://lh3.googleusercontent.com/d/1fGijjzjLchEWKCUAY4-gepwAP8H3GhSD",
+      "https://lh3.googleusercontent.com/d/1HXAyQv3qbWxXmtVhwzaWL6iuxGNG_f-N",
+      "https://lh3.googleusercontent.com/d/1E6zqi2Q1QEj-sP8AWrs-NByj-NbNJuoM",
+      "https://lh3.googleusercontent.com/d/1vcMDYyUE-a_5lk73AklPA74OJO4eR-Aa",
+      "https://lh3.googleusercontent.com/d/1YXp526xeknj6UgHrEZ8OzyeHGfGCddKL",
+      "https://lh3.googleusercontent.com/d/1n1QuZ8QKXCMjfjM-rmqi9pLEGICikrBm",
+      "https://lh3.googleusercontent.com/d/1NzShur7dee0yIAIEKmnp8ZDvMypm6rWi",
+      "https://lh3.googleusercontent.com/d/1P_wJfLVZYgsXd9HrHaI5q5NUHM_rBXAR",
+      "https://lh3.googleusercontent.com/d/1y9kq23dsSJiL3UlK0t36YExPA-8R7B2n",
+      "https://lh3.googleusercontent.com/d/1e_ZQ-K_ve94-PFYFf_CL_S1YK8U6TSYf",
+      "https://lh3.googleusercontent.com/d/1BWQRHXpX2mxU3lUzQ69GRnZHrOWH-ATh",
+      "https://lh3.googleusercontent.com/d/186mEBvbRcQ399UYypK3yVnZdJBlqeml7",
+      "https://lh3.googleusercontent.com/d/1OEHRcoC7guuJZ_QL7JaRc2p5Eoo3PcyI",
+      "https://lh3.googleusercontent.com/d/147bi93DUvCCaQI1stD_ik3BRrIOevLlM",
+      "https://lh3.googleusercontent.com/d/1SsPwsNnvnhmoVh32VTNzxBdI57ryrg7X",
+      "https://lh3.googleusercontent.com/d/1Ayv5mmDgijnJEoW0FjHwQBpOiG9iMZBy",
+      "https://lh3.googleusercontent.com/d/18n7m1eIqHJWMOgyVUUx5izQalu3zDNje",
+      "https://lh3.googleusercontent.com/d/1ypHlWnAxB0cPJ_Jb898KKA8tAzMtSndu",
+      "https://lh3.googleusercontent.com/d/1cJ495qCDedX-cxizl4NduUPGft6tIFub",
+      "https://lh3.googleusercontent.com/d/1-4ScNp-KSG-DlFKmho2150McExYWe2Cx",
+      "https://lh3.googleusercontent.com/d/1PEEkf7R8VqK1dDNNIfbnyCum0u-DagAk",
+      "https://lh3.googleusercontent.com/d/1kQzCJP_NVQtIjtvmyKvTLJ2iDqTQt3IF",
+      "https://lh3.googleusercontent.com/d/1YQBG2whsIHQzCk34EKPWVxgq9EBLChCv",
+      "https://lh3.googleusercontent.com/d/1zNWyFie9wR4tVxp92rMHiLj6NmXcr7qL",
+      "https://lh3.googleusercontent.com/d/1znlrWWmoA2ifnwoyf5Lz1BRm-fgVGgg2",
+      "https://lh3.googleusercontent.com/d/1mGG-h_KIWOS2L5Ph2tnD-ttqQjkeVf5D",
+      "https://lh3.googleusercontent.com/d/1qToix3KMAkasdaX2dlpWt0KJrmnCuj5o",
+      "https://lh3.googleusercontent.com/d/1TGNHCLTGhc6CC3talS13eKrHHtnf_52d",
+      "https://lh3.googleusercontent.com/d/1AgUqPsk6iOKyTVIgf1D2uuFYZDErn6HW",
+      "https://lh3.googleusercontent.com/d/1tlq2HtgRzbB1qemfal2pu-0qbUEC8d7S"
     ],
     storyTitle: "Quiet Luxury, <em>Effortlessly Refined.</em>",
     storyParas: [
@@ -717,13 +990,13 @@ const PROJECTS = {
 
   "68th-2": {
     name: "68TH 2",
-    location: "Paradise Valley, Arizona",
-    year: 2024,
-    status: "Sold",
+    location: "Desert Estates, Scottsdale",
+    year: 2025,
+    status: "Sold 2025",
     price: "$3,750,000",
     sqft: "5,197",
     beds: "6",
-    baths: "6.5",
+    baths: "7",
     heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6759.jpg",
     gallery: [
       "https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6759.jpg",
@@ -1005,13 +1278,13 @@ const PROJECTS = {
 
   "earll": {
     name: "Earll",
-    location: "Scottsdale, Arizona",
-    year: 2024,
-    status: "Sold",
+    location: "Arcadia, Phoenix",
+    year: 2025,
+    status: "Sold 2025",
     price: "$3,645,000",
     sqft: "4,650",
     beds: "5",
-    baths: "6",
+    baths: "7",
     heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg",
     gallery: [
       "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg",
@@ -1075,18 +1348,20 @@ const PROJECTS = {
       "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8187.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8189.jpg"
     ],
-    storyTitle: "Modern Farmhouse — <em>Earll.</em>",
+    storyTitle: "Modern Arcadia Farmhouse — <em>Earll.</em>",
     storyParas: [
-      "Earll sits in a well-connected Scottsdale neighborhood with modern architecture, open interiors, and warm natural light.",
-      "Five bedrooms, six baths, with 4,153 sq ft livable and 4,650 sq ft total on about a third-acre lot."
+      "A new-construction modern farmhouse on Earll Drive in the heart of Arcadia, built by Milco Development. Vaulted, 10-foot ceilings; an open great room that opens to the resort backyard through walls of glass; and a chef's kitchen anchored by Sub-Zero, Wolf, and Cove appliances with a fully equipped butler's pantry.",
+      "Five en-suite bedrooms and seven baths across 4,650 sq ft on a half-acre lot. Heated pool and spa, a regulation pickleball court, Control4 home automation, and a three-car garage. Sold September 2025 for $3,645,000."
     ],
     amenities: [
-      ["5 Bedrooms", "Private suites with thoughtful storage"],
-      ["6 Bathrooms", "Designer fixtures and finishes"],
-      ["4650 sq ft", "Total area per published plan"],
-      ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["5 Bedrooms", "All en-suite with vaulted ceilings"],
+      ["7 Bathrooms", "Designer fixtures, soaking tubs"],
+      ["Sub-Zero / Wolf / Cove", "Pro-grade kitchen appliances"],
+      ["Butler's Pantry", "Fully equipped prep kitchen"],
+      ["Heated Pool & Spa", "Resort-style backyard"],
+      ["Pickleball Court", "Private regulation-size court"],
+      ["Control4 Automation", "Whole-home smart control"],
+      ["3-Car Garage", "Plus 3 uncovered spaces"]
     ]
   },
 
@@ -1168,13 +1443,13 @@ const PROJECTS = {
 
   "hazelwood-2": {
     name: "Hazelwood 2",
-    location: "Scottsdale, Arizona",
+    location: "3643 E Hazelwood St, Phoenix, AZ 85018",
     year: 2024,
-    status: "Sold",
-    price: "—",
-    sqft: "5,578",
+    status: "Sold January 2024",
+    price: "$3,200,000",
+    sqft: "4,153",
     beds: "5",
-    baths: "5.5",
+    baths: "6",
     heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg",
     gallery: [
       "https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg",
@@ -1224,26 +1499,26 @@ const PROJECTS = {
     ],
     storyTitle: "Single Family Farmhouse — <em>Hazelwood 2.</em>",
     storyParas: [
-      "Hazelwood 2 is a single-family modern farmhouse in Scottsdale: open interiors, warm light, and a layout built for both comfort and function.",
-      "About 4,153 sq ft livable and 5,578 sq ft total, with five bedrooms and five-and-a-half baths. Outdoor spaces mirror the ease of the interiors — ideal for hosting or unwinding."
+      "Hazelwood 2 is a stunning modern Arcadia farmhouse — high-quality new construction featuring sleek finishes, a functional open floor plan, and pre-wiring for smart-home features. Five ensuite bedrooms, a vaulted ceiling in the great room, and 10′ ceilings throughout the rest of the home.",
+      "From the grand foyer, a wall of windows showers the living space with natural light and views of the beautifully landscaped backyard with sparkling pool and heated spa. The chef’s kitchen is built for entertaining: high-end appliances, a spacious butler’s pantry, under-counter lighting, and a massive 10′ island."
     ],
     amenities: [
-      ["5 Bedrooms", "Private suites with thoughtful storage"],
-      ["5.5 Bathrooms", "Designer fixtures and finishes"],
-      ["5578 sq ft", "Total area per published plan"],
-      ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["5 Ensuite Bedrooms", "Full bath in every bedroom suite"],
+      ["6 Bathrooms", "5 full + 1 half, designer fixtures"],
+      ["4,153 sq ft", "Single-story on 0.36 acres"],
+      ["3-Car Garage", "Stories: 1, no interior steps"],
+      ["Heated Pool & Spa", "Block-fenced backyard, grass front & back"],
+      ["Smart Home Pre-wire", "Vaulted great room, 10′ ceilings"]
     ]
   },
 
   "apache": {
     name: "Apache",
-    location: "Scottsdale, Arizona",
-    year: 2024,
-    status: "Sold",
-    price: "—",
-    sqft: "4,200",
+    location: "Old Town Scottsdale, Arizona",
+    year: 2025,
+    status: "Sold 2025",
+    price: "$2,300,500",
+    sqft: "3,527",
     beds: "5",
     baths: "5",
     heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0350.jpg",
@@ -1313,33 +1588,34 @@ const PROJECTS = {
       "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0566.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0569.jpg"
     ],
-    storyTitle: "Custom Home — <em>Apache.</em>",
+    storyTitle: "Modern Living in <em>Old Town Scottsdale.</em>",
     storyParas: [
-      "Apache showcases modern architecture with spacious interiors and abundant natural light. Living, dining, and kitchen integrate into a seamless flow.",
-      "Five bedrooms and five baths, with about 3,506 sq ft livable and 4,200 sq ft total on a 7,000 sq ft lot — plus covered patio and generous garage space."
+      "Apache is a contemporary custom build in walkable Old Town Scottsdale, designed for indoor-outdoor living and easy entertaining. Bright, open interiors, oversized glass sliders to the patio, and a chef's kitchen anchored by a quartz island.",
+      "Five bedrooms and five baths across 3,527 sq ft on a 6,633 sq ft lot. Sold March 2025 for $2,300,500."
     ],
     amenities: [
-      ["5 Bedrooms", "Private suites with thoughtful storage"],
-      ["5 Bathrooms", "Designer fixtures and finishes"],
-      ["4200 sq ft", "Total area per published plan"],
-      ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["5 Bedrooms", "Including downstairs primary suite"],
+      ["5 Bathrooms", "Spa-style double showers + soaking tub"],
+      ["Private Pool", "Backyard pool with covered patio"],
+      ["Built-in BBQ", "Outdoor entertaining setup"],
+      ["Chef's Kitchen", "Oversized quartz island + eat-at bar"],
+      ["Mountain Views", "Walkable Old Town Scottsdale"]
     ]
   },
 
   "41st": {
     name: "41ST",
-    location: "Scottsdale, Arizona",
-    year: 2024,
-    status: "Sold",
-    price: "—",
-    sqft: "4,606",
+    location: "Arcadia Lite, Phoenix",
+    year: 2026,
+    status: "Sold 2026",
+    price: "$2,150,000",
+    sqft: "2,970",
     beds: "4",
-    baths: "3.5",
+    baths: "4.5",
     heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/02/4-2.jpg",
     gallery: [
       "https://ellaleehomes.com/wp-content/uploads/2025/02/4-2.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/02/20-2.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/5-2.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/6-2.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/7-1.jpg",
@@ -1355,7 +1631,6 @@ const PROJECTS = {
       "https://ellaleehomes.com/wp-content/uploads/2025/02/17-2.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/18-2.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/19-2.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/02/20-2.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/21-2.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/22-2.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/23-1.jpg",
@@ -1381,13 +1656,13 @@ const PROJECTS = {
 
   "5th-st": {
     name: "5TH ST",
-    location: "Scottsdale, Arizona",
-    year: 2024,
-    status: "Sold",
-    price: "—",
-    sqft: "5,578",
+    location: "6542 E 5th St, Scottsdale, AZ 85251",
+    year: 2023,
+    status: "Sold October 2023",
+    price: "$2,100,000",
+    sqft: "3,934",
     beds: "5",
-    baths: "5.5",
+    baths: "5",
     heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A3895.jpg",
     gallery: [
       "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A3895.jpg",
@@ -1414,28 +1689,85 @@ const PROJECTS = {
     ],
     storyTitle: "Modern Farmhouse on <em>5th Street.</em>",
     storyParas: [
-      "5TH ST combines contemporary architecture with approachable scale — bright interiors and a connected kitchen, dining, and living core.",
-      "Five bedrooms, five-and-a-half baths, with 4,153 sq ft livable and 5,578 sq ft total on about a third-acre lot."
+      "5TH ST is a modern build minutes from Old Town Scottsdale with no HOA — completed in 2022 and sold fully furnished. The open-concept floor plan offers both upstairs and downstairs great rooms, a chef’s kitchen, and a 3-car air-conditioned garage.",
+      "Five bedrooms and five baths across 3,934 sq ft, with high-end finishes throughout: hardwood floors, custom cabinetry, quartz countertops, and stainless steel appliances. An entertainer’s backyard features a built-in BBQ, fire pit, and heated pool."
     ],
     amenities: [
-      ["5 Bedrooms", "Private suites with thoughtful storage"],
-      ["5.5 Bathrooms", "Designer fixtures and finishes"],
-      ["5578 sq ft", "Total area per published plan"],
-      ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["5 Bedrooms", "Master downstairs with separate shower and tub"],
+      ["5 Bathrooms", "Double vanities and designer fixtures"],
+      ["3,934 sq ft", "Two stories on a 6,562 sq ft lot"],
+      ["3-Car Garage", "Temperature-controlled, plus EV-ready"],
+      ["Heated Pool", "Built-in BBQ and gas fire pit"],
+      ["Built 2022", "Tankless water heater, Low-E windows"]
+    ]
+  },
+
+  "larkspur": {
+    name: "Larkspur",
+    location: "6126 E Larkspur Dr, Scottsdale, AZ 85254",
+    year: 2025,
+    status: "Sold November 2025",
+    price: "$3,975,000",
+    sqft: "5,578",
+    beds: "3",
+    baths: "3.5",
+    heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg",
+    gallery: [
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0799.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0802.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0803.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0805.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0806.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0811.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0812.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0813.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0815.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5283.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5286.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5289.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5292.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5295.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5305.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5310.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5316.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5324.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5335.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5348.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5361.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5378.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5395.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5410.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5429.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5444.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5459.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5471.jpg"
+    ],
+    storyTitle: "Single Family Modern Farmhouse — <em>Larkspur.</em>",
+    storyParas: [
+      "Larkspur is located in a peaceful and well-established Scottsdale neighborhood, offering modern architecture, open spaces, and abundant natural light that enhances the home from morning to evening. The design focuses on comfort, clarity, and a warm atmosphere that feels inviting the moment you step inside.",
+      "The interior layout flows smoothly between the living, dining, and kitchen areas, creating a space that is both functional and relaxing. Large windows brighten the rooms throughout the day, while refined finishes and thoughtful details add a touch of elegance. Each bedroom is designed as a private retreat, offering calm and comfort.",
+      "Outside, the home continues its sense of ease with outdoor spaces perfect for gatherings, quiet mornings, or enjoying the surrounding environment."
+    ],
+    amenities: [
+      ["3 Bedrooms", "Private retreats with thoughtful storage"],
+      ["3.5 Bathrooms", "Designer fixtures and finishes"],
+      ["4,153 sq ft livable", "5,578 sq ft total"],
+      ["0.56 Acre Lot", "Corner lot in 85254"],
+      ["Covered Patio", "520 sq ft of covered outdoor area"],
+      ["2-Car Garage", "488 sq ft attached, RV gate access"]
     ]
   },
 
   "4th-st": {
     name: "4TH ST",
     location: "Scottsdale, Arizona",
-    year: 2025,
-    status: "Sold",
-    price: "—",
-    sqft: "5,578",
+    year: 2024,
+    status: "Sold 2024",
+    price: "$2,100,000",
+    sqft: "4,691",
     beds: "5",
-    baths: "5.5",
+    baths: "5",
     heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/02/img51-1.jpg",
     gallery: [
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img51-1.jpg",
@@ -1462,8 +1794,8 @@ const PROJECTS = {
     ],
     storyTitle: "Custom Home on <em>4th Street.</em>",
     storyParas: [
-      "4TH ST is designed for everyday ease — open spaces, strong daylight, and a layout that moves naturally from indoors to out.",
-      "Five bedrooms, five-and-a-half baths, with 4,153 sq ft livable and 5,578 sq ft total."
+      "4TH ST is designed for everyday ease — open spaces, strong daylight, and a layout that moves naturally from indoors to out. A separate den/office, family room, and bonus room give the home flexibility for how Arizona families actually live.",
+      "Five bedrooms, five baths across 4,691 sq ft. Sold January 2024 for $2,100,000."
     ],
     amenities: [
       ["5 Bedrooms", "Private suites with thoughtful storage"],
@@ -1477,16 +1809,17 @@ const PROJECTS = {
 
   "2nd-st": {
     name: "2ND ST",
-    location: "Scottsdale, Arizona",
-    year: 2024,
-    status: "Sold",
-    price: "—",
-    sqft: "5,578",
+    location: "Old Town Scottsdale, Arizona",
+    year: 2023,
+    status: "Sold 2023",
+    price: "$1,700,000",
+    sqft: "3,841",
     beds: "5",
-    baths: "5.5",
+    baths: "4.5",
     heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/02/608A6138_page-0001.jpg",
     gallery: [
       "https://ellaleehomes.com/wp-content/uploads/2025/02/608A6138_page-0001.jpg",
+      "https://ellaleehomes.com/wp-content/uploads/2025/02/img513.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/608A6206_page-0001.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img51.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img52.jpg",
@@ -1500,7 +1833,6 @@ const PROJECTS = {
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img510.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img511.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img512.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/02/img513.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img514.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img515.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img516.jpg",
@@ -1524,30 +1856,30 @@ const PROJECTS = {
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img534.jpg",
       "https://ellaleehomes.com/wp-content/uploads/2025/02/img5.jpg"
     ],
-    storyTitle: "Modern Farmhouse on <em>2nd Street.</em>",
+    storyTitle: "Custom Home on <em>2nd Street.</em>",
     storyParas: [
-      "2ND ST delivers a quiet, refined floor plan with modern lines and warm, light-filled rooms.",
-      "Five bedrooms, five-and-a-half baths, with 4,153 sq ft livable and 5,578 sq ft total."
+      "2ND ST is a refined modern build in walkable Old Town Scottsdale — a quiet, light-filled floor plan with strong indoor-outdoor flow and warm finishes throughout.",
+      "Five bedrooms, four-and-a-half baths across 3,841 sq ft. Sold July 2023 for $1,700,000."
     ],
     amenities: [
       ["5 Bedrooms", "Private suites with thoughtful storage"],
-      ["5.5 Bathrooms", "Designer fixtures and finishes"],
-      ["5578 sq ft", "Total area per published plan"],
-      ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["4.5 Bathrooms", "Designer fixtures and finishes"],
+      ["Private Pool", "Backyard pool with patio"],
+      ["Built-in BBQ", "Outdoor kitchen and fire pit"],
+      ["Mountain Views", "Camelback Mountain in view"],
+      ["Old Town Scottsdale", "Walkable to dining & shopping"]
     ]
   },
 
   "coolidge": {
     name: "Coolidge",
-    location: "Scottsdale, Arizona",
+    location: "Arcadia Lite, Phoenix",
     year: 2025,
-    status: "Sold",
-    price: "—",
-    sqft: "5,578",
-    beds: "3",
-    baths: "3.5",
+    status: "Sold 2025",
+    price: "$3,780,000",
+    sqft: "4,650",
+    beds: "5",
+    baths: "7",
     heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_4680.jpg",
     gallery: [
       "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_4680.jpg",
@@ -1627,96 +1959,267 @@ const PROJECTS = {
     ]
   },
 
-  "larkspur": {
-    name: "Larkspur",
-    location: "Scottsdale, Arizona",
+  "glenrosa": {
+    name: "Glenrosa",
+    location: "Arcadia, Phoenix",
     year: 2025,
-    status: "Sold",
-    price: "—",
-    sqft: "5,578",
-    beds: "3",
-    baths: "3.5",
-    heroImg: "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg",
+    status: "For Sale",
+    price: "$2,450,000",
+    sqft: "3,689",
+    beds: "5",
+    baths: "6",
+    heroImg: "https://lh3.googleusercontent.com/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT",
     gallery: [
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0799.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0802.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0803.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0805.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0806.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0811.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0812.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0813.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0815.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5283.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5286.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5289.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5292.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5295.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5305.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5310.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5313.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5316.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5321.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5324.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5327.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5330.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5335.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5339.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5342.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5345.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5348.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5352.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5355.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5358.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5361.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5364.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5368.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5371.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5374.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5378.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5382.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5385.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5388.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5391.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5395.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5398.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5403.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5404.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5407.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5410.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5414.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5417.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5420.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5423.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5426.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5429.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5432.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5435.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5438.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5441.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5444.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5447.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5450.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5453.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5456.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5459.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5462.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5465.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5468.jpg",
-      "https://ellaleehomes.com/wp-content/uploads/2025/11/IMG_5471.jpg"
+      "https://lh3.googleusercontent.com/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT",
+      "https://lh3.googleusercontent.com/d/1tym9GqXAKPu_8cWvP4X-VyobkZL5Fyel",
+      "https://lh3.googleusercontent.com/d/1X2u69Nx6-mUHBl-jUp_KHuyNhE_cazIZ",
+      "https://lh3.googleusercontent.com/d/1M0_dHrVp09DrwMc4trVZNaB0c06xl31E",
+      "https://lh3.googleusercontent.com/d/1mFLu0jCGpABbYZEVqXeXO8N0h9-KfFHS",
+      "https://lh3.googleusercontent.com/d/1r_VBlsK6eGMxkZSDQiUJ3xOY2rduLwgJ",
+      "https://lh3.googleusercontent.com/d/1dSnWkDEgTVr2ilhyrArFNZ_dggMya2AI",
+      "https://lh3.googleusercontent.com/d/100PSy2ECOWqseaM0OVMdg0A-22c-hFaw",
+      "https://lh3.googleusercontent.com/d/1uNiKFn-IZ0LcD8Rgc5IFEqt7e8LkCFKA",
+      "https://lh3.googleusercontent.com/d/1ohqdcOed3V8GU7lpVsKu8qf2aLPvaC17",
+      "https://lh3.googleusercontent.com/d/1AFseB7mPJvVTmHgm2_rSO-GxEWrKoVTc",
+      "https://lh3.googleusercontent.com/d/1dD8bqkvxWMqtBwHWkYybvKVBDjY0FTrd",
+      "https://lh3.googleusercontent.com/d/1qWfEsRj-orNJKZl6szSB8fcgf0Qom_Ku",
+      "https://lh3.googleusercontent.com/d/13OjWNe0nkKkfvg3inYl9zNsrS-hkPou1",
+      "https://lh3.googleusercontent.com/d/1NPpHaLMYakz1Grjl1fkJ5LGWvHs0ybQj",
+      "https://lh3.googleusercontent.com/d/1jaLhzNT2T8kVk9h4Ym1AGDjSMNKbdCXs",
+      "https://lh3.googleusercontent.com/d/1GCFQtg7cdUIEnZJCUn8_phxIRs2BpzWI",
+      "https://lh3.googleusercontent.com/d/14DgwVzFfqldYnFtVAIHa2T2Sc_VG2VZx",
+      "https://lh3.googleusercontent.com/d/1SSdE9kwzA2TNhSUuKiS-hZPIZ08MIEdg",
+      "https://lh3.googleusercontent.com/d/1Yjt6uDoulXE8tc-gBnTst3kX99E5zFo5",
+      "https://lh3.googleusercontent.com/d/1QaLVj63l2W-l87vwUv1RIaFLkiQeDK9A",
+      "https://lh3.googleusercontent.com/d/1vUBWXSTIsaQzPwtge43YNJIhd-pBzI1u",
+      "https://lh3.googleusercontent.com/d/1H_IIv9GErZeSJUIW_bUXAQG4qKWIJmV6",
+      "https://lh3.googleusercontent.com/d/1AZdxtAEmudlT4ANv623DKxDOemdwpc4O",
+      "https://lh3.googleusercontent.com/d/1FJjGPVVn9bOK6B-IPTVuizK-EfOxWmCH",
+      "https://lh3.googleusercontent.com/d/1TfPgbHxZZ2A4yyVDwJ0g_JBGZlqdEuTk",
+      "https://lh3.googleusercontent.com/d/13hSLTevs9b-xRL0uRkvfhfGqLX1aiZDV",
+      "https://lh3.googleusercontent.com/d/17v4JVLp6YVd1AeFOmyw_reNH_Xy2xWJk",
+      "https://lh3.googleusercontent.com/d/1zKF3K_Pcz4A_jyLJ9nImPTEf-0Pjmla6",
+      "https://lh3.googleusercontent.com/d/14BxS9yYZFX_jvRb7J3GIEyNhJjstVdEy",
+      "https://lh3.googleusercontent.com/d/16NeV19B3xECMT8FauQFbrQpN2jjRWBK1",
+      "https://lh3.googleusercontent.com/d/16OSDglkUg20TjThMlz3mZrjEOqnnmj2L",
+      "https://lh3.googleusercontent.com/d/1QkJ-xD4ppRQl2umcIqiLLhdECs0e6cbO",
+      "https://lh3.googleusercontent.com/d/19G40A-CvLPjzA4RDzHbtqoLB2a3MHgTb",
+      "https://lh3.googleusercontent.com/d/1kbu4ghxsWqLLTmyaYPQwCYxHBMoi-Tvf",
+      "https://lh3.googleusercontent.com/d/1Qms5Gz92GrhvzM2f2s1GOpvrGgb4xDGx",
+      "https://lh3.googleusercontent.com/d/1uBBZ0agZkb0GN17x1l-W9Hbgk4o-BRWV",
+      "https://lh3.googleusercontent.com/d/1W_MQWDK1O8VmFYYlJehMUaNPuJkFb6bz",
+      "https://lh3.googleusercontent.com/d/1scyTmP-nUzO7RgGnA11mhxUeHkXhIoyw",
+      "https://lh3.googleusercontent.com/d/14rTmPxOWja5VORytgDRmwMTGBfKhXJb-",
+      "https://lh3.googleusercontent.com/d/1c8DRBB3X9KqQWZ8mIUGlGRa03TLlX3l8",
+      "https://lh3.googleusercontent.com/d/1UPAYk09DLcACAQ-SFsSSD6h5v1kV756A",
+      "https://lh3.googleusercontent.com/d/1nLO4zq_rP0C2ZNiN1oJ8CXcKSoEkOf-M",
+      "https://lh3.googleusercontent.com/d/1ZAbfWGpSg9Y5jhDEhPd_N3xcKucRUzEU",
+      "https://lh3.googleusercontent.com/d/1qu-s4CcJRiZw5mcK4852YB2k6EugH75l",
+      "https://lh3.googleusercontent.com/d/1GhFHbH0MkUrfsnrsEjIzJZhoChDACYVE",
+      "https://lh3.googleusercontent.com/d/1TPEnTA1EVgEFcCfKzlENoVnQ7iKeeJuD",
+      "https://lh3.googleusercontent.com/d/1zKYUgu9L7gZa-KJHC7Wo96OdDFKGuG2Y",
+      "https://lh3.googleusercontent.com/d/1XAfcheT2wggLDSeZ8Zxa56phIQEYNP6f",
+      "https://lh3.googleusercontent.com/d/1Q33qlYqjaWevBCnGSvuGQm5d18n8fxBQ"
     ],
-    storyTitle: "Serene Living — <em>Larkspur.</em>",
+    storyTitle: "Modern Living in <em>Arcadia.</em>",
     storyParas: [
-      "Larkspur offers a peaceful, established-neighborhood setting with modern architecture and abundant natural light.",
-      "Three bedrooms, three-and-a-half baths, with 4,153 sq ft livable and 5,578 sq ft total."
+      "Glenrosa brings clean modern lines and warm finishes to one of Phoenix's most sought-after neighborhoods.",
+      "Five bedrooms, six baths across 3,689 sq ft — designed for indoor-outdoor Arizona living."
     ],
     amenities: [
-      ["3 Bedrooms", "Private suites with thoughtful storage"],
-      ["3.5 Bathrooms", "Designer fixtures and finishes"],
-      ["5578 sq ft", "Total area per published plan"],
-      ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
+      ["5 Bedrooms", "Private suites with thoughtful storage"],
+      ["6 Bathrooms", "Designer fixtures and finishes"],
+      ["3,689 sq ft", "Total living area"],
+      ["Arcadia, Phoenix", "Arizona custom build"],
+      ["Indoor\u2013outdoor living", "Connected main living spaces"],
+      ["Ella Lee Homes build", "See live site for full amenity list"]
+    ]
+  },
+
+  "5th-st-2": {
+    name: "5TH ST 2",
+    location: "Southwest Village, Scottsdale",
+    year: 2023,
+    status: "Sold 2023",
+    price: "$1,850,000",
+    sqft: "3,480",
+    beds: "5",
+    baths: "4",
+    heroImg: "https://photos.zillowstatic.com/fp/97bd9efd44d0083b51918b51c8523452-cc_ft_1536.jpg",
+    gallery: [
+      "https://photos.zillowstatic.com/fp/97bd9efd44d0083b51918b51c8523452-cc_ft_1536.jpg"
+    ],
+    storyTitle: "5TH ST \u2014 <em>Second Chapter.</em>",
+    storyParas: [
+      "5TH ST 2 continues the story of our Scottsdale builds \u2014 refined interiors, thoughtful planning, and genuine build quality.",
+      "Five bedrooms, four baths across 3,480 sq ft. Sold 2023 for $1,850,000."
+    ],
+    amenities: [
+      ["5 Bedrooms", "Private suites with thoughtful storage"],
+      ["4 Bathrooms", "Designer fixtures and finishes"],
+      ["3,480 sq ft", "Total living area"],
+      ["Southwest Village, Scottsdale", "Arizona custom build"],
+      ["Indoor\u2013outdoor living", "Connected main living spaces"],
+      ["Ella Lee Homes build", "See live site for full amenity list"]
+    ]
+  },
+
+  "cudia": {
+    name: "Cudia City",
+    location: "Camelback East, Phoenix",
+    year: 2024,
+    status: "Sold 2024",
+    price: "$4,940,000",
+    sqft: "4,258",
+    beds: "6",
+    baths: "7",
+    heroImg: "https://photos.zillowstatic.com/fp/7b74a0e5540fc8e59e48cbb69806d577-cc_ft_1536.jpg",
+    gallery: [
+      "https://photos.zillowstatic.com/fp/7b74a0e5540fc8e59e48cbb69806d577-cc_ft_1536.jpg"
+    ],
+    storyTitle: "Elevated Living at <em>Cudia City.</em>",
+    storyParas: [
+      "Cudia City is a statement build in the heart of Camelback East \u2014 six bedrooms, seven baths, and over 4,200 sq ft of refined living space.",
+      "Sold 2024 for $4,940,000."
+    ],
+    amenities: [
+      ["6 Bedrooms", "Private suites with thoughtful storage"],
+      ["7 Bathrooms", "Designer fixtures and finishes"],
+      ["4,258 sq ft", "Total living area"],
+      ["Camelback East, Phoenix", "Arizona custom build"],
+      ["Indoor\u2013outdoor living", "Connected main living spaces"],
+      ["Ella Lee Homes build", "See live site for full amenity list"]
+    ]
+  },
+
+  "desert-cove": {
+    name: "Desert Cove",
+    location: "Scottsdale, Arizona",
+    year: 2025,
+    status: "For Sale",
+    price: "$4,950,000",
+    sqft: "5,644",
+    beds: "6",
+    baths: "8",
+    heroImg: "https://photos.zillowstatic.com/fp/0b3b9e11641a06e1ca8f9f1645dbb1ea-cc_ft_1536.jpg",
+    gallery: [
+      "https://photos.zillowstatic.com/fp/0b3b9e11641a06e1ca8f9f1645dbb1ea-cc_ft_1536.jpg"
+    ],
+    storyTitle: "Desert Modern at <em>Desert Cove.</em>",
+    storyParas: [
+      "Desert Cove is a sweeping desert-modern build in North Scottsdale \u2014 six bedrooms, eight baths, and 5,644 sq ft of indoor-outdoor luxury.",
+      "Currently for sale at $4,950,000."
+    ],
+    amenities: [
+      ["6 Bedrooms", "Private suites with thoughtful storage"],
+      ["8 Bathrooms", "Designer fixtures and finishes"],
+      ["5,644 sq ft", "Total living area"],
+      ["Scottsdale, Arizona", "Arizona custom build"],
+      ["Indoor\u2013outdoor living", "Connected main living spaces"],
+      ["Ella Lee Homes build", "See live site for full amenity list"]
+    ]
+  },
+
+  "camino-sin-nombre": {
+    name: "Camino Sin Nombre",
+    location: "Paradise Valley, Arizona",
+    year: 2024,
+    status: "Sold 2024",
+    price: "$10,000,000",
+    sqft: "8,002",
+    beds: "6",
+    baths: "8",
+    heroImg: "https://lh3.googleusercontent.com/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF",
+    gallery: [
+      "https://lh3.googleusercontent.com/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF",
+      "https://lh3.googleusercontent.com/d/1I1HdSpi0icjR2r6pQZ0tEMtz_pd8G7b8",
+      "https://lh3.googleusercontent.com/d/1XyLtzRjiYvwxaTtpbBLmFiB6IJDMn5cQ",
+      "https://lh3.googleusercontent.com/d/1L93GZwcKMIu9PUT7G1HlZpoPTNH8iJxb",
+      "https://lh3.googleusercontent.com/d/16Jchemhl7P3EBRV31d28AuveUVWwqCN1",
+      "https://lh3.googleusercontent.com/d/1Hr1Z-iXz57rKiUS1GfrOauwguy5o8aIc",
+      "https://lh3.googleusercontent.com/d/1TBMKvb6Iyz9Z-ljpabOmyLRIdTy4ugk0",
+      "https://lh3.googleusercontent.com/d/1mjRBwJkFtUDDEeyMY-Ggxvwy3-X73xGE",
+      "https://lh3.googleusercontent.com/d/1mujhfIRkm2ATTgS2B6v2K6cDNDwWBMwD",
+      "https://lh3.googleusercontent.com/d/19QEPnEurio5EYMxAJTAmTFgLOaVv8LA8",
+      "https://lh3.googleusercontent.com/d/1dSo7tAPP9-z9z4jfyrT0o6NycohaiPxZ",
+      "https://lh3.googleusercontent.com/d/1TQq9th84qdS3L9qkEyYhibvkllAjyDuB",
+      "https://lh3.googleusercontent.com/d/10G1PeNu26-wWnbggksjcHLju0NP1Ogk4",
+      "https://lh3.googleusercontent.com/d/1XuyLUJmkwLgYvEc4tF8b2VbfVMW36_LD",
+      "https://lh3.googleusercontent.com/d/1L9euVPqYx53EXWUaqj7neqZNtFEgMGbX",
+      "https://lh3.googleusercontent.com/d/1ExFvratqmseV6CpQrjZwGuxwCyjyCGj3",
+      "https://lh3.googleusercontent.com/d/1idBLsydqWylBf6eLlWOjh6dFxs_TdNZ9",
+      "https://lh3.googleusercontent.com/d/1D5UPqoLAEcjfi_5F_hccRpug5sngVl3N",
+      "https://lh3.googleusercontent.com/d/18MfFxaTGYfQrpLnH_OzFC-K53wnPIDkH",
+      "https://lh3.googleusercontent.com/d/1h3H5GpTV8HDsQpZwIlKInRU_6X5Rq0US",
+      "https://lh3.googleusercontent.com/d/1DJ6IhLNBPVxBufg9UUkv0cAvGqG8oAm6",
+      "https://lh3.googleusercontent.com/d/1Bav0-yPg3vdlZQaeGVAHEiLufpvredjo",
+      "https://lh3.googleusercontent.com/d/16Z3Mg9kQf-YKiPI4BtqtkkHdkBOj81Ob",
+      "https://lh3.googleusercontent.com/d/13Y6tEy-6749CtBsnkmlJePtw6HA_CAzt",
+      "https://lh3.googleusercontent.com/d/18LZl0osn3WZ70W3beC7yAXbPOIFefMWp",
+      "https://lh3.googleusercontent.com/d/1i7kJ8Ep5qZSavtKdDMrzBAaLBYm7J8Zc",
+      "https://lh3.googleusercontent.com/d/1HMc7Iic5kGoB2QpwhQA-0ZSP_NtGO0UA",
+      "https://lh3.googleusercontent.com/d/1zdQwlEHtPb3BUf0NfeIgvLbKAIyV9fwb",
+      "https://lh3.googleusercontent.com/d/1UnC3e69EFCjKXoSdbvFEuCmTdWyhqJyP",
+      "https://lh3.googleusercontent.com/d/1djDbGff30dipvNHEFi8pNgBmEU0DJs8o",
+      "https://lh3.googleusercontent.com/d/1WjEnjkVhZ64VKGfG-EqYWv3MJxhIRML8",
+      "https://lh3.googleusercontent.com/d/1N1rxUZPqyAIx8yqKMMZ6ucaYJHdd0XYq",
+      "https://lh3.googleusercontent.com/d/1no2xKz08UF0hmm7FBLDlglWLm3GjStWN",
+      "https://lh3.googleusercontent.com/d/1_x4wYOCzfErl3Hmy1oHh-8XY1rhtaESK",
+      "https://lh3.googleusercontent.com/d/18zoafeSP0xYK1fXj_btxeUrv0Ram4Ad6",
+      "https://lh3.googleusercontent.com/d/19vZzMojCHoxUN6CmhCSCYHLrNErVsNZt",
+      "https://lh3.googleusercontent.com/d/1F_EpDalwoqHohV5PrrM3kvf2MzJZfecp",
+      "https://lh3.googleusercontent.com/d/1UIv_1SIz_Ds7R0ZTfKbWwf73DaPHhVPr",
+      "https://lh3.googleusercontent.com/d/1mL9x9rj5P3TIbRpZrAOP14p1FZgZH9q4",
+      "https://lh3.googleusercontent.com/d/1swAhJwBQdiEx8QfZ4MLoFesac1Chz6sT",
+      "https://lh3.googleusercontent.com/d/1ekajNtCrty4x1mvMtHZYobGms9luJ0l-",
+      "https://lh3.googleusercontent.com/d/1Py6WZPDgR_P2jV7knSvuNWHmwC0myk_a",
+      "https://lh3.googleusercontent.com/d/1_0X_bARd00FLXNvUJ_R6xC6KY43sgFnu",
+      "https://lh3.googleusercontent.com/d/1VZnw2G1jcPDHaxBQVZxEz9V5lYh-K_te",
+      "https://lh3.googleusercontent.com/d/1iHpnsAmdVPwu5DIq93eWMcMX-1OueFu8",
+      "https://lh3.googleusercontent.com/d/1mo4MSdbsJWAX-Iz6h4E0FPSAA_ArRh7g",
+      "https://lh3.googleusercontent.com/d/1jVHX6WXGOGtj1IYEqp1GJs52QJ98h9Sp",
+      "https://lh3.googleusercontent.com/d/1SJTwzmN3Pv3brkcWIPWN_gBJCKsIvhh8",
+      "https://lh3.googleusercontent.com/d/14-XzVvI9haE268feDhaUMrvDqpw2DgYZ",
+      "https://lh3.googleusercontent.com/d/1jwSx4ND7lcWo_afW9KujetC0iTJrBMKT",
+      "https://lh3.googleusercontent.com/d/1Ud-7vMwwRs3SL-U6lD_Fq8er4jZtuLYW",
+      "https://lh3.googleusercontent.com/d/1aa8ncfbaK-B4tCWURkPRYvn78QiI4E5P",
+      "https://lh3.googleusercontent.com/d/1dAv2a0CExuTQJhJS9RHj0WJLpkvAd0AS",
+      "https://lh3.googleusercontent.com/d/1Z1mHsggfEIj7eM2eJ5t3wiF7lGm6OucC",
+      "https://lh3.googleusercontent.com/d/1Pa4lM76V1aK6phvkZWYSCEL0WJRJwNCC",
+      "https://lh3.googleusercontent.com/d/1zdQfV2mIRItn1QD2EZWxxiur0pJMI6CD",
+      "https://lh3.googleusercontent.com/d/10bLmLz6NuLJv7qyhA8yU7B1eXiRKA2-Q",
+      "https://lh3.googleusercontent.com/d/1S6TeFNc_-KDIbvJAtiD20vWkzTaPflLf",
+      "https://lh3.googleusercontent.com/d/1VtWfiJmPgP_49-pbyGwP2ayszhh4a9_4",
+      "https://lh3.googleusercontent.com/d/1tavJfSikiMQA-VkVwTIZgnrNSLeWsfB7",
+      "https://lh3.googleusercontent.com/d/1eZSg0hLLpqUiqY_QHu0iN-slHTUCLzbD",
+      "https://lh3.googleusercontent.com/d/1dt5vZM5nAjXvLM5SHzulNfmuKumJWMa1",
+      "https://lh3.googleusercontent.com/d/1DZkvO3jd7axTWUOyUgIllOo5WA_Jg4em",
+      "https://lh3.googleusercontent.com/d/1thDba8inyDbaYYKFKo-OZuPkz0tkACOo",
+      "https://lh3.googleusercontent.com/d/1FT4xx1_3r6loxCNCzk4EKdKbfuk6OvTJ",
+      "https://lh3.googleusercontent.com/d/1fX_bgG85QBGkNVdoI00l3DwL6Jga6TBC",
+      "https://lh3.googleusercontent.com/d/1xJsU2Plu7O5RF-iAsZZQFFjaBlZB83Ex",
+      "https://lh3.googleusercontent.com/d/1Ji0ESDfnDZr6CLWLUypvvWSCjxMxEcnz",
+      "https://lh3.googleusercontent.com/d/1Wj9j-foEVHBZpzQq_68hZSNuxRC2EJzB",
+      "https://lh3.googleusercontent.com/d/1lnFV69c5oUnmtyPcJDyAaClwSeNrBLo4",
+      "https://lh3.googleusercontent.com/d/1o70Z5suoPegYdQ6XvLNLnEIywJi_1vs-",
+      "https://lh3.googleusercontent.com/d/19Si3tePxsU48pOr6rWJQQfKf90qbziNe",
+      "https://lh3.googleusercontent.com/d/1aqD_JRqXwf66lDUE06AZqkFFVYqXiuRU",
+      "https://lh3.googleusercontent.com/d/1iy8a6ccIMr6e4GZW5TTWKG6T4K3Iy2eu",
+      "https://lh3.googleusercontent.com/d/1uOlq_j5RUB7bcKwR05W7lnf2EhDceudM",
+      "https://lh3.googleusercontent.com/d/1d29RB3Eut66PG1PAiGgaOubJM0zOKQOn",
+      "https://lh3.googleusercontent.com/d/10efP8Lw009C_KS1rPCYtHxAhQ_xsRfSN"
+    ],
+    storyTitle: "Estate Living on <em>Camino Sin Nombre.</em>",
+    storyParas: [
+      "Camino Sin Nombre is our most ambitious Paradise Valley estate \u2014 8,002 sq ft of curated luxury, six bedrooms, eight baths, and unmatched craftsmanship throughout.",
+      "Sold 2024 for $10,000,000."
+    ],
+    amenities: [
+      ["6 Bedrooms", "Private suites with thoughtful storage"],
+      ["8 Bathrooms", "Designer fixtures and finishes"],
+      ["8,002 sq ft", "Total living area"],
+      ["Paradise Valley, Arizona", "Arizona custom build"],
+      ["Indoor\u2013outdoor living", "Connected main living spaces"],
       ["Ella Lee Homes build", "See live site for full amenity list"]
     ]
   }
@@ -1742,20 +2245,20 @@ const SLUG_ALIASES = {
   "camelback-vista": "via-estrella",
   "camino": "mitchell",
   "moody": "hazelwood-1",
-  "glenrosa": "larkspur"
+  "glenrosa-arcadia": "glenrosa"
 };
 
 
 const AMENITY_ICONS = [
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#001F33" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
 ];
 
 function renderProject() {
@@ -1858,6 +2361,85 @@ function renderProject() {
 }
 
 renderProject();
+
+// ── LIGHTBOX ──
+(function(){
+  const lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.innerHTML = `
+    <div id="lightbox-img-wrap">
+      <button class="lb-btn" id="lb-prev" aria-label="Previous">‹</button>
+      <img id="lightbox-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E" alt="">
+      <button class="lb-btn" id="lb-next" aria-label="Next">›</button>
+      <button class="lb-btn" id="lb-close" aria-label="Close">×</button>
+      <div id="lb-counter"></div>
+      <div id="lb-thumbs"></div>
+    </div>
+  `;
+  document.body.appendChild(lb);
+
+  const imgEl = lb.querySelector('#lightbox-img');
+  const counter = lb.querySelector('#lb-counter');
+  const thumbsEl = lb.querySelector('#lb-thumbs');
+  let imgs = [];
+  let idx = 0;
+
+  function show(i){
+    if (!imgs.length) return;
+    idx = (i + imgs.length) % imgs.length;
+    imgEl.src = imgs[idx];
+    counter.textContent = `${idx+1} / ${imgs.length}`;
+    Array.from(thumbsEl.children).forEach((t,j) => t.classList.toggle('active', j === idx));
+    const active = thumbsEl.children[idx];
+    if (active) active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+  }
+  function open(list, start=0){
+    imgs = list;
+    thumbsEl.innerHTML = imgs.map((src,j) => `<div class="lb-thumb" data-i="${j}"><img src="${src}" alt=""></div>`).join('');
+    thumbsEl.querySelectorAll('.lb-thumb').forEach(el => {
+      el.addEventListener('click', () => show(parseInt(el.dataset.i)));
+    });
+    show(start);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lb.querySelector('#lb-prev').addEventListener('click', () => show(idx - 1));
+  lb.querySelector('#lb-next').addEventListener('click', () => show(idx + 1));
+  lb.querySelector('#lb-close').addEventListener('click', close);
+  lb.addEventListener('click', e => { if (e.target === lb || e.target.id === 'lightbox-img-wrap') close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(idx - 1);
+    if (e.key === 'ArrowRight') show(idx + 1);
+  });
+
+  // Wire gallery tiles to lightbox
+  const gridEl = document.getElementById('gallery-grid');
+  if (gridEl) {
+    gridEl.addEventListener('click', e => {
+      const tile = e.target.closest('.gallery-img, .gallery-more');
+      if (!tile) return;
+      // Find current project gallery from URL
+      const params = new URLSearchParams(window.location.search);
+      const rawSlug = params.get('slug') || '68th';
+      const realSlug = (typeof SLUG_ALIASES !== 'undefined' && SLUG_ALIASES[rawSlug]) || rawSlug;
+      const proj = PROJECTS[realSlug];
+      if (!proj || !proj.gallery) return;
+      // Determine start index by tile position
+      const allTiles = Array.from(gridEl.querySelectorAll('.gallery-img, .gallery-more'));
+      const start = Math.min(allTiles.indexOf(tile), proj.gallery.length - 1);
+      open(proj.gallery, start >= 0 ? start : 0);
+    });
+    gridEl.style.cursor = 'pointer';
+  }
+})();
 </script>
+  <script defer src="assets/site-nav-contrast.js"></script>
 </body>
 </html>

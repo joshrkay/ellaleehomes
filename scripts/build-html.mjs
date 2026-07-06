@@ -1,6 +1,17 @@
 #!/usr/bin/env node
 /**
- * Injects partials (nav, footer, cursor) into src/*.html and emits dist/.
+ * Builds dist/ from src/.
+ *
+ * Pages may be authored one of two ways:
+ *  1. Self-contained — nav/footer/cursor markup is inlined directly in the page.
+ *     These are copied through verbatim.
+ *  2. Placeholder-based — the page contains <!-- NAV_PARTIAL -->,
+ *     <!-- FOOTER_PARTIAL --> and/or <!-- CURSOR_PARTIAL -->, which are
+ *     replaced with the shared partials at build time.
+ *
+ * Every *.html in src/ is emitted; other files (robots.txt, sitemap.xml, …)
+ * are copied through. assets/ and uploads/ are copied alongside so pages
+ * resolve `assets/…` and `uploads/…` correctly.
  */
 import fs from 'fs';
 import path from 'path';
@@ -23,17 +34,21 @@ const footerTemplate = fs.readFileSync(footerPath, 'utf8');
 const cursorTemplate = fs.readFileSync(cursorPath, 'utf8');
 
 /**
- * @typedef {{ file: string; navClass: string; active: Partial<Record<'why'|'portfolio'|'process'|'about'|'investors', boolean>> }} PageCfg
+ * @typedef {{ navClass: string; active: Partial<Record<'why'|'portfolio'|'process'|'about'|'investors', boolean>> }} PageCfg
  */
 
-/** @type {PageCfg[]} */
-const PAGES = [
-  { file: 'index.html', navClass: 'compact', active: {} },
-  { file: 'projects.html', navClass: '', active: { portfolio: true } },
-  { file: 'process.html', navClass: '', active: { process: true } },
-  { file: 'project.html', navClass: '', active: { portfolio: true } },
-  { file: 'our-story.html', navClass: '', active: { about: true } },
-];
+/**
+ * Per-page nav config, used only when a page still contains the nav
+ * placeholder. Self-contained pages ignore this.
+ * @type {Record<string, PageCfg>}
+ */
+const PAGE_CFG = {
+  'index.html': { navClass: 'compact', active: {} },
+  'projects.html': { navClass: '', active: { portfolio: true } },
+  'process.html': { navClass: '', active: { process: true } },
+  'project.html': { navClass: '', active: { portfolio: true } },
+  'our-story.html': { navClass: '', active: { about: true } },
+};
 
 function aria(on) {
   return on ? ' aria-current="page"' : '';
@@ -68,6 +83,27 @@ function renderFooter(isHome) {
   return footerTemplate.replaceAll('__HREF_MEET__', hrefMeet).replaceAll('__HREF_CTA__', hrefCta);
 }
 
+/**
+ * Inject shared partials into a page wherever their placeholders appear.
+ * Pages with no placeholders are returned unchanged.
+ * @param {string} file
+ * @param {string} content
+ */
+function injectPartials(file, content) {
+  if (content.includes(PLACEHOLDER)) {
+    const cfg = PAGE_CFG[file] ?? { navClass: '', active: {} };
+    content = content.split(PLACEHOLDER).join(renderNav(cfg.active, cfg.navClass));
+  }
+  if (content.includes(FOOTER_PLACEHOLDER)) {
+    const isHome = file === 'index.html';
+    content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(isHome));
+  }
+  if (content.includes(CURSOR_PLACEHOLDER)) {
+    content = content.split(CURSOR_PLACEHOLDER).join(cursorTemplate);
+  }
+  return content;
+}
+
 function copyDir(from, to) {
   if (!fs.existsSync(from)) return;
   fs.mkdirSync(to, { recursive: true });
@@ -81,33 +117,21 @@ function copyDir(from, to) {
 
 fs.mkdirSync(distDir, { recursive: true });
 
-for (const page of PAGES) {
-  const srcFile = path.join(srcDir, page.file);
-  if (!fs.existsSync(srcFile)) {
-    console.error('Missing source file:', srcFile);
-    process.exit(1);
+let pageCount = 0;
+for (const name of fs.readdirSync(srcDir)) {
+  const srcFile = path.join(srcDir, name);
+  if (fs.statSync(srcFile).isDirectory()) continue;
+
+  if (name.endsWith('.html')) {
+    const content = injectPartials(name, fs.readFileSync(srcFile, 'utf8'));
+    fs.writeFileSync(path.join(distDir, name), content, 'utf8');
+    pageCount++;
+  } else {
+    // Static files (robots.txt, sitemap.xml, …) are copied through.
+    fs.copyFileSync(srcFile, path.join(distDir, name));
   }
-  let content = fs.readFileSync(srcFile, 'utf8');
-  if (!content.includes(PLACEHOLDER)) {
-    console.error('Missing', PLACEHOLDER, 'in', page.file);
-    process.exit(1);
-  }
-  if (!content.includes(FOOTER_PLACEHOLDER)) {
-    console.error('Missing', FOOTER_PLACEHOLDER, 'in', page.file);
-    process.exit(1);
-  }
-  if (!content.includes(CURSOR_PLACEHOLDER)) {
-    console.error('Missing', CURSOR_PLACEHOLDER, 'in', page.file);
-    process.exit(1);
-  }
-  const nav = renderNav(page.active, page.navClass);
-  content = content.split(PLACEHOLDER).join(nav);
-  const isHome = page.file === 'index.html';
-  content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(isHome));
-  content = content.split(CURSOR_PLACEHOLDER).join(cursorTemplate);
-  fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
-  console.log('Wrote', path.join('dist', page.file));
 }
+console.log(`Wrote ${pageCount} page(s) → dist/`);
 
 copyDir(path.join(root, 'assets'), path.join(distDir, 'assets'));
 copyDir(path.join(root, 'uploads'), path.join(distDir, 'uploads'));

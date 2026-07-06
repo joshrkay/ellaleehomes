@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Build Your Custom Home — Ella Lee Homes</title>
+<meta name="description" content="Get in touch with Ella Lee Homes, Arizona's premier luxury custom home builder. Call (480) 340-8700 or send us a message to begin building your dream home.">
+<link rel="canonical" href="https://ellaleehomes.com/contact/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ellaleehomes.com/contact/">
+<meta property="og:title" content="Contact Us — Ella Lee Homes">
+<meta property="og:description" content="Get in touch with Ella Lee Homes, Arizona's premier luxury custom home builder. Call (480) 340-8700 or send us a message to begin building your dream home.">
+<meta property="og:image" content="https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png">
+<meta property="og:site_name" content="Ella Lee Homes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-footer.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001F33; --gold: #C9A96E;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+  --nav-h: 88px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  padding-top: 0;
+}
+
+/* ── NAV SCROLLED ── */
+#nav { transition: background 0.3s ease, box-shadow 0.3s ease !important; }
+#nav.scrolled {
+  background: var(--paper) !important;
+  box-shadow: 0 1px 0 rgba(43,43,43,0.10) !important;
+}
+#nav.scrolled .nav-pill {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+#nav.scrolled .nav-links a,
+#nav.scrolled .nav-dd-trigger,
+#nav.scrolled .nav-phone,
+#nav.scrolled .nav-cta { color: var(--ink) !important; }
+#nav.scrolled .nav-cta {
+  border-color: rgba(43,43,43,0.25) !important;
+  background: transparent !important;
+}
+#nav.scrolled .nav-cta:hover { background: rgba(43,43,43,0.06) !important; }
+#nav.scrolled .nav-logo-img { filter: brightness(0) !important; }
+
+/* ── HERO ── */
+#hero-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(440px, 64vh, 640px);
+  overflow: hidden;
+  background: var(--ink);
+}
+#hero-banner img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.88) brightness(0.66);
+}
+#hero-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(0,0,0,0.38) 0%,
+    rgba(0,0,0,0.06) 30%,
+    rgba(0,0,0,0.28) 65%,
+    rgba(0,31,51,0.72) 100%);
+}
+.hero-head {
+  position: absolute; z-index: 2;
+  top: calc(var(--nav-h) + 64px);
+  left: 56px; right: 56px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 48px;
+  color: var(--paper);
+}
+.hero-eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.6); margin-bottom: 16px;
+}
+.hero-title {
+  font-size: clamp(56px, 9vw, 120px);
+  font-weight: 300; letter-spacing: -0.04em; line-height: 0.92;
+  color: var(--paper);
+}
+.hero-title em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.hero-meta {
+  max-width: 300px; padding-top: 16px;
+  font-size: 12px; font-weight: 300; line-height: 1.8;
+  color: rgba(234,229,220,0.6); text-align: right;
+}
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* ── MAIN CONTACT SECTION ── */
+#contact-body {
+  padding: 96px 56px 120px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-label {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 12px;
+}
+.section-heading {
+  font-size: clamp(30px, 3.8vw, 50px);
+  font-weight: 300; letter-spacing: -0.03em; line-height: 1.05;
+  color: var(--ink); margin-bottom: 16px;
+}
+.section-heading em {
+  font-style: normal; font-family: var(--serif); font-weight: 300; color: var(--navy);
+}
+.section-body {
+  font-size: 15px; font-weight: 300; line-height: 1.8;
+  color: rgba(43,43,43,0.68); max-width: 600px; margin-bottom: 56px;
+}
+
+/* ── CONTACT GRID ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* Info column */
+.contact-info { display: flex; flex-direction: column; gap: 0; }
+.info-row {
+  padding: 26px 0;
+  border-bottom: 1px solid rgba(43,43,43,0.12);
+}
+.info-row:first-child { padding-top: 0; }
+.info-label {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(43,43,43,0.5); margin-bottom: 12px;
+}
+.info-value {
+  font-family: var(--sans); font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 300; letter-spacing: -0.01em; color: var(--ink);
+  text-decoration: none; display: block; line-height: 1.4;
+  transition: color 0.2s;
+}
+a.info-value:hover { color: var(--navy); }
+.info-value.small { font-size: 15px; color: rgba(43,43,43,0.7); }
+.info-hours {
+  display: flex; justify-content: space-between;
+  font-size: 13px; font-weight: 300; color: rgba(43,43,43,0.7);
+  padding: 5px 0;
+}
+.info-hours span:first-child { color: rgba(43,43,43,0.5); }
+
+/* Google reviews badge */
+.greview-badge {
+  display: inline-flex; align-items: center; gap: 12px;
+  text-decoration: none; margin-top: 4px;
+  transition: opacity 0.2s;
+}
+.greview-badge:hover { opacity: 0.7; }
+.greview-score {
+  font-family: var(--sans); font-size: 28px; font-weight: 300;
+  color: var(--ink); letter-spacing: -0.02em; line-height: 1;
+}
+.greview-stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; }
+.greview-meta {
+  font-size: 12px; font-weight: 400; color: rgba(43,43,43,0.6);
+  letter-spacing: 0.02em;
+}
+
+/* Form */
+.contact-form {
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(43,43,43,0.12);
+  padding: 44px;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.field {
+  display: flex; flex-direction: column;
+  border-bottom: 1px solid rgba(43,43,43,0.12);
+  padding: 16px 0;
+}
+.form-row .field { border-right: 1px solid rgba(43,43,43,0.12); padding-right: 18px; }
+.form-row .field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
+.field label {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(43,43,43,0.55); margin-bottom: 8px;
+}
+.field input, .field textarea, .field select {
+  background: transparent; border: none; outline: none;
+  font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--ink);
+  padding: 0;
+}
+.field textarea { resize: none; min-height: 96px; line-height: 1.5; }
+.field input::placeholder, .field textarea::placeholder { color: rgba(43,43,43,0.35); }
+.field select {
+  cursor: pointer; -webkit-appearance: none; appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%232B2B2B' stroke-width='1.4' fill='none'/></svg>") no-repeat right center;
+}
+.field select option { background: var(--paper); color: var(--ink); }
+.form-actions {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; margin-top: 32px;
+}
+.form-note { font-size: 11px; color: rgba(43,43,43,0.55); line-height: 1.5; max-width: 220px; }
+.form-submit {
+  background: var(--ink); color: var(--paper); border: none;
+  font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; font-weight: 600;
+  padding: 16px 32px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 14px;
+  transition: background 0.25s, color 0.2s;
+}
+.form-submit svg { width: 16px; height: 8px; transition: transform 0.25s; }
+.form-submit:hover { background: var(--gold); color: var(--ink); }
+.form-submit:hover svg { transform: translateX(4px); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-head { flex-direction: column; gap: 24px; left: 24px; right: 24px; top: calc(var(--nav-h) + 36px); }
+  .hero-meta { text-align: left; }
+  #contact-body { padding: 64px 24px 88px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contact-form { padding: 28px; }
+  .form-row { grid-template-columns: 1fr; }
+  .form-row .field { border-right: none; padding-right: 0; padding-left: 0; }
+  .form-actions { flex-direction: column; align-items: flex-start; gap: 18px; }
+}
+</style>
+<!-- @localbusiness-schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "@id": "https://ellaleehomes.com/#business",
+  "name": "Ella Lee Homes",
+  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
+  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "url": "https://ellaleehomes.com/",
+  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "telephone": "+1-480-340-8700",
+  "email": "hello@ellaleehomes.com",
+  "priceRange": "$$",
+  "foundingLocation": "Phoenix, Arizona",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4408 N 12th St",
+    "addressLocality": "Phoenix",
+    "addressRegion": "AZ",
+    "postalCode": "85014",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 33.5004403,
+    "longitude": -112.0567192
+  },
+  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "Place",
+      "name": "Arcadia, Phoenix"
+    },
+    {
+      "@type": "City",
+      "name": "Phoenix",
+      "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    }
+  ],
+  "knowsAbout": [
+    "Custom home building",
+    "Luxury home construction",
+    "Home design",
+    "Residential development"
+  ],
+  "sameAs": [
+    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "12",
+    "bestRating": "5"
+  }
+}
+</script>
+</head>
+<body class="theme-portal">
+<div id="cur"><div id="cur-dot"></div></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav" class="theme-portal">
+  <a href="index.html" class="nav-logo" id="navLogo" aria-label="Ella Lee Homes">
+    <img class="nav-logo-img" src="uploads/Monogram_Navy.png" alt="Ella Lee Homes">
+  </a>
+  <ul class="nav-links nav-pill">
+    <li><a href="projects.html">Portfolio</a></li>
+    <li><a href="process.html">Build</a></li>
+    <li><a href="sell.html">Sell</a></li>
+    <li><a href="our-story.html">Our Story</a></li>
+    <li class="nav-has-dd">
+      <button class="nav-dd-trigger" type="button" aria-expanded="false" aria-haspopup="true">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <a href="tel:4803408700" class="nav-phone">(480) 340-8700</a>
+    <a href="contact.html" class="nav-cta">Schedule a Consultation</a>
+  </div>
+  <a href="tel:4803408700" class="nav-phone-mobile" aria-label="Call Ella Lee Homes at (480) 340-8700"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M4.5 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.6 1.5A15.5 15.5 0 013 4.6 1.5 1.5 0 014.5 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+  <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" type="button">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-dd-panel" role="region" aria-label="Learn menu">
+  <div class="nav-dd-intro">
+    <div class="nav-dd-intro-title">About Ella Lee Homes</div>
+    <div class="nav-dd-intro-sub">Sustainable, energy efficient, on time &amp; on budget homes</div>
+  </div>
+  <div class="nav-dd-grid">
+    <div class="nav-dd-col">
+      <a href="why-us.html">Why Ella Lee</a>
+      <a href="investors.html">Developers &amp; Investors</a>
+      <a href="stories.html">Stories &amp; Insights</a>
+    </div>
+    <div class="nav-dd-col">
+      <a href="client-portal.html">Client Portal</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="nav-mobile-overlay" aria-hidden="true">
+  <div class="nav-mobile-panel">
+    <a href="projects.html" class="nav-mobile-link">Portfolio</a>
+    <a href="process.html" class="nav-mobile-link">Build</a>
+    <a href="sell.html" class="nav-mobile-link">Sell</a>
+    <a href="our-story.html" class="nav-mobile-link">Our Story</a>
+    <div class="nav-mobile-learn-section">
+      <button class="nav-mobile-learn-btn" type="button">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="nav-mobile-learn-items">
+        <a href="why-us.html">Why Ella Lee</a>
+        <a href="investors.html">Developers &amp; Investors</a>
+        <a href="stories.html">Stories &amp; Insights</a>
+        <a href="client-portal.html">Client Portal</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="nav-mobile-sep"></div>
+    <a href="index.html#cta" class="nav-mobile-cta">Schedule a Consultation</a>
+  </div>
+</div>
+
+
+<!-- HERO -->
+<section id="hero-banner">
+  <img
+    src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg"
+    alt="Ella Lee Homes luxury custom home exterior"
+    loading="eager">
+  <div class="hero-head">
+    <div>
+      <div class="hero-eyebrow">Contact Us</div>
+      <h1 class="hero-title">Let's build<br>something <em>lasting.</em></h1>
+    </div>
+    <p class="hero-meta">
+      Whether you're building from the ground up, selling a custom home, or simply exploring what's possible, we'd love to hear from you.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT BODY -->
+<section id="contact-body">
+
+  <div class="reveal">
+    <div class="section-label">Begin the Conversation</div>
+    <h2 class="section-heading">Tell us about <em>your vision.</em></h2>
+    <p class="section-body">Reach out by phone, email, or the form below. We respond personally within one business day and look forward to learning about your project.</p>
+  </div>
+
+  <div class="contact-grid">
+
+    <!-- Info column -->
+    <div class="contact-info reveal">
+      <div class="info-row">
+        <div class="info-label">Phone</div>
+        <a href="tel:4803408700" class="info-value">(480) 340-8700</a>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Email</div>
+        <a href="mailto:hello@ellaleehomes.com" class="info-value">hello@ellaleehomes.com</a>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Studio</div>
+        <span class="info-value">4408 N 12th St</span>
+        <span class="info-value small">Phoenix, AZ 85014</span>
+        <a class="info-directions" href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener" style="display:inline-block; margin-top:8px; font-size:13px; color:var(--navy); font-weight:500;">Get directions &rarr;</a>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Hours</div>
+        <div class="info-hours"><span>Monday – Friday</span><span>8:00 AM – 5:00 PM</span></div>
+        <div class="info-hours"><span>Saturday</span><span>By appointment</span></div>
+        <div class="info-hours"><span>Sunday</span><span>Closed</span></div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Reviews</div>
+        <a class="greview-badge" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r" target="_blank" rel="noopener">
+          <span class="greview-score">5.0</span>
+          <span class="greview-stars" aria-hidden="true">★★★★★</span>
+          <span class="greview-meta">See what our clients say</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form class="contact-form reveal" onsubmit="event.preventDefault(); this.querySelector('.form-submit').innerHTML='Thank you. We&rsquo;ll be in touch.';">
+      <div class="form-row">
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane" required="">
+        </div>
+        <div class="field">
+          <label>Last Name</label>
+          <input type="text" placeholder="Doe" required="">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Email</label>
+          <input type="email" placeholder="jane@email.com" required="">
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="tel" placeholder="(480) 555-0100">
+        </div>
+      </div>
+      <div class="field">
+        <label>I'm interested in</label>
+        <select>
+          <option>Building a custom home</option>
+          <option>Selling my custom home</option>
+          <option>Developer partnership</option>
+          <option>General inquiry</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Tell us about your project</label>
+        <textarea placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
+      </div>
+      <div class="form-actions">
+        <p class="form-note">We read every message personally and respond within one business day.</p>
+        <button type="submit" class="form-submit">
+          Send Message
+          <svg viewBox="0 0 16 8" fill="none" aria-hidden="true"><path d="M0 4h14M11 1l3 3-3 3" stroke="currentColor" stroke-width="1.4"/></svg>
+        </button>
+      </div>
+    </form>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FOOTER -->
+<footer class="grain site-footer">
+  <div>
+    <div class="footer-brand">Ella Lee Homes</div>
+    <p class="footer-copy">Ella Lee Homes. Arcadia, Paradise Valley, and Scottsdale’s premier custom home builder. BUILT RIGHT.</p>
+    <div class="footer-roc">ROC License: KB2-333410</div>
+  </div>
+  <div class="footer-col">
+    <h4>Navigate</h4>
+    <a href="projects.html">Previous Projects</a>
+    <a href="our-story.html">Our Story</a>
+    <a href="process.html">Build Your Home</a>
+    <a href="investors.html">Developers</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <a href="process.html">Build Your Home</a>
+    <a href="sell.html">Sell a Home</a>
+    <a href="investors.html">Developers</a>
+    <a href="client-portal.html">Client Portal</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a>
+    <a href="tel:4803408700">(480) 340-8700</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">4408 N 12th St</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">Phoenix, AZ 85014</a>
+    <div class="footer-hours">Mon–Fri 9am–5pm · Sat by appointment</div>
+  </div>
+</footer>
+<div class="footer-btm">
+  <span>© 2026 Ella Lee Homes &nbsp;·&nbsp; ROC License KB2-333410</span>
+  <div class="footer-btm-right"><nav class="footer-legal"><a href="faq.html">FAQ</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></nav><div class="footer-social"><a href="https://www.instagram.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg></a><a href="https://www.facebook.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 8.5h2.2V5.3H14c-1.9 0-3.2 1.3-3.2 3.3v1.6H8.6v3.1h2.2V21h3.3v-7.6h2.2l.4-3.1h-2.6V8.9c0-.3.2-.4.5-.4z" fill="currentColor"/></svg></a><a href="https://www.houzz.com/" target="_blank" rel="noopener" aria-label="Houzz"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l7 4v13.6h-5v-5.6H10v5.6H5V7.2z"/></svg></a></div></div>
+</div>
+
+<script defer src="assets/site-cursor.js"></script>
+<script defer src="assets/site-nav-dd.js"></script>
+<script>
+(function () {
+  const nav = document.getElementById('nav');
+  const hero = document.getElementById('hero-banner');
+  if (!nav) return;
+  function onScroll() {
+    const threshold = hero ? hero.offsetHeight - nav.offsetHeight : 80;
+    nav.classList.toggle('scrolled', window.scrollY > threshold);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+</script>
+  <script defer src="assets/site-nav-contrast.js"></script>
+</body>
+</html>

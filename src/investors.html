@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ella Lee Homes — Investors &amp; Developers</title>
+<meta name="description" content="Partner with Ella Lee Homes for luxury residential development in Arizona. On-time, on-budget delivery, value engineering, and sustainable construction that maximizes ROI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-footer.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001F33; --gold: #C9A96E;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+  --nav-h: 88px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  /* Hero is full-bleed under the fixed nav — no top padding */
+  padding-top: 0;
+}
+
+/* ── PAGE HEADER — now overlaid on the hero image (.hero-head) ── */
+
+/* ── HERO BANNER ── */
+#hero-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(580px, 82vh, 820px);
+  overflow: hidden;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+#hero-banner img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.92) brightness(0.78);
+  transform: scale(1.02);
+}
+#hero-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 26%, rgba(0,0,0,0.30) 60%, rgba(0,31,51,0.74) 100%);
+}
+/* Top overlay: eyebrow + page title (left), supporting meta (right) */
+.hero-head {
+  position: absolute; z-index: 2;
+  top: calc(var(--nav-h) + 56px);
+  left: 56px; right: 56px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 48px;
+  color: var(--paper);
+}
+.hero-head .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.7); margin-bottom: 14px;
+}
+.hero-title {
+  font-size: clamp(48px, 7vw, 104px);
+  font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
+  color: var(--paper);
+}
+.hero-title em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.hero-head-meta {
+  font-size: 12px; line-height: 1.7; color: rgba(234,229,220,0.7);
+  text-align: right; max-width: 300px; font-weight: 300;
+  padding-top: 12px;
+}
+.hero-head-meta strong { color: var(--paper); font-weight: 500; }
+.hero-caption {
+  position: absolute; left: 56px; bottom: 48px; z-index: 2;
+  color: var(--paper);
+  max-width: 720px;
+}
+.hero-caption .eyebrow {
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.75); margin-bottom: 14px;
+}
+.hero-caption h2 {
+  font-size: clamp(32px, 4.6vw, 64px); font-weight: 300; letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+.hero-caption h2 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.hero-meta {
+  position: absolute; right: 56px; bottom: 48px; z-index: 2;
+  color: rgba(234,229,220,0.78);
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  text-align: right; line-height: 2;
+  font-variant-numeric: tabular-nums;
+}
+.hero-meta strong { color: var(--paper); font-weight: 500; }
+
+/* ── LEDE SECTION ── */
+#lede {
+  padding: 120px 56px 120px;
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px;
+  align-items: start;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+}
+.lede-eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 18px;
+}
+.lede-title {
+  font-size: clamp(28px, 3.6vw, 48px); font-weight: 300;
+  letter-spacing: -0.025em; line-height: 1.08;
+}
+.lede-title em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.lede-body {
+  font-size: 17px; line-height: 1.75; color: rgba(43,43,43,0.78);
+  font-weight: 300;
+}
+.lede-body p + p { margin-top: 22px; }
+.lede-body strong { color: var(--ink); font-weight: 500; }
+
+/* ── DIFFERENTIATORS / FOUR PILLARS — STACKING CARDS ──
+   Each .pillar is position: sticky and full viewport height.
+   As the page scrolls, every pillar arrives at the same top offset
+   and locks ON TOP of the previous one (later DOM siblings paint over
+   earlier ones). They release as a group when #pillars ends, handing
+   off cleanly to the By-the-Numbers section. */
+#pillars {
+  padding: 0;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+  position: relative;
+}
+.pillars-intro {
+  padding: 0 56px 80px;
+  max-width: 880px;
+}
+.pillars-stack {
+  position: relative;
+  /* Each child reserves ~1 viewport of scroll for itself */
+}
+.pillars-intro .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 16px;
+}
+.pillars-intro h2 {
+  font-size: clamp(32px, 4vw, 56px); font-weight: 300;
+  letter-spacing: -0.025em; line-height: 1.05;
+}
+.pillars-intro h2 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+
+.pillar {
+  /* Sticky stacking card */
+  position: sticky;
+  top: var(--nav-h);
+  min-height: 72vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+  background: var(--paper);
+  /* The top edge of each card gets a soft shadow + hairline so when
+     it stacks on top of the previous one, you feel the new layer
+     landing. The body of the card stays paper-colored and opaque so
+     the previous card is fully covered. */
+  border-top: 1px solid rgba(43,43,43,0.12);
+  box-shadow: 0 -1px 0 rgba(43,43,43,0.04), 0 -24px 48px -24px rgba(43,43,43,0.12);
+}
+/* Alternate the card background subtly so consecutive cards read as
+   distinct layers when stacked. Even cards = paper, odd cards = a
+   slightly cooler stone tone. */
+.pillar:nth-of-type(2) { background: #E3DDD2; }
+.pillar:nth-of-type(3) { background: var(--paper); }
+.pillar:nth-of-type(4) { background: #E3DDD2; }
+
+.pillar-media {
+  position: relative;
+  overflow: hidden;
+  background: rgba(43,43,43,0.05);
+  min-height: 72vh;
+}
+.pillar-media img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.92);
+  transition: transform 1.4s var(--ease), filter 0.6s;
+}
+.pillar:hover .pillar-media img { transform: scale(1.04); filter: saturate(1); }
+
+.pillar-body {
+  padding: 56px 64px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.pillar-num {
+  font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 24px;
+  font-variant-numeric: tabular-nums;
+}
+.pillar-num em {
+  color: var(--gold); font-style: normal; margin-right: 16px;
+  font-family: var(--serif); font-style: normal; font-size: 18px;
+  letter-spacing: 0;
+}
+.pillar-title {
+  font-size: clamp(30px, 3vw, 44px);
+  font-weight: 400; letter-spacing: -0.02em; line-height: 1.1;
+  margin-bottom: 24px;
+}
+.pillar-title em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.pillar-text {
+  font-size: 17px; line-height: 1.75; color: rgba(43,43,43,0.84);
+  font-weight: 400;
+}
+.pillar-tag {
+  margin-top: 28px;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--navy); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.pillar-tag::before {
+  content: ''; width: 24px; height: 1px; background: var(--gold);
+}
+
+/* Alternating: reverse image side on odd-numbered pillars */
+.pillar:nth-child(odd of .pillar) .pillar-media,
+.pillar.flip .pillar-media { order: 2; }
+
+/* ── STATS BAND ── */
+#stats {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 96px 56px;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+}
+.stats-intro {
+  max-width: 720px;
+  margin-bottom: 64px;
+}
+.stats-intro .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.45); margin-bottom: 16px;
+}
+.stats-intro h2 {
+  font-size: clamp(28px, 3.4vw, 44px); font-weight: 300;
+  letter-spacing: -0.02em; line-height: 1.1;
+  color: var(--paper);
+}
+.stats-intro h2 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(234,229,220,0.12);
+}
+.stat {
+  padding: 40px 32px 8px 0;
+  border-right: 1px solid rgba(234,229,220,0.10);
+}
+.stat:last-child { border-right: none; padding-right: 0; }
+.stat-num {
+  font-family: var(--serif); font-style: normal; font-weight: 300;
+  font-size: clamp(48px, 6vw, 84px);
+  letter-spacing: -0.03em; line-height: 1;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.stat-label {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(234,229,220,0.55); line-height: 1.5;
+  font-weight: 400;
+}
+.stat-label strong { color: var(--paper); font-weight: 500; }
+
+/* ── INVENTORY ── */
+#inventory {
+  padding: 120px 56px 96px;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+}
+.inv-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 64px;
+  gap: 48px;
+}
+.inv-head-l .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 16px;
+}
+.inv-head-l h2 {
+  font-size: clamp(32px, 4.4vw, 60px); font-weight: 300;
+  letter-spacing: -0.025em; line-height: 1.02;
+  max-width: 720px;
+}
+.inv-head-l h2 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.inv-head-r {
+  font-size: 13px; color: rgba(43,43,43,0.7); line-height: 1.7;
+  max-width: 280px; font-weight: 300;
+}
+
+.inv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 24px;
+}
+a.inv-card { display: block; color: inherit; text-decoration: none; }
+.inv-card {
+  background: rgba(43,43,43,0.04);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s;
+  cursor: pointer;
+}
+.inv-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(43,43,43,0.12); }
+.inv-card-img {
+  aspect-ratio: 4/3; overflow: hidden; background: rgba(43,43,43,0.08);
+}
+.inv-card-img img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.88);
+  transition: transform 0.8s var(--ease), filter 0.4s;
+}
+.inv-card:hover .inv-card-img img { transform: scale(1.04); filter: saturate(1); }
+.inv-card-body {
+  padding: 24px 28px 28px;
+}
+.inv-card-style { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 6px; display: block; }
+.inv-card-loc {
+  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 6px;
+}
+.inv-card-name {
+  font-size: 22px; font-weight: 300; letter-spacing: -0.01em;
+  margin-bottom: 14px; line-height: 1.1;
+}
+.inv-card-price {
+  font-size: 17px; font-weight: 400; color: var(--ink);
+  letter-spacing: -0.01em; margin-bottom: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.inv-card-specs {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  padding-top: 14px; border-top: 1px solid rgba(43,43,43,0.10);
+  font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--nickel);
+  font-variant-numeric: tabular-nums;
+}
+.inv-card-spec strong { color: var(--ink); font-weight: 500; }
+.inv-card-status {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(234,229,220,0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 6px 12px; color: var(--ink); font-weight: 500;
+  z-index: 1;
+}
+.inv-card-status.investment { background: rgba(201, 169, 110, 0.92); color: var(--ink); }
+
+.inv-foot {
+  margin-top: 56px; padding-top: 32px;
+  border-top: 1px solid rgba(43,43,43,0.10);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 24px; flex-wrap: wrap;
+  font-size: 13px; color: rgba(43,43,43,0.7); font-weight: 300;
+}
+.inv-foot a {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 14px 24px;
+  border: 1px solid rgba(43,43,43,0.20);
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.inv-foot a:hover {
+  background: var(--ink); color: var(--paper); border-color: var(--ink);
+}
+.inv-foot a svg { width: 16px; height: 8px; }
+
+/* ── FAQ ── */
+#faq {
+  padding: 120px 56px;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 96px;
+  align-items: start;
+}
+.faq-head .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 16px;
+}
+.faq-head h2 {
+  font-size: clamp(32px, 4vw, 56px); font-weight: 300;
+  letter-spacing: -0.025em; line-height: 1.02;
+}
+.faq-head h2 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.faq-head .faq-note {
+  margin-top: 28px; font-size: 14px; color: rgba(43,43,43,0.65);
+  line-height: 1.7; max-width: 320px; font-weight: 300;
+}
+.faq-list {
+  display: flex; flex-direction: column;
+  border-top: 1px solid rgba(43,43,43,0.14);
+}
+.faq-item {
+  border-bottom: 1px solid rgba(43,43,43,0.14);
+  padding: 0;
+}
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 28px 0;
+  display: flex; align-items: baseline; gap: 24px;
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 400; letter-spacing: -0.01em; color: var(--ink);
+  transition: color 0.2s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--navy); }
+.faq-num {
+  font-size: 10px; letter-spacing: 0.22em; color: var(--nickel);
+  font-variant-numeric: tabular-nums; flex-shrink: 0;
+  min-width: 32px;
+}
+.faq-q { flex: 1; }
+.faq-toggle {
+  margin-left: auto; font-size: 20px; font-weight: 300; color: var(--nickel);
+  transition: transform 0.4s var(--ease), color 0.2s;
+  flex-shrink: 0;
+}
+.faq-item[open] .faq-toggle { transform: rotate(45deg); color: var(--gold); }
+.faq-a {
+  padding: 0 0 36px 56px;
+  font-size: 15px; line-height: 1.85; color: rgba(43,43,43,0.74);
+  font-weight: 300;
+}
+.faq-a p + p { margin-top: 14px; }
+.faq-a strong { color: var(--ink); font-weight: 500; }
+.faq-a em {
+  font-family: var(--serif); font-style: normal; color: var(--gold);
+  font-size: 17px;
+}
+
+/* ── CTA STRIP (shared style) ── */
+#cta {
+  padding: 120px 56px;
+  background: var(--paper); color: var(--ink);
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start;
+  position: relative; z-index: 1;
+}
+.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(43,43,43,.5); margin-bottom: 24px; }
+.cta-text { font-family: var(--sans); font-size: clamp(32px,4.6vw,64px); font-weight: 300; line-height: .98; letter-spacing: -0.03em; color: var(--ink); }
+.cta-text em { font-style: normal; color: var(--gold); font-family: var(--serif); font-weight: 300; }
+.cta-sub {
+  margin-top: 28px; max-width: 440px;
+  font-size: 15px; font-weight: 400; line-height: 1.6; color: rgba(43,43,43,0.78);
+}
+.cta-meta {
+  margin-top: 36px; display: flex; flex-direction: column; gap: 14px;
+  font-size: 13px; color: rgba(43,43,43,0.85);
+}
+.cta-meta-row { display: flex; align-items: center; gap: 14px; }
+.cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.5); width: 64px; }
+.cta-meta-val { font-family: var(--sans); }
+
+.cta-form { display: flex; flex-direction: column; gap: 0; background: rgba(255,255,255,0.4); border: 1px solid rgba(43,43,43,0.15); padding: 40px; }
+.cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.cta-field { display: flex; flex-direction: column; border-bottom: 1px solid rgba(43,43,43,0.12); padding: 14px 0; }
+.cta-field + .cta-field { padding-top: 18px; }
+.cta-form-row .cta-field { border-right: 1px solid rgba(43,43,43,0.12); padding-right: 18px; }
+.cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
+.cta-field label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.55); margin-bottom: 8px; }
+.cta-field input, .cta-field textarea, .cta-field select {
+  background: transparent; border: none; outline: none;
+  font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--ink);
+  padding: 0;
+}
+.cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
+.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(43,43,43,0.35); }
+.cta-field select { -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%232B2B2B' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
+.cta-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
+.cta-form-note { font-size: 11px; color: rgba(43,43,43,.55); line-height: 1.5; }
+.cta-submit {
+  background: var(--ink); color: var(--paper); border: none;
+  font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+  padding: 18px 36px; transition: background .2s, color .2s; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 14px; cursor: pointer;
+}
+.cta-submit svg { width: 16px; height: 8px; transition: transform .25s; }
+.cta-submit:hover { background: var(--gold); color: var(--ink); }
+.cta-submit:hover svg { transform: translateX(4px); }
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity 0.9s var(--ease), transform 1.0s var(--ease);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  /* Disable stacking on smaller screens — the cards become a normal
+     vertical flow of full-viewport sections, which reads better than a
+     cramped two-column sticky layout. */
+  .pillar {
+    position: static;
+    top: auto;
+    min-height: 0;
+    grid-template-columns: 1fr;
+    box-shadow: none;
+  }
+  .pillar-media { min-height: 0; aspect-ratio: 4/3; }
+  .pillar:nth-child(odd of .pillar) .pillar-media,
+  .pillar.flip .pillar-media { order: 0; }
+  .pillar-body { padding: 56px 40px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat { padding: 32px 24px 8px 0; }
+  .stat:nth-child(2n) { border-right: none; padding-right: 0; }
+  .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid rgba(234,229,220,0.10); padding-bottom: 32px; }
+  .inv-grid { grid-template-columns: repeat(2, 1fr); }
+  #faq { grid-template-columns: 1fr; gap: 48px; }
+  #lede { grid-template-columns: 1fr; gap: 32px; }
+  #cta { grid-template-columns: 1fr; gap: 48px; }
+}
+@media (max-width: 700px) {
+  .hero-head { top: calc(var(--nav-h) + 28px); left: 24px; right: 24px; flex-direction: column; gap: 18px; }
+  .hero-head-meta { text-align: left; padding-top: 0; }
+  .hero-caption { left: 24px; bottom: 32px; }
+  .hero-meta { display: none; }
+  #lede, #stats, #inventory, #faq, #cta { padding-left: 24px; padding-right: 24px; }
+  .pillars-intro { padding: 0 24px 56px; }
+  .pillar-body { padding: 40px 24px 56px; }
+  .inv-grid { grid-template-columns: 1fr; }
+  .inv-head { flex-direction: column; align-items: flex-start; }
+  .faq-a { padding-left: 0; }
+}
+</style>
+<link rel="stylesheet" href="assets/site-cursor.css">
+<!-- @localbusiness-schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "@id": "https://ellaleehomes.com/#business",
+  "name": "Ella Lee Homes",
+  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
+  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "url": "https://ellaleehomes.com/",
+  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "telephone": "+1-480-340-8700",
+  "email": "hello@ellaleehomes.com",
+  "priceRange": "$$",
+  "foundingLocation": "Phoenix, Arizona",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4408 N 12th St",
+    "addressLocality": "Phoenix",
+    "addressRegion": "AZ",
+    "postalCode": "85014",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 33.5004403,
+    "longitude": -112.0567192
+  },
+  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "Place",
+      "name": "Arcadia, Phoenix"
+    },
+    {
+      "@type": "City",
+      "name": "Phoenix",
+      "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    }
+  ],
+  "knowsAbout": [
+    "Custom home building",
+    "Luxury home construction",
+    "Home design",
+    "Residential development"
+  ],
+  "sameAs": [
+    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "12",
+    "bestRating": "5"
+  }
+}
+</script>
+</head>
+<body class="theme-investors">
+<div id="cur"><div id="cur-dot"></div></div>
+<div id="cur-ring"></div>
+<script defer src="assets/site-cursor.js"></script>
+<script defer src="assets/site-nav-dd.js"></script>
+
+<!-- Canonical site nav -->
+<nav id="nav" class="theme-investors">
+  <a href="index.html" class="nav-logo" id="navLogo" aria-label="Ella Lee Homes">
+    <img class="nav-logo-img" src="uploads/Monogram_Navy.png" alt="Ella Lee Homes">
+  </a>
+  <ul class="nav-links nav-pill">
+    <li><a href="projects.html">Portfolio</a></li>
+    <li><a href="process.html">Build</a></li>
+    <li><a href="sell.html">Sell</a></li>
+    <li><a href="our-story.html">Our Story</a></li>
+    <li class="nav-has-dd">
+      <button class="nav-dd-trigger" type="button" aria-expanded="false" aria-haspopup="true">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <a href="tel:4803408700" class="nav-phone">(480) 340-8700</a>
+    <a href="index.html#cta" class="nav-cta">Schedule a Consultation</a>
+  </div>
+  <a href="tel:4803408700" class="nav-phone-mobile" aria-label="Call Ella Lee Homes at (480) 340-8700"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M4.5 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.6 1.5A15.5 15.5 0 013 4.6 1.5 1.5 0 014.5 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+  <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" type="button">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-dd-panel" role="region" aria-label="Learn menu">
+  <div class="nav-dd-intro">
+    <div class="nav-dd-intro-title">About Ella Lee Homes</div>
+    <div class="nav-dd-intro-sub">Sustainable, energy efficient, on time &amp; on budget homes</div>
+  </div>
+  <div class="nav-dd-grid">
+    <div class="nav-dd-col">
+      <a href="why-us.html">Why Ella Lee</a>
+      <a href="investors.html">Developers &amp; Investors</a>
+      <a href="stories.html">Stories &amp; Insights</a>
+    </div>
+    <div class="nav-dd-col">
+      <a href="client-portal.html">Client Portal</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="nav-mobile-overlay" aria-hidden="true">
+  <div class="nav-mobile-panel">
+    <a href="projects.html" class="nav-mobile-link">Portfolio</a>
+    <a href="process.html" class="nav-mobile-link">Build</a>
+    <a href="sell.html" class="nav-mobile-link">Sell</a>
+    <a href="our-story.html" class="nav-mobile-link">Our Story</a>
+    <div class="nav-mobile-learn-section">
+      <button class="nav-mobile-learn-btn" type="button">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="nav-mobile-learn-items">
+        <a href="why-us.html">Why Ella Lee</a>
+        <a href="investors.html">Developers &amp; Investors</a>
+        <a href="stories.html">Stories &amp; Insights</a>
+        <a href="client-portal.html">Client Portal</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="nav-mobile-sep"></div>
+    <a href="index.html#cta" class="nav-mobile-cta">Schedule a Consultation</a>
+  </div>
+</div>
+
+<!-- HERO BANNER (title sits ON the image, like Why Us) -->
+<section id="hero-banner" aria-label="An Ella Lee development">
+  <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0428-1024x682.jpg" alt="Ella Lee Homes development">
+
+  <div class="hero-head">
+    <div class="hero-head-l">
+      <div class="eyebrow">Ella Lee Homes</div>
+      <h1 class="hero-title">Build as <em>investment.</em></h1>
+    </div>
+    <div class="hero-head-meta">On time. On budget.<br>A repeat-client track record<br><strong>across 40+ builds.</strong></div>
+  </div>
+
+  <div class="hero-caption"></div>
+</section>
+
+<!-- LEDE -->
+<section id="lede" class="reveal">
+  <div class="lede-l">
+    <div class="lede-eyebrow">Why Partner With Us</div>
+    <h2 class="lede-title">Developers who build with us <em>come back.</em></h2>
+  </div>
+  <div class="lede-body">
+    <p>Repeat partners are the core of our developer business &mdash; because we deliver <strong>high-quality construction on time and on budget,</strong> and we understand the pressure to hit deadlines and maximize ROI.</p>
+    <p>Our team is committed to seamless communication, innovative solutions, and sustainable practices — ensuring projects not only meet industry standards but exceed expectations. Partner with us, and you gain a trusted ally who prioritizes <strong>efficiency, quality, and cost-effectiveness</strong> from start to finish.</p>
+  </div>
+</section>
+
+<!-- DIFFERENTIATORS / PILLARS -->
+<section id="pillars">
+  <div class="pillars-stack">
+  <div class="pillar">
+    <div class="pillar-media">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/img530-1024x683.jpg" alt="Large-scale residential development by Ella Lee Homes">
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-num"><em>01</em>Large-Scale Expertise</div>
+      <h3 class="pillar-title">Expertise in <em>large-scale</em> projects.</h3>
+      <p class="pillar-text">Our team brings years of experience managing complex, high-value developments — ensuring smooth execution from groundbreaking through close-out. From multi-unit infill to luxury enclaves, we operate at the scale serious capital requires.</p>
+      <div class="pillar-tag">Complex builds, smooth execution</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-media">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6699.jpg" alt="Streamlined construction process at an Ella Lee site">
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-num"><em>02</em>Efficient, Streamlined Process</div>
+      <h3 class="pillar-title">Speed without <em>sacrificing</em> quality.</h3>
+      <p class="pillar-text">We prioritize velocity without compromise — delivering your projects on time and within budget. Same-team continuity, real-time transparency through our client portal, and disciplined scheduling keep every phase moving.</p>
+      <div class="pillar-tag">Transparent. On schedule. In budget.</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-media">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/14-1.jpg" alt="Cost-engineered Ella Lee interior craftsmanship">
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-num"><em>03</em>Cost Savings That Maximize ROI</div>
+      <h3 class="pillar-title">Value engineering that <em>protects</em> your bottom line.</h3>
+      <p class="pillar-text">Through careful planning, value engineering, and long-standing vendor relationships, we offer cost-effective solutions that boost your bottom line. Volume purchasing and crew consistency translate into measurable savings — passed directly to you.</p>
+      <div class="pillar-tag">Better margins, project after project</div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-media">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0428-1024x682.jpg" alt="An innovative, sustainable Ella Lee home exterior">
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-num"><em>04</em>Innovative, Sustainable Solutions</div>
+      <h3 class="pillar-title">Future-proofing <em>built in.</em></h3>
+      <p class="pillar-text">We embrace cutting-edge construction technology and sustainable practices — future-proofing your projects while keeping them on the leading edge of industry standards. Energy-efficient envelopes, smart-home wiring, and durable material choices preserve asset value.</p>
+      <div class="pillar-tag">Energy efficient, asset-grade builds</div>
+    </div>
+  </div>
+  </div><!-- /.pillars-stack -->
+</section>
+
+<!-- STATS BAND -->
+<section id="stats">
+  <div class="stats-intro reveal">
+    <div class="eyebrow">By the Numbers</div>
+    <h2>A record built on <em>repeat partnerships.</em></h2>
+  </div>
+  <div class="stats-grid reveal">
+    <div class="stat">
+      <div class="stat-num">$200M+</div>
+      <div class="stat-label">Luxury value <strong>delivered</strong> across Arizona</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Years building <strong>investor-grade</strong> homes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label"><strong>Transparency</strong> through the client portal</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">40+</div>
+      <div class="stat-label">Custom homes <strong>delivered</strong> across the Valley</div>
+    </div>
+  </div>
+  <p class="stats-note reveal" style="margin-top:36px; font-size:14px; color:rgba(234,229,220,0.55); max-width:62ch;">Beyond the numbers: Ella Lee Homes donates a minimum of 10% of annual profits to nonprofit organizations, locally and globally.</p>
+</section>
+
+<!-- INVENTORY -->
+<section id="inventory">
+  <div class="inv-head reveal">
+    <div class="inv-head-l">
+      <div class="eyebrow">Investment Inventory</div>
+      <h2>Active &amp; recent <em>developer-aligned</em> builds.</h2>
+    </div>
+    <div class="inv-head-r">
+      A selection of recent and current developer-grade homes — each delivered or in production under Ella Lee Homes' build-as-investment standard.
+    </div>
+  </div>
+
+  <div class="inv-grid">
+
+    <a class="inv-card reveal" href="project.html?slug=charter-oak" aria-label="View Charter Oak project">
+      <div class="inv-card-status investment">Investment Build</div>
+      <div class="inv-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Charter Oak by Ella Lee Homes" loading="lazy"></div>
+      <div class="inv-card-body">
+        <div class="inv-card-loc">Scottsdale, Arizona</div>
+        <div class="inv-card-style">Modern Farmhouse</div>
+        <div class="inv-card-name">Charter Oak</div>
+        <div class="inv-card-price">$7,035,000</div>
+        <div class="inv-card-specs">
+          <span class="inv-card-spec"><strong>5</strong> bed</span>
+          <span class="inv-card-spec"><strong>5.2</strong> bath</span>
+          <span class="inv-card-spec"><strong>4,833</strong> sqft</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="inv-card reveal" href="project.html?slug=dc2" aria-label="View DC2 project">
+      <div class="inv-card-status investment">Investment Build</div>
+      <div class="inv-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2330-2.jpg" alt="DC2 by Ella Lee Homes" loading="lazy"></div>
+      <div class="inv-card-body">
+        <div class="inv-card-loc">Arcadia, Arizona</div>
+        <div class="inv-card-style">Contemporary</div>
+        <div class="inv-card-name">DC2</div>
+        <div class="inv-card-price">$4,400,000</div>
+        <div class="inv-card-specs">
+          <span class="inv-card-spec"><strong>6</strong> bed</span>
+          <span class="inv-card-spec"><strong>7.5</strong> bath</span>
+          <span class="inv-card-spec"><strong>5,874</strong> sqft</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="inv-card reveal" href="project.html?slug=via-estrella" aria-label="View Via Estrella project">
+      <div class="inv-card-status investment">Investment Build</div>
+      <div class="inv-card-img"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0350.jpg" alt="Via Estrella by Ella Lee Homes" loading="lazy"></div>
+      <div class="inv-card-body">
+        <div class="inv-card-loc">Scottsdale, Arizona</div>
+        <div class="inv-card-style">Mediterranean Contemporary</div>
+        <div class="inv-card-name">Via Estrella</div>
+        <div class="inv-card-price">$5,450,000</div>
+        <div class="inv-card-specs">
+          <span class="inv-card-spec"><strong>5</strong> bed</span>
+          <span class="inv-card-spec"><strong>6.5</strong> bath</span>
+          <span class="inv-card-spec"><strong>6,222</strong> sqft</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="inv-foot reveal">
+    <p>Looking for off-market or pre-construction opportunities? Our team has additional inventory available privately for qualified investors.</p>
+    <a href="projects.html">
+      View Full Portfolio
+      <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-head reveal">
+    <div class="eyebrow">Frequently Asked</div>
+    <h2>The questions <em>investors</em> ask us most.</h2>
+    <p class="faq-note">Direct answers, taken from fifteen years of conversations with developers, capital partners, and repeat investor clients.</p>
+  </div>
+
+  <div class="faq-list">
+    <details class="faq-item reveal">
+      <summary>
+        <span class="faq-num">01</span>
+        <span class="faq-q">How can Ella Lee Homes save you money?</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-a">
+        <p>We've built a system that makes us <strong>more cost-effective than other builders.</strong> Long-standing vendor relationships and volume purchasing across every project secure premium materials at lower prices — savings we pass directly to you.</p>
+        <p>The result: a superior product with exceptional craftsmanship, at a lower price.</p>
+      </div>
+    </details>
+
+    <details class="faq-item reveal">
+      <summary>
+        <span class="faq-num">02</span>
+        <span class="faq-q">Why Ella Lee Homes?</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-a">
+        <p><strong>Trust.</strong> Knowing that a home might be one of the largest investments you will ever make, we go the extra length to make sure you feel comfortable and secure with that investment.</p>
+        <p>Our system is designed to be <strong>completely transparent</strong> with our clients. You can see the schedule, every invoice and bill from our subs &amp; vendors, photos and videos, and much more — all from the comfort of your home. <em>Ideal for out-of-state clients.</em></p>
+        <p>We believe in ease of mind and ease of process. Many of our clients are investors with <strong>repeat projects.</strong> The reason: the comfort of knowing they always have access to any project file they may need, any time, from anywhere.</p>
+        <p>We worked hard to earn their trust. We will work hard to earn yours.</p>
+      </div>
+    </details>
+
+    <details class="faq-item reveal">
+      <summary>
+        <span class="faq-num">03</span>
+        <span class="faq-q">What are your services?</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-a">
+        <p>Ella Lee Homes is a <strong>design &amp; build</strong> construction company. To give clients the easiest streamline for their project, we deliver a full interior finishes design package — choosing materials, finishes, and layouts together.</p>
+        <p>Our complete design package specifies all the selections and their costs so you'll know exactly what you are getting. We can also engineer the design to meet your budget while honoring your vision of colors, materials, and practicality — all with <em>3D renderings</em> so you can visualize spaces before giving the green light.</p>
+        <p>From there, we bring the project to life — turning rendering into reality. We can build new houses or remodel existing ones, add additions to your current structure, or work on commercial buildings. Keeping the whole process in-house gives us more control, making the project go faster and smoother.</p>
+      </div>
+    </details>
+
+    <details class="faq-item reveal">
+      <summary>
+        <span class="faq-num">04</span>
+        <span class="faq-q">I want to start a project, but I'm not sure where to begin.</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-a">
+        <p>Typically, the first step is to collaborate with an architect or designer, depending on the scope. Obtaining detailed construction documents is crucial for securing permits and ensuring the project's success.</p>
+        <p>It's also highly beneficial to <strong>involve your builder during planning and development.</strong> With our expertise and field experience, we can offer valuable insights to both architect and client — informing design decisions and material selections before plans are finalized.</p>
+        <p>By engaging us early, we can identify potential gaps or inefficiencies and recommend specific framing methods or materials that reduce costs and improve timelines. Architects and draftsmen are highly skilled, but they don't always have the hands-on field experience that can significantly impact a project's practical outcome.</p>
+      </div>
+    </details>
+
+    <details class="faq-item reveal">
+      <summary>
+        <span class="faq-num">05</span>
+        <span class="faq-q">How do I contact Ella Lee Homes for an appointment?</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-a">
+        <p>We are available to chat at your convenience — morning, noon, or night. Call or email us to schedule a time that works best for you.</p>
+        <p>Phone: <strong>(480) 340-8700</strong><br>Email: <strong>hello@ellaleehomes.com</strong><br>Studio: 4408 N 12th St, Phoenix, AZ 85014</p>
+        <p><em>Ella Lee Homes is dedicated to donating a minimum of 10% of our annual profits to support non-profit organizations both locally and globally.</em></p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="grain">
+  <div class="cta-left">
+    <div class="cta-eyebrow">Begin the Conversation</div>
+    <div class="cta-text">
+      <div>Let's build your</div>
+      <div><em>next investment.</em></div>
+    </div>
+    <p class="cta-sub">Tell us about the development. Lot, scope, timeline — we'll meet you wherever you are in the process, and follow up personally within one business day.</p>
+    <div class="cta-meta">
+      <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
+      <div class="cta-meta-row"><span class="cta-meta-label">Email</span><span class="cta-meta-val">hello@ellaleehomes.com</span></div>
+      <div class="cta-meta-row"><span class="cta-meta-label">Studio</span><span class="cta-meta-val">4408 N 12th St, Phoenix, AZ 85014</span></div>
+    </div>
+  </div>
+
+  <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We&rsquo;ll be in touch.';">
+    <div class="cta-form-row">
+      <div class="cta-field">
+        <label>First Name</label>
+        <input type="text" placeholder="Jane" required>
+      </div>
+      <div class="cta-field">
+        <label>Last Name</label>
+        <input type="text" placeholder="Doe" required>
+      </div>
+    </div>
+    <div class="cta-form-row">
+      <div class="cta-field">
+        <label>Email</label>
+        <input type="email" placeholder="jane@firm.com" required>
+      </div>
+      <div class="cta-field">
+        <label>Phone</label>
+        <input type="tel" placeholder="(480) 555-0100">
+      </div>
+    </div>
+    <div class="cta-field">
+      <label>I'm interested in</label>
+      <select>
+        <option>Investor / development partnership</option>
+        <option>Off-market or pre-construction inventory</option>
+        <option>Multi-unit / portfolio build</option>
+        <option>Single custom build</option>
+        <option>General inquiry</option>
+      </select>
+    </div>
+    <div class="cta-field">
+      <label>Tell us about your project</label>
+      <textarea placeholder="Lot location, scope, target delivery, capital structure — anything you'd like us to know."></textarea>
+    </div>
+    <div class="cta-form-actions">
+      <p class="cta-form-note">All inquiries are handled confidentially. We respond personally within one business day.</p>
+      <button type="submit" class="cta-submit">
+        Send Inquiry
+        <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"/></svg>
+      </button>
+    </div>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer class="grain site-footer">
+  <div>
+    <div class="footer-brand">Ella Lee Homes</div>
+    <p class="footer-copy">Ella Lee Homes. Arcadia, Paradise Valley, and Scottsdale’s premier custom home builder. BUILT RIGHT.</p>
+    <div class="footer-roc">ROC License: KB2-333410</div>
+  </div>
+  <div class="footer-col">
+    <h4>Navigate</h4>
+    <a href="projects.html">Previous Projects</a><a href="our-story.html">Our Story</a>
+    <a href="process.html">Process</a><a href="investors.html">Developers</a><a href="stories.html">Stories</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <a href="process.html">Build Your Home</a><a href="sell.html">Sell a Home</a>
+    <a href="investors.html">Developers</a><a href="client-portal.html">Client Portal</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a>
+    <a href="tel:4803408700">(480) 340-8700</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">4408 N 12th St</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">Phoenix, AZ 85014</a>
+    <div class="footer-hours">Mon–Fri 9am–5pm · Sat by appointment</div>
+  </div>
+</footer>
+
+<div class="footer-btm">
+  <span>&copy; 2026 Ella Lee Homes &nbsp;&middot;&nbsp; ROC License KB2-333410</span>
+  <div class="footer-btm-right"><nav class="footer-legal"><a href="faq.html">FAQ</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></nav><div class="footer-social"><a href="https://www.instagram.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg></a><a href="https://www.facebook.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 8.5h2.2V5.3H14c-1.9 0-3.2 1.3-3.2 3.3v1.6H8.6v3.1h2.2V21h3.3v-7.6h2.2l.4-3.1h-2.6V8.9c0-.3.2-.4.5-.4z" fill="currentColor"/></svg></a><a href="https://www.houzz.com/" target="_blank" rel="noopener" aria-label="Houzz"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l7 4v13.6h-5v-5.6H10v5.6H5V7.2z"/></svg></a></div></div>
+</div>
+
+<script>
+/* Reveal-on-scroll */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) {
+        en.target.classList.add('is-visible');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+})();
+
+/* Single-open FAQ accordion: opening one closes the others */
+(function () {
+  const items = document.querySelectorAll('.faq-item');
+  items.forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (d.open) items.forEach((o) => { if (o !== d) o.open = false; });
+    });
+  });
+})();
+</script>
+  <script defer src="assets/site-nav-contrast.js"></script>
+</body>
+</html>

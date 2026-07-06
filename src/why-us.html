@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ella Lee Homes — Why Us</title>
+<meta name="description" content="Built for Ella, built for legacy. The seven reasons clients choose Ella Lee Homes — craftsmanship, turnkey delivery, stress-free management, innovative design, and a builder warranty that protects your investment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-footer.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001F33; --gold: #C9A96E;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+  --nav-h: 88px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  /* Hero is full-bleed under the fixed nav — no top padding needed */
+  padding-top: 0;
+}
+
+/* ── FULL-BLEED HERO HEADER ──
+   Combines page title + image. The title sits in the top-left,
+   the supporting tagline at bottom-left, kicker at bottom-right.
+   Nav floats over the top of the photo. */
+#hero-banner {
+  position: relative;
+  width: 100%;
+  /* Full viewport on desktop so the title gets the cinematic frame */
+  height: clamp(560px, 92vh, 1000px);
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(43,43,43,0.1);
+}
+#hero-banner > img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  /* Slightly darker so white type stays legible across the frame */
+  filter: saturate(0.95) brightness(0.66);
+  transform: scale(1.02);
+}
+#hero-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.10) 30%, rgba(0,0,0,0.20) 60%, rgba(0,31,51,0.78) 100%);
+  pointer-events: none;
+}
+
+/* Top-left: title + eyebrow */
+.hero-head {
+  position: absolute; z-index: 2;
+  top: calc(var(--nav-h) + 56px);
+  left: 56px;
+  right: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  color: var(--paper);
+}
+.hero-head .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.7); margin-bottom: 14px;
+}
+.hero-title {
+  font-size: clamp(56px, 9vw, 140px);
+  font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
+  color: var(--paper);
+}
+.hero-title em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.hero-head-meta {
+  font-size: 12px; line-height: 1.7; color: rgba(234,229,220,0.65);
+  text-align: right; max-width: 280px; font-weight: 300;
+  padding-top: 12px;
+}
+.hero-head-meta strong { color: var(--paper); font-weight: 500; }
+
+/* Bottom-left: supporting tagline / kicker */
+.hero-caption {
+  position: absolute; left: 56px; right: 56px; bottom: 48px; z-index: 2;
+  color: var(--paper);
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 48px;
+}
+.hero-caption-l { max-width: 720px; }
+.hero-caption .eyebrow {
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.7); margin-bottom: 14px;
+}
+.hero-caption h2 {
+  font-size: clamp(22px, 2.6vw, 34px); font-weight: 300; letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: rgba(234,229,220,0.92);
+  max-width: 640px;
+}
+.hero-caption h2 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.hero-scroll-hint {
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.55);
+  display: inline-flex; align-items: center; gap: 14px;
+  white-space: nowrap;
+}
+.hero-scroll-hint::after {
+  content: ''; width: 1px; height: 36px;
+  background: linear-gradient(180deg, rgba(234,229,220,0.55), rgba(234,229,220,0));
+  display: inline-block;
+}
+
+/* ── FOUNDING STORY (Built for Ella, Built for legacy) ── */
+#founding {
+  padding: 120px 56px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 96px;
+  align-items: start;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+}
+.founding-l .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 18px;
+}
+.founding-l h2 {
+  font-size: clamp(40px, 5vw, 72px); font-weight: 300;
+  line-height: 1; letter-spacing: -0.035em;
+}
+.founding-l h2 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+  display: block;
+}
+.founding-r p {
+  font-size: 17px; line-height: 1.85; color: rgba(43,43,43,0.78);
+  font-weight: 300;
+}
+.founding-r p + p { margin-top: 22px; }
+.founding-r p strong { color: var(--ink); font-weight: 500; }
+.founding-sig {
+  margin-top: 40px;
+  display: flex; align-items: baseline; gap: 14px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(43,43,43,0.10);
+}
+.founding-sig .name {
+  font-family: var(--serif); font-style: normal; font-size: 28px;
+  color: var(--ink); font-weight: 300;
+}
+.founding-sig .role {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--nickel); font-weight: 500;
+}
+
+/* ── PULLQUOTE STRIP ── */
+#pull {
+  background: var(--ink); color: var(--paper);
+  padding: 96px 56px;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.pull-mark {
+  font-family: var(--serif); font-style: normal;
+  font-size: clamp(120px, 14vw, 200px);
+  color: var(--gold); line-height: 0.6;
+  font-weight: 300;
+  align-self: start;
+}
+.pull-text {
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 300;
+  line-height: 1.3; letter-spacing: -0.01em;
+  color: var(--paper); max-width: 920px;
+}
+.pull-text em {
+  font-family: var(--serif); font-style: normal; color: var(--gold);
+  font-weight: 300;
+}
+.pull-attrib {
+  margin-top: 24px;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(234,229,220,0.5); font-weight: 500;
+}
+
+/* ── 7 REASONS — VERTICAL CARD STACK ──
+   Each reason is a full-height card that uses position: sticky to pin
+   to the top as you scroll. Because each successive card has slightly
+   more `top` offset (via --i), the previous card's top edge peeks
+   above the new one — creating a literal pile of cards from
+   Craftsmanship at the bottom of the stack up to Warranty on top. */
+#reasons {
+  padding: 120px 0 0;
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+  background: var(--paper);
+}
+.reasons-hd {
+  padding: 0 56px 56px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: end;
+}
+.reasons-hd-l .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 18px;
+}
+.reasons-hd-l h2 {
+  font-size: clamp(36px, 4.6vw, 64px); font-weight: 300;
+  line-height: 1.02; letter-spacing: -0.025em;
+}
+.reasons-hd-l h2 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.reasons-hd-r {
+  font-size: 15px; line-height: 1.75; color: rgba(43,43,43,0.72);
+  font-weight: 300; max-width: 460px;
+}
+.reasons-hd-r strong { color: var(--ink); font-weight: 500; }
+
+/* Stack container — gives the page room to scroll between cards.
+   The container itself doesn't need a fixed height; each sticky card
+   contributes its own height and natural margin to the flow. */
+.reasons-stack {
+  padding: 24px 56px 96px;
+  position: relative;
+}
+
+/* Each card sticks to the top, with a per-card offset (--i = 0..6)
+   so prior cards peek out above. The cards' position in the document
+   means later ones naturally pile on top of earlier ones. */
+.reason-card {
+  position: sticky;
+  top: calc(var(--nav-h) + 24px + var(--i, 0) * 14px);
+  margin-bottom: 32px;
+  /* Each card is ~one viewport tall; the surrounding scroll distance
+     between sticky-release points is what lets the user pace through
+     the stack. */
+  min-height: 580px;
+  height: calc(100vh - var(--nav-h) - 80px);
+  max-height: 760px;
+}
+.reason-card:last-child { margin-bottom: 0; }
+
+.rc-inner {
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  background: var(--paper);
+  border: 1px solid rgba(43,43,43,0.14);
+  overflow: hidden;
+  box-shadow:
+    0 -2px 0 rgba(43,43,43,0.04),
+    0 30px 60px -20px rgba(43,43,43,0.18),
+    0 12px 28px -12px rgba(43,43,43,0.10);
+}
+
+/* Alternating layout: even cards have image right, text left */
+.reason-card:nth-child(even) .rc-inner {
+  grid-template-columns: 1fr 1.05fr;
+}
+.reason-card:nth-child(even) .rc-visual {
+  grid-column: 2;
+  grid-row: 1;
+}
+.reason-card:nth-child(even) .rc-text {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* LEFT — full-bleed photo + corner counter */
+.rc-visual {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+}
+.rc-visual img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.92) brightness(0.84);
+}
+.rc-visual::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(135deg, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.05) 38%, rgba(0,0,0,0) 60%),
+    linear-gradient(0deg, rgba(0,0,0,0.40), rgba(0,0,0,0) 28%);
+  pointer-events: none;
+}
+.rc-counter {
+  position: absolute; top: 36px; left: 44px; right: 44px;
+  z-index: 2;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  color: var(--paper);
+  pointer-events: none;
+}
+.rc-counter-eyebrow {
+  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(234,229,220,0.65); font-weight: 500;
+  margin-bottom: 6px;
+}
+.rc-counter-num {
+  font-family: var(--serif); font-style: normal; font-weight: 300;
+  font-size: clamp(96px, 12vw, 180px);
+  line-height: 0.85; letter-spacing: -0.05em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+.rc-counter-r {
+  text-align: right; padding-top: 12px;
+  font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.6); font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.rc-counter-r strong { color: var(--paper); font-weight: 500; }
+.rc-cap {
+  position: absolute; left: 44px; right: 44px; bottom: 36px;
+  z-index: 2;
+  font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.78); font-weight: 500;
+}
+.rc-cap strong { color: var(--gold); font-weight: 500; }
+
+/* RIGHT — text panel */
+.rc-text {
+  padding: 64px 64px 56px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.rc-eyebrow {
+  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--nickel); font-weight: 500;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 14px;
+}
+.rc-eyebrow::after {
+  content: ''; flex: 1; height: 1px; background: rgba(43,43,43,0.18);
+}
+.rc-eyebrow strong { color: var(--ink); font-weight: 500; }
+
+.rc-text h3 {
+  font-size: clamp(34px, 3.8vw, 54px); font-weight: 300;
+  letter-spacing: -0.025em; line-height: 1.02;
+  margin-bottom: 24px;
+  color: var(--ink);
+}
+.rc-text h3 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+  display: block;
+}
+.rc-text p {
+  font-size: 16px; line-height: 1.75; color: rgba(43,43,43,0.72);
+  font-weight: 300; max-width: 480px;
+}
+.rc-text p strong { color: var(--ink); font-weight: 500; }
+.rc-tag {
+  margin-top: 32px;
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--navy); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 12px;
+  align-self: flex-start;
+}
+.rc-tag::before {
+  content: ''; width: 24px; height: 1px; background: var(--gold);
+}
+
+@media (max-width: 1100px) {
+  .reasons-hd { grid-template-columns: 1fr; gap: 24px; }
+  .reasons-stack { padding: 24px 32px 80px; }
+  .reason-card {
+    position: relative;
+    top: auto;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    margin-bottom: 24px;
+  }
+  .rc-inner { grid-template-columns: 1fr; }
+  .rc-visual { aspect-ratio: 16/10; }
+  .rc-counter { top: 28px; left: 28px; right: 28px; }
+  .rc-counter-num { font-size: clamp(72px, 16vw, 110px); }
+  .rc-cap { left: 28px; right: 28px; bottom: 28px; }
+  .rc-text { padding: 48px 32px; }
+}
+@media (max-width: 700px) {
+  .reasons-hd { padding: 0 24px 40px; }
+  .reasons-stack { padding: 16px 24px 64px; }
+  .rc-text { padding: 40px 24px; }
+  .rc-counter { top: 24px; left: 24px; right: 24px; }
+  .rc-cap { left: 24px; right: 24px; bottom: 24px; }
+}
+
+/* ── PROOF GRID (recent homes — visual receipts) ── */
+#proof {
+  padding: 120px 56px 96px;
+  background: var(--paper);
+  border-bottom: 1px solid rgba(43,43,43,0.08);
+}
+.proof-hd {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 56px;
+  gap: 48px;
+}
+.proof-hd-l .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 16px;
+}
+.proof-hd-l h2 {
+  font-size: clamp(32px, 4vw, 56px); font-weight: 300;
+  letter-spacing: -0.025em; line-height: 1.02;
+}
+.proof-hd-l h2 em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.proof-hd-r a {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 14px 24px;
+  border: 1px solid rgba(43,43,43,0.20);
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.proof-hd-r a:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.proof-hd-r a svg { width: 16px; height: 8px; }
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: 320px 320px;
+  gap: 16px;
+}
+.proof-tile {
+  position: relative; overflow: hidden;
+  background: rgba(43,43,43,0.08);
+  text-decoration: none; color: inherit;
+  display: block;
+}
+.proof-tile.span-2 { grid-row: span 2; }
+.proof-tile img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.8s var(--ease), filter 0.4s;
+  filter: saturate(0.9);
+}
+.proof-tile:hover img { transform: scale(1.04); filter: saturate(1); }
+.proof-tile::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+}
+.proof-cap {
+  position: absolute; left: 22px; right: 22px; bottom: 22px;
+  z-index: 2; color: var(--paper);
+}
+.proof-cap-name {
+  font-size: 22px; font-weight: 300; letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.proof-cap-meta {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(234,229,220,0.75);
+}
+
+/* ── CTA STRIP ── */
+#cta {
+  padding: 120px 56px;
+  background: var(--paper); color: var(--ink);
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start;
+}
+.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(43,43,43,.5); margin-bottom: 24px; }
+.cta-text { font-size: clamp(32px,4.6vw,64px); font-weight: 300; line-height: .98; letter-spacing: -0.03em; color: var(--ink); }
+.cta-text em { font-style: normal; color: var(--gold); font-family: var(--serif); font-weight: 300; }
+.cta-sub { margin-top: 28px; max-width: 440px; font-size: 15px; line-height: 1.6; color: rgba(43,43,43,0.78); }
+.cta-meta { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; font-size: 13px; color: rgba(43,43,43,0.85); }
+.cta-meta-row { display: flex; align-items: center; gap: 14px; }
+.cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.5); width: 64px; }
+
+.cta-form { display: flex; flex-direction: column; background: rgba(255,255,255,0.4); border: 1px solid rgba(43,43,43,0.15); padding: 40px; }
+.cta-form-row { display: grid; grid-template-columns: 1fr 1fr; }
+.cta-field { display: flex; flex-direction: column; border-bottom: 1px solid rgba(43,43,43,0.12); padding: 14px 0; }
+.cta-field + .cta-field { padding-top: 18px; }
+.cta-form-row .cta-field { border-right: 1px solid rgba(43,43,43,0.12); padding-right: 18px; }
+.cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
+.cta-field label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.55); margin-bottom: 8px; }
+.cta-field input, .cta-field textarea, .cta-field select {
+  background: transparent; border: none; outline: none;
+  font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--ink);
+}
+.cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
+.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(43,43,43,0.35); }
+.cta-field select { -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%232B2B2B' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
+.cta-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
+.cta-form-note { font-size: 11px; color: rgba(43,43,43,.55); line-height: 1.5; }
+.cta-submit {
+  background: var(--ink); color: var(--paper); border: none;
+  font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+  padding: 18px 36px; transition: background .2s, color .2s; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 14px; cursor: pointer;
+}
+.cta-submit svg { width: 16px; height: 8px; transition: transform .25s; }
+.cta-submit:hover { background: var(--gold); color: var(--ink); }
+.cta-submit:hover svg { transform: translateX(4px); }
+
+/* ── REVEALS ── */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity 0.9s var(--ease), transform 1.0s var(--ease);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  #founding { grid-template-columns: 1fr; gap: 32px; padding: 80px 56px; }
+  .proof-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 280px 280px 280px; }
+  .proof-tile.span-2 { grid-row: span 1; }
+  #pull { grid-template-columns: 1fr; gap: 16px; }
+  .pull-mark { line-height: 0.4; }
+  #cta { grid-template-columns: 1fr; gap: 48px; }
+}
+@media (max-width: 900px) {
+  .hero-head { top: calc(var(--nav-h) + 32px); left: 32px; right: 32px; flex-direction: column; gap: 18px; }
+  .hero-head-meta { text-align: left; padding-top: 0; }
+  .hero-caption { left: 32px; right: 32px; bottom: 32px; flex-direction: column; align-items: flex-start; gap: 18px; }
+  .hero-scroll-hint { display: none; }
+  #hero-banner { height: clamp(560px, 80vh, 760px); }
+}
+@media (max-width: 700px) {
+  .hero-head { top: calc(var(--nav-h) + 24px); left: 24px; right: 24px; }
+  .hero-caption { left: 24px; right: 24px; bottom: 28px; }
+  #founding, #pull, #proof, #cta { padding-left: 24px; padding-right: 24px; }
+  .proof-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 240px); gap: 12px; }
+  .proof-hd { flex-direction: column; align-items: flex-start; }
+}
+</style>
+<link rel="stylesheet" href="assets/site-cursor.css">
+<!-- @localbusiness-schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "@id": "https://ellaleehomes.com/#business",
+  "name": "Ella Lee Homes",
+  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
+  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "url": "https://ellaleehomes.com/",
+  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "telephone": "+1-480-340-8700",
+  "email": "hello@ellaleehomes.com",
+  "priceRange": "$$",
+  "foundingLocation": "Phoenix, Arizona",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4408 N 12th St",
+    "addressLocality": "Phoenix",
+    "addressRegion": "AZ",
+    "postalCode": "85014",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 33.5004403,
+    "longitude": -112.0567192
+  },
+  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "Place",
+      "name": "Arcadia, Phoenix"
+    },
+    {
+      "@type": "City",
+      "name": "Phoenix",
+      "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    }
+  ],
+  "knowsAbout": [
+    "Custom home building",
+    "Luxury home construction",
+    "Home design",
+    "Residential development"
+  ],
+  "sameAs": [
+    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "12",
+    "bestRating": "5"
+  }
+}
+</script>
+</head>
+<body class="theme-why-us">
+<div id="cur"><div id="cur-dot"></div></div>
+<div id="cur-ring"></div>
+<script defer src="assets/site-cursor.js"></script>
+<script defer src="assets/site-nav-dd.js"></script>
+
+<!-- Canonical site nav -->
+<nav id="nav" class="theme-why-us">
+  <a href="index.html" class="nav-logo" id="navLogo" aria-label="Ella Lee Homes">
+    <img class="nav-logo-img" src="uploads/Monogram_Navy.png" alt="Ella Lee Homes">
+  </a>
+  <ul class="nav-links nav-pill">
+    <li><a href="projects.html">Portfolio</a></li>
+    <li><a href="process.html">Build</a></li>
+    <li><a href="sell.html">Sell</a></li>
+    <li><a href="our-story.html">Our Story</a></li>
+    <li class="nav-has-dd">
+      <button class="nav-dd-trigger" type="button" aria-expanded="false" aria-haspopup="true">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <a href="tel:4803408700" class="nav-phone">(480) 340-8700</a>
+    <a href="index.html#cta" class="nav-cta">Schedule a Consultation</a>
+  </div>
+  <a href="tel:4803408700" class="nav-phone-mobile" aria-label="Call Ella Lee Homes at (480) 340-8700"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M4.5 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.6 1.5A15.5 15.5 0 013 4.6 1.5 1.5 0 014.5 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+  <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" type="button">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-dd-panel" role="region" aria-label="Learn menu">
+  <div class="nav-dd-intro">
+    <div class="nav-dd-intro-title">About Ella Lee Homes</div>
+    <div class="nav-dd-intro-sub">Sustainable, energy efficient, on time &amp; on budget homes</div>
+  </div>
+  <div class="nav-dd-grid">
+    <div class="nav-dd-col">
+      <a href="why-us.html">Why Ella Lee</a>
+      <a href="investors.html">Developers &amp; Investors</a>
+      <a href="stories.html">Stories &amp; Insights</a>
+    </div>
+    <div class="nav-dd-col">
+      <a href="client-portal.html">Client Portal</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="nav-mobile-overlay" aria-hidden="true">
+  <div class="nav-mobile-panel">
+    <a href="projects.html" class="nav-mobile-link">Portfolio</a>
+    <a href="process.html" class="nav-mobile-link">Build</a>
+    <a href="sell.html" class="nav-mobile-link">Sell</a>
+    <a href="our-story.html" class="nav-mobile-link">Our Story</a>
+    <div class="nav-mobile-learn-section">
+      <button class="nav-mobile-learn-btn" type="button">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="nav-mobile-learn-items">
+        <a href="why-us.html">Why Ella Lee</a>
+        <a href="investors.html">Developers &amp; Investors</a>
+        <a href="stories.html">Stories &amp; Insights</a>
+        <a href="client-portal.html">Client Portal</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="nav-mobile-sep"></div>
+    <a href="index.html#cta" class="nav-mobile-cta">Schedule a Consultation</a>
+  </div>
+</div>
+
+<!-- FULL-BLEED HERO HEADER (title sits ON the image) -->
+<section id="hero-banner" aria-label="An Ella Lee Homes interior">
+  <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Charter Oak by Ella Lee Homes">
+
+  <div class="hero-head">
+    <div class="hero-head-l">
+      <div class="eyebrow">Ella Lee Homes</div>
+      <h1 class="hero-title">Why <em>us.</em></h1>
+    </div>
+    <div class="hero-head-meta">
+    </div>
+  </div>
+
+  <div class="hero-caption">
+    <div class="hero-caption-l">
+      <div class="eyebrow">Built for Ella · Built for legacy</div>
+      <h2>A foundation of love, care, and <em>legacy</em> &mdash; built into every home.</h2>
+    </div>
+    <div class="hero-scroll-hint">Scroll</div>
+  </div>
+</section>
+
+<!-- Block 5: SEO keyword intro beneath hero -->
+<section style="background:var(--paper); color:var(--ink); padding:80px 56px 24px;">
+  <p style="max-width:860px; font-size:18px; line-height:1.8; color:rgba(43,43,43,0.78);">When you are choosing a luxury custom home builder in Arizona, the decision comes down to trust: trust in the quality of the work, trust in the transparency of the process, and trust that the builder you choose in month one is the same team beside you at move-in and during warranty calls. Ella Lee Homes has built dozens of custom homes across Arcadia, Paradise Valley, Scottsdale, and Phoenix, with a repeat-client rate that reflects what our clients consistently tell us: the experience is as good as the home itself.</p>
+</section>
+
+<!-- FOUNDING STORY -->
+<section id="founding" class="reveal">
+  <div class="founding-l">
+    <div class="eyebrow">The Promise</div>
+    <h2>Built for Ella.<em>Built for legacy.</em></h2>
+  </div>
+  <div class="founding-r">
+    <p>Ella Lee Homes was born from a simple, heartfelt promise &mdash; to build something that would <strong>stand the test of time</strong> for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others.</p>
+    <p>Every home we build carries that same devotion &mdash; a foundation of <strong>love, care, and legacy</strong> designed to nurture life's most meaningful moments. The same standards we set for Ella's home are the ones we set for yours.</p>
+    <div class="founding-sig">
+      <span class="name">Shay &amp; the Ella Lee team</span>
+      <span class="role">Founders · Phoenix, AZ</span>
+    </div>
+  </div>
+</section>
+
+<!-- AIO Block B: hyper-local authority -->
+<section style="background:var(--paper); color:var(--ink); padding:16px 56px 56px;">
+  <p style="max-width:860px; font-size:16px; line-height:1.85; color:rgba(43,43,43,0.62); border-left:2px solid rgba(201,169,110,0.35); padding-left:20px;">Building a $2M to $15M+ custom home in the Phoenix Valley requires a builder who knows each neighborhood from the ground up. From navigating Paradise Valley&rsquo;s strict building height restrictions and Camelback Mountain view corridor ordinances, to preserving the mature citrus groves and historic character that define Arcadia, to meeting Scottsdale&rsquo;s design review board standards for luxury residential construction &mdash; the regulatory and cultural landscape of each community shapes every decision we make. Ella Lee Homes has built dozens of custom homes across these neighborhoods. That experience is not something you can import.</p>
+</section>
+
+<!-- PULLQUOTE -->
+<section id="pull">
+  <div class="pull-mark">"</div>
+  <div>
+    <p class="pull-text">Real experts in luxury homes. <em>Their follow-up and attention to detail after close</em> was second to none. I'd recommend them to anyone.</p>
+    <div class="pull-attrib">Mark · Paradise Valley, AZ · 2024</div>
+  </div>
+</section>
+
+<!-- 7 REASONS -->
+<section id="reasons">
+  <div class="reasons-hd reveal" data-comment-anchor="53ad4205-reasons-hd">
+    <div class="reasons-hd-l">
+      <div class="eyebrow">Why Choose Ella Lee Homes</div>
+      <h2>The reasons clients come <em>back to us.</em></h2>
+    </div>
+    <div class="reasons-hd-r">
+      <p>A design and build construction company in Arizona, we take pride in our expertise creating distinctive spaces tailored to your unique needs and aesthetic vision. <strong>Seven reasons our clients keep returning.</strong></p>
+    </div>
+  </div>
+
+  <div class="reasons-stack">
+
+    <article class="reason-card" style="--i:0">
+      <div class="rc-inner">
+        <div class="rc-visual">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/14-1.jpg" alt="Craftsmanship" loading="lazy">
+          <div class="rc-counter">
+            <div>
+              <div class="rc-counter-eyebrow">The Reason</div>
+              <div class="rc-counter-num">01</div>
+            </div>
+            <div class="rc-counter-r"><strong>01</strong> / 07</div>
+          </div>
+          <div class="rc-cap"><strong>Charter Oak</strong> · Interior craftsmanship</div>
+        </div>
+        <div class="rc-text">
+          <div class="rc-eyebrow"><strong>The Standard</strong></div>
+          <h3>We build it like it's <em>ours.</em></h3>
+          <p>Every joint, every tile line, every transition is done the way it should be &mdash; not the way that's fastest. <strong>The details most builders hide behind trim, we get right underneath.</strong></p>
+          <div class="rc-tag">Built by hand, to outlast trends</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="reason-card" style="--i:1">
+      <div class="rc-inner">
+        <div class="rc-visual">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0428-1024x682.jpg" alt="Turnkey solutions" loading="lazy">
+          <div class="rc-counter">
+            <div>
+              <div class="rc-counter-eyebrow">The Reason</div>
+              <div class="rc-counter-num">02</div>
+            </div>
+            <div class="rc-counter-r"><strong>02</strong> / 07</div>
+          </div>
+          <div class="rc-cap"><strong>Finished and ready</strong> · Scottsdale handover</div>
+        </div>
+        <div class="rc-text">
+          <div class="rc-eyebrow"><strong>One Team</strong></div>
+          <h3>One team, <em>start to finish.</em></h3>
+          <p>Design, permitting, and construction all live under one roof. No finger-pointing between an architect, a builder, and a decorator &mdash; <strong>one team owns your home from first sketch to the day you get the keys.</strong></p>
+          <div class="rc-tag">Design + build + finish, all in-house</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="reason-card" style="--i:2">
+      <div class="rc-inner">
+        <div class="rc-visual">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6699.jpg" alt="Stress-free project management" loading="lazy">
+          <div class="rc-counter">
+            <div>
+              <div class="rc-counter-eyebrow">The Reason</div>
+              <div class="rc-counter-num">03</div>
+            </div>
+            <div class="rc-counter-r"><strong>03</strong> / 07</div>
+          </div>
+          <div class="rc-cap"><strong>Site management</strong> · Phoenix</div>
+        </div>
+        <div class="rc-text">
+          <div class="rc-eyebrow"><strong>On Time, On Budget</strong></div>
+          <h3>We carry the <em>weight.</em></h3>
+          <p>You'll always know where your build stands and what it costs, in real time, through your Buildertrend portal. <strong>We hit the schedule we set at contract signing and hold the budget we quote.</strong></p>
+          <div class="rc-tag">On schedule. On budget. Always.</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="reason-card" style="--i:3">
+      <div class="rc-inner">
+        <div class="rc-visual">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Innovative design solutions" loading="lazy">
+          <div class="rc-counter">
+            <div>
+              <div class="rc-counter-eyebrow">The Reason</div>
+              <div class="rc-counter-num">04</div>
+            </div>
+            <div class="rc-counter-r"><strong>04</strong> / 07</div>
+          </div>
+          <div class="rc-cap"><strong>Charter Oak</strong> · Designed for daily life</div>
+        </div>
+        <div class="rc-text">
+          <div class="rc-eyebrow"><strong>In-House Design</strong></div>
+          <h3>Designed around <em>how you live.</em></h3>
+          <p>Our in-house design team starts with a question most builders skip: how do you actually want to use this home? <strong>Then we design every room around your answer.</strong></p>
+          <div class="rc-tag">Tailored design, end to end</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="reason-card" style="--i:4">
+      <div class="rc-inner">
+        <div class="rc-visual">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Personalized service" loading="lazy">
+          <div class="rc-counter">
+            <div>
+              <div class="rc-counter-eyebrow">The Reason</div>
+              <div class="rc-counter-num">05</div>
+            </div>
+            <div class="rc-counter-r"><strong>05</strong> / 07</div>
+          </div>
+          <div class="rc-cap"><strong>Charter Oak</strong> · Personally delivered</div>
+        </div>
+        <div class="rc-text">
+          <div class="rc-eyebrow"><strong>Direct Access</strong></div>
+          <h3>You'll know us by <em>name.</em></h3>
+          <p>You work directly with the people building your home &mdash; not a call center, not a coordinator three steps removed. <strong>Call, text, or walk the site. We're there.</strong></p>
+          <div class="rc-tag">Same team. Sketch to keys.</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="reason-card" style="--i:5">
+      <div class="rc-inner">
+        <div class="rc-visual">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="Proven reputation" loading="lazy">
+          <div class="rc-counter">
+            <div>
+              <div class="rc-counter-eyebrow">The Reason</div>
+              <div class="rc-counter-num">06</div>
+            </div>
+            <div class="rc-counter-r"><strong>06</strong> / 07</div>
+          </div>
+          <div class="rc-cap"><strong>68th &amp; Camelback</strong> · Paradise Valley</div>
+        </div>
+        <div class="rc-text">
+          <div class="rc-eyebrow"><strong>The Track Record</strong></div>
+          <h3>Our clients <em>come back.</em></h3>
+          <p>Dozens of homes across Arcadia, Paradise Valley, and Scottsdale &mdash; and a client list that keeps hiring us for the next one. <strong>Repeat clients are the only review that matters.</strong></p>
+          <div class="rc-tag">$200M+ delivered across Arizona</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="reason-card" style="--i:6">
+      <div class="rc-inner">
+        <div class="rc-visual">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="Comprehensive warranty" loading="lazy">
+          <div class="rc-counter">
+            <div>
+              <div class="rc-counter-eyebrow">The Reason</div>
+              <div class="rc-counter-num">07</div>
+            </div>
+            <div class="rc-counter-r"><strong>07</strong> / 07</div>
+          </div>
+          <div class="rc-cap"><strong>Earll</strong> · Arcadia, Phoenix</div>
+        </div>
+        <div class="rc-text">
+          <div class="rc-eyebrow"><strong>After Move-In</strong></div>
+          <h3>We don't disappear at <em>move-in.</em></h3>
+          <p>Every home comes with a full walkthrough, a thorough punch-list, and a workmanship warranty. <strong>When you call a year later, you reach the same team that built it.</strong></p>
+          <div class="rc-tag">Protection past move-in day</div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- PROOF GRID -->
+<section id="proof">
+  <div class="proof-hd reveal">
+    <div class="proof-hd-l">
+      <div class="eyebrow">In Practice</div>
+      <h2>See the <em>craft</em> for yourself.</h2>
+    </div>
+    <div class="proof-hd-r">
+      <a href="projects.html">
+        Full Portfolio
+        <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="proof-grid reveal">
+    <a class="proof-tile span-2" href="project.html?slug=68th">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="68TH &amp; Camelback">
+      <div class="proof-cap">
+        <div class="proof-cap-name">68TH &amp; Camelback</div>
+        <div class="proof-cap-meta">Paradise Valley · $7.0M</div>
+      </div>
+    </a>
+    <a class="proof-tile" href="project.html?slug=charter-oak">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Charter Oak">
+      <div class="proof-cap">
+        <div class="proof-cap-name">Charter Oak</div>
+        <div class="proof-cap-meta">Scottsdale · $7.0M</div>
+      </div>
+    </a>
+    <a class="proof-tile" href="project.html?slug=via-estrella">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0171.jpg" alt="Via Estrella">
+      <div class="proof-cap">
+        <div class="proof-cap-name">Via Estrella</div>
+        <div class="proof-cap-meta">Scottsdale · $5.45M</div>
+      </div>
+    </a>
+    <a class="proof-tile" href="project.html?slug=dc2">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="DC2">
+      <div class="proof-cap">
+        <div class="proof-cap-name">DC2</div>
+        <div class="proof-cap-meta">Arcadia · $4.4M</div>
+      </div>
+    </a>
+    <a class="proof-tile" href="project.html?slug=earll">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="Earll">
+      <div class="proof-cap">
+        <div class="proof-cap-name">Earll</div>
+        <div class="proof-cap-meta">Arcadia · $3.65M</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="grain">
+  <div class="cta-left">
+    <div class="cta-eyebrow">Begin the Conversation</div>
+    <div class="cta-text">
+      <div>Build with the team</div>
+      <div><em>clients come back to.</em></div>
+    </div>
+    <p class="cta-sub">Tell us about your vision. We respond personally within one business day &mdash; whether you're ready to break ground or just exploring what's possible.</p>
+    <div class="cta-meta">
+      <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
+      <div class="cta-meta-row"><span class="cta-meta-label">Email</span><span class="cta-meta-val">hello@ellaleehomes.com</span></div>
+      <div class="cta-meta-row"><span class="cta-meta-label">Studio</span><span class="cta-meta-val">4408 N 12th St, Phoenix, AZ 85014</span></div>
+    </div>
+  </div>
+
+  <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We&rsquo;ll be in touch.';">
+    <div class="cta-form-row">
+      <div class="cta-field">
+        <label>First Name</label>
+        <input type="text" placeholder="Jane" required>
+      </div>
+      <div class="cta-field">
+        <label>Last Name</label>
+        <input type="text" placeholder="Doe" required>
+      </div>
+    </div>
+    <div class="cta-form-row">
+      <div class="cta-field">
+        <label>Email</label>
+        <input type="email" placeholder="jane@email.com" required>
+      </div>
+      <div class="cta-field">
+        <label>Phone</label>
+        <input type="tel" placeholder="(480) 555-0100">
+      </div>
+    </div>
+    <div class="cta-field">
+      <label>I'm interested in</label>
+      <select>
+        <option>Building a custom home</option>
+        <option>Selling my home</option>
+        <option>Investor / development opportunity</option>
+        <option>General inquiry</option>
+      </select>
+    </div>
+    <div class="cta-field">
+      <label>Tell us about your project</label>
+      <textarea placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
+    </div>
+    <div class="cta-form-actions">
+      <p class="cta-form-note">We respond personally within one business day. Have more questions? <a href="faq.html" style="color:var(--navy); font-weight:500;">Visit our FAQ page</a>.</p>
+      <button type="submit" class="cta-submit">
+        Send Inquiry
+        <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"/></svg>
+      </button>
+    </div>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer class="grain site-footer">
+  <div>
+    <div class="footer-brand">Ella Lee Homes</div>
+    <p class="footer-copy">Ella Lee Homes. Arcadia, Paradise Valley, and Scottsdale’s premier custom home builder. BUILT RIGHT.</p>
+    <div class="footer-roc">ROC License: KB2-333410</div>
+  </div>
+  <div class="footer-col">
+    <h4>Navigate</h4>
+    <a href="why-us.html">Why Us</a>
+    <a href="projects.html">Previous Projects</a><a href="our-story.html">Our Story</a>
+    <a href="process.html">Process</a><a href="investors.html">Developers</a><a href="stories.html">Stories</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <a href="process.html">Build Your Home</a><a href="sell.html">Sell a Home</a>
+    <a href="investors.html">Developers</a><a href="client-portal.html">Client Portal</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a>
+    <a href="tel:4803408700">(480) 340-8700</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">4408 N 12th St</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">Phoenix, AZ 85014</a>
+    <div class="footer-hours">Mon–Fri 9am–5pm · Sat by appointment</div>
+  </div>
+</footer>
+
+<div class="footer-btm">
+  <span>&copy; 2026 Ella Lee Homes &nbsp;&middot;&nbsp; ROC License KB2-333410</span>
+  <div class="footer-btm-right"><nav class="footer-legal"><a href="faq.html">FAQ</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></nav><div class="footer-social"><a href="https://www.instagram.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg></a><a href="https://www.facebook.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 8.5h2.2V5.3H14c-1.9 0-3.2 1.3-3.2 3.3v1.6H8.6v3.1h2.2V21h3.3v-7.6h2.2l.4-3.1h-2.6V8.9c0-.3.2-.4.5-.4z" fill="currentColor"/></svg></a><a href="https://www.houzz.com/" target="_blank" rel="noopener" aria-label="Houzz"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l7 4v13.6h-5v-5.6H10v5.6H5V7.2z"/></svg></a></div></div>
+</div>
+
+<script>
+/* Reveal-on-scroll */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) {
+        en.target.classList.add('is-visible');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+})();
+
+
+</script>
+  <script defer src="assets/site-nav-contrast.js"></script>
+</body>
+</html>

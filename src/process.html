@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ella Lee Homes — Our Process</title>
+<title>Our Build Process &mdash; Custom Home Timeline &amp; Cost in Arizona | Ella Lee Homes</title>
+<meta name="description" content="How Ella Lee Homes builds a luxury custom home in Arizona — design, permitting, construction, and move-in. Build on your own lot, cost-plus or fixed-price, on time and on budget.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -14,44 +15,63 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
-  --navy: #002855; --gold: #C9A96E;
+  --navy: #001F33; --gold: #C9A96E;
   --sans: 'Inter', Helvetica, sans-serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
   --nav-h: 88px;
   --strip-w: 56px;
 }
-body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; padding-top: 88px; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; /* Hero is full-bleed under the fixed nav — no top padding */ padding-top: 0; }
 
 /* Nav: assets/site-nav.css */
 
-/* ── PAGE HEADER ── */
-#header {
-  padding: 80px 56px 56px;
-  display: flex; justify-content: space-between; align-items: flex-end;
-  border-bottom: 1px solid rgba(43,43,43,0.1);
-}
-.header-left .eyebrow { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--nickel); margin-bottom: 12px; }
-.header-title { font-size: clamp(36px,5vw,64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
-.header-title em { font-style: italic; color: var(--gold); }
-.header-right { font-size: 13px; color: var(--nickel); text-align: right; line-height: 1.6; }
+/* ── PAGE HEADER — now overlaid on the hero image (.hero-head) ── */
 
 /* ── HERO BANNER ── */
 #hero-banner {
   position: relative;
   width: 100%;
-  height: clamp(320px, 42vw, 520px);
+  height: clamp(560px, 80vh, 800px);
   overflow: hidden;
   background: var(--ink);
   border-bottom: 1px solid rgba(43,43,43,0.1);
 }
 #hero-banner img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  filter: saturate(0.95) brightness(0.85);
+  filter: saturate(0.95) brightness(0.82);
 }
 #hero-banner::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.25) 50%, rgba(0,40,85,0.55) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 26%, rgba(0,0,0,0.28) 60%, rgba(0,31,51,0.62) 100%);
 }
+/* Top overlay: eyebrow + page title (left), supporting meta (right) */
+.hero-head {
+  position: absolute; z-index: 2;
+  top: calc(var(--nav-h) + 56px);
+  left: 56px; right: 56px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 48px;
+  color: var(--paper);
+}
+.hero-head .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.7); margin-bottom: 14px;
+}
+.hero-title {
+  font-size: clamp(48px, 7vw, 104px);
+  font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
+  color: var(--paper);
+}
+.hero-title em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.hero-head-meta {
+  font-size: 12px; line-height: 1.7; color: rgba(234,229,220,0.7);
+  text-align: right; max-width: 280px; font-weight: 300;
+  padding-top: 12px;
+}
+.hero-head-meta strong { color: var(--paper); font-weight: 500; }
 .hero-caption {
   position: absolute; left: 56px; bottom: 40px; z-index: 2;
   color: #fff;
@@ -64,388 +84,608 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   font-size: clamp(28px, 3.6vw, 44px); font-weight: 300; letter-spacing: -0.02em;
   line-height: 1.05; max-width: 640px;
 }
-.hero-caption h2 em { font-style: italic; color: var(--gold); }
+.hero-caption h2 em { font-style: normal; color: var(--gold); }
 
-/* ── PROCESS SCROLL ZONE ── */
-#process-scroll-zone {
-  height: 500vh;
+/* ── TIMELINE SECTION (sticky scroll-driven) ── */
+#timeline-section {
+  background: var(--paper);
+  position: relative;
+}
+.ts-intro {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 100px 56px 64px;
+}
+.ts-intro .ts-eyebrow {
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--nickel); margin-bottom: 18px;
+}
+.ts-title {
+  font-family: var(--sans); font-size: clamp(40px, 5.6vw, 72px); font-weight: 300;
+  letter-spacing: -0.03em; line-height: 1; color: var(--ink); margin-bottom: 24px;
+}
+.ts-title em { font-style: normal; color: var(--gold); }
+.ts-lede {
+  font-size: 16px; line-height: 1.7; color: rgba(43, 43, 43, 0.7);
+  font-weight: 300; max-width: 560px; margin: 0 auto;
 }
 
-#process-sticky {
+/* ── STACKED PHASE CARDS ─────────────────────────────────
+   Each phase is position:sticky. As you scroll, the next
+   card slides over the previous; the previous card's navy
+   tab-header peeks from beneath (--i × 56px offset).
+   ────────────────────────────────────────────────────── */
+/* Sticky scroll zone — bars + active content stay pinned while user scrolls through phases */
+#timeline-scroll-zone {
+  position: relative;
+  height: 460vh;
+}
+#timeline-sticky {
   position: sticky;
   top: var(--nav-h);
   height: calc(100vh - var(--nav-h));
-  overflow: hidden;
-  border-bottom: 1px solid rgba(43,43,43,0.1);
-}
-
-.phase-row {
-  display: flex;
-  height: 100%;
-  width: 100%;
-}
-
-/* ── PHASE CARD ── */
-.phase-card {
-  flex: 0 0 var(--strip-w);
-  height: 100%;
-  overflow: hidden;
-  border-right: 1px solid rgba(255,255,255,0.06);
-  position: relative;
-  background: var(--ink);
-  transition: flex 0.72s var(--ease), background 0.4s;
-}
-.phase-card:last-child { border-right: none; }
-.phase-card.active {
-  flex: 1;
-  background: var(--paper);
-}
-
-/* ── STRIP LABEL (vertical, shown when not active) ── */
-.phase-strip {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.18s;
-  z-index: 2;
-}
-.phase-card.active .phase-strip {
-  opacity: 0;
-  transition: opacity 0.12s;
-}
-.phase-strip-text {
-  display: block;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #fff;
-  white-space: nowrap;
-  transform: rotate(90deg);
-  user-select: none;
-}
-.phase-strip-num {
-  display: block;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--gold);
-  white-space: nowrap;
-  transform: rotate(90deg);
-  margin-bottom: 14px;
-  user-select: none;
-  font-weight: 600;
-}
-
-/* ── FULL CARD CONTENT (shown when active) ── */
-.phase-full {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.18s;
-  min-width: 400px;
-  z-index: 1;
-}
-.phase-card.active .phase-full {
-  opacity: 1;
-  pointer-events: auto;
-  transition: opacity 0.32s 0.38s;
-}
-
-/* Card header — phase name displayed horizontally */
-.phase-hdr {
-  padding: 36px 52px 28px;
-  border-bottom: 1px solid rgba(43,43,43,0.1);
-  flex-shrink: 0;
-}
-.phase-num {
-  display: block;
-  font-size: 9px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 10px;
-}
-.phase-name {
-  font-size: clamp(32px, 3.5vw, 56px);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  color: var(--ink);
-}
-
-/* Card body */
-.phase-body {
-  padding: 36px 52px 52px;
-  flex: 1;
-  overflow-y: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
-  align-content: start;
+  grid-template-rows: auto 1fr;
+  gap: 36px;
+  padding: 40px 56px 72px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  overflow: hidden;
 }
 
-.phase-duration {
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--nickel);
-  margin-bottom: 18px;
+/* Cascading bars (clickable) */
+.ts-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 14px 0;
 }
-.phase-desc {
-  font-size: 15px;
-  line-height: 1.72;
-  font-weight: 300;
-  color: var(--ink);
-}
-
-.phase-deliverables-label {
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--nickel);
-  margin-bottom: 18px;
-}
-.phase-deliverables {
-  list-style: none;
+.ts-bar {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 10px;
+  background: none; border: none; padding: 0;
+  font-family: inherit; color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: opacity 0.3s var(--ease);
 }
-.phase-deliverables li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink);
-  line-height: 1.5;
-}
-.phase-deliverables li::before {
-  content: '';
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--gold);
-  flex-shrink: 0;
-  margin-top: 5px;
-}
+.ts-bar[data-step="0"] { grid-column: 1 / 3;  grid-row: 1; }
+.ts-bar[data-step="1"] { grid-column: 3 / 5;  grid-row: 2; }
+.ts-bar[data-step="2"] { grid-column: 5 / 11; grid-row: 3; }
+.ts-bar[data-step="3"] { grid-column: 11 / 13; grid-row: 4; }
 
-/* ── MOBILE: stack vertically, no horizontal effect ── */
+.ts-bar-label { display: flex; align-items: baseline; gap: 12px; }
+.ts-bar-num { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; color: var(--nickel); font-variant-numeric: tabular-nums; }
+.ts-bar-name { font-family: var(--sans); font-size: clamp(18px, 1.9vw, 24px); font-weight: 400; letter-spacing: -0.01em; color: rgba(43,43,43,0.5); transition: color 0.3s var(--ease); }
+.ts-bar-duration { margin-left: auto; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--nickel); font-variant-numeric: tabular-nums; }
+.ts-bar-track { position: relative; height: 12px; background: rgba(43,43,43,0.08); border-radius: 6px; overflow: hidden; }
+.ts-bar-fill { position: absolute; inset: 0 auto 0 0; width: 0%; background: var(--navy); border-radius: 6px; transition: width 0.18s linear; will-change: width; }
+.ts-bar.active .ts-bar-name { color: var(--ink); font-weight: 500; }
+.ts-bar.complete .ts-bar-name { color: var(--navy); }
+.ts-bar.complete .ts-bar-fill { background: var(--navy); }
+.ts-bar:hover .ts-bar-name { color: var(--ink); }
+
+.ts-active-area { position: relative; min-height: 0; overflow: hidden; }
+.ts-body {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
+  align-content: start; opacity: 0; transform: translateY(20px);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+  pointer-events: none;
+}
+.ts-body.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.ts-body-meta {
+  grid-column: 1 / -1;
+  margin-bottom: 20px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.ts-body-phase-name {
+  font-size: clamp(24px, 2.8vw, 36px); font-weight: 500;
+  letter-spacing: -0.02em; color: var(--navy); line-height: 1.1;
+}
+.ts-body-phase-time {
+  font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+  font-weight: 400; color: var(--nickel);
+}
+.ts-body-title { font-family: var(--sans); font-size: clamp(28px, 3.4vw, 44px); font-weight: 300; letter-spacing: -0.02em; color: var(--ink); line-height: 1.05; }
+.ts-body-text { font-size: 15px; line-height: 1.75; color: rgba(43,43,43,0.7); font-weight: 300; }
+.ts-body-deliverables { grid-column: 2; grid-row: 3; }
+.ts-body-deliverables-label { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nickel); margin-bottom: 16px; }
+.ts-body-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.ts-body-list li { position: relative; padding-left: 18px; font-size: 14px; color: rgba(43,43,43,0.85); }
+.ts-body-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+
 @media (max-width: 900px) {
-  #header { padding: 48px 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
-  .header-right { text-align: left; }
-  #nav { padding: 14px 24px; }
-  .hero-caption { left: 24px; bottom: 28px; }
-
-  #process-scroll-zone { height: auto; }
-  #process-sticky { position: static; height: auto; overflow: visible; }
-  .phase-row { flex-direction: column; }
-
-  .phase-card {
-    flex: none !important;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid rgba(43,43,43,0.1);
-    background: var(--paper) !important;
-  }
-  .phase-card:last-child { border-bottom: none; }
-  .phase-strip { display: none; }
-  .phase-full {
-    position: static;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    min-width: 0;
-    transition: none;
-  }
-  .phase-hdr { padding: 28px 24px 22px; }
-  .phase-body { padding: 24px 24px 36px; grid-template-columns: 1fr; gap: 28px; }
-  .phase-name { font-size: 28px; }
+  .hero-head { top: calc(var(--nav-h) + 28px); left: 24px; right: 24px; flex-direction: column; gap: 16px; }
+  .hero-head-meta { text-align: left; padding-top: 0; }
+  .hero-caption { left: 24px; right: 24px; bottom: 32px; }
+  .ts-intro { padding: 72px 24px 40px; }
+  #timeline-scroll-zone { height: auto; }
+  #timeline-sticky { position: static; height: auto; padding: 24px 24px 64px; gap: 28px; }
+  .ts-grid { grid-template-columns: 1fr; grid-template-rows: auto; gap: 16px 0; }
+  .ts-bar { grid-column: 1 !important; grid-row: auto !important; }
+  .ts-bar-label { flex-wrap: wrap; }
+  .ts-bar-duration { margin-left: 0; flex-basis: 100%; }
+  .ts-active-area { position: static; min-height: auto; }
+  .ts-body { position: static; opacity: 1; transform: none; grid-template-columns: 1fr; gap: 24px; margin-top: 32px; pointer-events: auto; }
+  .ts-body-deliverables { grid-column: 1; grid-row: auto; }
 }
+
+
+/* ── CTA STRIP (shared with index.html) ── */
+#cta {
+  padding: 120px 56px;
+  background: var(--paper); color: var(--ink);
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start;
+  position: relative; z-index: 1;
+}
+.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(43,43,43,.5); margin-bottom: 24px; }
+.cta-text { font-family: var(--sans); font-size: clamp(32px,4.6vw,64px); font-weight: 300; line-height: .98; letter-spacing: -0.03em; color: var(--ink); }
+.cta-text em { font-style: normal; color: var(--gold); }
+.cta-sub {
+  margin-top: 28px; max-width: 440px;
+  font-size: 15px; font-weight: 400; line-height: 1.6; color: rgba(43,43,43,0.78);
+}
+.cta-meta {
+  margin-top: 36px; display: flex; flex-direction: column; gap: 14px;
+  font-size: 13px; color: rgba(43,43,43,0.85);
+}
+.cta-meta-row { display: flex; align-items: center; gap: 14px; }
+.cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.5); width: 64px; }
+.cta-meta-val { font-family: var(--sans); }
+
+/* form */
+.cta-form { display: flex; flex-direction: column; gap: 0; background: rgba(255,255,255,0.4); border: 1px solid rgba(43,43,43,0.15); padding: 40px; }
+.cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.cta-field {
+  display: flex; flex-direction: column;
+  border-bottom: 1px solid rgba(43,43,43,0.12);
+  padding: 14px 0;
+}
+.cta-field + .cta-field { padding-top: 18px; }
+.cta-form-row .cta-field { border-right: 1px solid rgba(43,43,43,0.12); padding-right: 18px; }
+.cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
+.cta-field label {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.55); margin-bottom: 8px;
+}
+.cta-field input, .cta-field textarea, .cta-field select {
+  background: transparent; border: none; outline: none;
+  font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--ink);
+  padding: 0; cursor: text;
+}
+.cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
+.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(43,43,43,0.35); }
+.cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%232B2B2B' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
+.cta-field select option { background: var(--paper); color: var(--ink); }
+
+.cta-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
+.cta-form-note { font-size: 11px; color: rgba(43,43,43,.55); line-height: 1.5; }
+.cta-submit {
+  background: var(--ink); color: var(--paper); border: none;
+  font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+  padding: 18px 36px; cursor: none; transition: background .2s, color .2s; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.cta-submit svg { width: 16px; height: 8px; transition: transform .25s; }
+.cta-submit:hover { background: var(--gold); color: var(--ink); }
+.cta-submit:hover svg { transform: translateX(4px); }
+.btn-outline:hover { border-color: var(--paper); }
+
 
 </style>
 <link rel="stylesheet" href="assets/site-cursor.css">
+<!-- @localbusiness-schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "@id": "https://ellaleehomes.com/#business",
+  "name": "Ella Lee Homes",
+  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
+  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "url": "https://ellaleehomes.com/",
+  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "telephone": "+1-480-340-8700",
+  "email": "hello@ellaleehomes.com",
+  "priceRange": "$$",
+  "foundingLocation": "Phoenix, Arizona",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4408 N 12th St",
+    "addressLocality": "Phoenix",
+    "addressRegion": "AZ",
+    "postalCode": "85014",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 33.5004403,
+    "longitude": -112.0567192
+  },
+  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "Place",
+      "name": "Arcadia, Phoenix"
+    },
+    {
+      "@type": "City",
+      "name": "Phoenix",
+      "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    }
+  ],
+  "knowsAbout": [
+    "Custom home building",
+    "Luxury home construction",
+    "Home design",
+    "Residential development"
+  ],
+  "sameAs": [
+    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "12",
+    "bestRating": "5"
+  }
+}
+</script>
 </head>
 <body>
-<!-- CURSOR_PARTIAL -->
+<div id="cur"><div id="cur-dot"></div></div>
+<div id="cur-ring"></div>
+<script defer src="assets/site-cursor.js"></script>
+<script defer src="assets/site-nav-dd.js"></script>
 
-<!-- NAV_PARTIAL -->
 
-<!-- PAGE HEADER -->
-<div id="header">
-  <div class="header-left">
-    <div class="eyebrow">Ella Lee Homes</div>
-    <h1 class="header-title">Our <em>Process.</em></h1>
+<!-- Canonical site nav — edit once; injected by scripts/build-html.mjs -->
+<nav id="nav" class="theme-process">
+  <a href="index.html" class="nav-logo" id="navLogo" aria-label="Ella Lee Homes">
+    <img class="nav-logo-img" src="uploads/Monogram_Navy.png" alt="Ella Lee Homes">
+  </a>
+  <ul class="nav-links nav-pill">
+    <li><a href="projects.html">Portfolio</a></li>
+    <li><a href="process.html" aria-current="page">Build</a></li>
+    <li><a href="sell.html">Sell</a></li>
+    <li><a href="our-story.html">Our Story</a></li>
+    <li class="nav-has-dd">
+      <button class="nav-dd-trigger" type="button" aria-expanded="false" aria-haspopup="true">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <a href="tel:4803408700" class="nav-phone">(480) 340-8700</a>
+    <a href="index.html#cta" class="nav-cta">Schedule a Consultation</a>
   </div>
-  <div class="header-right">
-    4 phases<br>end to end
+  <a href="tel:4803408700" class="nav-phone-mobile" aria-label="Call Ella Lee Homes at (480) 340-8700"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M4.5 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.6 1.5A15.5 15.5 0 013 4.6 1.5 1.5 0 014.5 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+  <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" type="button">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-dd-panel" role="region" aria-label="Learn menu">
+  <div class="nav-dd-intro">
+    <div class="nav-dd-intro-title">About Ella Lee Homes</div>
+    <div class="nav-dd-intro-sub">Sustainable, energy efficient, on time &amp; on budget homes</div>
+  </div>
+  <div class="nav-dd-grid">
+    <div class="nav-dd-col">
+      <a href="why-us.html">Why Ella Lee</a>
+      <a href="investors.html">Developers &amp; Investors</a>
+      <a href="stories.html">Stories &amp; Insights</a>
+    </div>
+    <div class="nav-dd-col">
+      <a href="client-portal.html">Client Portal</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
   </div>
 </div>
 
-<!-- HERO BANNER -->
+<div class="nav-mobile-overlay" aria-hidden="true">
+  <div class="nav-mobile-panel">
+    <a href="projects.html" class="nav-mobile-link">Portfolio</a>
+    <a href="process.html" class="nav-mobile-link">Build</a>
+    <a href="sell.html" class="nav-mobile-link">Sell</a>
+    <a href="our-story.html" class="nav-mobile-link">Our Story</a>
+    <div class="nav-mobile-learn-section">
+      <button class="nav-mobile-learn-btn" type="button">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="nav-mobile-learn-items">
+        <a href="why-us.html">Why Ella Lee</a>
+        <a href="investors.html">Developers &amp; Investors</a>
+        <a href="stories.html">Stories &amp; Insights</a>
+        <a href="client-portal.html">Client Portal</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="nav-mobile-sep"></div>
+    <a href="index.html#cta" class="nav-mobile-cta">Schedule a Consultation</a>
+  </div>
+</div>
+
+
+<!-- HERO BANNER (title sits ON the image, like Why Us) -->
 <section id="hero-banner" aria-label="A completed Ella Lee home">
   <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Completed Ella Lee home">
+
+  <div class="hero-head">
+    <div class="hero-head-l">
+      <div class="eyebrow">Ella Lee Homes</div>
+      <h1 class="hero-title">Our <em>Process.</em></h1>
+    </div>
+    <div class="hero-head-meta">
+      4 phases<br>end to end
+    </div>
+  </div>
+
   <div class="hero-caption">
     <div class="eyebrow">The Finished Home</div>
     <h2>From first sketch to <em>final key.</em></h2>
   </div>
 </section>
 
-<!-- PROCESS SCROLL ZONE -->
-<div id="process-scroll-zone">
-  <div id="process-sticky">
-    <div class="phase-row" id="phase-row">
+<!-- TIMELINE SECTION (scroll-driven, sticky bars + switching content) -->
+<section id="timeline-section">
+  <div class="ts-intro">
+    <div class="ts-eyebrow">Our Process</div>
+    <h2 class="ts-title">Timeline</h2>
+    <p class="ts-lede">Building a custom home in Arizona typically takes 18 months from design through move-in. At Ella Lee Homes, we break that journey into four clear phases, so you always know exactly where your project stands and what comes next. We operate on a cost-plus structure, which means full transparency on every dollar spent, and we build on your lot or assist with land acquisition across Arcadia, Scottsdale, Paradise Valley, and the greater Phoenix Valley.</p>
+  </div>
 
-      <!-- 01 DESIGN -->
-      <div class="phase-card active" id="card-0">
-        <div class="phase-strip">
-          <span class="phase-strip-num">01</span>
-          <span class="phase-strip-text">Design</span>
-        </div>
-        <div class="phase-full">
-          <div class="phase-hdr">
-            <span class="phase-num">01</span>
-            <div class="phase-name">Design</div>
+  <div id="timeline-scroll-zone">
+    <div id="timeline-sticky">
+      <div class="ts-grid" id="tsGrid">
+        <button class="ts-bar" data-step="0" type="button" aria-label="Jump to Design phase">
+          <div class="ts-bar-label"><span class="ts-bar-num">01</span><span class="ts-bar-name">Design</span><span class="ts-bar-duration">3 – 5 months</span></div>
+          <div class="ts-bar-track"><div class="ts-bar-fill"></div></div>
+        </button>
+        <button class="ts-bar" data-step="1" type="button" aria-label="Jump to Permitting phase">
+          <div class="ts-bar-label"><span class="ts-bar-num">02</span><span class="ts-bar-name">Permitting</span><span class="ts-bar-duration">3 – 4 months</span></div>
+          <div class="ts-bar-track"><div class="ts-bar-fill"></div></div>
+        </button>
+        <button class="ts-bar" data-step="2" type="button" aria-label="Jump to Construction phase">
+          <div class="ts-bar-label"><span class="ts-bar-num">03</span><span class="ts-bar-name">Construction</span><span class="ts-bar-duration">12 – 18 months</span></div>
+          <div class="ts-bar-track"><div class="ts-bar-fill"></div></div>
+        </button>
+        <button class="ts-bar" data-step="3" type="button" aria-label="Jump to Move In phase">
+          <div class="ts-bar-label"><span class="ts-bar-num">04</span><span class="ts-bar-name">Move In</span><span class="ts-bar-duration">1 – 2 months</span></div>
+          <div class="ts-bar-track"><div class="ts-bar-fill"></div></div>
+        </button>
+      </div>
+      <div class="ts-active-area">
+        <div class="ts-body active" data-step="0">
+          <div class="ts-body-meta">
+            <div class="ts-body-phase-name">Design Phase</div>
+            <div class="ts-body-phase-time">3 – 5 months</div>
           </div>
-          <div class="phase-body">
-            <div>
-              <div class="phase-duration">8 – 12 weeks</div>
-              <p class="phase-desc">Everything starts with a vision. We work alongside you to define the architecture, interior palette, and material selections — translating your goals into a buildable, beautiful plan before a single shovel breaks ground.</p>
-            </div>
-            <div>
-              <div class="phase-deliverables-label">Deliverables</div>
-              <ul class="phase-deliverables">
-                <li>Architectural drawings</li>
-                <li>Interior design selections</li>
-                <li>Structural &amp; MEP coordination</li>
-                <li>Preliminary project budget</li>
-              </ul>
-            </div>
+          <h3 class="ts-body-title">It starts with your vision.</h3>
+          <p class="ts-body-text">Everything starts with a vision. We work alongside you to define the architecture, interior palette, and material selections — translating your goals into a buildable, beautiful plan before a single shovel breaks ground.</p>
+          <div class="ts-body-deliverables">
+            <div class="ts-body-deliverables-label">Deliverables</div>
+            <ul class="ts-body-list"><li>Architectural drawings</li><li>Interior design selections</li><li>Structural &amp; MEP coordination</li><li>Preliminary project budget</li></ul>
+          </div>
+        </div>
+        <div class="ts-body" data-step="1">
+          <div class="ts-body-meta">
+            <div class="ts-body-phase-name">Permitting Phase</div>
+            <div class="ts-body-phase-time">3 – 4 months</div>
+          </div>
+          <h3 class="ts-body-title">We take care of the headache.</h3>
+          <p class="ts-body-text">We handle every city and county submission, coordinate directly with engineers, and navigate HOA approvals on your behalf — so you never have to manage the red tape.</p>
+          <div class="ts-body-deliverables">
+            <div class="ts-body-deliverables-label">Deliverables</div>
+            <ul class="ts-body-list"><li>City permit submission</li><li>Engineering sign-off</li><li>HOA approval coordination</li><li>Final permit issuance</li></ul>
+          </div>
+        </div>
+        <div class="ts-body" data-step="2">
+          <div class="ts-body-meta">
+            <div class="ts-body-phase-name">Construction Phase</div>
+            <div class="ts-body-phase-time">12 – 18 months</div>
+          </div>
+          <h3 class="ts-body-title">Let's break ground.</h3>
+          <p class="ts-body-text">Our crews break ground once permits are in hand. You work directly with the Ella Lee team throughout — no hand-offs, no intermediaries. Timeline depends on scope and finish selections; we set your specific schedule at contract signing.</p>
+          <div class="ts-body-deliverables">
+            <div class="ts-body-deliverables-label">Deliverables</div>
+            <ul class="ts-body-list"><li>Site preparation &amp; foundation</li><li>Framing &amp; MEP rough-in</li><li>Interior &amp; exterior finishes</li><li>Weekly progress updates</li></ul>
+          </div>
+        </div>
+        <div class="ts-body" data-step="3">
+          <div class="ts-body-meta">
+            <div class="ts-body-phase-name">Move-In Phase</div>
+            <div class="ts-body-phase-time">1 – 2 months</div>
+          </div>
+          <h3 class="ts-body-title">Welcome home.</h3>
+          <p class="ts-body-text">We walk every inch of the home with you before keys change hands. Our punch list process is thorough, and our warranty coverage means you're supported long after move-in day.</p>
+          <div class="ts-body-deliverables">
+            <div class="ts-body-deliverables-label">Deliverables</div>
+            <ul class="ts-body-list"><li>Pre-handoff walkthrough</li><li>Punch-list completion</li><li>Final inspection &amp; close-out</li><li>Ongoing warranty support</li></ul>
           </div>
         </div>
       </div>
-
-      <!-- 02 PERMITTING -->
-      <div class="phase-card" id="card-1">
-        <div class="phase-strip">
-          <span class="phase-strip-num">02</span>
-          <span class="phase-strip-text">Permitting</span>
-        </div>
-        <div class="phase-full">
-          <div class="phase-hdr">
-            <span class="phase-num">02</span>
-            <div class="phase-name">Permitting</div>
-          </div>
-          <div class="phase-body">
-            <div>
-              <div class="phase-duration">4 – 8 weeks</div>
-              <p class="phase-desc">We handle every city and county submission, coordinate directly with engineers, and navigate HOA approvals on your behalf — so you never have to manage the red tape.</p>
-            </div>
-            <div>
-              <div class="phase-deliverables-label">Deliverables</div>
-              <ul class="phase-deliverables">
-                <li>City permit submission</li>
-                <li>Engineering sign-off</li>
-                <li>HOA approval coordination</li>
-                <li>Final permit issuance</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 03 CONSTRUCTION -->
-      <div class="phase-card" id="card-2">
-        <div class="phase-strip">
-          <span class="phase-strip-num">03</span>
-          <span class="phase-strip-text">Construction</span>
-        </div>
-        <div class="phase-full">
-          <div class="phase-hdr">
-            <span class="phase-num">03</span>
-            <div class="phase-name">Construction</div>
-          </div>
-          <div class="phase-body">
-            <div>
-              <div class="phase-duration">9 – 14 months</div>
-              <p class="phase-desc">Our crews break ground once permits are in hand. You work directly with the Ella Lee team throughout — no hand-offs, no intermediaries. Clear, consistent communication from foundation to final trim.</p>
-            </div>
-            <div>
-              <div class="phase-deliverables-label">Deliverables</div>
-              <ul class="phase-deliverables">
-                <li>Site preparation &amp; foundation</li>
-                <li>Framing &amp; MEP rough-in</li>
-                <li>Interior &amp; exterior finishes</li>
-                <li>Weekly progress updates</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 04 MOVE IN -->
-      <div class="phase-card" id="card-3">
-        <div class="phase-strip">
-          <span class="phase-strip-num">04</span>
-          <span class="phase-strip-text">Move In</span>
-        </div>
-        <div class="phase-full">
-          <div class="phase-hdr">
-            <span class="phase-num">04</span>
-            <div class="phase-name">Move In</div>
-          </div>
-          <div class="phase-body">
-            <div>
-              <div class="phase-duration">2 – 4 weeks</div>
-              <p class="phase-desc">We walk every inch of the home with you before keys change hands. Our punch list process is thorough, and our warranty coverage means you're supported long after move-in day.</p>
-            </div>
-            <div>
-              <div class="phase-deliverables-label">Deliverables</div>
-              <ul class="phase-deliverables">
-                <li>Final walkthrough &amp; punch list</li>
-                <li>Certificate of occupancy</li>
-                <li>Keys &amp; access transfer</li>
-                <li>1-year workmanship warranty</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
-</div>
+</section>
 
-<!-- FOOTER_PARTIAL -->
 
 <script>
-const scrollZone = document.getElementById('process-scroll-zone');
-const cards = Array.from(document.querySelectorAll('.phase-card'));
-const N = cards.length;
-
-function updatePhase() {
-  const rect = scrollZone.getBoundingClientRect();
-  const scrollableH = scrollZone.offsetHeight - window.innerHeight;
-  const scrolled = -rect.top;
-  const progress = Math.max(0, Math.min(1, scrolled / scrollableH));
-
-  const activeIndex = Math.min(N - 1, Math.floor(progress * N));
-
-  cards.forEach((card, i) => {
-    card.classList.toggle('active', i === activeIndex);
+(function() {
+  const zone = document.getElementById('timeline-scroll-zone');
+  if (!zone) return;
+  const bars = Array.from(document.querySelectorAll('.ts-bar'));
+  const bodies = Array.from(document.querySelectorAll('.ts-body'));
+  const N = bars.length;
+  function tick() {
+    const rect = zone.getBoundingClientRect();
+    const scrollableH = zone.offsetHeight - window.innerHeight;
+    const scrolled = -rect.top;
+    const progress = Math.max(0, Math.min(1, scrollableH > 0 ? scrolled / scrollableH : 0));
+    const seg = progress * N;
+    const activeIdx = Math.min(N - 1, Math.floor(seg));
+    bars.forEach((bar, i) => {
+      let fill;
+      if (i < activeIdx) fill = 100;
+      else if (i > activeIdx) fill = 0;
+      else fill = (seg - i) * 100;
+      const fillEl = bar.querySelector('.ts-bar-fill');
+      if (fillEl) fillEl.style.width = fill + '%';
+      bar.classList.toggle('active', i === activeIdx);
+      bar.classList.toggle('complete', i < activeIdx);
+    });
+    bodies.forEach((b, i) => { b.classList.toggle('active', i === activeIdx); });
+  }
+  bars.forEach((bar, i) => {
+    bar.addEventListener('click', () => {
+      const zoneTop = zone.getBoundingClientRect().top + window.scrollY;
+      const scrollableH = zone.offsetHeight - window.innerHeight;
+      const targetProgress = i / N + 0.02;
+      const targetY = zoneTop + targetProgress * scrollableH;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    });
   });
-}
-
-window.addEventListener('scroll', updatePhase, { passive: true });
-updatePhase();
+  window.addEventListener('scroll', tick, { passive: true });
+  window.addEventListener('resize', tick, { passive: true });
+  tick();
+})();
 </script>
 
+<!-- AIO Block A: cost-plus transparency (visible body text for AI search) -->
+<section style="background:var(--paper); padding:96px 56px; border-top:1px solid rgba(43,43,43,0.08);">
+  <div style="max-width:900px; margin:0 auto;">
+    <div style="font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--nickel); margin-bottom:20px;">Cost-Plus, Fully Open-Book</div>
+    <p style="font-size:20px; line-height:1.75; color:rgba(43,43,43,0.82);">The cost-plus contract structure is the gold standard for high-end residential construction because it eliminates the hidden margins built into fixed-price building. At Ella Lee Homes, we operate on a fully open-book system &mdash; every subcontractor bid, every premium material invoice, and every city permit fee is disclosed with complete transparency. Your budget goes entirely into the physical integrity, custom millwork, and architectural execution of your home, not into a builder&rsquo;s inflated contingency fund. Our clients track every dollar in real time through their dedicated Buildertrend client portal, from the first design invoice to the final punch-list close-out.</p>
+  </div>
+</section>
+
+<section id="cta" class="grain">
+  <div class="cta-left">
+    <div class="cta-eyebrow" style="font-size: 12px">Begin the Conversation</div>
+    <div class="cta-text">
+      <div class="r-mask"><span class="r-up d1 fired">Ready to build</span></div>
+      <div class="r-mask"><span class="r-up d2 fired">your <em>legacy?</em></span></div>
+    </div>
+    <p class="cta-sub r-fade d3 fired">Tell us about your vision. Whether you're building from the ground up, selling a custom home, or simply exploring what's possible, we'd love to hear from you.</p>
+    <blockquote class="r-fade d3 fired" style="margin-top:30px; padding-left:20px; border-left:2px solid var(--gold); max-width:48ch;">
+      <p style="font-size:17px; line-height:1.6; color:rgba(43,43,43,0.82);">&ldquo;Completed on time, within budget, and exceeded our expectations. The craftsmanship and attention to detail were simply amazing.&rdquo;</p>
+      <cite style="display:block; margin-top:12px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(43,43,43,0.5); font-style:normal;">Mike &middot; Scottsdale, AZ</cite>
+    </blockquote>
+    <div class="cta-meta r-fade d4 fired">
+      <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
+      <div class="cta-meta-row"><span class="cta-meta-label">Email</span><span class="cta-meta-val">hello@ellaleehomes.com</span></div>
+      <div class="cta-meta-row"><span class="cta-meta-label">Studio</span><span class="cta-meta-val">4408 N 12th St, Phoenix, AZ 85014</span></div>
+    </div>
+  </div>
+
+  <form class="cta-form r-fade d2 fired" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We\u2019ll be in touch.';">
+    <div class="cta-form-row">
+      <div class="cta-field">
+        <label>First Name</label>
+        <input type="text" placeholder="Jane" required="">
+      </div>
+      <div class="cta-field">
+        <label>Last Name</label>
+        <input type="text" placeholder="Doe" required="">
+      </div>
+    </div>
+    <div class="cta-form-row">
+      <div class="cta-field">
+        <label>Email</label>
+        <input type="email" placeholder="jane@email.com" required="">
+      </div>
+      <div class="cta-field">
+        <label>Phone</label>
+        <input type="tel" placeholder="(480) 555-0100">
+      </div>
+    </div>
+    <div class="cta-field">
+      <label>I'm interested in</label>
+      <select>
+        <option>Building a custom home</option>
+        <option>Selling my home</option>
+        <option>Investor / development opportunity</option>
+        <option>General inquiry</option>
+      </select>
+    </div>
+    <div class="cta-field">
+      <label>Tell us about your project</label>
+      <textarea placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
+    </div>
+    <div class="cta-form-actions">
+      <p class="cta-form-note">We respond personally within one business day. Still have questions? <a href="faq.html" style="color:var(--navy); font-weight:500;">Read our FAQs</a>.</p>
+      <button type="submit" class="cta-submit">
+        Send Inquiry
+        <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"></path></svg>
+      </button>
+    </div>
+  </form>
+</section>
+
+<footer class="grain site-footer">
+  <div>
+    <div class="footer-brand">Ella Lee Homes</div>
+    <p class="footer-copy">Ella Lee Homes. Arcadia, Paradise Valley, and Scottsdale’s premier custom home builder. BUILT RIGHT.</p>
+    <div class="footer-roc">ROC License: KB2-333410</div>
+  </div>
+  <div class="footer-col">
+    <h4>Navigate</h4>
+    <a href="projects.html">Previous Projects</a><a href="our-story.html">Our Story</a>
+    <a href="process.html">Process</a><a href="investors.html">Developers</a><a href="stories.html">Stories</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <a href="process.html">Build Your Home</a><a href="sell.html">Sell a Home</a>
+    <a href="investors.html">Developers</a><a href="client-portal.html">Client Portal</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a>
+    <a href="tel:4803408700">(480) 340-8700</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">4408 N 12th St</a>
+    <a href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener">Phoenix, AZ 85014</a>
+    <div class="footer-hours">Mon–Fri 9am–5pm · Sat by appointment</div>
+  </div>
+</footer>
+
+<div class="footer-btm">
+  <span>&copy; 2026 Ella Lee Homes &nbsp;&middot;&nbsp; ROC License KB2-333410</span>
+  <div class="footer-btm-right"><nav class="footer-legal"><a href="faq.html">FAQ</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></nav><div class="footer-social"><a href="https://www.instagram.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg></a><a href="https://www.facebook.com/ellaleehomes/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 8.5h2.2V5.3H14c-1.9 0-3.2 1.3-3.2 3.3v1.6H8.6v3.1h2.2V21h3.3v-7.6h2.2l.4-3.1h-2.6V8.9c0-.3.2-.4.5-.4z" fill="currentColor"/></svg></a><a href="https://www.houzz.com/" target="_blank" rel="noopener" aria-label="Houzz"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l7 4v13.6h-5v-5.6H10v5.6H5V7.2z"/></svg></a></div></div>
+</div>
+
+
+  <script defer src="assets/site-nav-contrast.js"></script>
 </body>
 </html>
