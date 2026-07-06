@@ -764,7 +764,25 @@ details.faq .faq-a {
     </div>
   </div>
 
-  <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We&rsquo;ll be in touch within one business day.';">
+  <form class="cta-form">
+    <script>
+    (function () {
+      var form = document.currentScript.parentElement;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var lines = [];
+        form.querySelectorAll('.cta-field').forEach(function (f) {
+          var l = f.querySelector('label'), c = f.querySelector('input, select, textarea');
+          if (l && c) lines.push(l.textContent.trim() + ': ' + (c.value || '').trim());
+        });
+        window.location.href = 'mailto:hello@ellaleehomes.com?subject='
+          + encodeURIComponent('Cash offer request — Ella Lee Homes')
+          + '&body=' + encodeURIComponent(lines.join('\n'));
+        var b = form.querySelector('.cta-submit');
+        if (b) b.innerHTML = 'Thank you. We&rsquo;ll be in touch within one business day.';
+      });
+    })();
+    </script>
     <div class="cta-form-row">
       <div class="cta-field">
         <label>First Name</label>
