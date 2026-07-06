@@ -463,30 +463,30 @@ a.info-value:hover { color: var(--navy); }
     </div>
 
     <!-- Form -->
-    <form class="contact-form reveal" onsubmit="event.preventDefault(); this.querySelector('.form-submit').innerHTML='Thank you. We&rsquo;ll be in touch.';">
+    <form id="contact-form" class="contact-form reveal">
       <div class="form-row">
         <div class="field">
-          <label>First Name</label>
-          <input type="text" placeholder="Jane" required="">
+          <label for="cf-first">First Name</label>
+          <input id="cf-first" name="first_name" type="text" placeholder="Jane" required="">
         </div>
         <div class="field">
-          <label>Last Name</label>
-          <input type="text" placeholder="Doe" required="">
+          <label for="cf-last">Last Name</label>
+          <input id="cf-last" name="last_name" type="text" placeholder="Doe" required="">
         </div>
       </div>
       <div class="form-row">
         <div class="field">
-          <label>Email</label>
-          <input type="email" placeholder="jane@email.com" required="">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" placeholder="jane@email.com" required="">
         </div>
         <div class="field">
-          <label>Phone</label>
-          <input type="tel" placeholder="(480) 555-0100">
+          <label for="cf-phone">Phone</label>
+          <input id="cf-phone" name="phone" type="tel" placeholder="(480) 555-0100">
         </div>
       </div>
       <div class="field">
-        <label>I'm interested in</label>
-        <select>
+        <label for="cf-interest">I'm interested in</label>
+        <select id="cf-interest" name="interest">
           <option>Building a custom home</option>
           <option>Selling my custom home</option>
           <option>Developer partnership</option>
@@ -494,8 +494,8 @@ a.info-value:hover { color: var(--navy); }
         </select>
       </div>
       <div class="field">
-        <label>Tell us about your project</label>
-        <textarea placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
+        <label for="cf-message">Tell us about your project</label>
+        <textarea id="cf-message" name="message" placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
       </div>
       <div class="form-actions">
         <p class="form-note">We read every message personally and respond within one business day.</p>
@@ -505,6 +505,30 @@ a.info-value:hover { color: var(--navy); }
         </button>
       </div>
     </form>
+    <script>
+      (function () {
+        var form = document.getElementById('contact-form');
+        if (!form) return;
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var v = function (n) { var el = form.elements[n]; return el && el.value ? el.value.trim() : ''; };
+          var interest = v('interest') || 'General inquiry';
+          var body = [
+            'Name: ' + (v('first_name') + ' ' + v('last_name')).trim(),
+            'Email: ' + v('email'),
+            'Phone: ' + v('phone'),
+            'Interested in: ' + interest,
+            '',
+            v('message')
+          ].join('\n');
+          window.location.href = 'mailto:hello@ellaleehomes.com'
+            + '?subject=' + encodeURIComponent('Website inquiry — ' + interest)
+            + '&body=' + encodeURIComponent(body);
+          var btn = form.querySelector('.form-submit');
+          if (btn) btn.innerHTML = 'Thank you. We&rsquo;ll be in touch.';
+        });
+      })();
+    </script>
 
   </div>
 </section>
