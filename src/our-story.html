@@ -1345,9 +1345,8 @@ details.story-faq .faq-a p + p {
           title: h.name + ' — ' + h.loc,
           alt: h.name + ' — ' + h.loc,
         }).bindPopup(popupHtml, { closeButton: false });
-        // Clicking the pin itself navigates to the project page; the
-        // popup still shows on hover/touch as a preview.
-        marker.on('click', () => { window.location.href = href; });
+        // Tapping/clicking the pin opens the popup, whose "View project"
+        // link navigates; hover also opens it as a preview on desktop.
         marker.on('mouseover', () => marker.openPopup());
         marker.addTo(map);
       });

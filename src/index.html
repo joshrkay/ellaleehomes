@@ -1840,7 +1840,7 @@ function fireHero(){
 
 /* â”€â”€ NAV COMPACT â”€â”€ */
 window.addEventListener('scroll', onScroll, {passive:true});
-window.addEventListener('resize', () => { window.__navLogoStart = null; window.__navLogoTarget = null; window.__expBStart = null; window.__expBRange = null; }, {passive:true});
+window.addEventListener('resize', () => { window.__navLogoData = null; window.__expBStart = null; window.__expBRange = null; }, {passive:true});
 
 /* â”€â”€ EXPAND LOGIC â”€â”€ */
 function setupExpand(zoneId, clipId, imgId){

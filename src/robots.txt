@@ -2,7 +2,7 @@
 # Allow all standard search engines
 User-agent: *
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 # ─── AI search & answer engines (explicitly welcomed) ───
 User-agent: GPTBot
