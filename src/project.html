@@ -25,21 +25,23 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 
 /* Nav: assets/site-nav.css */
 
-/* ── NAV: dark text on light background ── */
-#nav .nav-links a,
-#nav .nav-dd-trigger,
-#nav .nav-cta {
+/* ── NAV: dark text on light background ──
+   Scoped to :not(.nav-on-dark) so site-nav-contrast.js still controls the
+   nav over the full-bleed hero (where it sets .nav-on-dark for light text). */
+#nav:not(.nav-on-dark) .nav-links a,
+#nav:not(.nav-on-dark) .nav-dd-trigger,
+#nav:not(.nav-on-dark) .nav-cta {
   color: var(--ink) !important;
 }
-#nav .nav-cta {
+#nav:not(.nav-on-dark) .nav-cta {
   border-color: rgba(43,43,43,0.25) !important;
   background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   box-shadow: none !important;
 }
-#nav .nav-cta:hover { background: rgba(43,43,43,0.06) !important; }
-#nav .nav-logo-img { filter: none !important; }
+#nav:not(.nav-on-dark) .nav-cta:hover { background: rgba(43,43,43,0.06) !important; }
+#nav:not(.nav-on-dark) .nav-logo-img { filter: none !important; }
 
 /* Floating back chip over the hero (no top strip — hero is full-bleed) */
 #back-strip {
