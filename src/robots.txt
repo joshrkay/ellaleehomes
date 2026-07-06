@@ -2,7 +2,10 @@
 # Allow all standard search engines
 User-agent: *
 Allow: /
-Disallow: /client-portal
+# client-portal.html is kept out of search by its own
+# <meta name="robots" content="noindex, follow"> tag. It is intentionally
+# left crawlable here — a Disallow would stop crawlers from ever seeing that
+# tag, which can still leave a URL-only result in search.
 
 # ─── AI search & answer engines (explicitly welcomed) ───
 User-agent: GPTBot
