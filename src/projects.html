@@ -989,12 +989,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 <script>
 function styleFilter(btn, cat) {
   document.querySelectorAll('.sf-btn').forEach(b => b.classList.toggle('on', b===btn));
-  document.querySelectorAll('.proj-card').forEach(c => {
-    var style = (c.querySelector('.proj-card-style')||{}).textContent||'';
-    c.closest('.proj-card-wrap')
-      ? (c.closest('.proj-card-wrap').style.display = (cat==='all'||style.toLowerCase().indexOf(cat)!==-1)?'':'none')
-      : (c.style.display = (cat==='all'||style.toLowerCase().indexOf(cat)!==-1)?'':'none');
-  });
+  applyProjectFilters();
 }
 </script>
 
@@ -1440,27 +1435,49 @@ function styleFilter(btn, cat) {
 </div>
 
 <script>
-const allCards = Array.from(document.querySelectorAll('.proj-card'));
+// Apply the active style filter AND the active sqft-band tab together, so the
+// grid, per-tab counts, result count and empty-state all reflect the
+// intersection of both filters (not just the sqft band).
+function applyProjectFilters() {
+  const styleBtn = document.querySelector('.sf-btn.on');
+  const cat = styleBtn ? styleBtn.dataset.style : 'all';
+  const tab = document.querySelector('.sqft-tab.active');
+  const band = tab ? tab.dataset.filter : 'all';
+
+  // Count of style-matching cards per band (independent of the active tab).
+  const perBand = { small: 0, mid: 0, large: 0 };
+  document.querySelectorAll('.proj-card').forEach(c => {
+    const style = ((c.querySelector('.proj-card-style') || {}).textContent || '').toLowerCase();
+    const styleOk = cat === 'all' || style.indexOf(cat) !== -1;
+    const cardBand = c.dataset.band;
+    const show = styleOk && (band === 'all' || band === cardBand);
+    (c.closest('.proj-card-wrap') || c).style.display = show ? '' : 'none';
+    if (styleOk && perBand[cardBand] != null) perBand[cardBand]++;
+  });
+
+  let total = 0;
+  ['small', 'mid', 'large'].forEach(b => {
+    const included = band === 'all' || band === b;
+    const shown = included && perBand[b] > 0;
+    if (included) total += perBand[b];
+    const bandEl = document.getElementById(`band-${b}`);
+    const gridEl = document.getElementById(`grid-${b}`);
+    if (bandEl) bandEl.style.display = shown ? 'flex' : 'none';
+    if (gridEl) gridEl.style.display = shown ? 'grid' : 'none';
+    const cnt = document.getElementById(`count-${b}`);
+    if (cnt) cnt.textContent = perBand[b];
+  });
+  const cntAll = document.getElementById('count-all');
+  if (cntAll) cntAll.textContent = perBand.small + perBand.mid + perBand.large;
+
+  document.getElementById('result-count').textContent = total;
+  document.getElementById('empty-state').classList.toggle('show', total === 0);
+}
 
 function filterTab(btn, filter) {
   document.querySelectorAll('.sqft-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-
-  const bands = ['small','mid','large'];
-  bands.forEach(band => {
-    const bandEl = document.getElementById(`band-${band}`);
-    const gridEl = document.getElementById(`grid-${band}`);
-    const show = filter === 'all' || filter === band;
-    bandEl.style.display = show ? 'flex' : 'none';
-    gridEl.style.display = show ? 'grid' : 'none';
-  });
-
-  const visible = filter === 'all' ? allCards.length :
-    allCards.filter(c => c.dataset.band === filter).length;
-  document.getElementById('result-count').textContent = visible;
-
-  const empty = document.getElementById('empty-state');
-  empty.classList.toggle('show', visible === 0);
+  applyProjectFilters();
 }
 
 function sortCards(val) {
