@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ella Lee Homes — Redesign Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: #111; color: #F4F0E8; min-height: 100vh; display: flex; flex-direction: column; }
+header { text-align: center; padding: 56px 24px 40px; }
+header h1 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(28px, 4vw, 48px); }
+header h1 em { font-style: italic; color: #C9A96E; }
+header p { margin-top: 12px; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(244,240,232,0.45); }
+.duo { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(244,240,232,0.15); }
+.card { position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 48px; min-height: 56vh; text-decoration: none; color: inherit; overflow: hidden; transition: background .4s; }
+.card.light { background: #F4F0E8; color: #1A1915; }
+.card.dark { background: #0B0B0C; }
+.card-k { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.5; margin-bottom: 14px; }
+.card h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(32px, 4.5vw, 60px); line-height: 1.05; }
+.card.light h2 em { font-style: italic; color: #8C6F46; }
+.card.dark h2 em { font-style: italic; color: #D8C6A1; }
+.card p { margin-top: 14px; max-width: 420px; font-size: 13px; line-height: 1.8; opacity: 0.7; }
+.card span { margin-top: 22px; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 5px; align-self: flex-start; transition: transform .4s; }
+.card:hover span { transform: translateX(8px); }
+@media (max-width: 800px) { .duo { grid-template-columns: 1fr; } .card { padding: 28px; min-height: 44vh; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Ella Lee Homes — <em>two directions</em></h1>
+  <p>Sleek · Modern · Animation-forward · High luxury</p>
+</header>
+<div class="duo">
+  <a class="card light" href="concept-1-atelier.html">
+    <div class="card-k">Concept 01</div>
+    <h2>Atelier — <em>quiet luxury</em></h2>
+    <p>Light, editorial, gallery-like. Split-panel audience gate, curtain image reveals, word-by-word manifesto, magnetic CTAs.</p>
+    <span>Enter concept</span>
+  </a>
+  <a class="card dark" href="concept-2-nocturne.html">
+    <div class="card-k">Concept 02</div>
+    <h2>Nocturne — <em>cinematic noir</em></h2>
+    <p>Dark, film-like, motion-maximal. Typographic gate doors, preloader, pinned horizontal portfolio, velocity-reactive marquees.</p>
+    <span>Enter concept</span>
+  </a>
+</div>
+</body>
+</html>
