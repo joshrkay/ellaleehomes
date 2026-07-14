@@ -3,56 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ella Lee Homes — Concept 1 · Atelier</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Ella Lee Homes — Arizona-Custom Luxury Homes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   CONCEPT 1 — "ATELIER" v2 · a continuous scroll-story
-   Liquid lerp scrolling · scroll-scrubbed scenes · bg morphs
+   ELLA LEE HOMES — "ATELIER v3" · definitive direction
+   RH calm · Zegna video · one Apple story chapter
+   Real brand tokens, real copy, real projects.
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ivory: #F4F0E8;
-  --bone: #EAE4D8;
-  --ink: #1A1915;
-  --ink-60: rgba(26,25,21,0.6);
-  --ink-40: rgba(26,25,21,0.4);
-  --bronze: #8C6F46;
-  --champ: #D8C6A1;
-  --hairline: rgba(26,25,21,0.12);
+  --paper: #EAE5DC;
+  --paper-soft: #F0EDE6;
+  --ink: #2B2B2B;
+  --ink-deep: #1a1a1a;
+  --navy: #002855;
+  --gold: #C9A96E;
+  --nickel: #A5A09D;
+  --ink-62: rgba(43,43,43,0.62);
+  --ink-40: rgba(43,43,43,0.4);
+  --hairline: rgba(43,43,43,0.14);
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Inter', Helvetica, sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-io: cubic-bezier(0.76, 0, 0.24, 1);
+  --gutter: clamp(24px, 4vw, 64px);
+  --section-pad: clamp(120px, 16vh, 240px);
+  --maxw: 1520px;
 }
 html { scroll-behavior: auto; }
 body {
-  background: var(--ivory); color: var(--ink);
+  background: var(--paper); color: var(--ink);
   font-family: var(--sans); font-weight: 300;
   overflow-x: hidden; -webkit-font-smoothing: antialiased;
-  transition: background 1s ease;
 }
-body.dark-zone { background: #15130F; }
 body.gate-open { overflow: hidden; }
 img { display: block; }
 a { color: inherit; text-decoration: none; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+
+/* ── shared type ── */
+.eyebrow {
+  font-family: var(--sans); font-weight: 500; font-size: 9px;
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold);
+}
+.eyebrow.on-photo { color: rgba(234,229,220,0.75); }
+.display-2 { font-family: var(--serif); font-weight: 300; font-size: clamp(40px, 5.5vw, 88px); line-height: 1.02; letter-spacing: -0.01em; }
+.display-2 em, .display-3 em { font-style: italic; color: var(--gold); }
+.display-3 { font-family: var(--serif); font-weight: 300; font-size: clamp(32px, 3.4vw, 56px); line-height: 1.05; }
+.body-text { font-size: 15px; line-height: 1.9; color: var(--ink-62); max-width: 46em; }
+
+/* ── architect dimension divider ── */
+.divider { position: relative; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+.divider-inner { position: relative; height: 1px; background: var(--hairline); }
+.divider-inner::before, .divider-inner::after {
+  content: ''; position: absolute; top: -3px; width: 1px; height: 7px; background: var(--hairline);
+}
+.divider-inner::before { left: 0; } .divider-inner::after { right: 0; }
+.divider-label {
+  position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+  background: var(--paper); padding: 0 18px;
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--nickel);
+  white-space: nowrap;
+}
+
+/* blueprint grid watermark */
+.bp-grid {
+  background-image:
+    repeating-linear-gradient(to right, rgba(0,40,85,0.045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(to bottom, rgba(0,40,85,0.045) 0 1px, transparent 1px 96px);
+}
 
 /* ── cursor ── */
 #cursor {
   position: fixed; top: 0; left: 0; z-index: 9999;
-  width: 10px; height: 10px; border-radius: 50%;
+  width: 9px; height: 9px; border-radius: 50%;
   background: #fff; mix-blend-mode: exclusion; pointer-events: none;
   transform: translate(-50%,-50%);
   transition: width .35s var(--ease), height .35s var(--ease), opacity .3s;
 }
-#cursor.grow { width: 72px; height: 72px; }
+#cursor.grow { width: 60px; height: 60px; }
 #cursor.hide { opacity: 0; }
-#cursor .cursor-label {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: #000;
-  opacity: 0; transition: opacity .3s;
-}
-#cursor.grow .cursor-label { opacity: 1; }
 @media (hover: none) { #cursor { display: none; } }
 
 /* ============================================================
@@ -60,17 +91,18 @@ a { color: inherit; text-decoration: none; }
    ============================================================ */
 #gate {
   position: fixed; inset: 0; z-index: 1000;
-  display: flex; flex-direction: column; background: var(--ivory);
+  display: flex; flex-direction: column; background: var(--paper);
   transition: transform 1.15s var(--ease-io);
 }
 #gate.exit { transform: translateY(-100%); }
 .gate-head {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 26px 48px; border-bottom: 1px solid var(--hairline); flex-shrink: 0;
+  padding: 24px var(--gutter); border-bottom: 1px solid var(--hairline); flex-shrink: 0;
 }
-.gate-brand { font-family: var(--serif); font-size: 19px; letter-spacing: 0.24em; text-transform: uppercase; }
-.gate-brand span { color: var(--bronze); }
-.gate-est { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-40); }
+.gate-brand { display: flex; align-items: center; gap: 14px; }
+.gate-brand svg { width: 30px; height: 30px; }
+.gate-brand-name { font-family: var(--serif); font-weight: 400; font-size: 17px; letter-spacing: 0.24em; text-transform: uppercase; }
+.gate-est { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-40); }
 .gate-panels { flex: 1; display: flex; min-height: 0; }
 .gate-panel {
   position: relative; flex: 1; overflow: hidden; cursor: pointer;
@@ -79,45 +111,45 @@ a { color: inherit; text-decoration: none; }
   border-right: 1px solid var(--hairline);
 }
 .gate-panel:last-child { border-right: none; }
-.gate-panels:has(.gate-panel:hover) .gate-panel:hover { flex: 1.75; }
+.gate-panels:has(.gate-panel:hover) .gate-panel:hover { flex: 1.7; }
 .gate-panel-media { position: absolute; inset: 0; overflow: hidden; }
 .gate-panel-media img {
   width: 100%; height: 100%; object-fit: cover;
-  filter: saturate(0.85) brightness(0.9);
-  transition: filter 1.2s var(--ease);
-  animation: kenburns 16s ease-in-out infinite alternate;
+  filter: saturate(0.88) brightness(0.92);
+  transition: filter 1.4s var(--ease);
+  animation: kenburns 18s ease-in-out infinite alternate;
   will-change: transform;
 }
-.gate-panel:nth-child(2) .gate-panel-media img { animation-delay: -8s; }
-@keyframes kenburns { from { transform: scale(1.02) translateY(0); } to { transform: scale(1.14) translateY(-2.5%); } }
-.gate-panel:hover .gate-panel-media img { filter: saturate(1) brightness(1.02); }
+.gate-panel:nth-child(2) .gate-panel-media img { animation-delay: -9s; }
+@keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.12) translateY(-2%); } }
+.gate-panel:hover .gate-panel-media img { filter: saturate(1) brightness(1); }
 .gate-panel-media::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(20,18,14,0.74) 0%, rgba(20,18,14,0.12) 45%, transparent 70%);
+  background: linear-gradient(to top, rgba(26,26,26,0.72) 0%, rgba(26,26,26,0.1) 48%, transparent 72%);
 }
-.gate-panel-body { position: relative; z-index: 2; padding: 0 48px 52px; color: var(--ivory); width: 100%; }
-.gate-panel-idx { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(244,240,232,0.55); margin-bottom: 14px; overflow: hidden; }
+.gate-panel-body { position: relative; z-index: 2; padding: 0 var(--gutter) 52px; color: var(--paper); width: 100%; }
+.gate-panel-idx { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(234,229,220,0.6); margin-bottom: 14px; overflow: hidden; }
 .gate-panel-idx i { font-style: normal; display: inline-block; transform: translateY(120%); transition: transform .9s var(--ease) .5s; }
 body.gate-ready .gate-panel-idx i { transform: translateY(0); }
-.gate-panel-title { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 4.2vw, 64px); line-height: 1.02; }
+.gate-panel-title { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 4.2vw, 62px); line-height: 1.03; }
 .gate-panel-title .mask { display: block; overflow: hidden; }
 .gate-panel-title .mline { display: block; transform: translateY(115%); transition: transform 1.1s var(--ease); }
 body.gate-ready .gate-panel-title .mline { transform: translateY(0); }
-body.gate-ready .gate-panel:nth-child(1) .mask:nth-child(1) .mline { transition-delay: .55s; }
-body.gate-ready .gate-panel:nth-child(1) .mask:nth-child(2) .mline { transition-delay: .65s; }
-body.gate-ready .gate-panel:nth-child(2) .mask:nth-child(1) .mline { transition-delay: .75s; }
-body.gate-ready .gate-panel:nth-child(2) .mask:nth-child(2) .mline { transition-delay: .85s; }
-.gate-panel-title em { font-style: italic; color: var(--champ); }
+body.gate-ready .gate-panel:nth-child(1) .mask:nth-child(1) .mline { transition-delay: .5s; }
+body.gate-ready .gate-panel:nth-child(1) .mask:nth-child(2) .mline { transition-delay: .6s; }
+body.gate-ready .gate-panel:nth-child(2) .mask:nth-child(1) .mline { transition-delay: .7s; }
+body.gate-ready .gate-panel:nth-child(2) .mask:nth-child(2) .mline { transition-delay: .8s; }
+.gate-panel-title em { font-style: italic; color: var(--gold); }
 .gate-panel-sub {
-  margin-top: 14px; max-width: 360px; font-size: 13px; line-height: 1.8; color: rgba(244,240,232,0.75);
+  margin-top: 13px; max-width: 360px; font-size: 13px; line-height: 1.8; color: rgba(234,229,220,0.8);
   opacity: 0; transform: translateY(12px);
   transition: opacity .6s var(--ease) .08s, transform .6s var(--ease) .08s;
 }
 .gate-panel:hover .gate-panel-sub { opacity: 1; transform: translateY(0); }
 .gate-panel-cta {
-  margin-top: 22px; display: inline-flex; align-items: center; gap: 12px;
-  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ivory);
-  border-bottom: 1px solid rgba(244,240,232,0.4); padding-bottom: 5px;
+  margin-top: 20px; display: inline-flex; align-items: center; gap: 12px;
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--paper);
+  border-bottom: 1px solid rgba(234,229,220,0.4); padding-bottom: 5px;
   opacity: 0; transform: translateY(12px);
   transition: opacity .6s var(--ease) .16s, transform .6s var(--ease) .16s;
 }
@@ -125,16 +157,16 @@ body.gate-ready .gate-panel:nth-child(2) .mask:nth-child(2) .mline { transition-
 .gate-panel:hover .gate-panel-cta { opacity: 1; transform: translateY(0); }
 .gate-seal {
   position: absolute; top: 50%; left: 50%; z-index: 5; transform: translate(-50%,-50%);
-  width: 112px; height: 112px; border-radius: 50%;
-  background: var(--ivory); border: 1px solid var(--hairline);
+  width: 116px; height: 116px; border-radius: 50%;
+  background: var(--paper); border: 1px solid var(--hairline);
   display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2px;
-  pointer-events: none; box-shadow: 0 8px 40px rgba(26,25,21,0.18);
+  pointer-events: none; box-shadow: 0 8px 40px rgba(26,26,26,0.16);
 }
-.gate-seal-ring { position: absolute; inset: -14px; animation: spin 22s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.gate-seal-mono { font-family: var(--serif); font-size: 27px; letter-spacing: 0.14em; }
-.gate-seal-sub { font-size: 7px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--bronze); }
-.gate-foot { flex-shrink: 0; display: flex; justify-content: center; padding: 17px; border-top: 1px solid var(--hairline); }
+.gate-seal-ring { position: absolute; inset: -16px; animation: sealspin 26s linear infinite; }
+@keyframes sealspin { to { transform: rotate(360deg); } }
+.gate-seal-mono { font-family: var(--serif); font-weight: 400; font-size: 26px; letter-spacing: 0.16em; color: var(--navy); padding-left: 0.16em; }
+.gate-seal-sub { font-size: 7px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
+.gate-foot { flex-shrink: 0; display: flex; justify-content: center; padding: 16px; border-top: 1px solid var(--hairline); }
 .gate-skip {
   font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-40);
   background: none; border: none; cursor: pointer; font-family: var(--sans); transition: color .25s;
@@ -143,10 +175,9 @@ body.gate-ready .gate-panel:nth-child(2) .mask:nth-child(2) .mline { transition-
 @media (max-width: 820px) {
   .gate-panels { flex-direction: column; }
   .gate-panel { border-right: none; border-bottom: 1px solid var(--hairline); }
-  .gate-panel-body { padding: 0 24px 30px; }
+  .gate-panel-body { padding-bottom: 28px; }
   .gate-panel-sub, .gate-panel-cta { opacity: 1; transform: none; }
-  .gate-seal { width: 84px; height: 84px; }
-  .gate-head { padding: 20px 24px; }
+  .gate-seal { width: 86px; height: 86px; }
 }
 
 /* ============================================================
@@ -155,316 +186,497 @@ body.gate-ready .gate-panel:nth-child(2) .mask:nth-child(2) .mline { transition-
 #nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 800;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 24px 48px;
-  transition: transform .55s var(--ease), background .4s, padding .4s, color .5s;
+  padding: 22px var(--gutter);
+  transition: transform .55s var(--ease), background .4s, padding .4s, box-shadow .4s;
 }
 #nav.away { transform: translateY(-110%); }
-#nav.scrolled { background: rgba(244,240,232,0.9); backdrop-filter: blur(14px); padding: 14px 48px; box-shadow: 0 1px 0 var(--hairline); }
-body.dark-zone #nav.scrolled { background: rgba(21,19,15,0.85); color: var(--ivory); box-shadow: 0 1px 0 rgba(244,240,232,0.1); }
-.nav-brand { font-family: var(--serif); font-size: 17px; letter-spacing: 0.22em; text-transform: uppercase; }
-.nav-brand span { color: var(--bronze); }
-.nav-links { display: flex; gap: 34px; list-style: none; }
+#nav.scrolled {
+  background: rgba(234,229,220,0.92); backdrop-filter: blur(14px);
+  padding: 13px var(--gutter); box-shadow: 0 1px 0 var(--hairline);
+}
+#nav.on-dark:not(.scrolled) { color: var(--paper); }
+.nav-brand { display: flex; align-items: center; gap: 12px; }
+.nav-brand svg { width: 26px; height: 26px; flex-shrink: 0; }
+#nav.on-dark:not(.scrolled) .nav-brand svg circle,
+#nav.on-dark:not(.scrolled) .nav-brand svg text { stroke: var(--paper); }
+#nav.on-dark:not(.scrolled) .nav-brand svg text { fill: var(--paper); stroke: none; }
+.nav-brand-name { font-family: var(--serif); font-weight: 400; font-size: 15px; letter-spacing: 0.22em; text-transform: uppercase; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
 .nav-links a {
   font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: .65;
   position: relative; padding-bottom: 4px; transition: opacity .25s;
 }
 .nav-links a::after {
   content: ''; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%;
-  background: var(--bronze); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--ease);
+  background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--ease);
 }
 .nav-links a:hover { opacity: 1; }
 .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
 .nav-right { display: flex; align-items: center; gap: 16px; }
 .nav-mode {
-  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bronze);
-  border: 1px solid rgba(140,111,70,0.4); border-radius: 999px; padding: 6px 14px;
-  background: none; cursor: pointer; font-family: var(--sans); transition: all .25s;
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy);
+  border: 1px solid rgba(0,40,85,0.35); border-radius: 999px; padding: 6px 14px;
+  background: rgba(234,229,220,0.5); cursor: pointer; font-family: var(--sans); transition: all .25s;
 }
-.nav-mode:hover { background: var(--bronze); color: var(--ivory); }
+.nav-mode:hover { background: var(--navy); color: var(--paper); }
 .nav-cta {
   font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
   border: 1px solid currentColor; padding: 11px 24px; transition: all .3s;
 }
-.nav-cta:hover { background: var(--ink); color: var(--ivory); border-color: var(--ink); }
-@media (max-width: 900px) { .nav-links { display: none; } #nav, #nav.scrolled { padding-left: 24px; padding-right: 24px; } }
+.nav-cta:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+@media (max-width: 960px) { .nav-links { display: none; } }
 
 /* ============================================================
-   HERO — scroll-scrubbed
+   HERO — full-bleed video, quiet settle scrub
    ============================================================ */
-#hero-zone { height: 220vh; position: relative; }
+#hero-zone { height: 180vh; position: relative; }
 #hero { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
-.hero-frame { position: absolute; inset: 0; overflow: hidden; }
-.hero-frame img { width: 100%; height: 112%; object-fit: cover; will-change: transform; filter: brightness(0.92); }
-.hero-frame::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(20,18,14,0.68) 0%, rgba(20,18,14,0.08) 50%, rgba(20,18,14,0.2) 100%);
+.hero-media { position: absolute; inset: 0; overflow: hidden; will-change: transform; }
+.hero-media img, .hero-media video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
 }
-.hero-body { position: relative; z-index: 2; padding: 0 48px 68px; color: var(--ivory); }
-.hero-eyebrow {
-  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(244,240,232,0.65);
-  margin-bottom: 22px; will-change: letter-spacing, opacity;
+.hero-media video { z-index: 1; }
+.hero-scrim {
+  position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(to top, rgba(26,26,26,0.62) 0%, rgba(26,26,26,0.08) 48%, rgba(26,26,26,0.22) 100%);
 }
-.hero-h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(46px, 7.6vw, 122px); line-height: 0.98; letter-spacing: -0.01em; }
-.hero-h1 .mask { display: block; overflow: hidden; }
-.hero-h1 .mline { display: block; transform: translateY(115%); transition: transform 1.2s var(--ease); will-change: transform; }
-.hero-h1 em { font-style: italic; color: var(--champ); }
+.hero-body { position: relative; z-index: 3; padding: 0 var(--gutter) 64px; color: var(--paper); will-change: transform, opacity; }
+.hero-eyebrow { margin-bottom: 22px; }
+.hero-h1 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(56px, 9.5vw, 150px); line-height: 0.96; letter-spacing: -0.02em;
+}
+.hero-h1 .mask { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.hero-h1 .mline { display: block; transform: translateY(115%); transition: transform 1.25s var(--ease); }
+.hero-h1 em { font-style: italic; color: var(--gold); }
 body.entered .hero-h1 .mline { transform: translateY(0); }
 body.entered .hero-h1 .mask:nth-child(2) .mline { transition-delay: .12s; }
-.hero-foot { margin-top: 38px; display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
+.hero-foot { margin-top: 36px; display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
 .hero-sub {
-  max-width: 400px; font-size: 14px; line-height: 1.9; color: rgba(244,240,232,0.8);
+  max-width: 420px; font-size: 14px; line-height: 1.9; color: rgba(234,229,220,0.82);
   opacity: 0; transform: translateY(16px); transition: opacity .9s var(--ease) .5s, transform .9s var(--ease) .5s;
 }
 body.entered .hero-sub { opacity: 1; transform: translateY(0); }
-.hero-progress { display: flex; align-items: center; gap: 14px; font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(244,240,232,0.55);
-  opacity: 0; transition: opacity .9s var(--ease) .8s; }
+.hero-progress {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(234,229,220,0.55);
+  opacity: 0; transition: opacity .9s var(--ease) .8s;
+}
 body.entered .hero-progress { opacity: 1; }
-.hero-progress-track { width: 72px; height: 1px; background: rgba(244,240,232,0.25); position: relative; }
-.hero-progress-fill { position: absolute; inset: 0; background: var(--champ); transform-origin: left; transform: scaleX(0); }
-@media (max-width: 820px) { .hero-body { padding: 0 24px 52px; } .hero-foot { flex-direction: column; align-items: flex-start; } }
+.hero-progress-track { width: 72px; height: 1px; background: rgba(234,229,220,0.3); position: relative; }
+.hero-progress-fill { position: absolute; inset: 0; background: var(--gold); transform-origin: left; transform: scaleX(0); }
+@media (max-width: 820px) { .hero-foot { flex-direction: column; align-items: flex-start; } .hero-body { padding-bottom: 52px; } }
 
 /* ============================================================
-   RIBBON — velocity marquee, outlined serif
+   01 · MANIFESTO + real stat strip
    ============================================================ */
-.ribbon { overflow: hidden; padding: 34px 0; border-bottom: 1px solid var(--hairline); position: relative; z-index: 2; }
-.ribbon-track { display: flex; white-space: nowrap; width: max-content; will-change: transform; }
-.ribbon-chunk { display: flex; align-items: baseline; }
-.ribbon-item {
-  font-family: var(--serif); font-weight: 300; font-size: clamp(38px, 5vw, 76px); line-height: 1;
-  padding: 0 38px; color: transparent; -webkit-text-stroke: 1px rgba(26,25,21,0.45);
-  display: inline-flex; align-items: baseline; gap: 38px;
+#manifesto { padding: var(--section-pad) 0; }
+.mani-inner { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
+.mani-eyebrow { display: flex; align-items: center; gap: 18px; margin-bottom: 44px; }
+.mani-eyebrow::before { content: ''; width: 44px; height: 1px; background: var(--gold); }
+.mani-text {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(28px, 3.2vw, 52px); line-height: 1.32; letter-spacing: 0;
 }
-.ribbon-item em { font-style: italic; color: var(--bronze); -webkit-text-stroke: 0; font-size: .55em; }
-body.dark-zone .ribbon-item { -webkit-text-stroke-color: rgba(244,240,232,0.4); }
-
-/* ============================================================
-   EXPAND — image grows to fullscreen (pinned scrub)
-   ============================================================ */
-#expand-zone { height: 320vh; position: relative; }
-#expand-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.expand-clip { position: relative; overflow: hidden; will-change: width, height; width: 34vw; height: 44vh; }
-.expand-clip img { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%) scale(1.15); width: 100vw; height: 100vh; object-fit: cover; will-change: transform; }
-.expand-caption {
-  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-  padding: 64px 48px 52px; color: var(--ivory);
-  background: linear-gradient(to top, rgba(20,18,14,0.8), transparent);
-  opacity: 0; transition: opacity .6s;
-}
-.expand-clip.full .expand-caption { opacity: 1; }
-.expand-caption h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 4.6vw, 68px); line-height: 1; }
-.expand-caption h2 em { font-style: italic; color: var(--champ); }
-.expand-caption p { margin-top: 10px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(244,240,232,0.6); }
-.expand-hint {
-  position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%);
-  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-40);
-  transition: opacity .4s;
-}
-.expand-clip.full ~ .expand-hint { opacity: 0; }
-
-/* ============================================================
-   MANIFESTO — word-lit + bg morph
-   ============================================================ */
-#manifesto { padding: clamp(120px, 18vh, 220px) 48px; max-width: 1180px; margin: 0 auto; }
-.mani-eyebrow {
-  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--bronze); margin-bottom: 42px;
-  display: flex; align-items: center; gap: 18px;
-}
-.mani-eyebrow::before { content: ''; width: 44px; height: 1px; background: var(--bronze); }
-.mani-text { font-family: var(--serif); font-weight: 300; font-size: clamp(28px, 3.7vw, 56px); line-height: 1.24; }
-.mani-text .w { opacity: 0.12; display: inline-block; transform: translateY(0.18em); transition: opacity .5s ease, transform .6s var(--ease); }
-.mani-text .w.lit { opacity: 1; transform: translateY(0); }
-.mani-text em { font-style: italic; color: var(--bronze); }
-@media (max-width: 820px) { #manifesto { padding-left: 24px; padding-right: 24px; } }
-
-/* ============================================================
-   WORKS — pinned horizontal gallery
-   ============================================================ */
-#works-zone { height: 480vh; position: relative; }
-#works-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
-#works-track { display: flex; height: 100%; will-change: transform; }
-.works-intro {
-  flex: 0 0 42vw; height: 100%; display: flex; flex-direction: column; justify-content: center;
-  padding: 0 64px; border-right: 1px solid var(--hairline);
-}
-.works-intro .eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-40); margin-bottom: 18px; }
-.works-intro h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(38px, 4.6vw, 72px); line-height: 1.02; }
-.works-intro h2 em { font-style: italic; color: var(--bronze); }
-.works-intro p { margin-top: 22px; max-width: 340px; font-size: 13px; line-height: 1.85; color: var(--ink-60); }
-.works-intro .works-arrow { margin-top: 40px; font-size: 32px; color: var(--bronze); animation: nudge 2s var(--ease) infinite; }
-@keyframes nudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(14px); } }
-.work-slide {
-  flex: 0 0 62vw; height: 100%; position: relative;
-  display: flex; align-items: center; justify-content: center;
-  border-right: 1px solid var(--hairline);
-}
-.work-slide-inner { position: relative; width: 46vw; height: 68vh; overflow: hidden; }
-.work-slide-inner img {
-  position: absolute; inset: -8% 0; width: 100%; height: 116%;
-  object-fit: cover; will-change: transform; filter: saturate(.92);
-  transition: filter .6s;
-}
-.work-slide:hover .work-slide-inner img { filter: saturate(1.05); }
-.work-slide-ghost {
-  position: absolute; top: 8vh; right: 4vw; z-index: 1;
-  font-family: var(--serif); font-size: clamp(120px, 16vw, 260px); line-height: 1;
-  color: transparent; -webkit-text-stroke: 1px rgba(26,25,21,0.16);
-  pointer-events: none; user-select: none; will-change: transform;
-}
-.work-slide-card {
-  position: absolute; left: 4vw; bottom: 10vh; z-index: 3;
-  background: var(--ivory); border: 1px solid var(--hairline);
-  padding: 28px 32px; max-width: 380px; box-shadow: 0 16px 60px rgba(26,25,21,0.12);
-}
-.work-slide-card .idx { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--bronze); margin-bottom: 10px; }
-.work-slide-card h3 { font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.05; }
-.work-slide-card .loc { margin-top: 6px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-40); }
-.work-slide-card .specs { margin-top: 16px; display: flex; gap: 20px; padding-top: 14px; border-top: 1px solid var(--hairline);
-  font-size: 11px; letter-spacing: .08em; color: var(--ink-60); }
-.work-slide-card .specs b { font-weight: 500; color: var(--ink); }
-.works-hud {
-  position: absolute; bottom: 40px; left: 64px; right: 64px; z-index: 5;
-  display: flex; align-items: center; justify-content: space-between; pointer-events: none;
-}
-.works-hud-line { flex: 1; height: 1px; background: var(--hairline); margin: 0 24px; position: relative; }
-.works-hud-fill { position: absolute; inset: 0; background: var(--bronze); transform-origin: left; transform: scaleX(0); }
-.works-hud-idx { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--bronze); }
-.works-hud-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-40); }
-@media (max-width: 820px) {
-  .works-intro { flex-basis: 82vw; padding: 0 24px; }
-  .work-slide { flex-basis: 88vw; }
-  .work-slide-inner { width: 76vw; }
-  .work-slide-card { left: 6vw; max-width: 300px; padding: 20px 22px; }
-}
-
-/* ============================================================
-   RIVER — opposing image columns (dark zone)
-   ============================================================ */
-#river-zone { height: 260vh; position: relative; }
-#river-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 16px; padding: 0 16px; align-items: center; }
-.river-col { display: flex; flex-direction: column; gap: 16px; will-change: transform; }
-.river-col .cell { overflow: hidden; flex-shrink: 0; }
-.river-col .cell img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
-.river-center { display: flex; align-items: center; justify-content: center; height: 100vh; }
-.river-card { text-align: center; color: var(--ivory); padding: 24px; }
-.river-card .eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--champ); margin-bottom: 22px; }
-.river-card h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 4.4vw, 64px); line-height: 1.05; }
-.river-card h2 em { font-style: italic; color: var(--champ); }
-.river-card p { margin: 22px auto 0; max-width: 380px; font-size: 13px; line-height: 1.9; color: rgba(244,240,232,0.7); }
-@media (max-width: 820px) { #river-sticky { grid-template-columns: 1fr 1.4fr; } .river-col:last-child { display: none; } }
-
-/* ============================================================
-   STATS — scrubbed counters (dark)
-   ============================================================ */
-#stats { padding: clamp(100px, 15vh, 180px) 48px; color: var(--ivory); }
-.stats-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 44px; }
-.stat-cell { border-left: 1px solid rgba(244,240,232,0.16); padding-left: 28px; }
-.stat-val { font-family: var(--serif); font-weight: 300; font-size: clamp(44px, 5.4vw, 84px); line-height: 1; font-variant-numeric: tabular-nums; }
-.stat-val sup { font-size: .42em; font-style: italic; color: var(--champ); }
-.stat-label { margin-top: 12px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244,240,232,0.45); }
-@media (max-width: 820px) { .stats-grid { grid-template-columns: 1fr 1fr; gap: 30px; } #stats { padding-left: 24px; padding-right: 24px; } }
-
-/* ============================================================
-   INVEST BAND (dark, parallax bg)
-   ============================================================ */
-#invest { position: relative; color: var(--ivory); padding: clamp(110px, 16vh, 200px) 48px; overflow: hidden; }
-.invest-bg { position: absolute; inset: -14% 0; opacity: 0.3; background-position: center; background-size: cover; will-change: transform; }
-.invest-inner { position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; }
-.invest-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--champ); margin-bottom: 34px; }
-.invest-h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 5vw, 78px); line-height: 1.04; max-width: 900px; }
-.invest-h2 em { font-style: italic; color: var(--champ); }
-.invest-cols { margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-.invest-body { font-size: 14px; line-height: 1.95; color: rgba(244,240,232,0.68); max-width: 480px; }
-.invest-points { display: flex; flex-direction: column; }
-.invest-point {
-  display: flex; justify-content: space-between; align-items: center; gap: 24px;
-  padding: 20px 0; border-bottom: 1px solid rgba(244,240,232,0.14);
-  font-size: 13px; letter-spacing: 0.05em; transition: padding-left .4s var(--ease);
-}
-.invest-point:first-child { border-top: 1px solid rgba(244,240,232,0.14); }
-.invest-point:hover { padding-left: 12px; }
-.invest-point span { color: var(--champ); font-family: var(--serif); font-style: italic; font-size: 15px; }
-.invest-cta {
-  margin-top: 44px; display: inline-block; border: 1px solid rgba(244,240,232,0.4); color: var(--ivory);
-  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; padding: 16px 38px;
-  transition: background .3s, color .3s;
-}
-.invest-cta:hover { background: var(--ivory); color: var(--ink); }
-@media (max-width: 820px) { #invest { padding-left: 24px; padding-right: 24px; } .invest-cols { grid-template-columns: 1fr; gap: 36px; } }
-
-/* ============================================================
-   PROCESS — stacking cards
-   ============================================================ */
-#process-zone { position: relative; }
-.proc-stack { position: relative; }
-.proc-slot { height: 100vh; }
-.proc-card {
-  position: sticky; top: 0; height: 100vh;
-  display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0;
-  background: var(--ivory); border-top: 1px solid var(--hairline);
-  will-change: transform, filter; overflow: hidden;
-}
-.proc-card:nth-child(odd) { background: var(--bone); }
-.proc-copy { padding: 0 64px; }
-.proc-step { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--bronze); margin-bottom: 22px; display: flex; align-items: center; gap: 16px; }
-.proc-step::after { content: ''; width: 48px; height: 1px; background: rgba(140,111,70,0.4); }
-.proc-title { font-family: var(--serif); font-weight: 300; font-size: clamp(38px, 5vw, 76px); line-height: 1; }
-.proc-title em { font-style: italic; color: var(--bronze); }
-.proc-text { margin-top: 24px; max-width: 420px; font-size: 14px; line-height: 1.9; color: var(--ink-60); }
-.proc-media { height: 100%; overflow: hidden; position: relative; }
-.proc-media img { width: 100%; height: 114%; object-fit: cover; will-change: transform; }
-.proc-ghost {
-  position: absolute; right: 40px; bottom: 24px; font-family: var(--serif);
-  font-size: clamp(120px, 15vw, 240px); line-height: 1; color: rgba(244,240,232,0.3); z-index: 2;
-}
-@media (max-width: 820px) { .proc-card { grid-template-columns: 1fr; } .proc-media { order: -1; max-height: 44vh; } .proc-copy { padding: 32px 24px; } }
-
-/* ============================================================
-   CTA — char wave + spotlight
-   ============================================================ */
-#cta { position: relative; padding: clamp(130px, 20vh, 240px) 48px 100px; text-align: center; overflow: hidden; border-top: 1px solid var(--hairline); }
-.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-40); margin-bottom: 32px; }
-.cta-h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(56px, 12vw, 200px); line-height: 0.95; letter-spacing: -0.01em; }
-.cta-h2 em { font-style: italic; color: var(--bronze); }
-.cta-h2 .ch { display: inline-block; transform: translateY(60%) rotate(4deg); opacity: 0; transition: transform .9s var(--ease), opacity .9s; will-change: transform; }
-.cta-h2.on .ch { transform: translateY(0) rotate(0); opacity: 1; }
-.cta-btn {
-  margin-top: 54px; display: inline-flex; align-items: center; gap: 16px;
-  background: var(--ink); color: var(--ivory);
-  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
-  padding: 22px 52px; border: none; cursor: pointer; font-family: var(--sans);
-  transition: background .3s; will-change: transform; position: relative; overflow: hidden;
-}
-.cta-btn::before { content: ''; position: absolute; inset: 0; background: var(--bronze); transform: translateY(101%); transition: transform .45s var(--ease); }
-.cta-btn:hover::before { transform: translateY(0); }
-.cta-btn span { position: relative; z-index: 1; }
-footer {
+.mani-text .w { opacity: 0.13; transition: opacity .5s ease; }
+.mani-text .w.lit { opacity: 1; }
+.mani-text em { font-style: italic; color: var(--gold); }
+.stat-strip {
+  margin-top: clamp(64px, 9vh, 110px);
+  display: grid; grid-template-columns: 1fr 1fr 1.3fr;
   border-top: 1px solid var(--hairline);
-  padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; gap: 20px;
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-40); flex-wrap: wrap;
 }
-footer a:hover { color: var(--ink); }
-@media (max-width: 820px) { footer { padding: 26px 24px; } }
+.stat-cell { padding: 36px 32px 0 0; border-right: 1px solid var(--hairline); }
+.stat-cell:last-child { border-right: none; padding-left: 32px; }
+.stat-cell + .stat-cell:not(:last-child) { padding-left: 32px; }
+.stat-num {
+  font-family: var(--serif); font-weight: 300; font-size: clamp(44px, 5vw, 72px);
+  line-height: 1; font-variant-numeric: tabular-nums;
+}
+.stat-num i { font-style: italic; color: var(--gold); font-size: 0.55em; }
+.stat-places {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(20px, 1.8vw, 28px); line-height: 1.5; color: var(--ink);
+}
+.stat-label { margin-top: 12px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nickel); }
+@media (max-width: 820px) {
+  .stat-strip { grid-template-columns: 1fr; }
+  .stat-cell, .stat-cell:last-child, .stat-cell + .stat-cell:not(:last-child) { border-right: none; border-bottom: 1px solid var(--hairline); padding: 28px 0; }
+  .stat-cell:last-child { border-bottom: none; }
+}
 
-/* reveal helpers */
-.rv { opacity: 0; transform: translateY(34px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+/* ============================================================
+   02 · FEATURED RESIDENCES — RH product pattern
+   ============================================================ */
+#residences { padding: var(--section-pad) 0 0; }
+.res-head {
+  max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter) clamp(56px, 8vh, 96px);
+  display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;
+}
+.res-head-left .eyebrow { display: block; margin-bottom: 20px; }
+.res-all-link {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-62);
+  border-bottom: 1px solid var(--hairline); padding-bottom: 5px; white-space: nowrap;
+  transition: color .25s, border-color .25s;
+}
+.res-all-link:hover { color: var(--gold); border-color: var(--gold); }
+.res-row {
+  max-width: var(--maxw); margin: 0 auto; padding: clamp(48px, 7vh, 88px) var(--gutter);
+  display: grid; grid-template-columns: 38% 1fr; gap: var(--gutter);
+  align-items: start; border-top: 1px solid var(--hairline);
+}
+.res-info { position: sticky; top: 16vh; }
+.res-idx { display: block; margin-bottom: 18px; }
+.res-name { margin-bottom: 14px; }
+.res-badge {
+  display: inline-block; font-size: 8px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(201,169,110,0.5); border-radius: 999px;
+  padding: 5px 14px; margin-bottom: 30px;
+}
+.res-specs { border-top: 1px solid var(--hairline); max-width: 380px; }
+.res-spec {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 14px 0; border-bottom: 1px solid var(--hairline);
+}
+.res-spec dt { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nickel); }
+.res-spec dd { font-size: 13px; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
+.res-price {
+  margin-top: 22px; font-size: 13px; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; color: var(--ink);
+}
+.res-price span { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nickel); margin-right: 14px; }
+.res-link {
+  margin-top: 30px; display: inline-flex; align-items: center; gap: 12px;
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  border-bottom: 1px solid var(--ink-40); padding-bottom: 6px; transition: color .25s, border-color .25s;
+}
+.res-link::after { content: '→'; transition: transform .3s var(--ease); }
+.res-link:hover { color: var(--gold); border-color: var(--gold); }
+.res-link:hover::after { transform: translateX(6px); }
+.res-media { display: flex; flex-direction: column; gap: 2px; }
+.res-frame { overflow: hidden; position: relative; }
+.res-frame.wide { aspect-ratio: 4/3; }
+.res-frame.tall { aspect-ratio: 3/4; max-width: 72%; align-self: flex-end; }
+.res-frame img {
+  width: 100%; height: 108%; object-fit: cover; will-change: transform;
+  transition: transform 1.4s var(--ease);
+}
+.res-frame:hover img { transform: scale(1.04) !important; }
+.res-frame-cap {
+  position: absolute; left: 20px; bottom: 16px; z-index: 2;
+  font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(234,229,220,0.85);
+  text-shadow: 0 1px 8px rgba(26,26,26,0.4);
+}
+@media (max-width: 900px) {
+  .res-row { grid-template-columns: 1fr; }
+  .res-info { position: static; }
+  .res-frame.tall { max-width: 100%; align-self: stretch; aspect-ratio: 4/3; }
+  .res-head { flex-direction: column; align-items: flex-start; }
+}
+
+/* ============================================================
+   03 · THE JOURNEY — pinned dirt-to-done chapter
+   ============================================================ */
+#journey-intro { padding: var(--section-pad) 0 clamp(48px, 7vh, 80px); }
+.journey-intro-inner { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
+.journey-intro-inner .eyebrow { display: block; margin-bottom: 20px; }
+.journey-intro-inner .body-text { margin-top: 24px; }
+#journey-zone { height: 520vh; position: relative; }
+#journey-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; }
+.jr-rail {
+  flex: 0 0 36%; min-width: 320px; height: 100%;
+  border-right: 1px solid var(--hairline);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 clamp(28px, 3vw, 56px); position: relative; z-index: 3;
+  background: var(--paper);
+}
+.jr-metas { position: relative; min-height: 380px; }
+.jr-meta {
+  position: absolute; inset: 0;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+  pointer-events: none;
+}
+.jr-meta.active { opacity: 1; transform: translateY(0); }
+.jr-meta .jr-num { display: block; margin-bottom: 18px; }
+.jr-meta h3 { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 3.2vw, 54px); line-height: 1.04; }
+.jr-meta .jr-dur { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--gold); margin-top: 10px; }
+.jr-meta .jr-desc { margin-top: 18px; font-size: 13px; line-height: 1.85; color: var(--ink-62); max-width: 380px; }
+.jr-del-label { margin-top: 26px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nickel); }
+.jr-dels { margin-top: 6px; list-style: none; max-width: 380px; }
+.jr-dels li {
+  font-size: 12px; letter-spacing: 0.03em; color: var(--ink-62);
+  padding: 9px 0; border-bottom: 1px solid var(--hairline);
+  display: flex; align-items: center; gap: 10px;
+}
+.jr-dels li::before { content: ''; width: 12px; height: 1px; background: var(--gold); flex-shrink: 0; }
+.jr-progress { margin-top: 36px; display: flex; align-items: center; gap: 12px; }
+.jr-ticks { flex: 1; height: 1px; background: var(--hairline); position: relative; }
+.jr-ticks span { position: absolute; top: -3px; width: 1px; height: 7px; background: var(--hairline); }
+.jr-ticks span:nth-child(1) { left: 0; } .jr-ticks span:nth-child(2) { left: 33.3%; }
+.jr-ticks span:nth-child(3) { left: 66.6%; } .jr-ticks span:nth-child(4) { left: 100%; }
+.jr-ticks-fill { position: absolute; inset: 0; background: var(--gold); transform-origin: left; transform: scaleX(0); }
+.jr-progress-label { font-size: 9px; letter-spacing: 0.2em; color: var(--nickel); font-variant-numeric: tabular-nums; }
+.jr-stage { flex: 1; position: relative; height: 100%; overflow: hidden; }
+.jr-layer { position: absolute; inset: 0; opacity: 0; will-change: opacity, transform; }
+.jr-layer img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+.jr-layer-svg { display: flex; align-items: center; justify-content: center; background: var(--paper); }
+.jr-layer-svg svg { width: min(88%, 1100px); height: auto; }
+.bp-el { stroke: var(--navy); fill: none; stroke-width: 1.25; vector-effect: non-scaling-stroke; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp-text { font-family: var(--sans); fill: rgba(0,40,85,0.75); opacity: 0; letter-spacing: 0.18em; }
+.bp-seal-fill { fill: rgba(201,169,110,0.10); opacity: 0; }
+@media (max-width: 900px) {
+  #journey-zone { height: 420vh; }
+  #journey-sticky { flex-direction: column; }
+  .jr-rail {
+    flex: 0 0 auto; order: 2; border-right: none; border-top: 1px solid var(--hairline);
+    min-width: 0; padding: 20px var(--gutter); background: rgba(234,229,220,0.96);
+    position: absolute; bottom: 0; left: 0; right: 0; justify-content: flex-end;
+  }
+  .jr-metas { min-height: 240px; }
+  .jr-meta h3 { font-size: 28px; }
+  .jr-meta .jr-desc { display: none; }
+  .jr-dels li { padding: 6px 0; font-size: 11px; }
+  .jr-stage { position: absolute; inset: 0; }
+}
+
+/* reduced-motion static journey list */
+#journey-static { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  #journey-zone { display: none; }
+  #journey-static { display: block; max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter) var(--section-pad); }
+  #journey-static .jr-meta { position: static; opacity: 1; transform: none; margin-bottom: 64px; pointer-events: auto; }
+}
+
+/* ============================================================
+   04 · YOU DREAM IT — sticky copy + room tabs
+   ============================================================ */
+#dream { padding: var(--section-pad) 0; }
+.dream-grid {
+  max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter);
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: start;
+}
+.dream-copy { position: sticky; top: 16vh; }
+.dream-copy .eyebrow { display: block; margin-bottom: 20px; }
+.dream-copy .display-2 { margin-bottom: 32px; }
+.dream-copy .body-text + .body-text { margin-top: 20px; }
+.dream-tabs { display: flex; gap: 28px; border-bottom: 1px solid var(--hairline); margin-bottom: 2px; }
+.dream-tab {
+  background: none; border: none; cursor: pointer; font-family: var(--sans);
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--nickel);
+  padding: 0 0 14px; position: relative; transition: color .3s;
+}
+.dream-tab::after {
+  content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%;
+  background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease);
+}
+.dream-tab.active { color: var(--ink); }
+.dream-tab.active::after { transform: scaleX(1); }
+.dream-frame { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+.dream-frame img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity .9s var(--ease);
+}
+.dream-frame img.active { opacity: 1; animation: dreamken 9s ease-in-out forwards; }
+@keyframes dreamken { from { transform: scale(1); } to { transform: scale(1.06); } }
+@media (max-width: 900px) {
+  .dream-grid { grid-template-columns: 1fr; }
+  .dream-copy { position: static; }
+  .dream-tabs { overflow-x: auto; scrollbar-width: none; }
+}
+
+/* ============================================================
+   PHILOSOPHY — full-bleed dark (own bg)
+   ============================================================ */
+#philosophy {
+  position: relative; min-height: 92vh; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: var(--section-pad) var(--gutter);
+}
+.phil-bg { position: absolute; inset: -10% 0; background-size: cover; background-position: center; will-change: transform; }
+#philosophy::after { content: ''; position: absolute; inset: 0; background: rgba(26,26,26,0.58); }
+.phil-inner { position: relative; z-index: 2; max-width: 980px; }
+.phil-inner .eyebrow { display: block; margin-bottom: 28px; }
+.phil-title { color: var(--paper); }
+.phil-title .mask { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.phil-title .mline { display: block; transform: translateY(112%); transition: transform 1.1s var(--ease); }
+.phil-title.on .mline { transform: translateY(0); }
+.phil-title.on .mask:nth-child(2) .mline { transition-delay: .14s; }
+.phil-body { margin: 30px auto 0; max-width: 560px; font-size: 14px; line-height: 1.95; color: rgba(234,229,220,0.8); }
+.phil-btn {
+  margin-top: 44px; display: inline-block;
+  border: 1px solid rgba(234,229,220,0.4); color: var(--paper);
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  padding: 16px 40px; transition: background .3s, color .3s, border-color .3s;
+}
+.phil-btn:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+/* ============================================================
+   05 · CLIENT STORIES
+   ============================================================ */
+#stories { padding: var(--section-pad) 0; }
+.stories-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+.stories-head { margin-bottom: clamp(48px, 7vh, 88px); }
+.stories-head .eyebrow { display: block; margin-bottom: 20px; }
+.stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.story-card {
+  border: 1px solid var(--hairline); padding: clamp(32px, 3vw, 48px);
+  background: rgba(255,255,255,0.35);
+  display: flex; flex-direction: column; gap: 20px;
+  transition: background .5s;
+}
+.story-card:hover { background: rgba(255,255,255,0.6); }
+.story-stars { color: var(--gold); letter-spacing: 4px; font-size: 10px; }
+.story-quote {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(18px, 1.6vw, 22px); line-height: 1.6; color: var(--ink); flex: 1;
+}
+.story-who { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nickel); }
+@media (max-width: 900px) { .stories-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   INVESTORS — navy band
+   ============================================================ */
+#invest { background: var(--navy); color: var(--paper); padding: var(--section-pad) 0; }
+.invest-inner { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
+.invest-inner .eyebrow { display: block; margin-bottom: 28px; }
+.invest-h2 { color: var(--paper); max-width: 800px; }
+.invest-cols { margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.invest-body { font-size: 14px; line-height: 1.95; color: rgba(234,229,220,0.72); max-width: 460px; }
+.invest-points { border-top: 1px solid rgba(234,229,220,0.16); }
+.invest-point {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
+  padding: 18px 0; border-bottom: 1px solid rgba(234,229,220,0.16);
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(234,229,220,0.55);
+}
+.invest-point span {
+  font-family: var(--serif); font-style: italic; font-size: 17px;
+  letter-spacing: 0; text-transform: none; color: var(--paper);
+}
+.invest-cta {
+  margin-top: 44px; display: inline-block;
+  border: 1px solid rgba(234,229,220,0.4); color: var(--paper);
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  padding: 16px 40px; transition: background .3s, color .3s;
+  background: none; cursor: pointer; font-family: var(--sans);
+}
+.invest-cta:hover { background: var(--paper); color: var(--navy); }
+@media (max-width: 900px) { .invest-cols { grid-template-columns: 1fr; gap: 36px; } }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+#contact { padding: var(--section-pad) 0; }
+.contact-grid {
+  max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter);
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(48px, 6vw, 110px); align-items: start;
+}
+.contact-left .eyebrow { display: block; margin-bottom: 22px; }
+.contact-h2 .mask { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.contact-h2 .mline { display: block; transform: translateY(112%); transition: transform 1.1s var(--ease); }
+.contact-h2.on .mline { transform: translateY(0); }
+.contact-h2.on .mask:nth-child(2) .mline { transition-delay: .14s; }
+.contact-sub { margin-top: 26px; }
+.contact-meta { margin-top: 44px; border-top: 1px solid var(--hairline); max-width: 460px; }
+.contact-meta-row {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
+  padding: 16px 0; border-bottom: 1px solid var(--hairline);
+}
+.contact-meta-row dt { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nickel); }
+.contact-meta-row dd { font-size: 14px; text-align: right; }
+.contact-meta-row dd a:hover { color: var(--gold); }
+/* form */
+.cform { display: flex; flex-direction: column; }
+.cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.cfield { position: relative; padding-top: 22px; margin-bottom: 30px; }
+.cfield label {
+  position: absolute; left: 0; top: 26px;
+  font-size: 13px; color: var(--ink-40); pointer-events: none;
+  transition: top .35s var(--ease), font-size .35s var(--ease), letter-spacing .35s var(--ease), color .35s;
+}
+.cfield input, .cfield select, .cfield textarea {
+  width: 100%; background: transparent; border: none; outline: none;
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--sans); font-weight: 300; font-size: 15px; color: var(--ink);
+  padding: 4px 0 12px; border-radius: 0;
+  transition: border-color .35s;
+}
+.cfield textarea { resize: none; min-height: 84px; line-height: 1.6; }
+.cfield input:focus, .cfield select:focus, .cfield textarea:focus { border-bottom-color: var(--navy); }
+.cfield.filled label, .cfield input:focus ~ label, .cfield select:focus ~ label, .cfield textarea:focus ~ label {
+  top: 0; font-size: 8px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold);
+}
+.cfield select {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%232B2B2B' fill='none' stroke-width='1.1'/></svg>") no-repeat right 4px center;
+}
+.cform-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 4px; flex-wrap: wrap; }
+.cform-note { font-size: 11px; color: var(--nickel); line-height: 1.6; }
+.cform-submit {
+  background: var(--ink); color: var(--paper); border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500;
+  padding: 20px 46px; position: relative; overflow: hidden; will-change: transform;
+}
+.cform-submit::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: translateY(101%); transition: transform .45s var(--ease); }
+.cform-submit:hover::before { transform: translateY(0); }
+.cform-submit span { position: relative; z-index: 1; }
+.cform-thanks { display: none; font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink); padding: 24px 0; }
+@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } .cform-row { grid-template-columns: 1fr; gap: 0; } }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { border-top: 1px solid var(--hairline); }
+.foot-main {
+  max-width: var(--maxw); margin: 0 auto; padding: clamp(56px, 8vh, 96px) var(--gutter);
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px;
+}
+.foot-brand { display: flex; flex-direction: column; gap: 18px; }
+.foot-brand svg { width: 40px; height: 40px; }
+.foot-tag { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 18px; line-height: 1.6; color: var(--ink-62); max-width: 300px; }
+.foot-col-label { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--nickel); margin-bottom: 20px; }
+.foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.foot-col a, .foot-col li { font-size: 13px; color: var(--ink-62); transition: color .25s; }
+.foot-col a:hover { color: var(--ink); }
+.foot-bottom {
+  border-top: 1px solid var(--hairline);
+  max-width: var(--maxw); margin: 0 auto; padding: 26px var(--gutter);
+  display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--nickel);
+}
+.foot-bottom a:hover { color: var(--ink); }
+@media (max-width: 900px) { .foot-main { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .foot-main { grid-template-columns: 1fr; } }
+
+/* ── reveal helper ── */
+.rv { opacity: 0; transform: translateY(30px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
 .rv.on { opacity: 1; transform: translateY(0); }
 .rv.d1 { transition-delay: .1s; } .rv.d2 { transition-delay: .2s; } .rv.d3 { transition-delay: .3s; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-  .mani-text .w { opacity: 1; transform: none; }
-  .cta-h2 .ch { opacity: 1; transform: none; }
+  .mani-text .w { opacity: 1; }
+  .bp-el { stroke-dashoffset: 0 !important; }
+  .bp-text { opacity: 1 !important; }
+  .rv, .hero-sub, .hero-progress { opacity: 1; transform: none; }
+  .hero-h1 .mline, .phil-title .mline, .contact-h2 .mline, .gate-panel-title .mline { transform: none; }
 }
 </style>
 </head>
 <body class="gate-open">
 
-<div id="cursor" class="hide"><span class="cursor-label">View</span></div>
+<div id="cursor" class="hide"></div>
 
 <!-- ═══════════ ENTRY GATE ═══════════ -->
 <section id="gate" aria-label="Choose your path">
   <div class="gate-head">
-    <div class="gate-brand">Ella <span>Lee</span> Homes</div>
+    <div class="gate-brand">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="#002855" stroke-width="1"/>
+        <text x="20" y="24.5" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" letter-spacing="1" fill="#002855">ELH</text>
+      </svg>
+      <span class="gate-brand-name">Ella Lee Homes</span>
+    </div>
     <div class="gate-est">Arizona · Est. 2012</div>
   </div>
   <div class="gate-panels">
@@ -476,7 +688,7 @@ footer a:hover { color: var(--ink); }
           <span class="mask"><span class="mline">Build the home</span></span>
           <span class="mask"><span class="mline"><em>you dream of.</em></span></span>
         </h2>
-        <p class="gate-panel-sub">Bespoke custom homes in Arizona's most coveted neighborhoods — designed around the way you live.</p>
+        <p class="gate-panel-sub">You dream it, we build it.</p>
         <span class="gate-panel-cta">Begin your home</span>
       </div>
     </div>
@@ -488,16 +700,16 @@ footer a:hover { color: var(--ink); }
           <span class="mask"><span class="mline">Partner in</span></span>
           <span class="mask"><span class="mline"><em>lasting value.</em></span></span>
         </h2>
-        <p class="gate-panel-sub">Institutional-grade opportunities in luxury residential development, with a proven Arizona track record.</p>
+        <p class="gate-panel-sub">Arizona's premier luxury custom home builder.</p>
         <span class="gate-panel-cta">Explore investment</span>
       </div>
     </div>
   </div>
   <div class="gate-seal" aria-hidden="true">
-    <svg class="gate-seal-ring" viewBox="0 0 140 140" fill="none">
-      <defs><path id="sealPath" d="M70,70 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
-      <text font-family="Inter,sans-serif" font-size="7.5" letter-spacing="3.6" fill="rgba(26,25,21,0.45)">
-        <textPath href="#sealPath">ELLA LEE HOMES · ARIZONA · CUSTOM LUXURY ·</textPath>
+    <svg class="gate-seal-ring" viewBox="0 0 148 148" fill="none">
+      <defs><path id="sealPath" d="M74,74 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"/></defs>
+      <text font-family="Inter,sans-serif" font-size="7.5" letter-spacing="3.6" fill="rgba(0,40,85,0.45)">
+        <textPath href="#sealPath">ELLA LEE HOMES · ARIZONA · CUSTOM LUXURY HOMES ·</textPath>
       </text>
     </svg>
     <div class="gate-seal-mono">ELH</div>
@@ -508,275 +720,522 @@ footer a:hover { color: var(--ink); }
 
 <!-- ═══════════ NAV ═══════════ -->
 <nav id="nav">
-  <a href="#hero-zone" class="nav-brand">Ella <span>Lee</span> Homes</a>
+  <a href="#hero-zone" class="nav-brand">
+    <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <circle cx="20" cy="20" r="19" stroke="#002855" stroke-width="1"/>
+      <text x="20" y="24.5" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" letter-spacing="1" fill="#002855">ELH</text>
+    </svg>
+    <span class="nav-brand-name">Ella Lee Homes</span>
+  </a>
   <ul class="nav-links">
-    <li><a href="#works-zone">Portfolio</a></li>
-    <li><a href="#process-zone">Process</a></li>
-    <li><a href="#invest">Investors</a></li>
+    <li><a href="#residences">Residences</a></li>
+    <li><a href="#journey-intro">The Journey</a></li>
     <li><a href="#manifesto">Our Story</a></li>
+    <li><a href="#invest">Investors</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
     <button class="nav-mode" id="modeBadge" title="Switch audience">For Homeowners</button>
-    <a href="#cta" class="nav-cta">Inquire</a>
+    <a href="#contact" class="nav-cta">Inquire</a>
   </div>
 </nav>
 
-<!-- ═══════════ HERO (scrubbed) ═══════════ -->
+<!-- ═══════════ HERO — SITE VIDEO ═══════════ -->
 <div id="hero-zone">
   <header id="hero">
-    <div class="hero-frame"><img id="heroImg" src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="Ella Lee custom home at dusk"></div>
-    <div class="hero-body">
-      <div class="hero-eyebrow" id="heroEyebrow">Arizona · Custom Luxury Homes</div>
+    <div class="hero-media" id="heroMedia">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="Ella Lee custom home at dusk">
+      <video id="heroVid" autoplay muted loop playsinline preload="metadata"
+        poster="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg">
+        <source src="https://ellaleehomes.com/wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="hero-body" id="heroBody">
+      <div class="eyebrow on-photo hero-eyebrow" id="heroEyebrow">Arizona-Custom Luxury Homes</div>
       <h1 class="hero-h1">
-        <span class="mask"><span class="mline" id="heroL1">Quietly built.</span></span>
-        <span class="mask"><span class="mline" id="heroL2"><em>Made to last.</em></span></span>
+        <span class="mask"><span class="mline">Ella Lee Homes</span></span>
+        <span class="mask"><span class="mline"><em>Built Right</em></span></span>
       </h1>
       <div class="hero-foot">
-        <p class="hero-sub" id="heroSub">Every Ella Lee home begins as a promise — to craft something worthy of the generations who will live in it.</p>
+        <p class="hero-sub" id="heroSub">Born from a simple, heartfelt promise — to build something that would stand the test of time.</p>
         <div class="hero-progress"><span>Scroll</span><div class="hero-progress-track"><div class="hero-progress-fill" id="heroFill"></div></div></div>
       </div>
     </div>
   </header>
 </div>
 
-<!-- ═══════════ RIBBON ═══════════ -->
-<div class="ribbon" id="ribbon1">
-  <div class="ribbon-track">
-    <div class="ribbon-chunk">
-      <span class="ribbon-item">Paradise Valley <em>№ 01</em></span>
-      <span class="ribbon-item">Arcadia <em>№ 02</em></span>
-      <span class="ribbon-item">Scottsdale <em>№ 03</em></span>
-      <span class="ribbon-item">Est. 2012 <em>Arizona</em></span>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════ EXPAND SCENE ═══════════ -->
-<div id="expand-zone">
-  <div id="expand-sticky">
-    <div class="expand-clip" id="expandClip">
-      <img id="expandImg" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="Desert Contemporary living space">
-      <div class="expand-caption">
-        <h2>Step <em>inside.</em></h2>
-        <p>Desert Contemporary II — Arcadia, Arizona</p>
+<!-- ═══════════ 01 · THE PROMISE ═══════════ -->
+<section id="manifesto" class="bp-grid">
+  <div class="mani-inner">
+    <div class="mani-eyebrow"><span class="eyebrow">01 — The Promise</span></div>
+    <p class="mani-text" id="maniText">Ella Lee Homes was born from a simple, heartfelt promise — to build something that would <em>stand the test of time</em> for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others. Every home we build carries that same devotion. A foundation of love, care, and <em>legacy</em> designed to nurture life's most meaningful moments.</p>
+    <div class="stat-strip">
+      <div class="stat-cell rv">
+        <div class="stat-num"><span class="scrub-count" data-to="17">0</span></div>
+        <div class="stat-label">Homes built across Arizona</div>
+      </div>
+      <div class="stat-cell rv d1">
+        <div class="stat-num">2012<i>&nbsp;est.</i></div>
+        <div class="stat-label">Fourteen years of building</div>
+      </div>
+      <div class="stat-cell rv d2">
+        <div class="stat-places">Paradise Valley · Arcadia · Scottsdale</div>
+        <div class="stat-label">Where we build</div>
       </div>
     </div>
-    <div class="expand-hint">Keep scrolling</div>
-  </div>
-</div>
-
-<!-- ═══════════ MANIFESTO ═══════════ -->
-<section id="manifesto">
-  <div class="mani-eyebrow">Our Story</div>
-  <p class="mani-text" id="maniText">Ella Lee Homes was born from a simple, heartfelt promise — to build something that would <em>stand the test of time</em> for our daughter, Ella, and the generations that follow. Every home we build carries that same devotion: a foundation of love, care, and <em>legacy.</em></p>
-</section>
-
-<!-- ═══════════ WORKS — HORIZONTAL ═══════════ -->
-<div id="works-zone">
-  <div id="works-sticky">
-    <div id="works-track">
-      <div class="works-intro">
-        <div class="eyebrow">Selected Works</div>
-        <h2>Three homes,<br><em>three stories.</em></h2>
-        <p>Each residence is a one-off — shaped by its land, its light, and the family it was built for.</p>
-        <div class="works-arrow">→</div>
-      </div>
-      <div class="work-slide">
-        <div class="work-slide-ghost">01</div>
-        <div class="work-slide-inner"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="68th &amp; Camelback"></div>
-        <div class="work-slide-card">
-          <div class="idx">No. 01</div>
-          <h3>68th &amp; Camelback</h3>
-          <div class="loc">Paradise Valley, Arizona</div>
-          <div class="specs"><span><b>5</b> BD</span><span><b>5.5</b> BA</span><span><b>5,214</b> SqFt</span></div>
-        </div>
-      </div>
-      <div class="work-slide">
-        <div class="work-slide-ghost">02</div>
-        <div class="work-slide-inner"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="Desert Contemporary II"></div>
-        <div class="work-slide-card">
-          <div class="idx">No. 02</div>
-          <h3>Desert Contemporary II</h3>
-          <div class="loc">Arcadia, Arizona</div>
-          <div class="specs"><span><b>6</b> BD</span><span><b>7.5</b> BA</span><span><b>5,874</b> SqFt</span></div>
-        </div>
-      </div>
-      <div class="work-slide">
-        <div class="work-slide-ghost">03</div>
-        <div class="work-slide-inner"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Via Estrella"></div>
-        <div class="work-slide-card">
-          <div class="idx">No. 03</div>
-          <h3>Via Estrella</h3>
-          <div class="loc">Scottsdale, Arizona</div>
-          <div class="specs"><span><b>5</b> BD</span><span><b>6.5</b> BA</span><span><b>6,222</b> SqFt</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="works-hud">
-      <div class="works-hud-label">Portfolio</div>
-      <div class="works-hud-line"><div class="works-hud-fill" id="worksFill"></div></div>
-      <div class="works-hud-idx" id="worksIdx">01 / 03</div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════ RIVER (dark zone begins) ═══════════ -->
-<div id="river-zone" data-theme="dark">
-  <div id="river-sticky">
-    <div class="river-col" data-speed="-1">
-      <div class="cell"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2327-2.jpg" alt=""></div>
-      <div class="cell"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2442-2.jpg" alt=""></div>
-      <div class="cell"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg" alt=""></div>
-      <div class="cell"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg" alt=""></div>
-    </div>
-    <div class="river-center">
-      <div class="river-card">
-        <div class="eyebrow">The Ella Lee Standard</div>
-        <h2>Every detail,<br><em>every time.</em></h2>
-        <p>From foundation pour to final walk-through, one team holds one standard — and it shows in every seam and shadow line.</p>
-      </div>
-    </div>
-    <div class="river-col" data-speed="1">
-      <div class="cell"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2407-2.jpg" alt=""></div>
-      <div class="cell"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt=""></div>
-      <div class="cell"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2468-2.jpg" alt=""></div>
-      <div class="cell"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt=""></div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════ STATS (dark) ═══════════ -->
-<section id="stats" data-theme="dark">
-  <div class="stats-grid">
-    <div class="stat-cell"><div class="stat-val"><span class="scrub-count" data-to="14">0</span><sup>yrs</sup></div><div class="stat-label">Building in Arizona</div></div>
-    <div class="stat-cell"><div class="stat-val"><span class="scrub-count" data-to="60">0</span><sup>+</sup></div><div class="stat-label">Custom Homes Delivered</div></div>
-    <div class="stat-cell"><div class="stat-val">$<span class="scrub-count" data-to="250">0</span><sup>m</sup></div><div class="stat-label">Portfolio Value Created</div></div>
-    <div class="stat-cell"><div class="stat-val"><span class="scrub-count" data-to="100">0</span><sup>%</sup></div><div class="stat-label">Client Referral Rate</div></div>
   </div>
 </section>
 
-<!-- ═══════════ INVEST (dark) ═══════════ -->
-<section id="invest" data-theme="dark">
-  <div class="invest-bg" style="background-image:url('https://ellaleehomes.com/wp-content/uploads/2025/02/6.jpg')"></div>
+<div class="divider" aria-hidden="true"><div class="divider-inner"></div><div class="divider-label">Selected Works</div></div>
+
+<!-- ═══════════ 02 · THE WORK — FEATURED RESIDENCES ═══════════ -->
+<section id="residences">
+  <div class="res-head">
+    <div class="res-head-left">
+      <span class="eyebrow rv">02 — The Work</span>
+      <h2 class="display-2 rv d1">Seventeen homes<br><em>across Arizona.</em></h2>
+    </div>
+    <a href="#" class="res-all-link rv d2">View All Residences →</a>
+  </div>
+
+  <article class="res-row">
+    <div class="res-info">
+      <span class="eyebrow res-idx">Residence 01 — Paradise Valley</span>
+      <h3 class="display-3 res-name">68th &amp; Camelback</h3>
+      <span class="res-badge">Sold</span>
+      <dl class="res-specs">
+        <div class="res-spec"><dt>Bedrooms</dt><dd>5</dd></div>
+        <div class="res-spec"><dt>Bathrooms</dt><dd>5.5</dd></div>
+        <div class="res-spec"><dt>Square Feet</dt><dd>5,214</dd></div>
+      </dl>
+      <div class="res-price"><span>Sales Price</span>$7,035,000</div>
+      <a href="#" class="res-link">View Residence</a>
+    </div>
+    <div class="res-media">
+      <div class="res-frame wide"><img class="plx" src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="68th &amp; Camelback exterior at dusk"></div>
+      <div class="res-frame tall"><img class="plx" src="https://ellaleehomes.com/wp-content/uploads/2025/02/DJI_0338.jpg" alt="68th &amp; Camelback aerial view"><div class="res-frame-cap">Aerial — Paradise Valley</div></div>
+    </div>
+  </article>
+
+  <article class="res-row">
+    <div class="res-info">
+      <span class="eyebrow res-idx">Residence 02 — Arcadia</span>
+      <h3 class="display-3 res-name">Desert Contemporary II</h3>
+      <span class="res-badge">Sold</span>
+      <dl class="res-specs">
+        <div class="res-spec"><dt>Bedrooms</dt><dd>6</dd></div>
+        <div class="res-spec"><dt>Bathrooms</dt><dd>7.5</dd></div>
+        <div class="res-spec"><dt>Square Feet</dt><dd>5,874</dd></div>
+      </dl>
+      <div class="res-price"><span>Sales Price</span>$4,400,000</div>
+      <a href="#" class="res-link">View Residence</a>
+    </div>
+    <div class="res-media">
+      <div class="res-frame wide"><img class="plx" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="Desert Contemporary II kitchen"></div>
+      <div class="res-frame tall"><img class="plx" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg" alt="Desert Contemporary II interior detail"></div>
+    </div>
+  </article>
+
+  <article class="res-row">
+    <div class="res-info">
+      <span class="eyebrow res-idx">Residence 03 — Scottsdale</span>
+      <h3 class="display-3 res-name">Via Estrella</h3>
+      <span class="res-badge">Sold</span>
+      <dl class="res-specs">
+        <div class="res-spec"><dt>Bedrooms</dt><dd>5</dd></div>
+        <div class="res-spec"><dt>Bathrooms</dt><dd>6.5</dd></div>
+        <div class="res-spec"><dt>Square Feet</dt><dd>6,222</dd></div>
+      </dl>
+      <div class="res-price"><span>Sales Price</span>$5,450,000</div>
+      <a href="#" class="res-link">View Residence</a>
+    </div>
+    <div class="res-media">
+      <div class="res-frame wide"><img class="plx" src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Via Estrella elevation"></div>
+      <div class="res-frame tall"><img class="plx" src="https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0169.jpg" alt="Via Estrella aerial view"><div class="res-frame-cap">Aerial — Scottsdale</div></div>
+    </div>
+  </article>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="divider-inner"></div><div class="divider-label">From First Sketch to Final Key</div></div>
+
+<!-- ═══════════ 03 · THE JOURNEY ═══════════ -->
+<section id="journey-intro" class="bp-grid">
+  <div class="journey-intro-inner">
+    <span class="eyebrow rv">03 — The Journey</span>
+    <h2 class="display-2 rv d1">From dirt<br><em>to done.</em></h2>
+    <p class="body-text rv d2">Every Ella Lee home is a collaborative journey from the first sketch to the final walkthrough.</p>
+  </div>
+</section>
+
+<div id="journey-zone">
+  <div id="journey-sticky">
+    <div class="jr-rail">
+      <div class="jr-metas" id="jrMetas">
+        <div class="jr-meta active" data-phase="0">
+          <span class="eyebrow jr-num">Phase 01</span>
+          <h3>Design</h3>
+          <div class="jr-dur">8–12 weeks</div>
+          <p class="jr-desc">Everything starts with a vision. We work alongside you to define the architecture, interior palette, and material selections — translating your goals into a buildable, beautiful plan before a single shovel breaks ground.</p>
+          <div class="jr-del-label">Deliverables</div>
+          <ul class="jr-dels">
+            <li>Architectural drawings</li>
+            <li>Interior design selections</li>
+            <li>Structural &amp; MEP coordination</li>
+            <li>Preliminary project budget</li>
+          </ul>
+        </div>
+        <div class="jr-meta" data-phase="1">
+          <span class="eyebrow jr-num">Phase 02</span>
+          <h3>Permitting</h3>
+          <div class="jr-dur">4–8 weeks</div>
+          <p class="jr-desc">We handle every city and county submission, coordinate directly with engineers, and navigate HOA approvals on your behalf — so you never have to manage the red tape.</p>
+          <div class="jr-del-label">Deliverables</div>
+          <ul class="jr-dels">
+            <li>City permit submission</li>
+            <li>Engineering sign-off</li>
+            <li>HOA approval coordination</li>
+            <li>Final permit issuance</li>
+          </ul>
+        </div>
+        <div class="jr-meta" data-phase="2">
+          <span class="eyebrow jr-num">Phase 03</span>
+          <h3>Construction</h3>
+          <div class="jr-dur">9–14 months</div>
+          <p class="jr-desc">Our crews break ground once permits are in hand. You work directly with the Ella Lee team throughout — no hand-offs, no intermediaries. Clear, consistent communication from foundation to final trim.</p>
+          <div class="jr-del-label">Deliverables</div>
+          <ul class="jr-dels">
+            <li>Site preparation &amp; foundation</li>
+            <li>Framing &amp; MEP rough-in</li>
+            <li>Interior &amp; exterior finishes</li>
+            <li>Weekly progress updates</li>
+          </ul>
+        </div>
+        <div class="jr-meta" data-phase="3">
+          <span class="eyebrow jr-num">Phase 04</span>
+          <h3>Move In</h3>
+          <div class="jr-dur">2–4 weeks</div>
+          <p class="jr-desc">We walk every inch of the home with you before keys change hands. Our punch list process is thorough, and our warranty coverage means you're supported long after move-in day.</p>
+          <div class="jr-del-label">Deliverables</div>
+          <ul class="jr-dels">
+            <li>Final walkthrough &amp; punch list</li>
+            <li>Certificate of occupancy</li>
+            <li>Keys &amp; access transfer</li>
+            <li>1-year workmanship warranty</li>
+          </ul>
+        </div>
+      </div>
+      <div class="jr-progress">
+        <div class="jr-ticks"><span></span><span></span><span></span><span></span><div class="jr-ticks-fill" id="jrFill"></div></div>
+        <div class="jr-progress-label" id="jrLabel">01 / 04</div>
+      </div>
+    </div>
+
+    <div class="jr-stage">
+      <!-- Layer 0-1: blueprint (Design + Permitting) -->
+      <div class="jr-layer jr-layer-svg bp-grid" id="jrLayerBp" style="opacity:1;">
+        <svg id="bpSvg" viewBox="0 0 1200 675" fill="none" aria-label="Architectural elevation drawing">
+          <!-- g0 · ground + wall volumes -->
+          <path class="bp-el" data-g="0" pathLength="1" d="M60 560 H1140"/>
+          <path class="bp-el" data-g="0" pathLength="1" d="M180 560 V240 H520 V560"/>
+          <path class="bp-el" data-g="0" pathLength="1" d="M520 560 V330 H940 V560"/>
+          <path class="bp-el" data-g="0" pathLength="1" d="M940 560 V380 H1060 V560"/>
+          <path class="bp-el" data-g="0" pathLength="1" d="M460 240 V210 H520 V240"/>
+          <!-- g1 · roof planes + fascias -->
+          <path class="bp-el" data-g="1" pathLength="1" d="M150 240 H560"/>
+          <path class="bp-el" data-g="1" pathLength="1" d="M150 250 H560"/>
+          <path class="bp-el" data-g="1" pathLength="1" d="M500 330 H970"/>
+          <path class="bp-el" data-g="1" pathLength="1" d="M500 340 H970"/>
+          <path class="bp-el" data-g="1" pathLength="1" d="M930 380 H1075"/>
+          <!-- g2 · glazing, door, mullions -->
+          <path class="bp-el" data-g="2" pathLength="1" d="M210 330 H490 V560"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M210 330 V560"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M280 330 V560"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M350 330 V560"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M420 330 V560"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M210 445 H490"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M200 262 H480 M200 262 V292 H480 V262"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M560 560 V430 H630 V560"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M618 488 V510"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M670 380 H780 V490 H670 V380"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M725 380 V490 M670 435 H780"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M810 380 H920 V490 H810 V380"/>
+          <path class="bp-el" data-g="2" pathLength="1" d="M865 380 V490 M810 435 H920"/>
+          <!-- g3 · texture + landscape + steps -->
+          <path class="bp-el" data-g="3" pathLength="1" d="M952 410 H1048 M952 440 H1048 M952 470 H1048 M952 500 H1048 M952 530 H1048"/>
+          <path class="bp-el" data-g="3" pathLength="1" d="M120 560 L104 528 M120 560 L112 522 M120 560 L124 520 M120 560 L136 526 M120 560 L146 540"/>
+          <path class="bp-el" data-g="3" pathLength="1" d="M1100 560 L1084 530 M1100 560 L1094 524 M1100 560 L1106 522 M1100 560 L1118 532"/>
+          <path class="bp-el" data-g="3" pathLength="1" d="M540 566 H650 M534 572 H656 M528 578 H662"/>
+          <!-- g4 · dimensions + title block (Permitting window) -->
+          <path class="bp-el" data-g="4" pathLength="1" d="M180 225 V192 M520 225 V192 M180 197 H520"/>
+          <path class="bp-el" data-g="4" pathLength="1" d="M175 197 l10 -4 M175 197 l10 4 M525 197 l-10 -4 M525 197 l-10 4"/>
+          <path class="bp-el" data-g="4" pathLength="1" d="M1085 330 H1118 M1085 560 H1118 M1113 330 V560"/>
+          <path class="bp-el" data-g="4" pathLength="1" d="M1113 335 l-4 -10 M1113 335 l4 -10 M1113 555 l-4 10 M1113 555 l4 10"/>
+          <path class="bp-el" data-g="4" pathLength="1" d="M180 592 V614 M1060 592 V614 M180 608 H1060"/>
+          <path class="bp-el" data-g="4" pathLength="1" d="M880 630 H1140 V674 H880 V630 M880 652 H1140"/>
+          <text class="bp-text" x="350" y="186" font-size="11" text-anchor="middle">34'-0"</text>
+          <text class="bp-text" x="1132" y="448" font-size="11" text-anchor="middle" transform="rotate(90 1132 448)">23'-0"</text>
+          <text class="bp-text" x="620" y="602" font-size="11" text-anchor="middle">88'-0"</text>
+          <text class="bp-text" x="890" y="646" font-size="10">ELLA LEE HOMES</text>
+          <text class="bp-text" x="890" y="668" font-size="8.5">SHEET A-201 · SOUTH ELEVATION · 1/4" = 1'-0"</text>
+          <!-- permit seal -->
+          <circle class="bp-seal-fill" cx="1010" cy="170" r="54"/>
+          <circle class="bp-el" data-g="5" pathLength="1" cx="1010" cy="170" r="54"/>
+          <circle class="bp-el" data-g="5" pathLength="1" cx="1010" cy="170" r="44"/>
+          <text class="bp-text bp-seal-text" x="1010" y="168" font-size="17" text-anchor="middle" font-family="Cormorant Garamond, serif" letter-spacing="2">ELH</text>
+          <text class="bp-text bp-seal-text" x="1010" y="188" font-size="7.5" text-anchor="middle">PERMIT ISSUED</text>
+        </svg>
+      </div>
+      <!-- Layer 2: construction / siting (drone aerial — swap for real construction photos when available) -->
+      <div class="jr-layer" id="jrLayerAerial">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg" alt="Aerial view of homesite">
+      </div>
+      <!-- Layer 3: the finished home -->
+      <div class="jr-layer" id="jrLayerDone">
+        <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/6.jpg" alt="Finished Ella Lee home at dusk">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- reduced-motion fallback: static phase list -->
+<div id="journey-static" aria-hidden="false"></div>
+
+<div class="divider" aria-hidden="true"><div class="divider-inner"></div><div class="divider-label">Your Home</div></div>
+
+<!-- ═══════════ 04 · YOU DREAM IT ═══════════ -->
+<section id="dream">
+  <div class="dream-grid">
+    <div class="dream-copy">
+      <span class="eyebrow rv">04 — Your Home</span>
+      <h2 class="display-2 rv d1">You Dream it,<br><em>we build it.</em></h2>
+      <p class="body-text rv d2">Close your eyes and imagine your dream home: a beautifully crafted luxury custom home that balances modern elegance with timeless charm. Nestled in one of Arizona's most sought-after neighborhoods, your home is surrounded by thoughtful landscaping and architectural details that invite you in before you ever step through the front door.</p>
+      <p class="body-text rv d3">Inside, natural light fills an open-concept floor plan designed with intention. A gourmet kitchen becomes the heart of the home, while cozy living areas and serene bedrooms offer both functionality and quiet luxury. Whether it's morning coffee in the sun-drenched kitchen or evenings spent in your private backyard retreat, every square foot is tailored to how you live.</p>
+    </div>
+    <div class="dream-viewer rv d1">
+      <div class="dream-tabs" role="tablist">
+        <button class="dream-tab active" data-img="dreamKitchen" role="tab" aria-selected="true">Kitchen</button>
+        <button class="dream-tab" data-img="dreamBath" role="tab" aria-selected="false">Bathroom</button>
+        <button class="dream-tab" data-img="dreamOutdoor" role="tab" aria-selected="false">Outdoor</button>
+        <button class="dream-tab" data-img="dreamElev" role="tab" aria-selected="false">Elevations</button>
+      </div>
+      <div class="dream-frame">
+        <img id="dreamKitchen" class="active" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2327-2.jpg" alt="Gourmet kitchen">
+        <img id="dreamBath" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2442-2.jpg" alt="Primary bathroom">
+        <img id="dreamOutdoor" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2468-2.jpg" alt="Outdoor living and pool">
+        <img id="dreamElev" src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Front elevation">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PHILOSOPHY ═══════════ -->
+<section id="philosophy">
+  <div class="phil-bg" style="background-image:url('https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg')"></div>
+  <div class="phil-inner">
+    <span class="eyebrow on-photo">Our Philosophy</span>
+    <h2 class="display-2 phil-title" id="philTitle">
+      <span class="mask"><span class="mline">We don't build houses.</span></span>
+      <span class="mask"><span class="mline">We build <em>legacies.</em></span></span>
+    </h2>
+    <p class="phil-body">Transparent process. Uncompromising craft. Every Ella Lee home is a collaborative journey from the first sketch to the final walkthrough.</p>
+    <a href="#journey-intro" class="phil-btn">Our Process</a>
+  </div>
+</section>
+
+<!-- ═══════════ 05 · CLIENT STORIES ═══════════ -->
+<section id="stories">
+  <div class="stories-inner">
+    <div class="stories-head">
+      <span class="eyebrow rv">05 — The Standard · Client Stories</span>
+      <h2 class="display-2 rv d1">What they <em>say.</em></h2>
+    </div>
+    <div class="stories-grid">
+      <div class="story-card rv">
+        <div class="story-stars">★★★★★</div>
+        <p class="story-quote">"Completed on time, within budget, and exceeded our expectations. The craftsmanship and attention to detail were simply amazing."</p>
+        <div class="story-who">Mike · Scottsdale, AZ · 2023</div>
+      </div>
+      <div class="story-card rv d1">
+        <div class="story-stars">★★★★★</div>
+        <p class="story-quote">"Real experts in luxury homes. Their follow-up and attention to detail after close was second to none. I'd recommend them to anyone."</p>
+        <div class="story-who">Mark · Paradise Valley, AZ · 2024</div>
+      </div>
+      <div class="story-card rv d2">
+        <div class="story-stars">★★★★★</div>
+        <p class="story-quote">"Blown away by the quality. Shay &amp; team have been so meticulous — something most builders completely disregard. So lucky to live here."</p>
+        <div class="story-who">Anastasia · Arcadia, AZ · 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ INVESTORS ═══════════ -->
+<section id="invest">
   <div class="invest-inner">
-    <div class="invest-eyebrow rv">For Investors</div>
-    <h2 class="invest-h2 rv d1">Luxury residential, run with <em>institutional discipline.</em></h2>
+    <span class="eyebrow rv">For Investors</span>
+    <h2 class="display-2 invest-h2 rv d1">Partner in <em>lasting value.</em></h2>
     <div class="invest-cols">
-      <p class="invest-body rv d2">Ella Lee Homes pairs design-led product with rigorous land selection, transparent reporting and disciplined cost control. Our investors participate in Arizona's most resilient luxury corridors — Paradise Valley, Arcadia, Scottsdale — alongside a builder who lives in the details.</p>
+      <p class="invest-body rv d2">Arizona's premier luxury custom home builder — built to last, built for you. Whether you're exploring a development opportunity or a long-term partnership, we bring the same clarity to the conversation: steady communication, realistic schedules, and respect for the vision you're trusting us to deliver.</p>
       <div class="invest-points rv d3">
-        <div class="invest-point">Off-market land pipeline <span>Paradise Valley · Arcadia</span></div>
-        <div class="invest-point">Average project cycle <span>14–18 months</span></div>
-        <div class="invest-point">Reporting cadence <span>Monthly, audited</span></div>
-        <div class="invest-point">Minimum participation <span>By conversation</span></div>
+        <div class="invest-point">Homes completed <span>17</span></div>
+        <div class="invest-point">Building in Arizona since <span>2012</span></div>
+        <div class="invest-point">Communities <span>Paradise Valley · Arcadia · Scottsdale</span></div>
+        <div class="invest-point">License <span>ROC KB2-333410</span></div>
       </div>
     </div>
-    <a href="#cta" class="invest-cta rv d3">Request the Investor Brief</a>
+    <button class="invest-cta rv d3" id="investCta">Request the Investor Brief</button>
   </div>
 </section>
 
-<!-- ═══════════ PROCESS — STACKING CARDS ═══════════ -->
-<div id="process-zone">
-  <div class="proc-stack">
-    <div class="proc-slot">
-      <div class="proc-card">
-        <div class="proc-copy">
-          <div class="proc-step">Chapter i</div>
-          <h3 class="proc-title">We <em>listen.</em></h3>
-          <p class="proc-text">Before a single line is drawn, we learn how you live — mornings, holidays, the quiet hours. The home is designed around them.</p>
-        </div>
-        <div class="proc-media"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2327-2.jpg" alt=""><div class="proc-ghost">i</div></div>
-      </div>
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-left">
+      <span class="eyebrow">Begin the Conversation</span>
+      <h2 class="display-2 contact-h2" id="contactH2">
+        <span class="mask"><span class="mline">Ready to build</span></span>
+        <span class="mask"><span class="mline">your <em>legacy?</em></span></span>
+      </h2>
+      <p class="body-text contact-sub">Tell us about your vision. Whether you're building from the ground up, selling a custom home, or simply exploring what's possible, we'd love to hear from you.</p>
+      <dl class="contact-meta">
+        <div class="contact-meta-row"><dt>Phone</dt><dd><a href="tel:+14803408700">(480) 340-8700</a></dd></div>
+        <div class="contact-meta-row"><dt>Email</dt><dd><a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a></dd></div>
+        <div class="contact-meta-row"><dt>Studio</dt><dd>4408 N 12th St, Phoenix, AZ 85014</dd></div>
+      </dl>
     </div>
-    <div class="proc-slot">
-      <div class="proc-card">
-        <div class="proc-copy">
-          <div class="proc-step">Chapter ii</div>
-          <h3 class="proc-title">We <em>design.</em></h3>
-          <p class="proc-text">Architecture, interiors and landscape resolved as one composition — with fixed-cost clarity before ground breaks.</p>
-        </div>
-        <div class="proc-media"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2442-2.jpg" alt=""><div class="proc-ghost">ii</div></div>
+    <form class="cform" id="cform" novalidate>
+      <div class="cform-row">
+        <div class="cfield"><input type="text" id="fFirst" required><label for="fFirst">First Name</label></div>
+        <div class="cfield"><input type="text" id="fLast" required><label for="fLast">Last Name</label></div>
       </div>
-    </div>
-    <div class="proc-slot">
-      <div class="proc-card">
-        <div class="proc-copy">
-          <div class="proc-step">Chapter iii</div>
-          <h3 class="proc-title">We <em>craft.</em></h3>
-          <p class="proc-text">One site team, one standard. Weekly walk-throughs and a finish schedule we hold ourselves to — visibly.</p>
-        </div>
-        <div class="proc-media"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2468-2.jpg" alt=""><div class="proc-ghost">iii</div></div>
+      <div class="cform-row">
+        <div class="cfield"><input type="email" id="fEmail" required><label for="fEmail">Email</label></div>
+        <div class="cfield"><input type="tel" id="fPhone"><label for="fPhone">Phone</label></div>
       </div>
-    </div>
+      <div class="cfield">
+        <select id="fInterest">
+          <option value="" selected></option>
+          <option>Building a custom home</option>
+          <option>Selling my home</option>
+          <option>Investor / development opportunity</option>
+          <option>General inquiry</option>
+        </select>
+        <label for="fInterest">I'm interested in</label>
+      </div>
+      <div class="cfield">
+        <textarea id="fMsg" placeholder=""></textarea>
+        <label for="fMsg">Lot location, square footage, timeline, anything you'd like us to know...</label>
+      </div>
+      <div class="cform-actions">
+        <p class="cform-note">We respond personally within one business day.</p>
+        <button type="submit" class="cform-submit" id="magneticBtn"><span>Send Inquiry</span></button>
+      </div>
+      <p class="cform-thanks" id="cformThanks">Thank you. We'll be in touch.</p>
+    </form>
   </div>
-</div>
-
-<!-- ═══════════ CTA ═══════════ -->
-<section id="cta">
-  <div class="cta-eyebrow" id="ctaEyebrow">Begin the Conversation</div>
-  <h2 class="cta-h2" id="ctaH2">Let's build <em>yours.</em></h2>
-  <button class="cta-btn" id="magneticBtn"><span>Schedule a Private Consultation</span></button>
 </section>
 
+<!-- ═══════════ FOOTER ═══════════ -->
 <footer>
-  <div>© Ella Lee Homes · Arizona</div>
-  <div><a href="#">Instagram</a> &nbsp;·&nbsp; <a href="#">ROC #340899</a></div>
-  <div>Concept 1 — “Atelier”</div>
+  <div class="foot-main">
+    <div class="foot-brand">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="#002855" stroke-width="1"/>
+        <text x="20" y="24.5" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" letter-spacing="1" fill="#002855">ELH</text>
+      </svg>
+      <p class="foot-tag">Arizona's premier luxury custom home builder. Built to last. Built for you.</p>
+    </div>
+    <div class="foot-col">
+      <div class="foot-col-label">Navigate</div>
+      <ul>
+        <li><a href="#residences">Residences</a></li>
+        <li><a href="#journey-intro">The Journey</a></li>
+        <li><a href="#manifesto">Our Story</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <div class="foot-col-label">Services</div>
+      <ul>
+        <li><a href="#contact">Build Your Home</a></li>
+        <li><a href="#contact">Sell a Home</a></li>
+        <li><a href="#invest">Developers</a></li>
+        <li><a href="#">Client Portal</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <div class="foot-col-label">Contact</div>
+      <ul>
+        <li><a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a></li>
+        <li><a href="tel:+14803408700">(480) 340-8700</a></li>
+        <li>4408 N 12th St</li>
+        <li>Phoenix, AZ 85014</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div>© 2026 Ella Lee Homes. All rights reserved.</div>
+    <div>ROC License: KB2-333410</div>
+    <div>Building Arizona's finest homes.</div>
+  </div>
 </footer>
 
 <script>
 /* ============================================================
-   ATELIER v2 — motion system (vanilla, zero dependencies)
-   liquid smooth scroll · scene scrubbing · bg morphs
+   ATELIER v3 — motion system (vanilla, zero dependencies)
+   liquid scroll · scene registry · one pinned story chapter
    ============================================================ */
 (function () {
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const lerp = (a, b, n) => a + (b - a) * n;
   const clamp01 = v => Math.min(1, Math.max(0, v));
 
-  /* ── Liquid smooth scroll (wheel lerp; native for touch/keys) ── */
+  /* ── Liquid smooth scroll (wheel lerp; native touch/keys) ── */
   let target = 0, current = 0, lastWheel = 0;
   const maxScroll = () => document.documentElement.scrollHeight - innerHeight;
   addEventListener('wheel', e => {
     if (document.body.classList.contains('gate-open')) return;
+    if (prefersReduced) return;
     e.preventDefault();
     lastWheel = performance.now();
     target = Math.max(0, Math.min(maxScroll(), target + e.deltaY));
   }, { passive: false });
   addEventListener('scroll', () => {
-    // resync when scrolled by keyboard / scrollbar / anchors
-    if (performance.now() - lastWheel > 220 && Math.abs(scrollY - current) > 2) {
-      current = target = scrollY;
-    }
+    if (performance.now() - lastWheel > 220 && Math.abs(scrollY - current) > 2) current = target = scrollY;
   }, { passive: true });
-  function scrollTo_(y) { target = Math.max(0, Math.min(maxScroll(), y)); }
+  function scrollTo_(y) {
+    if (prefersReduced) { window.scrollTo(0, y); current = target = y; return; }
+    target = Math.max(0, Math.min(maxScroll(), y));
+  }
 
   /* ── Cursor ── */
   const cursor = document.getElementById('cursor');
   let cx = -100, cy = -100, tx = -100, ty = -100;
   addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; cursor.classList.remove('hide'); });
-  document.querySelectorAll('a, button, .gate-panel, .work-slide').forEach(el => {
+  document.querySelectorAll('a, button, .gate-panel, .dream-tab').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
   });
+  (function cursorLoop(){
+    cx = lerp(cx, tx, 0.2); cy = lerp(cy, ty, 0.2);
+    cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
+    requestAnimationFrame(cursorLoop);
+  })();
 
-  /* ── Audience copy ── */
+  /* ── Audience copy (hero eyebrow + sub only; brand line never changes) ── */
   const COPY = {
-    home: { badge: 'For Homeowners', eyebrow: 'Arizona · Custom Luxury Homes', l1: 'Quietly built.', l2: 'Made to last.',
-      sub: 'Every Ella Lee home begins as a promise — to craft something worthy of the generations who will live in it.', cta: 'Begin the Conversation' },
-    invest: { badge: 'For Investors', eyebrow: 'Arizona · Luxury Residential Development', l1: 'Built value.', l2: 'Proven ground.',
-      sub: 'A design-led builder with institutional discipline — land, product and reporting you can underwrite with confidence.', cta: 'Request the Investor Brief' }
+    home: { badge: 'For Homeowners', eyebrow: 'Arizona-Custom Luxury Homes',
+      sub: 'Born from a simple, heartfelt promise — to build something that would stand the test of time.' },
+    invest: { badge: 'For Investors', eyebrow: 'Arizona · Luxury Residential Development',
+      sub: "Arizona's premier luxury custom home builder. Built to last. Built for you." }
   };
   let audience = 'home';
   function applyAudience(a) {
     audience = a; document.body.dataset.audience = a;
-    const c = COPY[a];
-    document.getElementById('modeBadge').textContent = c.badge;
-    document.getElementById('heroEyebrow').textContent = c.eyebrow;
-    document.getElementById('heroL1').textContent = c.l1;
-    const l2 = document.getElementById('heroL2'); l2.innerHTML = '';
-    const em = document.createElement('em'); em.textContent = c.l2; l2.appendChild(em);
-    document.getElementById('heroSub').textContent = c.sub;
-    document.getElementById('ctaEyebrow').textContent = c.cta;
+    document.getElementById('modeBadge').textContent = COPY[a].badge;
+    document.getElementById('heroEyebrow').textContent = COPY[a].eyebrow;
+    document.getElementById('heroSub').textContent = COPY[a].sub;
   }
   document.getElementById('modeBadge').addEventListener('click', () => applyAudience(audience === 'home' ? 'invest' : 'home'));
 
@@ -800,15 +1259,25 @@ footer a:hover { color: var(--ink); }
   });
   document.getElementById('gateSkip').addEventListener('click', () => enterSite(null));
 
-  /* ── Nav ── */
+  /* ── Hero video fallback ── */
+  const heroVid = document.getElementById('heroVid');
+  function killVideo() { heroVid.style.display = 'none'; }
+  heroVid.addEventListener('error', killVideo, true);
+  if (prefersReduced) killVideo();
+  else { const p = heroVid.play(); if (p && p.catch) p.catch(killVideo); }
+
+  /* ── Nav state ── */
   const nav = document.getElementById('nav');
   let lastY = 0;
+  const darkSections = [document.getElementById('philosophy'), document.getElementById('invest'), document.getElementById('hero')];
 
   /* ── One-shot reveals ── */
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: 0.18 });
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  const ioMask = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ioMask.unobserve(e.target); } }), { threshold: 0.4 });
+  [document.getElementById('philTitle'), document.getElementById('contactH2')].forEach(el => ioMask.observe(el));
 
-  /* ── Split helpers ── */
+  /* ── Manifesto word split ── */
   function splitWords(el) {
     const nodes = [...el.childNodes]; el.innerHTML = '';
     nodes.forEach(n => {
@@ -821,191 +1290,198 @@ footer a:hover { color: var(--ink); }
     });
     return [...el.querySelectorAll('.w')];
   }
-  function splitChars(el) {
-    const nodes = [...el.childNodes]; el.innerHTML = '';
-    nodes.forEach(n => {
-      const host = n.nodeType === 1 ? document.createElement(n.tagName.toLowerCase()) : el;
-      [...n.textContent].forEach(ch => {
-        if (ch === ' ') host.appendChild(document.createTextNode(' '));
-        else { const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; host.appendChild(s); }
-      });
-      if (host !== el) el.appendChild(host);
-    });
-    return [...el.querySelectorAll('.ch')];
+  const mani = document.getElementById('maniText');
+  const maniWords = splitWords(mani);
+  if (prefersReduced) maniWords.forEach(w => w.classList.add('lit'));
+
+  /* ── Journey chapter refs ── */
+  const jrZone = document.getElementById('journey-zone');
+  const jrMetas = [...document.querySelectorAll('#jrMetas .jr-meta')];
+  const jrFill = document.getElementById('jrFill');
+  const jrLabel = document.getElementById('jrLabel');
+  const jrLayerBp = document.getElementById('jrLayerBp');
+  const jrLayerAerial = document.getElementById('jrLayerAerial');
+  const jrLayerDone = document.getElementById('jrLayerDone');
+  const bpEls = [...document.querySelectorAll('.bp-el')].map(el => ({ el, g: +el.dataset.g }));
+  const bpTexts = [...document.querySelectorAll('.bp-text:not(.bp-seal-text)')];
+  const bpSealTexts = [...document.querySelectorAll('.bp-seal-text')];
+  const bpSealFill = document.querySelector('.bp-seal-fill');
+
+  // reduced-motion: clone metas into static list
+  if (prefersReduced) {
+    const staticHost = document.getElementById('journey-static');
+    jrMetas.forEach(m => { const c = m.cloneNode(true); c.classList.add('active'); staticHost.appendChild(c); });
   }
 
-  const maniWords = splitWords(document.getElementById('maniText'));
-  const ctaH2 = document.getElementById('ctaH2');
-  const ctaChars = splitChars(ctaH2);
-  ctaChars.forEach((c, i) => c.style.transitionDelay = (i * 0.03) + 's');
-  const ioCta = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { ctaH2.classList.add('on'); ioCta.unobserve(ctaH2); } }), { threshold: 0.4 });
-  ioCta.observe(ctaH2);
+  function runJourney(p) {
+    // active phase: Design 0–.26 · Permitting .26–.46 · Construction .46–.76 · Move In .76–1
+    const phase = p < 0.26 ? 0 : p < 0.46 ? 1 : p < 0.76 ? 2 : 3;
+    jrMetas.forEach((m, i) => m.classList.toggle('active', i === phase));
+    jrFill.style.transform = `scaleX(${p})`;
+    jrLabel.textContent = '0' + (phase + 1) + ' / 04';
 
-  /* ── Ribbon setup ── */
-  const rTrack = document.querySelector('#ribbon1 .ribbon-track');
-  const rChunk = rTrack.firstElementChild;
-  for (let i = 0; i < 3; i++) rTrack.appendChild(rChunk.cloneNode(true));
-  let rX = 0, vel = 0;
+    // Design: draw groups 0–3 staggered
+    const pd = clamp01(p / 0.26);
+    bpEls.forEach(({ el, g }) => {
+      if (g <= 3) {
+        const lp = clamp01((pd - g * 0.2) / 0.4);
+        el.style.strokeDashoffset = 1 - lp;
+      }
+    });
+    // Permitting: dims (g4) + seal (g5) + texts
+    const pp = clamp01((p - 0.26) / 0.20);
+    bpEls.forEach(({ el, g }) => {
+      if (g === 4) el.style.strokeDashoffset = 1 - clamp01(pp / 0.6);
+      if (g === 5) el.style.strokeDashoffset = 1 - clamp01((pp - 0.5) / 0.4);
+    });
+    bpTexts.forEach(t => t.style.opacity = clamp01((pp - 0.35) / 0.3));
+    bpSealTexts.forEach(t => t.style.opacity = clamp01((pp - 0.75) / 0.25));
+    bpSealFill.style.opacity = clamp01((pp - 0.85) / 0.15);
 
-  /* ── Scene elements ── */
-  const heroZone = document.getElementById('hero-zone');
-  const heroImg = document.getElementById('heroImg');
-  const heroL1 = document.getElementById('heroL1');
-  const heroL2 = document.getElementById('heroL2');
-  const heroEyebrow = document.getElementById('heroEyebrow');
-  const heroFill = document.getElementById('heroFill');
-  const heroBody = document.querySelector('.hero-body');
+    // layer crossfades
+    const bpOut = clamp01((p - 0.46) / 0.1);          // svg fades out .46–.56
+    const doneIn = clamp01((p - 0.76) / 0.08);        // final fades in .76–.84
+    jrLayerBp.style.opacity = 1 - bpOut;
+    jrLayerBp.style.transform = `scale(${1 + bpOut * 0.05})`;
+    jrLayerAerial.style.opacity = bpOut * (1 - doneIn);
+    const aImg = jrLayerAerial.firstElementChild;
+    if (aImg) aImg.style.transform = `scale(${1.08 - clamp01((p - 0.46) / 0.3) * 0.08})`;
+    jrLayerDone.style.opacity = doneIn;
+    const dImg = jrLayerDone.firstElementChild;
+    if (dImg) dImg.style.transform = `scale(${1.06 - doneIn * 0.06})`;
+  }
 
-  const expandZone = document.getElementById('expand-zone');
-  const expandClip = document.getElementById('expandClip');
-  const expandImg = document.getElementById('expandImg');
-
-  const worksZone = document.getElementById('works-zone');
-  const worksTrack = document.getElementById('works-track');
-  const worksFill = document.getElementById('worksFill');
-  const worksIdx = document.getElementById('worksIdx');
-  const workSlides = [...document.querySelectorAll('.work-slide')];
-  const workGhosts = [...document.querySelectorAll('.work-slide-ghost')];
-  const workImgs = [...document.querySelectorAll('.work-slide-inner img')];
-
-  const riverZone = document.getElementById('river-zone');
-  const riverCols = [...document.querySelectorAll('.river-col')];
-
-  const statsSection = document.getElementById('stats');
-  const scrubCounts = [...document.querySelectorAll('.scrub-count')];
-
-  const investBg = document.querySelector('.invest-bg');
-  const procCards = [...document.querySelectorAll('.proc-card')];
-  const procImgs = [...document.querySelectorAll('.proc-media img')];
-
-  const darkZones = [...document.querySelectorAll('[data-theme="dark"]')];
-
-  /* progress of a pinned zone: 0 when zone top hits viewport top … 1 when zone bottom leaves */
+  /* ── Scene registry ── */
   function zoneProgress(zone) {
     const r = zone.getBoundingClientRect();
     return clamp01(-r.top / (r.height - innerHeight));
   }
-  /* progress of element through viewport (-1 below → 0 centered → 1 above) */
   function throughView(el) {
     const r = el.getBoundingClientRect();
     return (innerHeight / 2 - (r.top + r.height / 2)) / (innerHeight / 2 + r.height / 2);
   }
 
+  const heroZone = document.getElementById('hero-zone');
+  const heroMedia = document.getElementById('heroMedia');
+  const heroBody = document.getElementById('heroBody');
+  const heroFill = document.getElementById('heroFill');
+  const philBg = document.querySelector('.phil-bg');
+  const philSection = document.getElementById('philosophy');
+  const statsCounts = [...document.querySelectorAll('.scrub-count')];
+  const statStrip = document.querySelector('.stat-strip');
+  const plxImgs = [...document.querySelectorAll('.res-frame img.plx')];
+
+  const scenes = [
+    { // hero settle: video scale 1.08→1, body rises/fades — no lateral drift
+      run() {
+        const p = zoneProgress(heroZone);
+        heroMedia.style.transform = `scale(${1.08 - p * 0.08})`;
+        heroBody.style.transform = `translateY(${p * -6}vh)`;
+        heroBody.style.opacity = 1 - Math.max(0, p - 0.6) * 2.5;
+        heroFill.style.transform = `scaleX(${p})`;
+      }
+    },
+    { // manifesto word-lit (opacity only)
+      run() {
+        const r = mani.getBoundingClientRect();
+        const mp = clamp01((innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.3));
+        const lit = Math.floor(mp * maniWords.length);
+        maniWords.forEach((w, i) => w.classList.toggle('lit', i < lit));
+      }
+    },
+    { // real-number counters scrub
+      run() {
+        const sp = clamp01(throughView(statStrip) + 0.5);
+        statsCounts.forEach(el => el.textContent = Math.round(+el.dataset.to * clamp01(sp * 1.4)));
+      }
+    },
+    { // residence image parallax ±4%
+      run() {
+        plxImgs.forEach(img => {
+          const r = img.parentElement.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > innerHeight) return;
+          const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+          img.style.transform = `translateY(${p * -4}%)`;
+        });
+      }
+    },
+    { // journey pinned chapter
+      run() { runJourney(zoneProgress(jrZone)); }
+    },
+    { // philosophy bg parallax
+      run() {
+        const r = philSection.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        philBg.style.transform = `translateY(${((r.top + r.height / 2 - innerHeight / 2) / innerHeight) * 6}%)`;
+      }
+    }
+  ];
+
   /* ── MAIN LOOP ── */
   function frame() {
-    // liquid scroll
     if (!prefersReduced) {
       current = lerp(current, target, 0.088);
       if (Math.abs(target - current) < 0.08) current = target;
       if (Math.abs(scrollY - current) >= 0.5) window.scrollTo(0, current);
     } else { current = target = scrollY; }
-
     const y = current;
-    vel = lerp(vel, y - (frame._py || y), 0.1); frame._py = y;
 
-    // nav
     nav.classList.toggle('scrolled', y > 40);
     nav.classList.toggle('away', y > lastY + 1 && y > innerHeight);
+    const mid = 40;
+    nav.classList.toggle('on-dark', darkSections.some(s => { const r = s.getBoundingClientRect(); return r.top < mid && r.bottom > mid; }));
     lastY = y;
 
-    // HERO scrub: image zoom-settle, lines drift apart, eyebrow tracking, fade
-    const hp = zoneProgress(heroZone);
-    heroImg.style.transform = `scale(${1.18 - hp * 0.18}) translateY(${hp * -4}%)`;
-    heroL1.style.transform = `translateX(${hp * -22}vw)`;
-    heroL2.style.transform = `translateX(${hp * 22}vw)`;
-    heroEyebrow.style.letterSpacing = (0.32 + hp * 0.5) + 'em';
-    heroEyebrow.style.opacity = 1 - hp * 1.4;
-    heroBody.style.opacity = 1 - Math.max(0, hp - 0.55) * 2.4;
-    heroFill.style.transform = `scaleX(${hp})`;
-
-    // RIBBON: drift + velocity
-    const cw = rChunk.offsetWidth || 1;
-    rX -= (0.7 + Math.min(9, Math.abs(vel) * 0.4));
-    if (-rX >= cw) rX += cw;
-    rTrack.style.transform = `translateX(${rX}px) skewX(${Math.max(-6, Math.min(6, -vel * 0.18))}deg)`;
-
-    // EXPAND: width/height scrub to fullscreen, inner counter-zoom
-    const ep = zoneProgress(expandZone);
-    const easeE = ep < 0.5 ? 2 * ep * ep : 1 - Math.pow(-2 * ep + 2, 2) / 2;
-    expandClip.style.width = (34 + easeE * 66) + 'vw';
-    expandClip.style.height = (44 + easeE * 56) + 'vh';
-    expandImg.style.transform = `translate(-50%,-50%) scale(${1.15 - easeE * 0.15})`;
-    expandClip.classList.toggle('full', ep > 0.82);
-
-    // MANIFESTO words
-    const mr = document.getElementById('manifesto').getBoundingClientRect();
-    const mp = clamp01((innerHeight * 0.85 - mr.top) / (mr.height + innerHeight * 0.3));
-    const lit = Math.floor(mp * maniWords.length);
-    maniWords.forEach((w, i) => w.classList.toggle('lit', i < lit));
-
-    // WORKS horizontal
-    const wp = zoneProgress(worksZone);
-    const trackW = worksTrack.scrollWidth - innerWidth;
-    worksTrack.style.transform = `translateX(${-wp * trackW}px)`;
-    worksFill.style.transform = `scaleX(${wp})`;
-    // ghost numbers counter-drift + image inner parallax
-    workGhosts.forEach(g => { g.style.transform = `translateX(${wp * 14}vw)`; });
-    workImgs.forEach(img => {
-      const r = img.parentElement.getBoundingClientRect();
-      const px = (r.left + r.width / 2 - innerWidth / 2) / innerWidth;
-      img.style.transform = `translateX(${px * -6}%) scale(1.08)`;
-    });
-    const wIdx = Math.min(workSlides.length, Math.max(1, Math.round(wp * (workSlides.length - 1)) + 1));
-    worksIdx.textContent = String(wIdx).padStart(2, '0') + ' / ' + String(workSlides.length).padStart(2, '0');
-
-    // RIVER columns
-    const rp = zoneProgress(riverZone);
-    riverCols.forEach(col => {
-      const dir = +col.dataset.speed;
-      col.style.transform = `translateY(${dir * (rp - 0.5) * 34}vh)`;
-    });
-
-    // STATS scrub with section visibility
-    const sp = clamp01(throughView(statsSection) + 0.35);
-    scrubCounts.forEach(el => {
-      el.textContent = Math.round(+el.dataset.to * clamp01(sp * 1.3));
-    });
-
-    // INVEST bg parallax
-    const ir = investBg.parentElement.getBoundingClientRect();
-    investBg.style.transform = `translateY(${((ir.top + ir.height / 2 - innerHeight / 2) / innerHeight) * 10}%)`;
-
-    // PROCESS stack: scale/darken covered cards + inner img parallax
-    procCards.forEach((card) => {
-      const slot = card.parentElement;
-      const sr = slot.getBoundingClientRect();
-      const covered = clamp01(-sr.top / innerHeight); // how far next card covers this
-      card.style.transform = `scale(${1 - covered * 0.06}) translateY(${covered * -2}vh)`;
-      card.style.filter = `brightness(${1 - covered * 0.25})`;
-    });
-    procImgs.forEach(img => {
-      const r = img.parentElement.getBoundingClientRect();
-      const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
-      img.style.transform = `translateY(${p * -8}%)`;
-    });
-
-    // BG morph: dark when a dark zone crosses mid-viewport
-    const mid = innerHeight * 0.5;
-    const inDark = darkZones.some(z => { const r = z.getBoundingClientRect(); return r.top < mid && r.bottom > mid; });
-    document.body.classList.toggle('dark-zone', inDark);
-
+    scenes.forEach(s => s.run());
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
+  if (prefersReduced) { runJourney(1); }
 
-  /* cursor follow (separate loop keeps it snappy) */
-  (function cursorLoop(){
-    cx = lerp(cx, tx, 0.2); cy = lerp(cy, ty, 0.2);
-    cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
-    requestAnimationFrame(cursorLoop);
-  })();
+  /* ── Dream tabs (event-driven) ── */
+  const dreamTabs = [...document.querySelectorAll('.dream-tab')];
+  const dreamImgs = [...document.querySelectorAll('.dream-frame img')];
+  let dreamIdx = 0, dreamAuto = null;
+  function setDream(idx) {
+    dreamIdx = idx;
+    dreamTabs.forEach((t, i) => { t.classList.toggle('active', i === idx); t.setAttribute('aria-selected', i === idx); });
+    const id = dreamTabs[idx].dataset.img;
+    dreamImgs.forEach(img => img.classList.toggle('active', img.id === id));
+  }
+  dreamTabs.forEach((t, i) => t.addEventListener('click', () => {
+    if (dreamAuto) { clearInterval(dreamAuto); dreamAuto = null; }
+    setDream(i);
+  }));
+  if (!prefersReduced) {
+    dreamAuto = setInterval(() => setDream((dreamIdx + 1) % dreamTabs.length), 5000);
+  }
 
-  /* ── Magnetic CTA ── */
+  /* ── Investor CTA → contact with preset select ── */
+  document.getElementById('investCta').addEventListener('click', () => {
+    const sel = document.getElementById('fInterest');
+    sel.value = 'Investor / development opportunity';
+    sel.closest('.cfield').classList.add('filled');
+    const t = document.getElementById('contact');
+    scrollTo_(t.getBoundingClientRect().top + scrollY);
+  });
+
+  /* ── Form: floating labels + submit ── */
+  document.querySelectorAll('.cfield input, .cfield select, .cfield textarea').forEach(el => {
+    const sync = () => el.closest('.cfield').classList.toggle('filled', !!el.value);
+    el.addEventListener('input', sync); el.addEventListener('change', sync); sync();
+  });
+  document.getElementById('cform').addEventListener('submit', e => {
+    e.preventDefault();
+    document.querySelector('.cform-actions').style.display = 'none';
+    document.getElementById('cformThanks').style.display = 'block';
+  });
+
+  /* ── Magnetic submit ── */
   const mag = document.getElementById('magneticBtn');
   if (mag && !prefersReduced) {
     mag.addEventListener('mousemove', e => {
       const r = mag.getBoundingClientRect();
-      mag.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.2}px, ${(e.clientY - r.top - r.height / 2) * 0.3}px)`;
+      mag.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.18}px, ${(e.clientY - r.top - r.height / 2) * 0.28}px)`;
     });
     mag.addEventListener('mouseleave', () => {
       mag.style.transition = 'transform .5s cubic-bezier(0.16,1,0.3,1)';
@@ -1014,10 +1490,12 @@ footer a:hover { color: var(--ink); }
     });
   }
 
-  /* ── Anchors through the lerp system ── */
+  /* ── Anchors through lerp ── */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'));
+      const sel = a.getAttribute('href');
+      if (sel.length < 2) return;
+      const t = document.querySelector(sel);
       if (t) { e.preventDefault(); scrollTo_(t.getBoundingClientRect().top + scrollY + 2); }
     });
   });
