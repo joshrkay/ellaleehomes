@@ -9,12 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
-  --navy: #002855; --gold: #C9A96E;
+  --navy: #001F33; --gold: #C9A96E;
   --sans: 'Inter', Helvetica, sans-serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
 }
@@ -30,7 +29,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 .header-left .eyebrow { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--nickel); margin-bottom: 12px; }
 .header-title { font-size: clamp(36px,5vw,64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
-.header-title em { font-style: italic; color: var(--gold); }
+.header-title em { font-style: normal; font-weight: 500; color: var(--gold); }
 .header-right { font-size: 13px; color: var(--nickel); text-align: right; }
 #result-count { font-size: 28px; font-weight: 300; color: var(--ink); display: block; margin-bottom: 4px; }
 
@@ -106,7 +105,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .proj-card:hover .proj-card-img img { transform: scale(1.05); filter: saturate(1); }
 
 .proj-card-body { padding: 24px 28px 28px; }
-.proj-card-location { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nickel); margin-bottom: 6px; }
+.proj-card-location { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nickel); margin-bottom: 6px; }
 .proj-card-name { font-size: 22px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 16px; line-height: 1.1; }
 .proj-card-specs {
   display: flex; gap: 16px; flex-wrap: wrap;
@@ -130,7 +129,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--navy); text-decoration: none; margin-top: 16px;
-  border-bottom: 1px solid rgba(0,40,85,0.2); padding-bottom: 2px;
+  border-bottom: 1px solid rgba(0,31,51,0.2); padding-bottom: 2px;
   transition: border-color .2s;
 }
 .proj-card-link:hover { border-color: var(--navy); }

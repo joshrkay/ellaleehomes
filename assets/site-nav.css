@@ -84,7 +84,7 @@ body.theme-home .nav-links {
 
 .nav-links a,
 .nav-left a {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(244, 241, 234, 0.75);
@@ -111,8 +111,8 @@ body.theme-home .nav-left a {
 }
 
 .nav-cta {
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: 12px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   border: 1px solid rgba(244, 241, 234, 0.3);
   color: #eae5dc;

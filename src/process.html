@@ -9,12 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
-  --navy: #002855; --gold: #C9A96E;
+  --navy: #001F33; --gold: #C9A96E;
   --sans: 'Inter', Helvetica, sans-serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
   --nav-h: 88px;
@@ -32,7 +31,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 .header-left .eyebrow { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--nickel); margin-bottom: 12px; }
 .header-title { font-size: clamp(36px,5vw,64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
-.header-title em { font-style: italic; color: var(--gold); }
+.header-title em { font-style: normal; font-weight: 500; color: var(--gold); }
 .header-right { font-size: 13px; color: var(--nickel); text-align: right; line-height: 1.6; }
 
 /* ── HERO BANNER ── */
@@ -50,7 +49,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 #hero-banner::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.25) 50%, rgba(0,40,85,0.55) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.25) 50%, rgba(0,31,51,0.55) 100%);
 }
 .hero-caption {
   position: absolute; left: 56px; bottom: 40px; z-index: 2;
@@ -64,7 +63,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   font-size: clamp(28px, 3.6vw, 44px); font-weight: 300; letter-spacing: -0.02em;
   line-height: 1.05; max-width: 640px;
 }
-.hero-caption h2 em { font-style: italic; color: var(--gold); }
+.hero-caption h2 em { font-style: normal; font-weight: 500; color: var(--gold); }
 
 /* ── PROCESS SCROLL ZONE ── */
 #process-scroll-zone {
