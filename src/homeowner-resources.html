@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homeowner Resources | Ella Lee Homes</title>
+<meta name="description" content="Caring for your Ella Lee home after move-in: your client portal, warranty service, seasonal maintenance in the Arizona desert, and who to call.">
+<link rel="canonical" href="https://ellaleehomes.com/homeowner-resources/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Homeowner Resources — Ella Lee Homes">
+<meta property="og:description" content="Your portal, your warranty, and how to look after a custom home in the Arizona desert.">
+<meta property="og:site_name" content="Ella Lee Homes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,300;1,300&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-footer.css">
+<link rel="stylesheet" href="assets/site-cursor.css">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001F33; --gold: #C9A96E;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --dim: rgba(234,229,220,0.45);
+  --ease: cubic-bezier(0.16,1,0.3,1);
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+em { font-style: normal; color: var(--gold); font-weight: 500; }
+
+/* ── HERO ── */
+#faq-hero { background: var(--navy); color: var(--paper); padding: 200px 56px 96px; }
+.faq-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
+#faq-hero h1 { font-family: var(--sans); font-weight: 300; font-size: clamp(42px, 6.4vw, 88px); line-height: 1.0; letter-spacing: -0.035em; max-width: 13ch; }
+#faq-hero .faq-hero-sub { margin-top: 28px; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
+
+/* ── LIST ── */
+#faq { max-width: 1040px; margin: 0 auto; padding: 100px 56px 40px; }
+.faq-intro { margin-bottom: 60px; }
+.faq-intro .faq-eyebrow { color: rgba(43,43,43,0.5); }
+.faq-intro h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 4vw, 54px); line-height: 1.05; letter-spacing: -0.01em; }
+.faq-intro p { margin-top: 18px; max-width: 62ch; font-size: 18px; line-height: 1.7; color: rgba(43,43,43,0.72); }
+.faq-list { border-top: 1px solid rgba(43,43,43,0.16); }
+.faq-item { border-bottom: 1px solid rgba(43,43,43,0.16); }
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer; text-align: left;
+  display: flex; justify-content: space-between; align-items: center; gap: 28px;
+  padding: 32px 0; font-family: var(--sans); font-size: clamp(18px, 2vw, 24px); font-weight: 400;
+  color: var(--ink); letter-spacing: -0.01em; line-height: 1.35; transition: color 0.2s;
+}
+.faq-q:hover { color: var(--navy); }
+.faq-icon { position: relative; flex-shrink: 0; width: 20px; height: 20px; margin-top: 4px; }
+.faq-icon::before, .faq-icon::after { content: ''; position: absolute; background: var(--gold); transition: transform 0.3s var(--ease); }
+.faq-icon::before { top: 9px; left: 0; width: 20px; height: 2px; }
+.faq-icon::after { top: 0; left: 9px; width: 2px; height: 20px; }
+.faq-item.open .faq-icon::after { transform: scaleY(0); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
+.faq-a p { padding: 0 56px 32px 0; max-width: 72ch; font-size: 18px; line-height: 1.8; color: rgba(43,43,43,0.74); }
+.faq-a a { color: var(--gold); }
+
+/* ── CTA STRIP ── */
+#faq-cta { background: var(--navy); color: var(--paper); text-align: center; padding: 120px 24px; margin-top: 72px; }
+#faq-cta h2 { font-family: var(--sans); font-weight: 300; font-size: clamp(34px, 4.6vw, 62px); letter-spacing: -0.035em; line-height: 1.0; }
+#faq-cta p { margin: 26px auto 0; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
+.faq-btn { display: inline-block; margin-top: 42px; background: var(--gold); color: #1a1a1a; text-decoration: none; padding: 18px 46px; border-radius: 100px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: background 0.2s, transform 0.2s; }
+.faq-btn:hover { background: #fff; transform: translateY(-2px); }
+
+@media (max-width: 700px) {
+  #faq-hero { padding: 150px 24px 64px; }
+  #faq { padding: 64px 24px 24px; }
+  .faq-a p { padding-right: 0; }
+  #faq-cta { padding: 84px 24px; }
+}
+</style>
+</head>
+<body class="theme-faq">
+<!-- CURSOR_PARTIAL -->
+
+<!-- NAV -->
+<!-- NAV_PARTIAL -->
+<div class="nav-dd-panel" role="region" aria-label="Learn menu">
+  <div class="nav-dd-intro">
+    <div class="nav-dd-intro-title">About Ella Lee Homes</div>
+    <div class="nav-dd-intro-sub">Sustainable, energy efficient, on time &amp; on budget homes</div>
+  </div>
+  <div class="nav-dd-grid">
+    <div class="nav-dd-col">
+      <a href="why-us.html">Why Ella Lee</a>
+      <a href="investors.html">Developers &amp; Investors</a>
+      <a href="stories.html">Stories &amp; Insights</a>
+    </div>
+    <div class="nav-dd-col">
+      <a href="client-portal.html">Client Portal</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="nav-mobile-overlay" aria-hidden="true">
+  <div class="nav-mobile-panel">
+    <a href="projects.html" class="nav-mobile-link">Portfolio</a>
+    <a href="process.html" class="nav-mobile-link">Build</a>
+    <a href="sell.html" class="nav-mobile-link">Sell</a>
+    <a href="our-story.html" class="nav-mobile-link">Our Story</a>
+    <div class="nav-mobile-learn-section">
+      <button class="nav-mobile-learn-btn" type="button">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="nav-mobile-learn-items">
+        <a href="why-us.html">Why Ella Lee</a>
+        <a href="investors.html">Developers &amp; Investors</a>
+        <a href="stories.html">Stories &amp; Insights</a>
+        <a href="client-portal.html">Client Portal</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="nav-mobile-sep"></div>
+    <a href="contact.html" class="nav-mobile-cta">Schedule a Consultation</a>
+  </div>
+</div>
+
+<style>
+.legal-prose h2 { font-family: var(--sans); font-size: 26px; font-weight: 500; color: var(--navy); margin: 40px 0 14px; letter-spacing: -0.01em; }
+.legal-prose h2:first-child { margin-top: 0; }
+.legal-prose p { margin-bottom: 16px; }
+.legal-prose a { color: var(--gold); }
+.legal-prose ul { margin: 0 0 16px 22px; }
+.legal-prose li { margin-bottom: 8px; }
+</style>
+<section id="faq-hero">
+  <div class="faq-eyebrow">Ella Lee Homes</div>
+  <h1>Homeowner resources.</h1>
+  <p class="faq-hero-sub">Everything you need after move-in, in one place.</p>
+</section>
+<section style="max-width:840px; margin:0 auto; padding:90px 56px 100px;">
+  <div class="legal-prose" style="font-size:18px; line-height:1.8; color:rgba(43,43,43,0.82);">
+<p>A custom home is built to last, and looking after it well is most of what keeps it that way. Here is where to find your documents, how to reach us, and what a desert climate asks of a house through the year.</p>
+<h2>Your client portal</h2>
+<p>Buildertrend is the secure portal where your project lives &mdash; schedules, daily photos, selections and approvals, documents, and direct messaging with the Ella Lee team. Your manuals, warranty paperwork, and product registrations are filed there too. Log in from the <a href="client-portal.html">client portal</a> page.</p>
+<h2>Warranty and service</h2>
+<p>Your home carries a one-year workmanship warranty, and your appliances and systems carry their own manufacturer terms. What is covered and how to make a request is set out on the <a href="warranty.html">warranty</a> page.</p>
+<h2>Seasonal care in the desert</h2>
+<p>Arizona is hard on a building in specific, predictable ways: intense sun, a wide daily temperature swing, very dry air, and a monsoon season that arrives all at once. A few habits cover most of it.</p>
+<ul>
+  <li><strong>Before summer.</strong> Have the cooling system serviced, and change filters on the schedule the manufacturer sets &mdash; more often in dusty conditions.</li>
+  <li><strong>After monsoon.</strong> Walk the roof line, scuppers, and drains and clear what the storms moved. Check that water still runs away from the foundation.</li>
+  <li><strong>Twice a year.</strong> Look over exterior caulk, grout, and sealed stone. Dry air and movement open small gaps, and sealing them early is far cheaper than the repair that follows.</li>
+  <li><strong>Through the year.</strong> Watch irrigation for leaks and broken emitters, and keep planting and drip lines away from the foundation and stucco.</li>
+  <li><strong>First year.</strong> Expect fine drywall cracks and small gaps at trim as the house settles. This is normal, and it is worth waiting out the first year before patching.</li>
+</ul>
+<h2>Manuals and registrations</h2>
+<p>Manufacturer instructions govern the care of each product, and following them is usually what keeps the manufacturer warranty valid. Your copies are in the portal; we can send replacements if you cannot find them.</p>
+<h2>Who to call</h2>
+<p>For anything at all &mdash; a warranty question, a recommendation, or a referral to a trade we trust &mdash; email <a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a> or call <a href="tel:4803408700">(480) 340-8700</a>. For a new project, start at <a href="contact.html">contact</a>.</p>
+  </div>
+  <p style="margin-top:48px; padding-top:24px; border-top:1px solid rgba(43,43,43,0.14); font-size:14px; color:rgba(43,43,43,0.55);">Last updated September 2026. The guidance here is general and does not replace the manufacturer instructions for the specific products in your home, which govern their care and their warranty terms.</p>
+</section>
+
+<!-- FOOTER -->
+<!-- FOOTER_PARTIAL -->
+
+<script defer src="assets/site-nav-dd.js"></script>
+<script defer src="assets/site-nav-contrast.js"></script>
+<script>
+document.querySelectorAll('.faq-q').forEach(function (q) {
+  q.addEventListener('click', function () {
+    var item = q.closest('.faq-item');
+    var ans = item.querySelector('.faq-a');
+    var open = item.classList.toggle('open');
+    ans.style.maxHeight = open ? ans.scrollHeight + 'px' : null;
+    q.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+</script>
+</body>
+</html>

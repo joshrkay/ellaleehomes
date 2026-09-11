@@ -69,6 +69,9 @@ const PAGES = [
 
   // Help / legal
   { file: 'faq.html', url: '/faq/', changefreq: 'monthly', priority: '0.7', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'warranty.html', url: '/warranty/', changefreq: 'yearly', priority: '0.6', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'homeowner-resources.html', url: '/homeowner-resources/', changefreq: 'yearly', priority: '0.6', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'code-of-conduct.html', url: '/code-of-conduct/', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
   { file: 'privacy.html', url: '/privacy/', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
   { file: 'terms.html', url: '/terms/', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
   { file: 'disclaimer.html', url: '/disclaimer/', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
