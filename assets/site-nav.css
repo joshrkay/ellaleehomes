@@ -23,7 +23,7 @@ body.theme-home #nav.compact { padding: 20px 48px; }
 
 .nav-logo { display: flex; align-items: center; text-decoration: none; padding: 8px 16px; }
 body.theme-home .nav-logo { cursor: none; padding: 10px 20px; }
-.nav-logo-img { height: var(--nav-logo-h); width: auto; filter: brightness(0) invert(1); display: block; }
+.nav-logo-img { height: var(--nav-logo-h); width: auto; display: block; }
 #nav.nav-on-light .nav-logo-img { filter: brightness(0); }
 
 .nav-left, .nav-links {

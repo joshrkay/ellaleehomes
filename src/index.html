@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap">
+<link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
 <style>
 
@@ -150,23 +151,14 @@
       <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: clamp(42px, 3.6vw, 56px); height: auto">
     </a>
     <nav style="display: flex; flex: 1 1 auto; align-items: center; justify-content: center; gap: clamp(14px, 2.2vw, 34px)">
+      <a href="projects.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Portfolio</a>
+      <a href="process.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Build</a>
+      <a href="sell.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Sell</a>
       <a href="our-story.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Our Story</a>
-      <a href="process.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Build Your Home</a>
-      <a href="contact.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Contact</a>
       <div data-elh-more="1" style="position: relative; display: flex; align-items: center">
-        <button type="button" data-elh-click="toggleMore" style="display: flex; align-items: center; gap: 7px; padding: 0; font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC; background: none; border: 0; cursor: pointer">More
+        <button type="button" data-elh-click="toggleMore" aria-expanded="false" aria-haspopup="true" style="display: flex; align-items: center; gap: 7px; padding: 0; font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC; background: none; border: 0; cursor: pointer">Learn
           <span data-elh-more-caret="1" style="display: block; width: 6px; height: 6px; border-right: 1px solid #BFA06A; border-bottom: 1px solid #BFA06A; transform: rotate(45deg) translateY(-2px); transition: transform .3s ease"></span>
         </button>
-        <div data-elh-more-panel="1" style="position: absolute; top: calc(100% + 18px); right: 0; display: none; flex-direction: column; min-width: 220px; padding: 10px 0; background: #001526; border: 1px solid rgba(191,160,106,.34)">
-          <a href="projects.html" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Previous Projects</a>
-          <a href="process.html" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Our Process</a>
-          <a href="faq.html" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">FAQ</a>
-          <a href="#giving" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Giving Back</a>
-          <a href="sell.html" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Sell Your Home</a>
-          <a href="warranty.html" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Warranty</a>
-          <a href="homeowner-resources.html" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Homeowner Resources</a>
-          <a href="client-portal.html" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Client Portal</a>
-        </div>
       </div>
     </nav>
     <a class="elh-h1" data-elh-cta="1" href="#inquiry" style="flex: 0 0 auto; padding: 11px 22px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #EAE5DC; border: 1px solid rgba(234,229,220,.5); border-radius: 100px; transition: background .3s ease, color .3s ease">Get Started</a>
@@ -177,6 +169,25 @@
     </button>
   </header>
 
+  <div class="nav-dd-panel" data-elh-more-panel="1" role="region" aria-label="Learn menu">
+    <div class="nav-dd-intro">
+      <div class="nav-dd-intro-title">About Ella Lee Homes</div>
+      <div class="nav-dd-intro-sub">Sustainable, energy efficient, on time &amp; on budget homes</div>
+    </div>
+    <div class="nav-dd-grid">
+      <div class="nav-dd-col">
+        <a href="why-us.html">Why Ella Lee</a>
+        <a href="investors.html">Developers &amp; Investors</a>
+        <a href="stories.html">Stories &amp; Insights</a>
+      </div>
+      <div class="nav-dd-col">
+        <a href="client-portal.html">Client Portal</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+  </div>
+
   <div data-elh-scrim="1" data-elh-click="closeDrawer" style="position: fixed; inset: 0; z-index: 310; display: none; background: rgba(0,13,25,.6); opacity: 0; pointer-events: none; transition: opacity .4s ease; backdrop-filter: blur(2px)"></div>
   <aside data-elh-drawer="1" style="position: fixed; top: 0; bottom: 0; left: 0; z-index: 320; display: none; flex-direction: column; gap: 28px; width: min(84vw, 340px); padding: 26px 28px 40px; background: #001526; border-right: 1px solid rgba(191,160,106,.3); transform: translateX(-100%); transition: transform .45s cubic-bezier(.4,0,.2,1); overflow-y: auto">
     <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
@@ -184,19 +195,19 @@
       <button type="button" aria-label="Close menu" data-elh-click="closeDrawer" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; font-size: 22px; line-height: 1; color: #EAE5DC; background: none; border: 1px solid rgba(234,229,220,.22); border-radius: 100px; cursor: pointer">×</button>
     </div>
     <nav data-elh-drawernav="1" style="display: flex; flex-direction: column; gap: 2px">
+      <a href="projects.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Portfolio</a>
+      <a href="process.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Build</a>
+      <a href="sell.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Sell</a>
       <a href="our-story.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Our Story</a>
-      <a href="projects.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Previous Projects</a>
-      <a href="process.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Our Process</a>
-      <a href="process.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Build Your Home</a>
-      <a href="#giving" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Giving Back</a>
-      <a href="faq.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">FAQ</a>
-      <a href="contact.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Contact</a>
     </nav>
     <nav style="display: flex; flex-direction: column; gap: 14px; margin-top: -8px">
-      <a href="sell.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Sell Your Home</a>
-      <a href="warranty.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Warranty</a>
-      <a href="homeowner-resources.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Homeowner Resources</a>
+      <span style="font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #BFA06A">Learn</span>
+      <a href="why-us.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Why Ella Lee</a>
+      <a href="investors.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Developers &amp; Investors</a>
+      <a href="stories.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Stories &amp; Insights</a>
       <a href="client-portal.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Client Portal</a>
+      <a href="faq.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">FAQ</a>
+      <a href="contact.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Contact Us</a>
     </nav>
     <a href="#inquiry" data-elh-click="closeDrawer" style="margin-top: auto; padding: 15px 22px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; text-align: center; color: #001526; background: #BFA06A; border-radius: 100px">Start Your Build</a>
   </aside>
@@ -347,11 +358,11 @@
           <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(34px, 4.8vw, 74px); font-weight: 400; line-height: 1.04; letter-spacing: -.015em; color: #EAE5DC">Our Projects</h2>
           <p style="margin: 0; max-width: 52ch; font-size: clamp(12px, 1.05vw, 15px); font-weight: 400; letter-spacing: .14em; line-height: 1.6; text-transform: uppercase; color: #BFA06A">Custom homes built in Paradise Valley, Scottsdale and Arcadia</p>
         </div>
-        <a href="#" style="flex: 0 0 auto; padding-bottom: 6px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(191,160,106,.6)">Explore more of our work</a>
+        <a href="projects.html" style="flex: 0 0 auto; padding-bottom: 6px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(191,160,106,.6)">Explore more of our work</a>
       </div>
       <div data-elh-strip="1" style="position: relative; margin: 0 calc(-1 * clamp(20px, 4vw, 64px)); padding: clamp(10px, 1.2vw, 22px) 0; overflow: hidden">
       <div data-elh-track="1" style="display: flex; align-items: flex-start; gap: clamp(14px, 1.6vw, 26px); padding: 0 clamp(20px, 4vw, 64px); cursor: grab; transform-style: preserve-3d; will-change: transform">
-        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="project.html?slug=charter-oak" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-1" src="uploads/home/project-charter-oak.jpg" alt="Charter Oak custom home" loading="lazy" decoding="async">
@@ -366,7 +377,7 @@
             </div>
           </div>
         </a>
-        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="project.html?slug=via-estrella" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-2" src="uploads/home/project-via-estrella.jpg" alt="Via Estrella custom home" loading="lazy" decoding="async">
@@ -381,7 +392,7 @@
             </div>
           </div>
         </a>
-        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="project.html?slug=68th" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-3" src="uploads/home/project-68th.jpg" alt="68th Street custom home" loading="lazy" decoding="async">
@@ -409,7 +420,7 @@
             </div>
           </div>
         </a>
-        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="project.html?slug=camino-sin-nombre" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-5" src="uploads/home/project-5.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
@@ -422,7 +433,7 @@
             </div>
           </div>
         </a>
-        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="project.html?slug=glenrosa" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-6" src="uploads/home/project-6.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
