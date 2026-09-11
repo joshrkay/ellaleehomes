@@ -158,11 +158,16 @@
       s.dragging = true; startX = e.clientX; startTarget = s.target;
       dragged = false;
       track.style.cursor = 'grabbing';
-      track.setPointerCapture(e.pointerId);
     });
     track.addEventListener('pointermove', function (e) {
       if (!s.dragging) return;
-      if (Math.abs(e.clientX - startX) > DRAG_SLOP) dragged = true;
+      if (!dragged && Math.abs(e.clientX - startX) > DRAG_SLOP) {
+        dragged = true;
+        // Capture only once this is genuinely a drag. Capturing on pointerdown
+        // retargets the click to the track, which is what kept the cards from
+        // opening their project page at all.
+        try { track.setPointerCapture(e.pointerId); } catch (err) { /* capture is best-effort */ }
+      }
       s.target = startTarget - (e.clientX - startX);
       s.x = s.target;
     });
@@ -325,9 +330,13 @@
   function setMore(open) {
     var panel = document.querySelector('[data-elh-more-panel]');
     var caret = document.querySelector('[data-elh-more-caret]');
+    var trigger = document.querySelector('[data-elh-click="toggleMore"]');
     if (!panel) return;
     moreOpen = open;
-    panel.style.display = open ? 'flex' : 'none';
+    // The panel is the shared `.nav-dd-panel` the inner pages use, so it
+    // animates off a class rather than an inline display swap.
+    panel.classList.toggle('is-open', open);
+    if (trigger) trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (caret) caret.style.transform = open ? 'rotate(-135deg) translateY(2px)' : 'rotate(45deg) translateY(-2px)';
   }
 
@@ -374,8 +383,12 @@
     window.addEventListener('resize', handleScroll);
 
     document.addEventListener('click', function (e) {
+      // The panel sits outside the trigger (it spans the viewport), so a click
+      // inside it must not count as a click away.
       var root = document.querySelector('[data-elh-more]');
-      if (root && !root.contains(e.target)) setMore(false);
+      var panel = document.querySelector('[data-elh-more-panel]');
+      var inMenu = (root && root.contains(e.target)) || (panel && panel.contains(e.target));
+      if (root && !inMenu) setMore(false);
       if (drawerOpen && e.target.closest && e.target.closest('[data-elh-drawer] a')) setDrawer(false);
       var mk = e.target.closest && e.target.closest('[data-elh-tl-marker]');
       if (mk) {
