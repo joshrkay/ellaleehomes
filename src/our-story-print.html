@@ -3,26 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Story | Arizona Custom Home Builder — Ella Lee Homes</title>
-<meta name="description" content="Arizona's premier luxury custom home builder. Ella Lee Homes was born from a promise to build homes that stand the test of time — serving Scottsdale, Paradise Valley, Arcadia &amp; the Phoenix Valley.">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<link rel="canonical" href="https://ellaleehomes.com/our-story/">
-<meta name="google-site-verification" content="mF9sNLbq4MCCSwdlXaE1uobKY4gv_GkxVSgU2_MxGmU">
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ellaleehomes.com/our-story/">
-<meta property="og:title" content="Our Story | Arizona Custom Home Builder — Ella Lee Homes">
-<meta property="og:description" content="Arizona's premier luxury custom home builder. Born from a promise to build homes that stand the test of time — serving Scottsdale, Paradise Valley, Arcadia &amp; the Phoenix Valley.">
-<meta property="og:image" content="https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:site_name" content="Ella Lee Homes">
-<meta property="og:locale" content="en_US">
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Our Story | Arizona Custom Home Builder — Ella Lee Homes">
-<meta name="twitter:description" content="Arizona's premier luxury custom home builder. Born from a promise to build homes that stand the test of time.">
-<meta name="twitter:image" content="https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png">
+<title>Ella Lee Homes — Our Story</title>
+<meta name="description" content="Ella Lee Homes — Arizona luxury custom home builder. Our story: legacy, craft, and a collaborative journey from first sketch to final walkthrough.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
@@ -140,8 +122,10 @@ details.story-faq {
 #door-bg {
   position: absolute;
   inset: 0;
-  background: url('https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A6650.jpg') center / cover no-repeat;
+  background: url('https://photos.zillowstatic.com/fp/0b3b9e11641a06e1ca8f9f1645dbb1ea-cc_ft_1536.jpg') center / cover no-repeat;
   transform-origin: center center;
+  /* Starts pulled back ~50% less zoomed than a tight curb shot, then
+     continues to zoom out to a full 1.0 view as you scroll. */
   transform: scale(calc(1.25 - var(--door-p) * 0.25));
   opacity: calc(1 - var(--door-p) * 1.05);
   will-change: transform, opacity;
@@ -154,43 +138,7 @@ details.story-faq {
   background: linear-gradient(to bottom, transparent 60%, rgba(43, 43, 43, calc(0.15 + var(--door-p) * 0.35)) 100%);
   pointer-events: none;
 }
-/* Wordmark intro overlay — covers the photo on arrival; fades as --door-p rises */
-.door-wordmark {
-  position: absolute; inset: 0; z-index: 10;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--paper);
-  opacity: calc(1 - var(--door-p) * 8);
-  /* negative values treated as 0 by the browser — no JS needed */
-  pointer-events: none;
-  will-change: opacity;
-}
-.door-wm-inner { text-align: center; user-select: none; display: flex; flex-direction: column; align-items: center; gap: 0; }
-.door-wm-arc {
-  width: clamp(220px, 36vw, 480px);
-  height: auto;
-  overflow: visible;
-  margin-bottom: -10px;
-}
-.door-wm-arc-text {
-  font-family: var(--serif);
-  font-size: 54px;
-  font-weight: 300;
-  font-style: normal;
-  fill: var(--ink);
-  letter-spacing: 0.04em;
-}
-.door-wm-name {
-  font-family: var(--sans); font-weight: 300;
-  font-size: clamp(22px, 4vw, 60px);
-  letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--ink); line-height: 1;
-}
-.door-wm-tagline {
-  font-family: var(--sans); font-weight: 300;
-  font-size: clamp(9px, 1.1vw, 15px);
-  letter-spacing: 0.55em; text-transform: uppercase;
-  color: var(--ink); margin-top: 18px;
-}
+/* Decorative dot — reference layout */
 .door-accent-dot {
   position: absolute;
   z-index: 5;
@@ -562,43 +510,6 @@ details.story-faq .faq-a p + p {
 }
 </style>
 <link rel="stylesheet" href="assets/site-cursor.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HomeAndConstructionBusiness",
-  "name": "Ella Lee Homes",
-  "description": "Arizona's premier luxury custom home builder serving Scottsdale, Paradise Valley, Arcadia, and the greater Phoenix Valley.",
-  "url": "https://ellaleehomes.com",
-  "telephone": "+1-480-340-8700",
-  "email": "hello@ellaleehomes.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "4408 N 12th St",
-    "addressLocality": "Phoenix",
-    "addressRegion": "AZ",
-    "postalCode": "85014",
-    "addressCountry": "US"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 33.504,
-    "longitude": -112.058
-  },
-  "areaServed": [
-    { "@type": "City", "name": "Scottsdale" },
-    { "@type": "City", "name": "Paradise Valley" },
-    { "@type": "Place", "name": "Arcadia, Phoenix" },
-    { "@type": "City", "name": "Phoenix" }
-  ],
-  "knowsAbout": ["Custom Home Building", "Luxury Homes", "Arizona Real Estate", "Home Construction"],
-  "hasCredential": "ROC License KB2-333410",
-  "sameAs": [
-    "https://www.facebook.com/1EllaLeeHomes",
-    "https://www.instagram.com/ellaleehomes/",
-    "https://www.youtube.com/@ellaleehomes1888"
-  ]
-}
-</script>
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
 {
@@ -685,7 +596,6 @@ details.story-faq .faq-a p + p {
 <body class="theme-our-story">
 
 <!-- CURSOR_PARTIAL -->
-<script defer src="assets/site-nav-dd.js"></script>
 
 
 <!-- Canonical site nav — edit once; injected by scripts/build-html.mjs -->
@@ -709,31 +619,6 @@ details.story-faq .faq-a p + p {
   </div>
 </div>
 
-<div class="nav-mobile-overlay" aria-hidden="true">
-  <div class="nav-mobile-panel">
-    <a href="projects.html" class="nav-mobile-link">Portfolio</a>
-    <a href="process.html" class="nav-mobile-link">Build</a>
-    <a href="sell.html" class="nav-mobile-link">Sell</a>
-    <a href="our-story.html" class="nav-mobile-link">Our Story</a>
-    <div class="nav-mobile-learn-section">
-      <button class="nav-mobile-learn-btn" type="button">
-        Learn
-        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
-      </button>
-      <div class="nav-mobile-learn-items">
-        <a href="why-us.html">Why Ella Lee</a>
-        <a href="investors.html">Developers &amp; Investors</a>
-        <a href="stories.html">Stories &amp; Insights</a>
-        <a href="client-portal.html">Client Portal</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact Us</a>
-      </div>
-    </div>
-    <div class="nav-mobile-sep"></div>
-    <a href="index.html#inquiry" class="nav-mobile-cta">Schedule a Consultation</a>
-  </div>
-</div>
-
 
 <main id="main">
   <svg class="clip-svg" aria-hidden="true" focusable="false">
@@ -746,22 +631,7 @@ details.story-faq .faq-a p + p {
   <!-- Tall scroll zone: sticky viewport; tombstone clip expands with scroll -->
   <div id="door-scroll-zone" aria-label="Introduction">
     <div id="door-stage">
-      <div class="door-wordmark" aria-hidden="true">
-        <div class="door-wm-inner">
-          <svg class="door-wm-arc" viewBox="0 0 400 110" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <defs>
-              <path id="aboutArc" d="M 30,95 Q 200,-15 370,95" />
-            </defs>
-            <text class="door-wm-arc-text">
-              <textPath href="#aboutArc" startOffset="50%" text-anchor="middle">About</textPath>
-            </text>
-          </svg>
-          <div class="door-wm-name">Ella Lee Homes</div>
-          <div class="door-wm-tagline">Built&nbsp;&nbsp;Right</div>
-        </div>
-      </div>
       <div id="door-bg" aria-hidden="true"></div>
-
       <span class="door-accent-dot" aria-hidden="true"></span>
       <div id="door-copy" aria-hidden="true"></div>
     </div>
@@ -775,7 +645,6 @@ details.story-faq .faq-a p + p {
         <h2 class="story-h2-sub reveal reveal-delay-3">Arizona&rsquo;s premier luxury custom home builder.</h2>
         <p class="story-lede reveal reveal-delay-4">Ella Lee Homes was born from a simple, heartfelt promise&mdash;to build something that would stand the test of time for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others. Every home we build carries that same devotion: a foundation of love, care, and legacy designed to nurture life&rsquo;s most meaningful moments.</p>
         <div class="story-body">
-<p class="story-body reveal" style="font-size:17px;line-height:1.85;margin-top:24px;">Today, Ella Lee Homes is one of Arizona’s premier luxury custom home builders, designing and building custom homes each year across Arcadia, Paradise Valley, Scottsdale, and the greater Phoenix Valley. We’ve refined our system for a client-focused experience where every project runs on complete transparency, and every client has real-time access to their build through our dedicated Buildertrend client portal &mdash; where they can see photos, updates, timelines, and costs all in one place.</p>
           <p class="reveal reveal-delay-5">Close your eyes and imagine your dream home: a beautifully crafted luxury custom home that balances modern elegance with timeless charm. Nestled in one of Arizona&rsquo;s most sought-after neighborhoods, your home is surrounded by thoughtful landscaping and architectural details that invite you in before you ever step through the front door.</p>
           <p class="reveal reveal-delay-6">Inside, natural light fills an open-concept floor plan designed with intention. A gourmet kitchen becomes the heart of the home, while cozy living areas and serene bedrooms offer both functionality and quiet luxury. Whether it&rsquo;s morning coffee in the sun-drenched kitchen or evenings spent in your private backyard retreat, every square foot is tailored to how you live.</p>
         </div>
@@ -784,26 +653,37 @@ details.story-faq .faq-a p + p {
 
     <section class="story-section" aria-labelledby="h-vision" data-theme="dark">
       <div class="story-wrap">
-        <p class="story-kicker reveal reveal-delay-1">Ella Lee Homes</p>
-        <p class="story-display reveal reveal-delay-2" id="h-vision">A design &amp; build <em>construction company.</em></p>
-        <h2 class="story-h2-sub reveal reveal-delay-3">Welcome to Ella Lee Homes&mdash;where innovative design meets impeccable craftsmanship to bring your dream home to life.</h2>
+        <p class="story-kicker reveal reveal-delay-1">Our Philosophy</p>
+        <p class="story-display reveal reveal-delay-2" id="h-vision">We build <em>legacies.</em></p>
+        <h2 class="story-h2-sub reveal reveal-delay-3">We don&rsquo;t build houses.</h2>
         <div class="story-body">
-          <p class="reveal reveal-delay-4">As a leading design and build construction company in Arizona, we take pride in our expertise in creating distinctive spaces that are tailored to your unique needs and aesthetic vision. Let us be your trusted partner throughout your new home construction journey. Together, we will navigate the worlds of construction, architecture, and design to deliver exceptional living spaces that embody luxury, functionality, and sustainability.</p>
-          <p class="reveal reveal-delay-5">Embarking on a project with Ella Lee Homes guarantees an unparalleled experience, where you will <strong>collaborate</strong> with our team of skilled contractors, architects, and designers; <strong>experience seamless communication</strong> and transparency throughout the entire design and build process; <strong>incorporate</strong> the latest construction techniques, sustainable materials, and energy-efficient solutions; and <strong>enjoy peace of mind</strong> with regular updates&mdash;including photos and videos of your project&mdash;knowing your home is in the hands of experienced professionals who uphold the highest safety and quality standards.</p>
+          <p class="reveal reveal-delay-4">Transparent process. Uncompromising craft. Every Ella Lee home is a collaborative journey from the first sketch to the final walkthrough.</p>
+          <p class="story-pull reveal reveal-delay-5">&ldquo;Completed on time, within budget, and exceeded our expectations. The craftsmanship and attention to detail were simply amazing.&rdquo;<span class="pull-attrib">Mike &middot; Scottsdale, AZ &middot; 2023</span></p>
+          <p class="reveal reveal-delay-6">Whether you&rsquo;re building from the ground up, selling a custom home, or simply exploring what&rsquo;s possible, we bring the same clarity to the conversation: steady communication, realistic schedules, and respect for the vision you&rsquo;re trusting us to deliver.</p>
         </div>
       </div>
     </section>
 
     <section class="pillar-board" aria-labelledby="h-different" data-theme="dark">
       <div class="pillar-inner">
-        <p class="story-kicker reveal reveal-delay-1">A Note From Our Founder</p>
-        <p class="story-display reveal reveal-delay-2" id="h-different">Why we <em>do this.</em></p>
-        <div class="founder-note reveal reveal-delay-3" style="max-width:760px; margin-top:10px;">
-          <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:22px;">Ella Lee Homes started with my daughter, Ella. When we set out to build her home, I realized the standard I wanted held was higher than most builders were willing to meet. So we built it ourselves &mdash; and then we kept building.</p>
-          <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:22px;">Every home we take on gets that same standard. I'm on the sites. I know our trades by name. And when a client calls a year after move-in, they reach our team, not a call center. That isn't a policy &mdash; it's simply how I'd want to be treated.</p>
-          <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:34px;">If you're trusting us with the most important home you'll ever build, you deserve to know who stands behind it.</p>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-size:30px; line-height:1; color:var(--gold,#C9A96E);">Shay Segev</div>
-          <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(244,241,234,0.5); margin-top:8px;">Founder, Ella Lee Homes</div>
+        <p class="story-kicker reveal reveal-delay-1">Why Ella Lee Homes</p>
+        <p class="story-display reveal reveal-delay-2" id="h-different">Built to last. <em>Built for you.</em></p>
+        <div class="pillar-grid">
+          <div class="pillar-card reveal reveal-delay-3">
+            <div class="pillar-num">01</div>
+            <h3>A collaborative journey</h3>
+            <p>Every Ella Lee home is a collaborative journey from the first sketch to the final walkthrough—transparent process, uncompromising craft, and one aligned team.</p>
+          </div>
+          <div class="pillar-card reveal reveal-delay-4">
+            <div class="pillar-num">02</div>
+            <h3>Expertise through close—and after</h3>
+            <p>Clients tell us our follow-up and attention to detail after close is second to none—the same meticulous mindset that carries from framing to finishing touches.</p>
+          </div>
+          <div class="pillar-card reveal reveal-delay-5">
+            <div class="pillar-num">03</div>
+            <h3>On time, on budget, extraordinary results</h3>
+            <p>Disciplined scheduling and honest communication so your investment lands where we promised—without sacrificing the warmth and detail that make a house your home.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1021,14 +901,14 @@ details.story-faq .faq-a p + p {
             <div class="where-legend-note">Scottsdale, Arcadia, Paradise Valley &amp; more</div>
           </div>
           <div class="where-legend-item">
-            <div class="where-legend-num">200K+</div>
-            <div class="where-legend-place">Sq Ft Built</div>
-            <div class="where-legend-note">Across 40+ custom residences</div>
+            <div class="where-legend-num">1+</div>
+            <div class="where-legend-place">Acre Estates</div>
+            <div class="where-legend-note">From corner lots to private acreage</div>
           </div>
           <div class="where-legend-item">
-            <div class="where-legend-num">$200M+</div>
-            <div class="where-legend-place">Home Value Delivered</div>
-            <div class="where-legend-note">In completed Arizona homes</div>
+            <div class="where-legend-num">85014</div>
+            <div class="where-legend-place">Studio Zip</div>
+            <div class="where-legend-note">4408 N 12th St, Phoenix</div>
           </div>
         </div>
       </div>
@@ -1310,6 +1190,97 @@ details.story-faq .faq-a p + p {
       .addTo(map);
   }
   start();
+})();
+</script>
+<script>
+(async () => {
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  @page { margin: 0.5cm; }\n  html, body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }\n  section, article, figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
 })();
 </script>
   <script defer src="assets/site-nav-contrast.js"></script>

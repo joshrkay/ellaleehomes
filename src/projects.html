@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ella Lee Homes — All Projects</title>
+<title>Portfolio — Luxury Custom Homes in Scottsdale, Paradise Valley &amp; Arcadia | Ella Lee Homes</title>
+<meta name="description" content="Explore Ella Lee Homes' portfolio of luxury custom homes across Scottsdale, Paradise Valley, Arcadia and greater Phoenix, Arizona — with neighborhood, size, and price for each build.">
+<meta name="robots" content="index,follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -14,25 +16,104 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
-  --navy: #002855; --gold: #C9A96E;
+  --navy: #001F33; --gold: #C9A96E;
   --sans: 'Inter', Helvetica, sans-serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
+  --nav-h: 88px;
 }
-body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; padding-top: 88px; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; padding-top: 0; }
 
 /* Nav: assets/site-nav.css */
+/* Solid nav once scrolled past hero */
+#nav {
+  transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease !important;
+}
+#nav.scrolled {
+  background: var(--paper) !important;
+  box-shadow: 0 1px 0 rgba(43,43,43,0.1) !important;
+}
+#nav.scrolled .nav-pill {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+#nav.scrolled .nav-links a,
+#nav.scrolled .nav-dd-trigger,
+#nav.scrolled .nav-phone,
+#nav.scrolled .nav-cta {
+  color: var(--ink) !important;
+}
+#nav.scrolled .nav-cta {
+  border-color: rgba(43,43,43,0.25) !important;
+  background: transparent !important;
+}
+#nav.scrolled .nav-cta:hover {
+  background: rgba(43,43,43,0.06) !important;
+}
+#nav.scrolled .nav-logo-img {
+  filter: none !important;
+}
 
-/* ── PAGE HEADER ── */
-#header {
-  padding: 80px 56px 56px;
-  display: flex; justify-content: space-between; align-items: flex-end;
+/* ── HERO BANNER (full-bleed image with title overlaid, like Process) ── */
+#hero-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(520px, 72vh, 760px);
+  overflow: hidden;
+  background: var(--ink);
   border-bottom: 1px solid rgba(43,43,43,0.1);
 }
-.header-left .eyebrow { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--nickel); margin-bottom: 12px; }
-.header-title { font-size: clamp(36px,5vw,64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
-.header-title em { font-style: italic; color: var(--gold); }
-.header-right { font-size: 13px; color: var(--nickel); text-align: right; }
-#result-count { font-size: 28px; font-weight: 300; color: var(--ink); display: block; margin-bottom: 4px; }
+#hero-banner img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.95) brightness(0.82);
+}
+#hero-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 26%, rgba(0,0,0,0.28) 60%, rgba(0,31,51,0.62) 100%);
+}
+.hero-head {
+  position: absolute; z-index: 2;
+  top: calc(var(--nav-h) + 56px);
+  left: 56px; right: 56px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 48px;
+  color: var(--paper);
+}
+.hero-head .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.7); margin-bottom: 14px;
+}
+.hero-title {
+  font-size: clamp(48px, 7vw, 104px);
+  font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
+  color: var(--paper);
+}
+.hero-title em {
+  font-style: normal; color: var(--gold);
+  font-family: var(--serif); font-weight: 300;
+}
+.hero-head-meta {
+  font-size: 12px; line-height: 1.7; color: rgba(234,229,220,0.7);
+  text-align: right; max-width: 280px; font-weight: 300;
+  padding-top: 12px;
+}
+.hero-head-meta strong { color: var(--paper); font-weight: 500; }
+.hero-head-meta #result-count { color: var(--gold); font-size: 28px; font-weight: 300; display: block; margin-bottom: 4px; }
+.hero-caption {
+  position: absolute; left: 56px; bottom: 40px; z-index: 2;
+  color: #fff;
+}
+.hero-caption .eyebrow {
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.75); margin-bottom: 10px;
+}
+.hero-caption h2 {
+  font-size: clamp(28px, 3.6vw, 44px); font-weight: 300; letter-spacing: -0.02em;
+  line-height: 1.05; max-width: 640px;
+}
+.hero-caption h2 em { font-style: normal; color: var(--gold); }
 
 /* ── SQFT TABS ── */
 #sqft-tabs {
@@ -85,7 +166,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 
 .proj-card {
-  background: #ddd8cf; overflow: hidden; cursor: pointer;
+  background: rgba(43, 43, 43, 0.05); overflow: hidden; cursor: pointer;
   transition: transform 0.3s var(--ease), box-shadow 0.3s;
   position: relative;
 }
@@ -107,6 +188,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 
 .proj-card-body { padding: 24px 28px 28px; }
 .proj-card-location { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nickel); margin-bottom: 6px; }
+.proj-card-style { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 8px; display: block; }
 .proj-card-name { font-size: 22px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 16px; line-height: 1.1; }
 .proj-card-specs {
   display: flex; gap: 16px; flex-wrap: wrap;
@@ -130,7 +212,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--navy); text-decoration: none; margin-top: 16px;
-  border-bottom: 1px solid rgba(0,40,85,0.2); padding-bottom: 2px;
+  border-bottom: 1px solid rgba(0,31,51,0.2); padding-bottom: 2px;
   transition: border-color .2s;
 }
 .proj-card-link:hover { border-color: var(--navy); }
@@ -147,8 +229,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 /* Mobile */
 @media(max-width:900px){
   .projects-grid { grid-template-columns: 1fr 1fr; padding: 20px 24px 48px; gap: 16px; }
-  #header { padding: 48px 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
-  .header-right { text-align: left; }
+  #hero-banner { height: clamp(440px, 70vh, 620px); }
+  .hero-head { top: calc(var(--nav-h) + 28px); left: 24px; right: 24px; flex-direction: column; gap: 16px; }
+  .hero-head-meta { text-align: left; padding-top: 0; }
+  .hero-caption { left: 24px; right: 24px; bottom: 28px; }
   #sqft-tabs { padding: 0 24px; overflow-x: auto; }
   .section-band { padding: 20px 24px 0; }
   #nav { padding: 14px 24px; }
@@ -158,37 +242,697 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 </style>
 <link rel="stylesheet" href="assets/site-cursor.css">
+<!-- @localbusiness-schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "@id": "https://ellaleehomes.com/#business",
+  "name": "Ella Lee Homes",
+  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
+  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "url": "https://ellaleehomes.com/",
+  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "telephone": "+1-480-340-8700",
+  "email": "hello@ellaleehomes.com",
+  "priceRange": "$$",
+  "foundingLocation": "Phoenix, Arizona",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4408 N 12th St",
+    "addressLocality": "Phoenix",
+    "addressRegion": "AZ",
+    "postalCode": "85014",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 33.5004403,
+    "longitude": -112.0567192
+  },
+  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "Place",
+      "name": "Arcadia, Phoenix"
+    },
+    {
+      "@type": "City",
+      "name": "Phoenix",
+      "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    }
+  ],
+  "knowsAbout": [
+    "Custom home building",
+    "Luxury home construction",
+    "Home design",
+    "Residential development"
+  ],
+  "sameAs": [
+    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "12",
+    "bestRating": "5"
+  }
+}
+</script>
+<!-- @projectlist-schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Ella Lee Homes — Previous Custom Home Projects",
+  "description": "A portfolio of luxury custom homes built by Ella Lee Homes across Scottsdale, Paradise Valley, Arcadia, and the greater Phoenix area.",
+  "numberOfItems": 22,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Mitchell",
+        "url": "https://ellaleehomes.com/project/?slug=mitchell",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A6650.jpg",
+        "numberOfRooms": 4,
+        "numberOfBathroomsTotal": 3.5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 3957,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Scottsdale",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Apache",
+        "url": "https://ellaleehomes.com/project/?slug=apache",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0350.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 3527,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Old Town Scottsdale",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "2ND ST",
+        "url": "https://ellaleehomes.com/project/?slug=2nd-st",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/608A6138_page-0001.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 4.5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 3841,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Old Town Scottsdale",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "41ST",
+        "url": "https://ellaleehomes.com/project/?slug=41st",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/4-2.jpg",
+        "numberOfRooms": 4,
+        "numberOfBathroomsTotal": 4.5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 2970,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Arcadia Lite",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "5TH ST",
+        "url": "https://ellaleehomes.com/project/?slug=5th-st",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A3895.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 3934,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Southwest Village",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Glenrosa",
+        "url": "https://ellaleehomes.com/project/?slug=glenrosa",
+        "image": "https://lh3.googleusercontent.com/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 6,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 3689,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Arcadia",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "5TH ST 2",
+        "url": "https://ellaleehomes.com/project/?slug=5th-st-2",
+        "image": "https://photos.zillowstatic.com/fp/97bd9efd44d0083b51918b51c8523452-cc_ft_1536.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 4,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 3480,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Southwest Village",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Charter Oak",
+        "url": "https://ellaleehomes.com/project/?slug=charter-oak",
+        "image": "https://lh3.googleusercontent.com/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 5.2,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 4833,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Scottsdale",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "68TH & Camelback",
+        "url": "https://ellaleehomes.com/project/?slug=68th",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5254.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 5.5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 5214,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paradise Valley",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "DC2",
+        "url": "https://ellaleehomes.com/project/?slug=dc2",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2330-2.jpg",
+        "numberOfRooms": 6,
+        "numberOfBathroomsTotal": 7.5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 5874,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Arcadia",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "68TH 2",
+        "url": "https://ellaleehomes.com/project/?slug=68th-2",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6759.jpg",
+        "numberOfRooms": 6,
+        "numberOfBathroomsTotal": 7,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 5197,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Desert Estates",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "DC1",
+        "url": "https://ellaleehomes.com/project/?slug=dc1",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_6059.jpg",
+        "numberOfRooms": 6,
+        "numberOfBathroomsTotal": 7.5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 5547,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Scottsdale",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Earll",
+        "url": "https://ellaleehomes.com/project/?slug=earll",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 7,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 4650,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Arcadia",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Hazelwood 1",
+        "url": "https://ellaleehomes.com/project/?slug=hazelwood-1",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A2493.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 5.5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 5578,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Scottsdale",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Hazelwood 2",
+        "url": "https://ellaleehomes.com/project/?slug=hazelwood-2",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 6,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 4153,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Arcadia",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 16,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "4TH ST",
+        "url": "https://ellaleehomes.com/project/?slug=4th-st",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/02/img51-1.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 4691,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Scottsdale",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 17,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Larkspur",
+        "url": "https://ellaleehomes.com/project/?slug=larkspur",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg",
+        "numberOfRooms": 3,
+        "numberOfBathroomsTotal": 3.5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 5578,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "85254",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 18,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Coolidge",
+        "url": "https://ellaleehomes.com/project/?slug=coolidge",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_4680.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 7,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 4650,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Arcadia Lite",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 19,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Cudia City",
+        "url": "https://ellaleehomes.com/project/?slug=cudia",
+        "image": "https://photos.zillowstatic.com/fp/7b74a0e5540fc8e59e48cbb69806d577-cc_ft_1536.jpg",
+        "numberOfRooms": 6,
+        "numberOfBathroomsTotal": 7,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 4258,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Camelback East",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 20,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Desert Cove",
+        "url": "https://ellaleehomes.com/project/?slug=desert-cove",
+        "image": "https://photos.zillowstatic.com/fp/0b3b9e11641a06e1ca8f9f1645dbb1ea-cc_ft_1536.jpg",
+        "numberOfRooms": 6,
+        "numberOfBathroomsTotal": 8,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 5644,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Scottsdale",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 21,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Via Estrella",
+        "url": "https://ellaleehomes.com/project/?slug=via-estrella",
+        "image": "https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0171.jpg",
+        "numberOfRooms": 5,
+        "numberOfBathroomsTotal": 6.5,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 6222,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Scottsdale",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 22,
+      "item": {
+        "@type": "SingleFamilyResidence",
+        "name": "Camino Sin Nombre",
+        "url": "https://ellaleehomes.com/project/?slug=camino-sin-nombre",
+        "image": "https://lh3.googleusercontent.com/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF",
+        "numberOfRooms": 6,
+        "numberOfBathroomsTotal": 8,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": 8002,
+          "unitCode": "FTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paradise Valley",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- CURSOR_PARTIAL -->
+<script defer src="assets/site-nav-dd.js"></script>
 
+<!-- Canonical site nav — edit once; injected by scripts/build-html.mjs -->
 <!-- NAV_PARTIAL -->
-
-<!-- PAGE HEADER -->
-<div id="header">
-  <div class="header-left">
-    <div class="eyebrow">Ella Lee Homes</div>
-    <h1 class="header-title">Our <em>Portfolio.</em></h1>
+<div class="nav-dd-panel" role="region" aria-label="Learn menu">
+  <div class="nav-dd-intro">
+    <div class="nav-dd-intro-title">About Ella Lee Homes</div>
+    <div class="nav-dd-intro-sub">Sustainable, energy efficient, on time &amp; on budget homes</div>
   </div>
-  <div class="header-right">
-    <span id="result-count">17</span>
-    homes built across Arizona
+  <div class="nav-dd-grid">
+    <div class="nav-dd-col">
+      <a href="why-us.html">Why Ella Lee</a>
+      <a href="investors.html">Developers &amp; Investors</a>
+      <a href="stories.html">Stories &amp; Insights</a>
+    </div>
+    <div class="nav-dd-col">
+      <a href="client-portal.html">Client Portal</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
   </div>
 </div>
+
+<div class="nav-mobile-overlay" aria-hidden="true">
+  <div class="nav-mobile-panel">
+    <a href="projects.html" class="nav-mobile-link">Portfolio</a>
+    <a href="process.html" class="nav-mobile-link">Build</a>
+    <a href="sell.html" class="nav-mobile-link">Sell</a>
+    <a href="our-story.html" class="nav-mobile-link">Our Story</a>
+    <div class="nav-mobile-learn-section">
+      <button class="nav-mobile-learn-btn" type="button">
+        Learn
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="nav-mobile-learn-items">
+        <a href="why-us.html">Why Ella Lee</a>
+        <a href="investors.html">Developers &amp; Investors</a>
+        <a href="stories.html">Stories &amp; Insights</a>
+        <a href="client-portal.html">Client Portal</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="nav-mobile-sep"></div>
+    <a href="index.html#inquiry" class="nav-mobile-cta">Schedule a Consultation</a>
+  </div>
+</div>
+
+<!-- HERO BANNER (title overlaid on image, like Process) -->
+<section id="hero-banner" aria-label="Ella Lee Homes portfolio">
+  <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="Luxury custom home exterior built by Ella Lee Homes in Scottsdale, Arizona">
+
+  <div class="hero-head">
+    <div class="hero-head-l">
+      <div class="eyebrow">Ella Lee Homes</div>
+      <h1 class="hero-title">Our <em>Portfolio.</em></h1>
+    </div>
+    <div class="hero-head-meta">
+      <span id="result-count">22</span>
+      featured projects<br><strong>40+ homes</strong> built across Arizona
+    </div>
+  </div>
+
+  <div class="hero-caption">
+    <div class="eyebrow">Selected Work</div>
+    <h2>A sample of our custom homes across the Valley.</h2>
+  </div>
+</section>
+
+<!-- INTRO (SEO body copy) -->
+<section id="portfolio-intro" style="max-width:1100px; margin:0 auto; padding:80px 56px 24px;">
+  <p style="font-size:18px; line-height:1.8; color:rgba(43,43,43,0.82); max-width:80ch;">Ella Lee Homes designs and builds <strong>luxury custom homes across Scottsdale, Paradise Valley, Arcadia, and greater Phoenix, Arizona</strong>. The portfolio below spans new construction and recently completed residences &mdash; from Old Town Scottsdale infill to private estates in Paradise Valley &mdash; each built to the same standard of craftsmanship, on time and on budget. Filter by square footage or sort by price and year to find homes that match your vision.</p>
+  <p style="margin-top:16px; font-size:14px; color:rgba(43,43,43,0.55);">Prices shown reflect home sale values, not construction costs.</p>
+</section>
 
 <!-- SQFT TABS -->
 <div id="sqft-tabs">
   <button class="sqft-tab active" data-filter="all" onclick="filterTab(this,'all')">
-    All Homes <span class="sqft-tab-count" id="count-all">17</span>
+    All Homes <span class="sqft-tab-count" id="count-all">22</span>
   </button>
   <button class="sqft-tab" data-filter="small" onclick="filterTab(this,'small')">
-    Up to 4,000 sqft <span class="sqft-tab-count" id="count-small">1</span>
+    Up to 4,000 sqft <span class="sqft-tab-count" id="count-small">7</span>
   </button>
   <button class="sqft-tab" data-filter="mid" onclick="filterTab(this,'mid')">
-    4,000 – 6,000 sqft <span class="sqft-tab-count" id="count-mid">15</span>
+    4,000 – 6,000 sqft <span class="sqft-tab-count" id="count-mid">13</span>
   </button>
   <button class="sqft-tab" data-filter="large" onclick="filterTab(this,'large')">
-    6,000+ sqft <span class="sqft-tab-count" id="count-large">1</span>
+    6,000+ sqft <span class="sqft-tab-count" id="count-large">2</span>
   </button>
   <div class="tab-divider"></div>
   <select class="sort-select" onchange="sortCards(this.value)">
@@ -200,6 +944,34 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   </select>
 </div>
 
+<!-- STYLE FILTER -->
+<div id="style-filter" style="padding:0 56px 28px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--paper);">
+  <span style="font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--nickel); margin-right:8px;">Style</span>
+  <button class="sf-btn on" data-style="all" onclick="styleFilter(this,'all')" type="button">All</button>
+  <button class="sf-btn" data-style="modern" onclick="styleFilter(this,'modern')" type="button">Modern</button>
+  <button class="sf-btn" data-style="contemporary" onclick="styleFilter(this,'contemporary')" type="button">Contemporary</button>
+  <button class="sf-btn" data-style="farmhouse" onclick="styleFilter(this,'farmhouse')" type="button">Farmhouse</button>
+  <button class="sf-btn" data-style="mediterranean" onclick="styleFilter(this,'mediterranean')" type="button">Mediterranean</button>
+  <button class="sf-btn" data-style="desert" onclick="styleFilter(this,'desert')" type="button">Desert</button>
+  <button class="sf-btn" data-style="transitional" onclick="styleFilter(this,'transitional')" type="button">Transitional</button>
+</div>
+<style>
+.sf-btn { background:none; border:1px solid rgba(43,43,43,0.18); color:rgba(43,43,43,0.58); font-family:var(--sans); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; padding:8px 16px; border-radius:100px; cursor:pointer; transition:all .2s; }
+.sf-btn:hover { border-color:var(--navy); color:var(--navy); }
+.sf-btn.on { background:var(--navy); border-color:var(--navy); color:var(--paper); }
+</style>
+<script>
+function styleFilter(btn, cat) {
+  document.querySelectorAll('.sf-btn').forEach(b => b.classList.toggle('on', b===btn));
+  document.querySelectorAll('.proj-card').forEach(c => {
+    var style = (c.querySelector('.proj-card-style')||{}).textContent||'';
+    c.closest('.proj-card-wrap')
+      ? (c.closest('.proj-card-wrap').style.display = (cat==='all'||style.toLowerCase().indexOf(cat)!==-1)?'':'none')
+      : (c.style.display = (cat==='all'||style.toLowerCase().indexOf(cat)!==-1)?'':'none');
+  });
+}
+</script>
+
 <!-- PROJECT GRID -->
 <div id="grid-container">
 <!-- PROJECT GRID (synced from ellaleehomes.com/previous-projects/) -->
@@ -207,16 +979,17 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   <div class="section-band" id="band-small">
     <span class="section-band-title">Up to 4,000 sqft</span>
     <div class="section-band-line"></div>
-    <span class="section-band-count">1 home</span>
+    <span class="section-band-count">7 homes</span>
   </div>
   <div class="projects-grid" id="grid-small">
 
     <div class="proj-card" data-sqft="3957" data-price="2171500" data-year="2024" data-band="small">
       <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=mitchell" class="proj-card-img-link" aria-label="View Mitchell project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A6650.jpg" alt="Mitchell"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=mitchell" class="proj-card-img-link" aria-label="View Mitchell project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A6650.jpg" alt="Modern Transitional custom home by Ella Lee Homes in Scottsdale, Arizona — Mitchell"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-style">Modern Transitional</div>
         <div class="proj-card-name">Mitchell</div>
         <div class="proj-card-price">$2,171,500</div>
         <div class="proj-card-specs">
@@ -226,22 +999,127 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
       </div>
     </div>
 
+
+    <div class="proj-card" data-sqft="3527" data-price="2300500" data-year="2025" data-band="small">
+      <div class="proj-card-year">2025</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=apache" class="proj-card-img-link" aria-label="View Apache project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0350.jpg" alt="Spanish Contemporary custom home by Ella Lee Homes in Old Town Scottsdale, Arizona — Apache"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Old Town Scottsdale, Arizona</div>
+        <div class="proj-card-style">Spanish Contemporary</div>
+        <div class="proj-card-name">Apache</div>
+        <div class="proj-card-price">$2,300,500</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5 BA</span><span>3,527 sqft</span>
+        </div>
+        <a href="project.html?slug=apache" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+
+    <div class="proj-card" data-sqft="3841" data-price="1700000" data-year="2023" data-band="small">
+      <div class="proj-card-year">2023</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=2nd-st" class="proj-card-img-link" aria-label="View 2ND ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/608A6138_page-0001.jpg" alt="Spanish Contemporary custom home by Ella Lee Homes in Old Town Scottsdale, Arizona — 2ND ST"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Old Town Scottsdale, Arizona</div>
+        <div class="proj-card-style">Spanish Contemporary</div>
+        <div class="proj-card-name">2ND ST</div>
+        <div class="proj-card-price">$1,700,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>4.5 BA</span><span>3,841 sqft</span>
+        </div>
+        <a href="project.html?slug=2nd-st" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+
+
+    <div class="proj-card" data-sqft="2970" data-price="2150000" data-year="2026" data-band="small">
+      <div class="proj-card-year">2026</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=41st" class="proj-card-img-link" aria-label="View 41ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/4-2.jpg" alt="Modern custom home by Ella Lee Homes in Arcadia Lite, Phoenix — 41ST"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Arcadia Lite, Phoenix</div>
+        <div class="proj-card-style">Modern</div>
+        <div class="proj-card-name">41ST</div>
+        <div class="proj-card-price">$2,150,000</div>
+        <div class="proj-card-specs">
+          <span>4 BD</span><span>4.5 BA</span><span>2,970 sqft</span>
+        </div>
+        <a href="project.html?slug=41st" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="3934" data-price="2100000" data-year="2023" data-band="small">
+      <div class="proj-card-year">2023</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=5th-st" class="proj-card-img-link" aria-label="View 5TH ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A3895.jpg" alt="Contemporary custom home by Ella Lee Homes in Southwest Village, Scottsdale — 5TH ST"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Southwest Village, Scottsdale</div>
+        <div class="proj-card-style">Contemporary</div>
+        <div class="proj-card-name">5TH ST</div>
+        <div class="proj-card-price">$2,100,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>5 BA</span><span>3,934 sqft</span>
+        </div>
+        <a href="project.html?slug=5th-st" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="3689" data-price="2450000" data-year="2025" data-band="small">
+      <div class="proj-card-year">2025</div>
+      <div class="proj-card-sold">For Sale</div>
+      <div class="proj-card-img"><a href="project.html?slug=glenrosa" class="proj-card-img-link" aria-label="View Glenrosa project"><img src="https://lh3.googleusercontent.com/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT" alt="Contemporary custom home by Ella Lee Homes in Arcadia, Phoenix — Glenrosa"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Arcadia, Phoenix</div>
+        <div class="proj-card-style">Contemporary</div>
+        <div class="proj-card-name">Glenrosa</div>
+        <div class="proj-card-price">$2,450,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>6 BA</span><span>3,689 sqft</span>
+        </div>
+        <a href="project.html?slug=glenrosa" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="3480" data-price="1850000" data-year="2023" data-band="small">
+      <div class="proj-card-year">2023</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=5th-st-2" class="proj-card-img-link" aria-label="View 5TH ST 2 project"><img src="https://photos.zillowstatic.com/fp/97bd9efd44d0083b51918b51c8523452-cc_ft_1536.jpg" alt="Contemporary custom home by Ella Lee Homes in Southwest Village, Scottsdale — 5TH ST 2"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Southwest Village, Scottsdale</div>
+        <div class="proj-card-style">Contemporary</div>
+        <div class="proj-card-name">5TH ST 2</div>
+        <div class="proj-card-price">$1,850,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>4 BA</span><span>3,480 sqft</span>
+        </div>
+        <a href="project.html?slug=5th-st-2" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+
   </div>
 
   <!-- SECTION: 4k–6k -->
   <div class="section-band" id="band-mid">
     <span class="section-band-title">4,000 – 6,000 sqft</span>
     <div class="section-band-line"></div>
-    <span class="section-band-count">15 homes</span>
+    <span class="section-band-count">13 homes</span>
   </div>
   <div class="projects-grid" id="grid-mid">
+
+
+
 
     <div class="proj-card" data-sqft="4833" data-price="7035000" data-year="2024" data-band="mid">
       <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=charter-oak" class="proj-card-img-link" aria-label="View Charter Oak project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2787.jpg" alt="Charter Oak"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=charter-oak" class="proj-card-img-link" aria-label="View Charter Oak project"><img src="https://lh3.googleusercontent.com/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO" alt="Modern Farmhouse custom home by Ella Lee Homes in Scottsdale, Arizona — Charter Oak"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-style">Modern Farmhouse</div>
         <div class="proj-card-name">Charter Oak</div>
         <div class="proj-card-price">$7,035,000</div>
         <div class="proj-card-specs">
@@ -254,9 +1132,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
     <div class="proj-card" data-sqft="5214" data-price="7035000" data-year="2024" data-band="mid">
       <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=68th" class="proj-card-img-link" aria-label="View 68TH &amp; Camelback project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5254.jpg" alt="68TH &amp; Camelback"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=68th" class="proj-card-img-link" aria-label="View 68TH &amp; Camelback project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5254.jpg" alt="Modern custom home by Ella Lee Homes in Paradise Valley, Arizona — 68TH & Camelback"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Paradise Valley, Arizona</div>
+        <div class="proj-card-style">Modern</div>
         <div class="proj-card-name">68TH &amp; Camelback</div>
         <div class="proj-card-price">$7,035,000</div>
         <div class="proj-card-specs">
@@ -269,9 +1148,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
     <div class="proj-card" data-sqft="5874" data-price="4400000" data-year="2023" data-band="mid">
       <div class="proj-card-year">2023</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=dc2" class="proj-card-img-link" aria-label="View DC2 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2330-2.jpg" alt="DC2"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=dc2" class="proj-card-img-link" aria-label="View DC2 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2330-2.jpg" alt="Contemporary custom home by Ella Lee Homes in Arcadia, Arizona — DC2"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Arcadia, Arizona</div>
+        <div class="proj-card-style">Contemporary</div>
         <div class="proj-card-name">DC2</div>
         <div class="proj-card-price">$4,400,000</div>
         <div class="proj-card-specs">
@@ -281,16 +1161,17 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="5197" data-price="3750000" data-year="2024" data-band="mid">
-      <div class="proj-card-year">2024</div>
+    <div class="proj-card" data-sqft="5197" data-price="3750000" data-year="2025" data-band="mid">
+      <div class="proj-card-year">2025</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=68th-2" class="proj-card-img-link" aria-label="View 68TH 2 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6759.jpg" alt="68TH 2"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=68th-2" class="proj-card-img-link" aria-label="View 68TH 2 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6759.jpg" alt="Desert Contemporary custom home by Ella Lee Homes in Desert Estates, Scottsdale — 68TH 2"></a></div>
       <div class="proj-card-body">
-        <div class="proj-card-location">Paradise Valley, Arizona</div>
+        <div class="proj-card-location">Desert Estates, Scottsdale</div>
+        <div class="proj-card-style">Desert Contemporary</div>
         <div class="proj-card-name">68TH 2</div>
         <div class="proj-card-price">$3,750,000</div>
         <div class="proj-card-specs">
-          <span>6 BD</span><span>6.5 BA</span><span>5,197 sqft</span>
+          <span>6 BD</span><span>7 BA</span><span>5,197 sqft</span>
         </div>
         <a href="project.html?slug=68th-2" class="proj-card-link">View Project</a>
       </div>
@@ -299,9 +1180,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
     <div class="proj-card" data-sqft="5547" data-price="4365000" data-year="2024" data-band="mid">
       <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=dc1" class="proj-card-img-link" aria-label="View DC1 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_6059.jpg" alt="DC1"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=dc1" class="proj-card-img-link" aria-label="View DC1 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_6059.jpg" alt="Contemporary custom home by Ella Lee Homes in Scottsdale, Arizona — DC1"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-style">Contemporary</div>
         <div class="proj-card-name">DC1</div>
         <div class="proj-card-price">$4,365,000</div>
         <div class="proj-card-specs">
@@ -311,16 +1193,17 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="4650" data-price="3645000" data-year="2024" data-band="mid">
-      <div class="proj-card-year">2024</div>
+    <div class="proj-card" data-sqft="4650" data-price="3645000" data-year="2025" data-band="mid">
+      <div class="proj-card-year">2025</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=earll" class="proj-card-img-link" aria-label="View Earll project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="Earll"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=earll" class="proj-card-img-link" aria-label="View Earll project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="Modern custom home by Ella Lee Homes in Arcadia, Phoenix — Earll"></a></div>
       <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-location">Arcadia, Phoenix</div>
+        <div class="proj-card-style">Modern</div>
         <div class="proj-card-name">Earll</div>
         <div class="proj-card-price">$3,645,000</div>
         <div class="proj-card-specs">
-          <span>5 BD</span><span>6 BA</span><span>4,650 sqft</span>
+          <span>5 BD</span><span>7 BA</span><span>4,650 sqft</span>
         </div>
         <a href="project.html?slug=earll" class="proj-card-link">View Project</a>
       </div>
@@ -329,9 +1212,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
     <div class="proj-card" data-sqft="5578" data-price="3200000" data-year="2024" data-band="mid">
       <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=hazelwood-1" class="proj-card-img-link" aria-label="View Hazelwood 1 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A2493.jpg" alt="Hazelwood 1"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=hazelwood-1" class="proj-card-img-link" aria-label="View Hazelwood 1 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A2493.jpg" alt="Transitional custom home by Ella Lee Homes in Scottsdale, Arizona — Hazelwood 1"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-style">Transitional</div>
         <div class="proj-card-name">Hazelwood 1</div>
         <div class="proj-card-price">$3,200,000</div>
         <div class="proj-card-specs">
@@ -341,119 +1225,49 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2024" data-band="mid">
+    <div class="proj-card" data-sqft="4153" data-price="3200000" data-year="2024" data-band="mid">
       <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=hazelwood-2" class="proj-card-img-link" aria-label="View Hazelwood 2 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg" alt="Hazelwood 2"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=hazelwood-2" class="proj-card-img-link" aria-label="View Hazelwood 2 project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg" alt="Transitional custom home by Ella Lee Homes in Arcadia, Phoenix — Hazelwood 2"></a></div>
       <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-location">Arcadia, Phoenix</div>
+        <div class="proj-card-style">Transitional</div>
         <div class="proj-card-name">Hazelwood 2</div>
-        <div class="proj-card-price">—</div>
+        <div class="proj-card-price">$3,200,000</div>
         <div class="proj-card-specs">
-          <span>5 BD</span><span>5.5 BA</span><span>5,578 sqft</span>
+          <span>5 BD</span><span>6 BA</span><span>4,153 sqft</span>
         </div>
         <a href="project.html?slug=hazelwood-2" class="proj-card-link">View Project</a>
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="4200" data-price="0" data-year="2024" data-band="mid">
+
+    <div class="proj-card" data-sqft="4691" data-price="2100000" data-year="2024" data-band="mid">
       <div class="proj-card-year">2024</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=apache" class="proj-card-img-link" aria-label="View Apache project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0350.jpg" alt="Apache"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=4th-st" class="proj-card-img-link" aria-label="View 4TH ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/img51-1.jpg" alt="Desert Modern custom home by Ella Lee Homes in Scottsdale, Arizona — 4TH ST"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Apache</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>5 BD</span><span>5 BA</span><span>4,200 sqft</span>
-        </div>
-        <a href="project.html?slug=apache" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="4606" data-price="0" data-year="2024" data-band="mid">
-      <div class="proj-card-year">2024</div>
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=41st" class="proj-card-img-link" aria-label="View 41ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/4-2.jpg" alt="41ST"></a></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">41ST</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>4 BD</span><span>3.5 BA</span><span>4,606 sqft</span>
-        </div>
-        <a href="project.html?slug=41st" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2024" data-band="mid">
-      <div class="proj-card-year">2024</div>
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=5th-st" class="proj-card-img-link" aria-label="View 5TH ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A3895.jpg" alt="5TH ST"></a></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">5TH ST</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>5 BD</span><span>5.5 BA</span><span>5,578 sqft</span>
-        </div>
-        <a href="project.html?slug=5th-st" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2025" data-band="mid">
-      <div class="proj-card-year">2025</div>
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=4th-st" class="proj-card-img-link" aria-label="View 4TH ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/img51-1.jpg" alt="4TH ST"></a></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-style">Desert Modern</div>
         <div class="proj-card-name">4TH ST</div>
-        <div class="proj-card-price">—</div>
+        <div class="proj-card-price">$2,100,000</div>
         <div class="proj-card-specs">
-          <span>5 BD</span><span>5.5 BA</span><span>5,578 sqft</span>
+          <span>5 BD</span><span>5 BA</span><span>4,691 sqft</span>
         </div>
         <a href="project.html?slug=4th-st" class="proj-card-link">View Project</a>
       </div>
     </div>
 
-    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2024" data-band="mid">
-      <div class="proj-card-year">2024</div>
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=2nd-st" class="proj-card-img-link" aria-label="View 2ND ST project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/608A6138_page-0001.jpg" alt="2ND ST"></a></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">2ND ST</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>5 BD</span><span>5.5 BA</span><span>5,578 sqft</span>
-        </div>
-        <a href="project.html?slug=2nd-st" class="proj-card-link">View Project</a>
-      </div>
-    </div>
 
-    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2025" data-band="mid">
+    <div class="proj-card" data-sqft="5578" data-price="3975000" data-year="2025" data-band="mid">
       <div class="proj-card-year">2025</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=coolidge" class="proj-card-img-link" aria-label="View Coolidge project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_4680.jpg" alt="Coolidge"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=larkspur" class="proj-card-img-link" aria-label="View Larkspur project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg" alt="Modern Farmhouse custom home by Ella Lee Homes in 85254, Scottsdale — Larkspur"></a></div>
       <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
-        <div class="proj-card-name">Coolidge</div>
-        <div class="proj-card-price">—</div>
-        <div class="proj-card-specs">
-          <span>3 BD</span><span>3.5 BA</span><span>5,578 sqft</span>
-        </div>
-        <a href="project.html?slug=coolidge" class="proj-card-link">View Project</a>
-      </div>
-    </div>
-
-    <div class="proj-card" data-sqft="5578" data-price="0" data-year="2025" data-band="mid">
-      <div class="proj-card-year">2025</div>
-      <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=larkspur" class="proj-card-img-link" aria-label="View Larkspur project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/11/DJI_0797.jpg" alt="Larkspur"></a></div>
-      <div class="proj-card-body">
-        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-location">85254, Scottsdale</div>
+        <div class="proj-card-style">Modern Farmhouse</div>
         <div class="proj-card-name">Larkspur</div>
-        <div class="proj-card-price">—</div>
+        <div class="proj-card-price">$3,975,000</div>
         <div class="proj-card-specs">
           <span>3 BD</span><span>3.5 BA</span><span>5,578 sqft</span>
         </div>
@@ -461,28 +1275,96 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
       </div>
     </div>
 
+
+    <div class="proj-card" data-sqft="4650" data-price="3780000" data-year="2025" data-band="mid">
+      <div class="proj-card-year">2025</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=coolidge" class="proj-card-img-link" aria-label="View Coolidge project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_4680.jpg" alt="Contemporary custom home by Ella Lee Homes in Arcadia Lite, Phoenix — Coolidge"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Arcadia Lite, Phoenix</div>
+        <div class="proj-card-style">Contemporary</div>
+        <div class="proj-card-name">Coolidge</div>
+        <div class="proj-card-price">$3,780,000</div>
+        <div class="proj-card-specs">
+          <span>5 BD</span><span>7 BA</span><span>4,650 sqft</span>
+        </div>
+        <a href="project.html?slug=coolidge" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="4258" data-price="4940000" data-year="2024" data-band="mid">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=cudia" class="proj-card-img-link" aria-label="View Cudia City project"><img src="https://photos.zillowstatic.com/fp/7b74a0e5540fc8e59e48cbb69806d577-cc_ft_1536.jpg" alt="Modern custom home by Ella Lee Homes in Camelback East, Phoenix — Cudia City"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Camelback East, Phoenix</div>
+        <div class="proj-card-style">Modern</div>
+        <div class="proj-card-name">Cudia City</div>
+        <div class="proj-card-price">$4,940,000</div>
+        <div class="proj-card-specs">
+          <span>6 BD</span><span>7 BA</span><span>4,258 sqft</span>
+        </div>
+        <a href="project.html?slug=cudia" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="5644" data-price="4950000" data-year="2025" data-band="mid">
+      <div class="proj-card-year">2025</div>
+      <div class="proj-card-sold">For Sale</div>
+      <div class="proj-card-img"><a href="project.html?slug=desert-cove" class="proj-card-img-link" aria-label="View Desert Cove project"><img src="https://photos.zillowstatic.com/fp/0b3b9e11641a06e1ca8f9f1645dbb1ea-cc_ft_1536.jpg" alt="Desert Contemporary custom home by Ella Lee Homes in Scottsdale, Arizona — Desert Cove"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-style">Desert Contemporary</div>
+        <div class="proj-card-name">Desert Cove</div>
+        <div class="proj-card-price">$4,950,000</div>
+        <div class="proj-card-specs">
+          <span>6 BD</span><span>8 BA</span><span>5,644 sqft</span>
+        </div>
+        <a href="project.html?slug=desert-cove" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+
   </div>
 
   <!-- SECTION: 6k+ -->
   <div class="section-band" id="band-large">
     <span class="section-band-title">6,000+ sqft</span>
     <div class="section-band-line"></div>
-    <span class="section-band-count">1 home</span>
+    <span class="section-band-count">2 homes</span>
   </div>
   <div class="projects-grid" id="grid-large">
+
 
     <div class="proj-card" data-sqft="6222" data-price="5450000" data-year="2023" data-band="large">
       <div class="proj-card-year">2023</div>
       <div class="proj-card-sold">Sold</div>
-      <div class="proj-card-img"><a href="project.html?slug=via-estrella" class="proj-card-img-link" aria-label="View Via Estrella project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0171.jpg" alt="Via Estrella"></a></div>
+      <div class="proj-card-img"><a href="project.html?slug=via-estrella" class="proj-card-img-link" aria-label="View Via Estrella project"><img src="https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0171.jpg" alt="Mediterranean Contemporary custom home by Ella Lee Homes in Scottsdale, Arizona — Via Estrella"></a></div>
       <div class="proj-card-body">
         <div class="proj-card-location">Scottsdale, Arizona</div>
+        <div class="proj-card-style">Mediterranean Contemporary</div>
         <div class="proj-card-name">Via Estrella</div>
         <div class="proj-card-price">$5,450,000</div>
         <div class="proj-card-specs">
           <span>5 BD</span><span>6.5 BA</span><span>6,222 sqft</span>
         </div>
         <a href="project.html?slug=via-estrella" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="8002" data-price="10000000" data-year="2024" data-band="large">
+      <div class="proj-card-year">2024</div>
+      <div class="proj-card-sold">Sold</div>
+      <div class="proj-card-img"><a href="project.html?slug=camino-sin-nombre" class="proj-card-img-link" aria-label="View Camino Sin Nombre project"><img src="https://lh3.googleusercontent.com/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF" alt="Desert Estate custom home by Ella Lee Homes in Paradise Valley, Arizona — Camino Sin Nombre"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Paradise Valley, Arizona</div>
+        <div class="proj-card-style">Desert Estate</div>
+        <div class="proj-card-name">Camino Sin Nombre</div>
+        <div class="proj-card-price">$10,000,000</div>
+        <div class="proj-card-specs">
+          <span>6 BD</span><span>8 BA</span><span>8,002 sqft</span>
+        </div>
+        <a href="project.html?slug=camino-sin-nombre" class="proj-card-link">View Project</a>
       </div>
     </div>
 
@@ -493,6 +1375,12 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   <div class="empty-title">No homes in this range</div>
   <div class="empty-sub">Try a different size filter above.</div>
 </div>
+
+<section style="background:var(--navy); color:var(--paper); text-align:center; padding:100px 24px;">
+  <h2 style="font-family:var(--sans); font-weight:300; font-size:clamp(32px,5vw,62px); letter-spacing:-0.035em; line-height:1.0;">Inspired by what you see? <em style="font-style:normal; color:#C9A96E;">Let&rsquo;s build yours.</em></h2>
+  <p style="margin:22px auto 0; max-width:46ch; font-size:18px; line-height:1.7; color:rgba(234,229,220,0.6);">Every project above was built from the ground up by the same dedicated Ella Lee team &mdash; on time, on budget, and built to last.</p>
+  <a href="contact.html" style="display:inline-block; margin-top:40px; background:#C9A96E; color:#1a1a1a; text-decoration:none; padding:18px 46px; border-radius:100px; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; font-weight:600;">Schedule a Consultation</a>
+</section>
 
 <!-- FOOTER_PARTIAL -->
 
@@ -537,5 +1425,20 @@ function sortCards(val) {
 }
 </script>
 
+<script>
+(function() {
+  const nav = document.getElementById('nav');
+  if (!nav) return;
+  const hero = document.getElementById('hero-banner');
+  function onScroll() {
+    const threshold = hero ? hero.offsetHeight - nav.offsetHeight : 80;
+    nav.classList.toggle('scrolled', window.scrollY > threshold);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+  <script defer src="assets/site-nav-contrast.js"></script>
 </body>
 </html>
