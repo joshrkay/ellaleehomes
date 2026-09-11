@@ -124,6 +124,9 @@
   }
   .elh-intro-copy img { width: clamp(44px, 5vw, 66px); height: auto; }
 
+  /* The project strip is dragged by pointer; don't select its text en route. */
+  [data-elh-track] { user-select: none; -webkit-user-select: none; }
+
   /* Hover states. The elements style themselves inline, so these must win. */
   .elh-h1:hover { background: #EAE5DC !important; color: #001526 !important; }
   .elh-h2:hover { background: #EAE5DC !important; border-color: #EAE5DC !important; color: #001526 !important; }
@@ -347,7 +350,7 @@
       </div>
       <div data-elh-strip="1" style="position: relative; margin: 0 calc(-1 * clamp(20px, 4vw, 64px)); padding: clamp(10px, 1.2vw, 22px) 0; overflow: hidden">
       <div data-elh-track="1" style="display: flex; align-items: flex-start; gap: clamp(14px, 1.6vw, 26px); padding: 0 clamp(20px, 4vw, 64px); cursor: grab; transform-style: preserve-3d; will-change: transform">
-        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-1" src="uploads/home/project-charter-oak.jpg" alt="Charter Oak custom home" loading="lazy" decoding="async">
@@ -362,7 +365,7 @@
             </div>
           </div>
         </a>
-        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-2" src="uploads/home/project-via-estrella.jpg" alt="Via Estrella custom home" loading="lazy" decoding="async">
@@ -377,7 +380,7 @@
             </div>
           </div>
         </a>
-        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-3" src="uploads/home/project-68th.jpg" alt="68th Street custom home" loading="lazy" decoding="async">
@@ -392,7 +395,7 @@
             </div>
           </div>
         </a>
-        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-4" src="uploads/home/project-4.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
@@ -405,7 +408,7 @@
             </div>
           </div>
         </a>
-        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-5" src="uploads/home/project-5.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
@@ -418,7 +421,7 @@
             </div>
           </div>
         </a>
-        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+        <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
               <img class="elh-img" id="elh-proj-6" src="uploads/home/project-6.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
@@ -521,14 +524,14 @@
         </div>
         <label style="display: flex; flex-direction: column; gap: 9px">
           <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Target budget range</span>
-          <sc-raw-select name="budget" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none">
+          <select name="budget" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none">
             <option value="" style="color: #001526">Select a range</option>
             <option value="1-2m" style="color: #001526">$1M – $2M</option>
             <option value="2-3m" style="color: #001526">$2M – $3M</option>
             <option value="3-5m" style="color: #001526">$3M – $5M</option>
             <option value="5m+" style="color: #001526">$5M+</option>
             <option value="unsure" style="color: #001526">Not sure yet</option>
-          </sc-raw-select>
+          </select>
         </label>
         <label style="display: flex; flex-direction: column; gap: 9px">
           <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Tell us about your project</span>

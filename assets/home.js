@@ -145,19 +145,37 @@
 
     var startX = 0;
     var startTarget = 0;
+    // The cards are links wrapping images, both natively draggable. Without
+    // this the browser starts a link/image drag on pointerdown, fires
+    // pointercancel, and the strip's own drag dies after a few pixels.
+    track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    // A drag that ends over a card would otherwise fire its click and
+    // navigate. Past this much movement, treat it as a drag and swallow the
+    // click that follows.
+    var DRAG_SLOP = 6;
+    var dragged = false;
     track.addEventListener('pointerdown', function (e) {
       s.dragging = true; startX = e.clientX; startTarget = s.target;
+      dragged = false;
       track.style.cursor = 'grabbing';
       track.setPointerCapture(e.pointerId);
     });
     track.addEventListener('pointermove', function (e) {
       if (!s.dragging) return;
+      if (Math.abs(e.clientX - startX) > DRAG_SLOP) dragged = true;
       s.target = startTarget - (e.clientX - startX);
       s.x = s.target;
     });
     var endDrag = function () { s.dragging = false; track.style.cursor = 'grab'; };
     track.addEventListener('pointerup', endDrag);
     track.addEventListener('pointercancel', endDrag);
+    // Capture phase, so this runs before the anchor sees the click.
+    track.addEventListener('click', function (e) {
+      if (!dragged) return;
+      dragged = false;
+      e.preventDefault();
+      e.stopPropagation();
+    }, true);
 
     if (!track.__elhRaf) {
       var tick = function () {
