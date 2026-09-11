@@ -13,14 +13,17 @@ const srcDir = path.join(root, 'src');
 const partialPath = path.join(root, 'partials', 'nav.html');
 const footerPath = path.join(root, 'partials', 'footer.html');
 const cursorPath = path.join(root, 'partials', 'cursor.html');
+const dropdownPath = path.join(root, 'partials', 'nav-dropdown.html');
 
 const PLACEHOLDER = '<!-- NAV_PARTIAL -->';
 const FOOTER_PLACEHOLDER = '<!-- FOOTER_PARTIAL -->';
 const CURSOR_PLACEHOLDER = '<!-- CURSOR_PARTIAL -->';
+const DROPDOWN_PLACEHOLDER = '<!-- NAV_DROPDOWN_PARTIAL -->';
 
 const partialTemplate = fs.readFileSync(partialPath, 'utf8');
 const footerTemplate = fs.readFileSync(footerPath, 'utf8');
 const cursorTemplate = fs.readFileSync(cursorPath, 'utf8');
+const dropdownTemplate = fs.readFileSync(dropdownPath, 'utf8');
 
 /** Canonical origin of the live site, used for sitemap URLs. */
 const SITE_ORIGIN = 'https://ellaleehomes.com';
@@ -247,6 +250,7 @@ for (const page of PAGES) {
   const wantsCursor = page.cursor !== false;
   const required = [
     [FOOTER_PLACEHOLDER, true],
+    [DROPDOWN_PLACEHOLDER, true],
     [PLACEHOLDER, wantsNav],
     [CURSOR_PLACEHOLDER, wantsCursor],
   ];
@@ -259,6 +263,9 @@ for (const page of PAGES) {
   if (wantsNav) {
     content = content.split(PLACEHOLDER).join(renderNav(page));
   }
+  // The "Learn" panel is shared by every page, the homepage included — its own
+  // header drives the same markup.
+  content = content.split(DROPDOWN_PLACEHOLDER).join(dropdownTemplate);
   const isHome = page.file === 'index.html';
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(isHome));
   if (wantsCursor) {
