@@ -20,6 +20,12 @@
  * If a download is blocked where you run this (a corporate proxy, an egress
  * policy), fetch the files any way you like into uploads/wp/<year>/<month>/ and
  * run --rewrite --verify on their own.
+ *
+ * If WordPress is gone by the time anyone runs this, the company Google Drive
+ * holds the camera originals under the same basenames, so it works as a second
+ * source: all but two of the listed files are plain names, the exceptions being
+ * the two WordPress-generated size variants (-1024x682 and -1024x683), which
+ * would have to be resized from their originals.
  */
 import fs from 'node:fs';
 import path from 'node:path';
