@@ -2,59 +2,59 @@
 # Allow all standard search engines
 User-agent: *
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 # ─── AI search & answer engines (explicitly welcomed) ───
 User-agent: GPTBot
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: OAI-SearchBot
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: ChatGPT-User
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: Claude-Web
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: anthropic-ai
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: Perplexity-User
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: Google-Extended
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: Applebot
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: Bingbot
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 User-agent: CCBot
 Allow: /
-Disallow: /client-portal/
+Disallow: /client-portal
 
 Sitemap: https://ellaleehomes.com/sitemap.xml

@@ -36,11 +36,16 @@ const CTA_CONTACT = 'contact.html';
  * the homepage carries its own header and drag interactions, so it opts out
  * of both.
  *
- * `url` is the page's path on the live site, which is not the built filename —
- * the pages' own `rel="canonical"` tags point at trailing-slash paths, and a
- * few use a different slug there (process → /build-your-home/). It doubles as
- * the sitemap entry; `url: null` keeps a page out of the sitemap, and every
- * page must state one or the other so a new page cannot be forgotten.
+ * `url` is the page's path on the live site, which is not the built filename:
+ * `vercel.json` serves clean, extension-less URLs, and four pages use a
+ * different slug there (process → /build-your-home). It doubles as the sitemap
+ * entry and must match each page's own `rel="canonical"`; `url: null` keeps a
+ * page out of the sitemap, and every page must state one or the other so a new
+ * page cannot be forgotten.
+ *
+ * Paths carry no trailing slash. The pages link each other and their assets
+ * relatively, so a trailing slash would resolve `assets/…` one level too deep
+ * and 404 every stylesheet and image on the page.
  *
  * @typedef {'portfolio'|'process'|'sell'|'about'} NavEntry
  * @typedef {{ file: string; url: string | null; changefreq?: string; priority?: string; theme?: string; cta?: string; nav?: boolean; cursor?: boolean; active?: Partial<Record<NavEntry, boolean>> }} PageCfg
@@ -51,39 +56,39 @@ const PAGES = [
   { file: 'index.html', url: '/', changefreq: 'weekly', priority: '1.0', nav: false, cursor: false },
 
   // Primary pages
-  { file: 'projects.html', url: '/previous-projects/', changefreq: 'weekly', priority: '0.9', theme: 'theme-projects', cta: CTA_HOME, active: { portfolio: true } },
+  { file: 'projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', theme: 'theme-projects', cta: CTA_HOME, active: { portfolio: true } },
   // The project detail template renders per-slug; those URLs are listed from
   // the portfolio's own structured data instead of this entry.
   { file: 'project.html', url: null, theme: 'theme-portfolio', cta: CTA_HOME, active: { portfolio: true } },
-  { file: 'process.html', url: '/build-your-home/', changefreq: 'monthly', priority: '0.9', theme: 'theme-process', cta: CTA_HOME, active: { process: true } },
-  { file: 'sell.html', url: '/sell-your-home/', changefreq: 'monthly', priority: '0.7', theme: 'theme-sell', cta: CTA_HOME, active: { sell: true } },
-  { file: 'our-story.html', url: '/our-story/', changefreq: 'monthly', priority: '0.9', theme: 'theme-about', cta: CTA_HOME, active: { about: true } },
+  { file: 'process.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', theme: 'theme-process', cta: CTA_HOME, active: { process: true } },
+  { file: 'sell.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7', theme: 'theme-sell', cta: CTA_HOME, active: { sell: true } },
+  { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', theme: 'theme-about', cta: CTA_HOME, active: { about: true } },
   // Print variant of Our Story — same content, so it stays out of the index.
   { file: 'our-story-print.html', url: null, theme: 'theme-about', cta: CTA_HOME, active: { about: true } },
-  { file: 'why-us.html', url: '/why-us/', changefreq: 'monthly', priority: '0.8', theme: 'theme-why-us', cta: CTA_HOME },
-  { file: 'investors.html', url: '/developers/', changefreq: 'monthly', priority: '0.7', theme: 'theme-investors', cta: CTA_HOME },
-  { file: 'stories.html', url: '/stories/', changefreq: 'weekly', priority: '0.7', theme: 'theme-stories', cta: CTA_HOME },
+  { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', theme: 'theme-why-us', cta: CTA_HOME },
+  { file: 'investors.html', url: '/developers', changefreq: 'monthly', priority: '0.7', theme: 'theme-investors', cta: CTA_HOME },
+  { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7', theme: 'theme-stories', cta: CTA_HOME },
   // Carries `robots: noindex` and is disallowed in robots.txt.
   { file: 'client-portal.html', url: null, theme: 'theme-portal', cta: CTA_HOME },
-  { file: 'contact.html', url: '/contact/', changefreq: 'monthly', priority: '0.8', theme: 'theme-portal', cta: CTA_CONTACT },
+  { file: 'contact.html', url: '/contact', changefreq: 'monthly', priority: '0.8', theme: 'theme-portal', cta: CTA_CONTACT },
 
   // Help / legal
-  { file: 'faq.html', url: '/faq/', changefreq: 'monthly', priority: '0.7', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'warranty.html', url: '/warranty/', changefreq: 'yearly', priority: '0.6', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'homeowner-resources.html', url: '/homeowner-resources/', changefreq: 'yearly', priority: '0.6', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'code-of-conduct.html', url: '/code-of-conduct/', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'privacy.html', url: '/privacy/', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'terms.html', url: '/terms/', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'disclaimer.html', url: '/disclaimer/', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'faq.html', url: '/faq', changefreq: 'monthly', priority: '0.7', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'warranty.html', url: '/warranty', changefreq: 'yearly', priority: '0.6', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'homeowner-resources.html', url: '/homeowner-resources', changefreq: 'yearly', priority: '0.6', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'code-of-conduct.html', url: '/code-of-conduct', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'privacy.html', url: '/privacy', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'terms.html', url: '/terms', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'disclaimer.html', url: '/disclaimer', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
 
   // Articles
-  { file: 'steps-to-building-a-custom-home.html', url: '/steps-to-building-a-custom-home/', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
-  { file: 'how-to-find-a-custom-home-builder.html', url: '/how-to-find-a-custom-home-builder/', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
-  { file: 'is-custom-home-building-a-good-investment.html', url: '/is-custom-home-building-a-good-investment/', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
-  { file: 'new-luxury-essentials-custom-homes-arizona.html', url: '/new-luxury-essentials-custom-homes-arizona/', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
+  { file: 'steps-to-building-a-custom-home.html', url: '/steps-to-building-a-custom-home', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
+  { file: 'how-to-find-a-custom-home-builder.html', url: '/how-to-find-a-custom-home-builder', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
+  { file: 'is-custom-home-building-a-good-investment.html', url: '/is-custom-home-building-a-good-investment', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
+  { file: 'new-luxury-essentials-custom-homes-arizona.html', url: '/new-luxury-essentials-custom-homes-arizona', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
   {
     file: 'exploring-the-costs-of-building-your-dream-home-a-comprehensive-guide.html',
-    url: '/exploring-the-costs-of-building-your-dream-home-a-comprehensive-guide/',
+    url: '/exploring-the-costs-of-building-your-dream-home-a-comprehensive-guide',
     changefreq: 'monthly',
     priority: '0.6',
     theme: 'theme-stories',
@@ -91,7 +96,7 @@ const PAGES = [
   },
   {
     file: 'why-choosing-a-professional-home-builder-matters-for-your-custom-house.html',
-    url: '/why-choosing-a-professional-home-builder-matters-for-your-custom-house/',
+    url: '/why-choosing-a-professional-home-builder-matters-for-your-custom-house',
     changefreq: 'monthly',
     priority: '0.6',
     theme: 'theme-stories',
