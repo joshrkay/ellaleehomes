@@ -5,8 +5,8 @@ Run `npm install` once, then `npm run dev`. Open the URL printed by BrowserSync 
 ## Routes
 
 1. **Home** — `index.html` (loader + dark hero)
-2. **Portfolio** — `projects.html`
-3. **Process** — `process.html`
+2. **Portfolio** — `previous-projects.html`
+3. **Process** — `build-your-home.html`
 4. **Project detail** — `project.html?slug=68th` (or another slug from the gallery)
 
 ## Checks
