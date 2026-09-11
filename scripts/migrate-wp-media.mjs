@@ -23,6 +23,8 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { Readable } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -98,21 +100,33 @@ async function download(items) {
     for (let item; (item = queue.shift()); ) {
       let lastErr;
       for (let attempt = 1; attempt <= RETRIES; attempt++) {
+        const dest = path.join(root, item.local);
+        const tmp = `${dest}.part`;
         try {
           const res = await fetch(item.url);
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const buf = Buffer.from(await res.arrayBuffer());
-          if (!buf.length) throw new Error('empty response');
-          const dest = path.join(root, item.local);
+          if (!res.body) throw new Error('no response body');
           fs.mkdirSync(path.dirname(dest), { recursive: true });
+          // Stream to disk rather than buffering the whole file: these are
+          // full-resolution originals and one of them is the homepage video,
+          // so CONCURRENCY of them in memory at once is a real risk.
           // Write beside the target and move, so an interrupted run never
           // leaves a half-written file that later looks downloaded.
-          const tmp = `${dest}.part`;
-          fs.writeFileSync(tmp, buf);
+          await pipeline(Readable.fromWeb(res.body), fs.createWriteStream(tmp));
+          const got = fs.statSync(tmp).size;
+          if (!got) throw new Error('empty response');
+          const declared = Number(res.headers.get('content-length'));
+          // A stream can end early without erroring; compare against the
+          // length the server promised so a truncated file is not renamed
+          // into place and mistaken for a complete download later.
+          if (Number.isFinite(declared) && declared > 0 && got !== declared) {
+            throw new Error(`truncated: got ${got} of ${declared} bytes`);
+          }
           fs.renameSync(tmp, dest);
           lastErr = null;
           break;
         } catch (err) {
+          fs.rmSync(tmp, { force: true });
           lastErr = err;
           if (attempt < RETRIES) await new Promise((r) => setTimeout(r, 500 * 2 ** attempt));
         }
@@ -128,6 +142,9 @@ async function download(items) {
   if (failures.length > 20) console.log(`  ...and ${failures.length - 20} more`);
   if (failures.length) {
     console.log('Files that did not download keep pointing at WordPress; rerun to retry them.');
+    // Exit non-zero so a caller that only runs --download can tell a partial
+    // fetch from a complete one instead of migrating against a short tree.
+    process.exitCode = 1;
   }
 }
 
