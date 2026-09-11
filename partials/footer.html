@@ -1,29 +1,93 @@
-<!-- FOOTER (injected on every page; __HREF_MEET__ / __HREF_CTA__ resolved at build) -->
-<footer class="grain site-footer">
-  <div>
-    <div class="footer-brand">Ella Lee Homes</div>
-    <p class="footer-copy">Arizona's premier luxury custom home builder. Built to last. Built for you.</p>
-    <div class="footer-roc">ROC License: KB2-333410</div>
-  </div>
-  <div class="footer-col">
-    <h4>Navigate</h4>
-    <a href="projects.html">Portfolio</a><a href="__HREF_MEET__">About</a>
-    <a href="process.html">Process</a><a href="#">Investors</a><a href="__HREF_CTA__">Contact</a>
-  </div>
-  <div class="footer-col">
-    <h4>Services</h4>
-    <a href="__HREF_CTA__">Build Your Home</a><a href="__HREF_CTA__">Sell a Home</a>
-    <a href="__HREF_CTA__">Developers</a><a href="#">Client Portal</a>
-  </div>
-  <div class="footer-col">
-    <h4>Contact</h4>
-    <a href="#">hello@ellaleehomes.com</a>
-    <a href="#">(480) 340-8700</a>
-    <a href="#">4408 N 12th St</a>
-    <a href="#">Phoenix, AZ 85014</a>
-  </div>
-</footer>
-<div class="footer-btm">
-  <span>© 2026 Ella Lee Homes. All rights reserved.</span>
-  <span class="footer-btm-tagline">Building Arizona's finest homes.</span>
-</div>
+<!-- FOOTER (injected on every page by scripts/build-html.mjs; __HOME__ resolves to "" on the homepage and "index.html" elsewhere) -->
+  <footer id="contact" class="site-footer" data-screen-label="Footer" style="position: relative; overflow: hidden; background: #001526; color: #EAE5DC">
+    <div style="position: absolute; inset: 0">
+      <img class="elh-img" id="elh-footer-bg" src="uploads/footer-bg.jpg" alt="" loading="lazy" decoding="async">
+    </div>
+    <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(0,21,38,.66) 0%, rgba(0,21,38,.74) 40%, rgba(0,21,38,.93) 100%)"></div>
+    <div style="position: relative">
+      <img src="assets/elh-wordmark.svg" alt="Ella Lee Homes" style="display: block; width: calc(100% + 3vw); max-width: none; height: auto; margin: -1vw -1.5vw 0">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 18px; padding: clamp(48px, 8vw, 132px) clamp(20px, 4vw, 64px) clamp(56px, 9vw, 152px); text-align: center">
+        <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 3.7vw, 58px); font-weight: 400; line-height: 1.05; text-shadow: 0 2px 22px rgba(0,0,0,.4)">Start Your Build</h2>
+        <p style="margin: 0; max-width: 18ch; font-size: clamp(14px, 1.15vw, 17px); line-height: 1.5; color: rgba(234,229,220,.94)">Experience the Ella Lee Homes difference.</p>
+        <a class="elh-fh1" href="__HOME__#inquiry" style="margin-top: 8px; padding: 15px 42px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #EAE5DC; border: 1px solid rgba(191,160,106,.85); border-radius: 100px; transition: background .3s ease, color .3s ease, border-color .3s ease">Contact</a>
+      </div>
+      <div style="max-width: 1500px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px)">
+        <div style="height: 1px; background: linear-gradient(to right, rgba(191,160,106,0) 0%, rgba(191,160,106,.85) 22%, rgba(191,160,106,.85) 78%, rgba(191,160,106,0) 100%)"></div>
+      </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 18px clamp(20px, 3vw, 48px); max-width: 1500px; margin: 0 auto; padding: clamp(26px, 3vw, 38px) clamp(20px, 4vw, 64px) 0">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(22px, 2vw, 30px); font-weight: 400; line-height: 1; letter-spacing: -.01em; color: #BFA06A">50+</span>
+        <span style="font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(234,229,220,.82)">Custom homes built to date</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(22px, 2vw, 30px); font-weight: 400; line-height: 1; letter-spacing: -.01em; color: #BFA06A">200K+</span>
+        <span style="font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(234,229,220,.82)">Sq ft built</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(22px, 2vw, 30px); font-weight: 400; line-height: 1; letter-spacing: -.01em; color: #BFA06A">5.0</span>
+        <span style="font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(234,229,220,.82)">Client rating across every platform</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(22px, 2vw, 30px); font-weight: 400; line-height: 1; letter-spacing: -.01em; color: #BFA06A">KB2-333410</span>
+        <span style="font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(234,229,220,.82)">Arizona ROC license</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: clamp(32px, 4vw, 72px); max-width: 1500px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(20px, 4vw, 64px) clamp(40px, 5vw, 64px)">
+      <div style="display: flex; flex-direction: column; gap: 26px">
+        <img src="assets/elh-monogram.svg" alt="Ella Lee Homes monogram" style="width: 78px; height: 78px">
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.65; color: rgba(234,229,220,.85)">
+          <span style="font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: #BFA06A">Address:</span>
+          <span>4408 N 12th St, Ste 200<br>Phoenix, AZ 85014 United States</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.65; color: rgba(234,229,220,.85)">
+          <span style="font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: #BFA06A">Contact:</span>
+          <span style="max-width: 26ch">Contact us today and discover why homeowners, investors, and developers trust and enjoy working with us.</span>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: clamp(28px, 3.5vw, 46px)">
+      <nav style="display: flex; flex-direction: column; gap: 14px">
+        <a href="__HOME__#top" style="font-size: 14px; color: #EAE5DC">Home</a>
+        <a href="__HOME__#story" style="font-size: 14px; color: #EAE5DC">Our Story</a>
+        <a href="__HOME__#contact" style="font-size: 14px; color: #EAE5DC">Contact Us</a>
+        <a href="__HOME__#projects" style="font-size: 14px; color: #EAE5DC">Previous Projects</a>
+        <a href="__HOME__#faq" style="font-size: 14px; color: #EAE5DC">FAQ</a>
+        <a href="__HOME__#inquiry" style="font-size: 14px; color: #EAE5DC">Build Your Home</a>
+      </nav>
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; gap: 14px">
+          <a class="elh-fh2" href="https://www.facebook.com/1EllaLeeHomes" aria-label="Facebook" style="display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; color: rgba(234,229,220,.85); transition: color .3s ease">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M13.9 21v-8h2.6l.4-3h-3V8.3c0-.9.3-1.5 1.5-1.5H17V4.1C16.7 4.1 15.6 4 14.4 4c-2.5 0-4.1 1.5-4.1 4.2V10H7.7v3h2.6v8h3.6Z"></path></svg>
+          </a>
+          <a class="elh-fh2" href="https://www.instagram.com/ellaleehomes/" aria-label="Instagram" style="display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; color: rgba(234,229,220,.85); transition: color .3s ease">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.1" cy="6.9" r="1.05" fill="currentColor" stroke="none"></circle></svg>
+          </a>
+          <a class="elh-fh2" href="https://www.youtube.com/@ellaleehomes1888" aria-label="YouTube" style="display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; color: rgba(234,229,220,.85); transition: color .3s ease">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.4" y="5.6" width="19.2" height="12.8" rx="3.6"></rect><path d="M10.4 9.6 15.2 12l-4.8 2.4V9.6Z" fill="currentColor" stroke="none"></path></svg>
+          </a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <a href="tel:+14803408700" style="font-size: 16px; color: #EAE5DC">(480) 340-8700</a>
+          <a href="mailto:hello@ellaleehomes.com" style="font-size: 16px; color: #EAE5DC">hello@ellaleehomes.com</a>
+        </div>
+      </div>
+      </div>
+      <nav style="display: flex; flex-direction: column; gap: 14px">
+        <a href="#" style="font-size: 14px; color: #EAE5DC">Blog</a>
+        <a href="#" style="font-size: 14px; color: #EAE5DC">Sell Your Home</a>
+        <a href="#" style="font-size: 14px; color: #EAE5DC">Homeowner Resources</a>
+        <a href="#" style="font-size: 14px; color: #EAE5DC">Warranty</a>
+        <a href="__HOME__#giving" style="font-size: 14px; color: #EAE5DC">Giving Back</a>
+        <a href="#" style="font-size: 14px; color: #EAE5DC">Client Portal</a>
+      </nav>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; max-width: 1500px; margin: 0 auto; padding: 26px clamp(20px, 4vw, 64px) 40px; border-top: 1px solid rgba(234,229,220,.12)">
+      <div style="display: flex; flex-wrap: wrap; gap: 30px">
+        <a href="#" style="font-size: 13px; color: #EAE5DC; text-decoration: underline">Privacy Policy</a>
+        <a href="#" style="font-size: 13px; color: #EAE5DC; text-decoration: underline">Disclaimers</a>
+        <a href="#" style="font-size: 13px; color: #EAE5DC; text-decoration: underline">Code of Conduct</a>
+        <a href="#" style="font-size: 13px; color: #EAE5DC; text-decoration: underline">Terms of Service</a>
+      </div>
+      <span style="font-size: 13px; color: #EAE5DC">Copyright © 2026 Ella Lee Homes</span>
+    </div>
+    </div>
+  </footer>

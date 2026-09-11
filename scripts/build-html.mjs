@@ -23,12 +23,15 @@ const footerTemplate = fs.readFileSync(footerPath, 'utf8');
 const cursorTemplate = fs.readFileSync(cursorPath, 'utf8');
 
 /**
- * @typedef {{ file: string; navClass: string; active: Partial<Record<'why'|'portfolio'|'process'|'about'|'investors', boolean>> }} PageCfg
+ * `nav` / `cursor` say whether a page takes the shared partials. The homepage
+ * carries its own header and drag interactions, so it opts out of both.
+ *
+ * @typedef {{ file: string; navClass: string; nav?: boolean; cursor?: boolean; active: Partial<Record<'why'|'portfolio'|'process'|'about'|'investors', boolean>> }} PageCfg
  */
 
 /** @type {PageCfg[]} */
 const PAGES = [
-  { file: 'index.html', navClass: 'compact', active: {} },
+  { file: 'index.html', navClass: '', nav: false, cursor: false, active: {} },
   { file: 'projects.html', navClass: '', active: { portfolio: true } },
   { file: 'process.html', navClass: '', active: { process: true } },
   { file: 'project.html', navClass: '', active: { portfolio: true } },
@@ -60,12 +63,13 @@ function renderNav(active, navClass) {
 }
 
 /**
+ * The footer links to homepage sections, so off the homepage those anchors
+ * need to be prefixed with the page itself.
+ *
  * @param {boolean} isHome
  */
 function renderFooter(isHome) {
-  const hrefMeet = 'our-story.html';
-  const hrefCta = isHome ? '#cta' : 'index.html#cta';
-  return footerTemplate.replaceAll('__HREF_MEET__', hrefMeet).replaceAll('__HREF_CTA__', hrefCta);
+  return footerTemplate.replaceAll('__HOME__', isHome ? '' : 'index.html');
 }
 
 function copyDir(from, to) {
@@ -88,23 +92,23 @@ for (const page of PAGES) {
     process.exit(1);
   }
   let content = fs.readFileSync(srcFile, 'utf8');
-  if (!content.includes(PLACEHOLDER)) {
-    console.error('Missing', PLACEHOLDER, 'in', page.file);
-    process.exit(1);
+  const wantsNav = page.nav !== false;
+  const wantsCursor = page.cursor !== false;
+  const required = [[FOOTER_PLACEHOLDER, true], [PLACEHOLDER, wantsNav], [CURSOR_PLACEHOLDER, wantsCursor]];
+  for (const [token, needed] of required) {
+    if (needed && !content.includes(token)) {
+      console.error('Missing', token, 'in', page.file);
+      process.exit(1);
+    }
   }
-  if (!content.includes(FOOTER_PLACEHOLDER)) {
-    console.error('Missing', FOOTER_PLACEHOLDER, 'in', page.file);
-    process.exit(1);
+  if (wantsNav) {
+    content = content.split(PLACEHOLDER).join(renderNav(page.active, page.navClass));
   }
-  if (!content.includes(CURSOR_PLACEHOLDER)) {
-    console.error('Missing', CURSOR_PLACEHOLDER, 'in', page.file);
-    process.exit(1);
-  }
-  const nav = renderNav(page.active, page.navClass);
-  content = content.split(PLACEHOLDER).join(nav);
   const isHome = page.file === 'index.html';
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(isHome));
-  content = content.split(CURSOR_PLACEHOLDER).join(cursorTemplate);
+  if (wantsCursor) {
+    content = content.split(CURSOR_PLACEHOLDER).join(cursorTemplate);
+  }
   fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
   console.log('Wrote', path.join('dist', page.file));
 }

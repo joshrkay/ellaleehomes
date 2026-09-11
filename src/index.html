@@ -1,1503 +1,614 @@
-<!DOCTYPE html><html lang="en"><head></head><body class="theme-home" data-cc-id="cc-15">
-
-
-
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ella Lee Homes &mdash; Luxury Custom Home Builder &middot; Arizona</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,300;1,300&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site-nav.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Custom Home Builder in Arizona | Ella Lee Homes</title>
+<meta name="description" content="Ella Lee Homes is an Arizona custom home builder serving Paradise Valley, Scottsdale, and Arcadia. Honest communication and craftsmanship that lasts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap">
 <link rel="stylesheet" href="assets/site-footer.css">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --ink: #2B2B2B;
-  --ink-deep: #1e1e1e;
-  --paper: #EAE5DC;
-  --nickel: #A5A09D;
-  --navy: #002855;
-  --gold: #C9A96E;
-  --mid: rgba(234,229,220,0.5);
-  --dim: rgba(234,229,220,0.28);
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans: 'Inter', Helvetica, sans-serif;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-}
-html { scroll-behavior: auto; }
-body {
-  background: var(--ink-deep); color: var(--paper);
-  font-family: var(--sans); overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  font-weight: 400;
-}
 
-/* Custom cursor: assets/site-cursor.css */
-
-/* â”€â”€â”€ LOADER â”€â”€â”€ */
-#loader {
-  position: fixed; inset: 0; z-index: 8000; background: var(--ink);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 0 56px 52px;
-  transition: transform 1.4s cubic-bezier(0.76,0,0.24,1);
-}
-#loader.exit { transform: translateY(-100%); }
-#loader-inner { display: flex; justify-content: space-between; align-items: flex-end; }
-#loader-count {
-  font-family: var(--sans); font-size: clamp(88px, 16vw, 200px);
-  font-weight: 200; line-height: 0.9; letter-spacing: -0.05em;
-  color: var(--paper); font-variant-numeric: tabular-nums;
-}
-#loader-right { text-align: right; padding-bottom: 8px; }
-#loader-name {
-  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
-  color: rgba(234,229,220,0.28); margin-bottom: 6px;
-}
-#loader-sub {
-  font-family: var(--sans); font-size: 12px; font-style: italic; font-weight: 300;
-  color: rgba(234,229,220,0.3);
-}
-#loader-line {
-  width: 100%; height: 1px; background: rgba(244,241,234,0.08); margin-top: 32px; position: relative;
-}
-#loader-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--gold); width: 0%; transition: width .05s linear; }
-
-/* Nav: assets/site-nav.css (+ body.theme-home) */
-
-/* â”€â”€â”€ HERO â”€â”€â”€ */
-#hero {
-  position: relative; height: 100vh; min-height: 650px; overflow: hidden;
-  /* scroll-fade: will be updated via JS transform */
-  will-change: opacity, transform;
-}
-#hero-media {
-  position: absolute; inset: 0;
-  background: url('https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg') center/cover no-repeat;
-}
-#hero-video {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; display: none; z-index: 1;
-}
-/* sticky fade wrapper so hero stays in place while fading */
-#hero-wrapper {
-  position: sticky; top: 0; z-index: 1;
-  height: 100vh;
-}
-.hero-grad {
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(
-    to bottom,
-    rgba(13,12,11,0.35) 0%,
-    rgba(13,12,11,0.1) 40%,
-    rgba(13,12,11,0.65) 80%,
-    rgba(13,12,11,0.92) 100%
-  );
-}
-
-/* hero text layout */
-.hero-body { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 56px 64px; }
-.hero-eyebrow {
-  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dim);
-  margin-bottom: 20px; opacity: 0;
-  animation: fadeUp .7s var(--ease) .2s forwards;
-}
-.hero-headline { overflow: hidden; margin-bottom: 6px; }
-.hero-headline .line {
-  display: block; font-family: var(--sans);
-  font-size: clamp(56px, 9vw, 128px); font-weight: 300;
-  line-height: .95; letter-spacing: -0.03em;
-  transform: translateY(110%);
-}
-.hero-headline .line em { font-style: italic; color: var(--gold); }
-.hero-headline .line.l1 { animation: slideUp 1.1s var(--ease) .1s forwards; }
-.hero-headline .line.l2 { animation: slideUp 1.1s var(--ease) .22s forwards; }
-
-.hero-footer {
-  margin-top: 32px; display: flex; justify-content: space-between; align-items: flex-end;
-}
-.hero-desc {
-  font-size: 15px; line-height: 1.85; color: rgba(234,229,220,0.78);
-  max-width: 360px; letter-spacing: 0.01em;
-  opacity: 0; animation: fadeUp .8s var(--ease) .7s forwards;
-}
-.hero-scroll-hint {
-  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
-  font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dim);
-  opacity: 0; animation: fadeUp .8s var(--ease) 1s forwards;
-}
-.hero-scroll-line { width: 1px; height: 48px; background: rgba(244,241,234,0.2); animation: scrollPulse 2s ease-in-out infinite; }
-@keyframes scrollPulse { 0%,100% { transform: scaleY(1); opacity: .2; } 50% { transform: scaleY(1.4); opacity: .5; } }
-
-/* â”€â”€â”€ MARQUEE â”€â”€â”€ */
-.marquee { overflow: hidden; border-top: 1px solid rgba(244,241,234,0.08); border-bottom: 1px solid rgba(244,241,234,0.08); }
-.marquee-track {
-  display: flex; white-space: nowrap; padding: 14px 0;
-  animation: marquee 28s linear infinite;
-}
-.marquee-item {
-  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--nickel); padding: 0 36px;
-  display: flex; align-items: center; gap: 36px;
-}
-.marquee-item em { font-family: var(--serif); font-style: italic; font-size: 12px; color: rgba(244,241,234,0.4); letter-spacing: 0; }
-.marquee-item::after { content: '·'; color: var(--gold); }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* â”€â”€â”€ SCROLL LOGO OVERLAY â”€â”€â”€ */
-#scroll-logo {
-  position: fixed; inset: 0; z-index: 600;
-  background: rgba(13,12,11,0.88) !important;
-  backdrop-filter: blur(6px);
-  display: flex; align-items: center; justify-content: center;
-  pointer-events: none; opacity: 0;
-  transition: opacity 0.5s;
-  width: 100vw; height: 100vh;
-}
-#scroll-logo img {
-  width: min(300px, 50vw);
-  filter: brightness(0) invert(1);
-}
-
-/* â”€â”€â”€ LIGHT SECTION â”€â”€â”€ */
-.section-light { background: var(--paper) !important; color: var(--ink) !important; }
-.section-light .meet-heading { color: var(--ink); }
-.section-light .meet-heading em { color: var(--navy); }
-.section-light .meet-body { color: rgba(43,43,43,0.65); }
-.section-light .meet-tagline { color: rgba(43,43,43,0.4); }
-.section-light .stat-cell { background: rgba(43,43,43,0.05); }
-.section-light .stat-num { color: var(--ink); }
-.section-light .stat-unit { color: var(--navy); }
-.section-light .stat-label { color: rgba(43,43,43,0.45); }
-.section-light .meet-link { color: var(--ink); border-color: rgba(43,43,43,0.2); }
-.section-light .meet-link:hover { color: var(--navy); border-color: var(--navy); }
-
-/* â”€â”€â”€ STACKING CARDS â”€â”€â”€ */
-#experience { position: relative; }
-.exp-scroll-zone { position: relative; z-index: 0; }
-.exp-sticky-container {
-  position: sticky; top: 0; height: 100vh;
-  display: flex; flex-direction: column;
-  overflow: hidden;
-  background: #EAE5DC;
-  pointer-events: none;
-  z-index: 0;
-}
-.exp-intro {
-  flex-shrink: 0;
-  padding: 40px 56px 0;
-  display: flex; justify-content: space-between; align-items: flex-end;
-  border-top: 1px solid rgba(234,229,220,0.15);
-}
-.exp-card-stack { flex: 1; position: relative; margin-top: 20px; margin-bottom: 0; }
-
-.exp-stack-zone { position: relative; }
-.exp-intro-left .eyebrow {
-  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(234,229,220,0.5); margin-bottom: 12px;
-}
-.exp-intro-left h2 {
-  font-family: var(--sans); font-size: clamp(32px,4.5vw,58px);
-  font-weight: 300; line-height: 1; letter-spacing: -0.03em; color: var(--paper);
-}
-.exp-intro-left h2 em { font-style: italic; color: var(--gold); }
-.exp-intro-right {
-  font-size: 13px; line-height: 1.85; color: rgba(234,229,220,0.55);
-  max-width: 380px; text-align: right;
-}
-
-.exp-scroll-zone { position: relative; }
-
-.exp-card {
-  position: absolute; top: 0; left: 0; right: 0;
-  background: var(--navy); border: 1px solid rgba(234,229,220,0.08);
-  border-bottom: none;
-  padding: 42px 56px;
-  opacity: 0;
-  will-change: transform, opacity;
-  display: grid; grid-template-columns: 60px 88px 1fr 2fr auto; gap: 28px; align-items: center;
-  box-shadow: 0 -2px 20px rgba(0,0,0,0.2);
-  min-height: 0; height: auto; overflow: hidden;
-}
-.exp-card-num {
-  font-family: var(--sans); font-size: 13px; font-weight: 400;
-  color: rgba(234,229,220,0.4); line-height: 1; letter-spacing: 0.1em;
-  padding-top: 4px;
-}
-.exp-card-body { display: contents; }
-.exp-card-icon {
-  width: 80px; height: 80px;
-  border: 1px solid rgba(234,229,220,0.2); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(234,229,220,0.08); flex-shrink: 0;
-  margin-bottom: 0;
-}
-.exp-card-title {
-  font-family: Helvetica, var(--sans); font-size: 18px;
-  font-weight: 500; line-height: 1.4; letter-spacing: -0.01em;
-  color: var(--paper); margin-bottom: 0;
-}
-.exp-card-text {
-  font-size: 14px; line-height: 1.4; color: rgba(123,123,123,0.9);
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-  overflow: hidden; text-align: left;
-}
-.exp-card-tag {
-  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--gold); white-space: nowrap;
-  border-bottom: 1px solid rgba(201,169,110,0.3); padding-bottom: 3px;
-  margin-top: 0;
-}
-
-/* card variations "” navy on cream bg */
-.exp-card:nth-child(1) { background: #002855; }
-.exp-card:nth-child(2) { background: #002f63; }
-.exp-card:nth-child(3) { background: #003370; }
-.exp-card:nth-child(4) { background: #00387a; }
-.exp-card:nth-child(5) { background: #003d85; }
-.exp-card:nth-child(6) { background: #004190; }
-.exp-card:nth-child(7) { background: #00469a; }
-
-/* â”€â”€â”€ EXPERIENCE SPLIT SCROLL â”€â”€â”€ */
-#experience { position: relative; background: var(--ink); z-index: 1; }
-#exp-split-zone { position: relative; height: 400vh; }
-#exp-split-sticky {
-  position: sticky; top: 0; height: 100vh;
-  display: grid; grid-template-columns: 1fr 1fr;
-  overflow: hidden;
-}
-
-/* Left sticky text */
-#exp-left {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 80px 64px; border-right: 1px solid rgba(43,43,43,0.1);
-  background: #EAE5DC;
-}
-.exp-left-eyebrow {
-  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(43,43,43,0.4); margin-bottom: 24px;
-}
-.exp-left-title {
-  font-family: var(--sans); font-size: clamp(36px,4vw,56px); font-weight: 300;
-  line-height: 1.05; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 48px;
-}
-.exp-left-title em { font-style: italic; color: var(--navy); }
-.exp-features { display: flex; flex-direction: column; gap: 12px; }
-.exp-feat {
-  display: flex; align-items: center; gap: 16px;
-  padding: 12px 0; border-bottom: 1px solid rgba(234,229,220,0.06);
-  transition: all 0.3s;
-}
-.exp-feat:hover { border-bottom-color: var(--gold); }
-.exp-feat-num {
-  font-size: 9px; letter-spacing: 0.15em; color: var(--gold); flex-shrink: 0;
-  width: 24px;
-}
-.exp-feat-label {
-  font-size: 13px; font-weight: 400; color: rgba(234,229,220,0.65); letter-spacing: 0.02em;
-  transition: color 0.2s;
-}
-.exp-feat:hover .exp-feat-label { color: var(--paper); }
-
-.exp-left-body {
-  font-size: 14px; line-height: 1.85; color: rgba(43,43,43,0.6);
-  max-width: 440px;
-}
-
-/* Right scrolling image columns */
-#exp-right {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-  overflow: hidden; padding: 12px; background: #EAE5DC;
-}
-.exp-col { display: flex; flex-direction: column; gap: 12px; will-change: transform; }
-.exp-img-wrap { overflow: hidden; flex-shrink: 0; }
-.exp-img-wrap img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
-
-/* â”€â”€â”€ MEET SECTION â”€â”€â”€ */
-/* â”€â”€â”€ MEET IMAGE SWITCHER â”€â”€â”€ */
-#meet {
-  position: relative; height: 100vh; min-height: 600px;
-  overflow: hidden; z-index: 1;
-}
-#meet-bg { position: absolute; inset: 0; }
-.meet-bg-img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  opacity: 0; transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1);
-  transform: scale(1.04); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-}
-.meet-bg-img.active { opacity: 1; transform: scale(1); }
-#meet-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to right, rgba(13,12,11,0.88) 0%, rgba(13,12,11,0.4) 50%, transparent 100%);
-  z-index: 1;
-}
-#meet-labels {
-  position: absolute; top: 50%; left: 56px; transform: translateY(-50%);
-  z-index: 2;
-}
-.meet-label-eyebrow {
-  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(234,229,220,0.4); margin-bottom: 28px;
-}
-.meet-nav { display: flex; flex-direction: column; gap: 4px; }
-.meet-btn {
-  background: none; border: none; cursor: none;
-  font-family: var(--sans); font-size: clamp(28px,4vw,52px); font-weight: 300;
-  letter-spacing: -0.02em; color: rgba(234,229,220,0.3);
-  text-align: left; padding: 4px 0; line-height: 1.1;
-  transition: color 0.25s, transform 0.25s; position: relative;
-}
-.meet-btn::before {
-  content: ''; position: absolute; left: -20px; top: 50%;
-  transform: translateY(-50%) scaleX(0); transform-origin: left;
-  width: 12px; height: 1px; background: var(--gold);
-  transition: transform 0.3s var(--ease);
-}
-.meet-btn.active { color: var(--paper); transform: translateX(20px); }
-.meet-btn.active::before { transform: translateY(-50%) scaleX(1); }
-.meet-btn:hover { color: rgba(234,229,220,0.7); }
-
-#meet-caption {
-  position: absolute; bottom: 56px; right: 56px; z-index: 2;
-  max-width: 380px; text-align: right;
-}
-.meet-caption-text {
-  font-size: 14px; line-height: 1.85; color: rgba(234,229,220,0.55);
-}
-.meet-caption-link {
-  margin-top: 16px; display: inline-block;
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--paper); text-decoration: none; cursor: none;
-  border-bottom: 1px solid rgba(234,229,220,0.25); padding-bottom: 3px;
-  transition: border-color 0.2s, color 0.2s;
-}
-.meet-caption-link:hover { color: var(--gold); border-color: var(--gold); }
-
-
-.meet-left {}
-.meet-tagline {
-  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--nickel); margin-bottom: 28px;
-}
-.meet-heading {
-  font-family: var(--sans);
-  font-size: clamp(40px, 5.5vw, 76px);
-  font-weight: 300; line-height: 1.0; letter-spacing: -0.03em;
-}
-.meet-heading em { font-style: italic; color: var(--gold); }
-.meet-right { padding-top: 12px; }
-.meet-body {
-  font-size: 16px; line-height: 1.9; color: rgba(234,229,220,0.78);
-  max-width: 480px;
-}
-.meet-stats {
-  margin-top: 52px;
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; background: rgba(244,241,234,0.07);
-}
-.stat-cell {
-  padding: 24px 20px; background: var(--ink);
-}
-.stat-num {
-  font-family: var(--sans); font-size: 40px; font-weight: 200;
-  color: var(--paper); line-height: 1; letter-spacing: -0.03em;
-}
-.stat-unit { font-style: italic; color: var(--gold); }
-.stat-label {
-  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--dim); margin-top: 6px;
-}
-.meet-link {
-  margin-top: 40px; display: inline-flex; align-items: center; gap: 14px;
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--paper); text-decoration: none; cursor: none;
-  border-bottom: 1px solid rgba(244,241,234,0.18); padding-bottom: 4px;
-  transition: border-color .2s, color .2s;
-}
-.meet-link::after { content: 'â†’'; transition: transform .2s; }
-.meet-link:hover { color: var(--gold); border-color: var(--gold); }
-.meet-link:hover::after { transform: translateX(5px); }
-
-/* â”€â”€â”€ EXPAND â”€â”€â”€ */
-.expand-zone { position: relative; height: 420vh; }
-.expand-sticky {
-  position: sticky; top: 0; height: 100vh;
-  overflow: hidden; display: flex; align-items: center; justify-content: center;
-}
-.expand-clip {
-  position: relative; overflow: hidden;
-  will-change: width, height;
-}
-.expand-clip img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  will-change: transform;
-}
-.expand-caption {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 60px 56px 48px;
-  background: linear-gradient(to top, rgba(13,12,11,.88) 0%, transparent 100%);
-  opacity: 0; transition: opacity .5s;
-}
-.expand-clip.revealed .expand-caption { opacity: 1; }
-.expand-caption h2 {
-  font-family: var(--sans); font-size: clamp(24px,4vw,56px); font-weight: 200; line-height: 1.05; letter-spacing: -0.03em;
-}
-.expand-caption h2 em { font-style: italic; color: var(--gold); }
-.expand-caption p {
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); margin-top: 12px;
-}
-
-/* â”€â”€â”€ PROJECTS â”€â”€â”€ */
-#projects {}
-.projects-hd {
-  padding: 100px 56px 64px;
-  display: flex; justify-content: space-between; align-items: flex-end;
-  border-top: 1px solid rgba(234,229,220,0.07);
-}
-.projects-hd-left .eyebrow {
-  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--dim); margin-bottom: 12px;
-}
-.projects-hd-left h2 {
-  font-family: var(--sans); font-size: clamp(32px,4.5vw,58px); font-weight: 200;
-  line-height: 1; letter-spacing: -0.04em;
-}
-.projects-hd-left h2 em { font-style: italic; color: var(--gold); }
-.all-link {
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--dim); text-decoration: none; cursor: none;
-  border-bottom: 1px solid rgba(244,241,234,0.15); padding-bottom: 3px;
-  transition: color .2s; align-self: flex-end;
-}
-.all-link:hover { color: var(--paper); }
-
-/* project item "” horizontal slides */
-#projects { position: relative; z-index: 1; }
-#proj-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
-#proj-track { display: flex; height: 100%; will-change: transform; flex-wrap: nowrap; }
-
-.proj-slide {
-  flex: 0 0 100vw; width: 100vw; height: 100vh;
-  position: relative; overflow: hidden;
-}
-.proj-slide-visual { position: absolute; inset: 0; }
-.proj-slide-visual img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transform: scale(1.06); filter: saturate(.75) brightness(0.85);
-  transition: transform .9s var(--ease), filter .9s var(--ease);
-}
-.proj-slide.in-view .proj-slide-visual img { transform: scale(1); filter: saturate(1) brightness(0.75); }
-.proj-slide-num {
-  position: absolute; top: 48px; right: 56px;
-  font-family: var(--sans); font-size: 120px; font-weight: 200;
-  color: rgba(234,229,220,.05); line-height: 1; user-select: none; z-index: 1;
-}
-.proj-slide-info {
-  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 48px 64px 72px;
-  background: linear-gradient(to top, rgba(13,12,11,0.92) 0%, rgba(13,12,11,0.4) 55%, transparent 100%);
-  color: var(--paper);
-}
-.proj-pips {
-  display: flex; gap: 8px; margin-bottom: 24px;
-}
-.proj-pip { flex: 0 0 32px; height: 1px; background: rgba(234,229,220,0.25); transition: flex .4s var(--ease), background .4s; }
-.proj-pip.active { flex: 0 0 64px; background: var(--gold); }
-.proj-idx { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(234,229,220,0.5); margin-bottom: 16px; }
-.proj-name-wrap { overflow: hidden; margin-bottom: 4px; }
-.proj-name {
-  font-family: var(--sans); font-size: clamp(32px,5vw,72px); font-weight: 300;
-  line-height: 1.0; letter-spacing: -0.03em; display: block;
-  transform: translateY(100%); transition: transform .9s var(--ease);
-}
-.proj-slide.in-view .proj-name { transform: translateY(0); }
-.proj-location-line { font-size: 13px; font-weight: 400; color: rgba(234,229,220,0.55); letter-spacing: 0.04em; margin-top: 4px; margin-bottom: 24px; }
-.proj-spec-row {
-  display: flex; gap: 20px; flex-wrap: wrap;
-  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(234,229,220,0.45);
-  border-top: 1px solid rgba(234,229,220,0.15); padding-top: 16px; margin-bottom: 16px;
-}
-.proj-price { font-family: var(--sans); font-size: 28px; font-weight: 400; color: var(--gold); margin-bottom: 24px; letter-spacing: -0.01em; }
-.proj-cta {
-  display: inline-flex; align-items: center; gap: 12px;
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(234,229,220,0.45); text-decoration: none; cursor: none; transition: color .2s;
-}
-.proj-cta::after { content: 'â†’'; transition: transform .2s; }
-.proj-cta:hover { color: var(--paper); }
-.proj-cta:hover::after { transform: translateX(4px); }
-.proj-nav-hint {
-  position: absolute; top: 56px; left: 64px;
-  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(234,229,220,0.3);
-  display: flex; align-items: center; gap: 10px;
-}
-.proj-nav-arrow { width: 28px; height: 1px; background: rgba(234,229,220,0.2); }
-
-/* â”€â”€â”€ PHILOSOPHY â”€â”€â”€ */
-#philosophy {
-  position: relative; min-height: 90vh; overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-  text-align: center; padding: 120px 56px;
-  z-index: 1;
-}
-.phil-bg {
-  position: absolute; inset: -10%;
-  background: url('https://ellaleehomes.com/wp-content/uploads/2025/02/6.jpg') center/cover;
-  will-change: transform;
-}
-#philosophy::after {
-  content: ''; position: absolute; inset: 0;
-  background: rgba(13,12,11,.72); z-index: 1;
-}
-.phil-inner { position: relative; z-index: 2; max-width: 900px; }
-.phil-pre {
-  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
-  color: rgba(244,241,234,.3); margin-bottom: 24px;
-}
-.phil-title {
-  font-family: var(--sans);
-  font-size: clamp(36px, 6vw, 88px);
-  font-weight: 200; line-height: .97; letter-spacing: -0.04em;
-}
-.phil-title em { font-style: italic; color: var(--gold); }
-.phil-body {
-  font-size: 14px; line-height: 1.95; color: var(--mid);
-  max-width: 540px; margin: 28px auto 0;
-}
-.phil-btn {
-  margin-top: 44px; display: inline-block;
-  border: 1px solid rgba(244,241,234,.28); color: var(--paper);
-  font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-  padding: 14px 36px; cursor: none; background: none;
-  transition: all .25s; text-decoration: none;
-}
-.phil-btn:hover { background: var(--paper); color: var(--ink); }
-
-/* â”€â”€â”€ SECOND EXPAND â”€â”€â”€ */
-
-/* â”€â”€â”€ TESTIMONIALS â”€â”€â”€ */
-#testimonials {
-  padding: 100px 56px;
-  background: var(--paper); color: var(--ink);
-  border-top: 1px solid rgba(43,43,43,0.07);
-  position: relative; z-index: 1;
-}
-.testi-hd {
-  display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px;
-}
-.testi-hd h2 {
-  font-family: var(--serif); font-size: clamp(32px,4vw,52px); font-weight: 300;
-}
-.testi-hd h2 em { font-style: italic; color: var(--gold); }
-.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(43,43,43,0.1); }
-.testi-card { padding: 44px 36px; background: var(--paper); }
-.testi-stars { color: var(--gold); letter-spacing: 3px; font-size: 11px; margin-bottom: 18px; }
-.testi-text {
-  font-family: var(--sans); font-size: 16px; font-weight: 400;
-  line-height: 1.75; color: rgba(43,43,43,.78); font-style: italic;
-}
-.testi-who { margin-top: 24px; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(43,43,43,.5); }
-
-/* â”€â”€â”€ CTA STRIP â”€â”€â”€ */
-#cta {
-  padding: 120px 56px;
-  background: var(--paper); color: var(--ink);
-  display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start;
-  border-top: 1px solid rgba(43,43,43,0.07);
-  position: relative; z-index: 1;
-}
-.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(43,43,43,.5); margin-bottom: 24px; }
-.cta-text { font-family: var(--sans); font-size: clamp(32px,4.6vw,64px); font-weight: 300; line-height: .98; letter-spacing: -0.03em; color: var(--ink); }
-.cta-text em { font-style: italic; color: var(--gold); }
-.cta-sub {
-  margin-top: 28px; max-width: 440px;
-  font-size: 15px; font-weight: 400; line-height: 1.6; color: rgba(43,43,43,0.78);
-}
-.cta-meta {
-  margin-top: 36px; display: flex; flex-direction: column; gap: 14px;
-  font-size: 13px; color: rgba(43,43,43,0.85);
-}
-.cta-meta-row { display: flex; align-items: center; gap: 14px; }
-.cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.5); width: 64px; }
-.cta-meta-val { font-family: var(--sans); }
-
-/* form */
-.cta-form { display: flex; flex-direction: column; gap: 0; background: rgba(255,255,255,0.4); border: 1px solid rgba(43,43,43,0.15); padding: 40px; }
-.cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.cta-field {
-  display: flex; flex-direction: column;
-  border-bottom: 1px solid rgba(43,43,43,0.12);
-  padding: 14px 0;
-}
-.cta-field + .cta-field { padding-top: 18px; }
-.cta-form-row .cta-field { border-right: 1px solid rgba(43,43,43,0.12); padding-right: 18px; }
-.cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
-.cta-field label {
-  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.55); margin-bottom: 8px;
-}
-.cta-field input, .cta-field textarea, .cta-field select {
-  background: transparent; border: none; outline: none;
-  font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--ink);
-  padding: 0; cursor: text;
-}
-.cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
-.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(43,43,43,0.35); }
-.cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%232B2B2B' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
-.cta-field select option { background: var(--paper); color: var(--ink); }
-
-.cta-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
-.cta-form-note { font-size: 11px; color: rgba(43,43,43,.55); line-height: 1.5; }
-.cta-submit {
-  background: var(--ink); color: var(--paper); border: none;
-  font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
-  padding: 18px 36px; cursor: none; transition: background .2s, color .2s; white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 14px;
-}
-.cta-submit svg { width: 16px; height: 8px; transition: transform .25s; }
-.cta-submit:hover { background: var(--gold); color: var(--ink); }
-.cta-submit:hover svg { transform: translateX(4px); }
-.btn-outline:hover { border-color: var(--paper); }
-
-/* â”€â”€â”€ REVEAL UTILITIES â”€â”€â”€ */
-.r-mask { overflow: hidden; }
-.r-up {
-  display: block;
-  transform: translateY(110%);
-  transition: transform .95s var(--ease);
-}
-.r-up.fired { transform: translateY(0); }
-.r-up.d1 { transition-delay: .07s; }
-.r-up.d2 { transition-delay: .15s; }
-.r-up.d3 { transition-delay: .23s; }
-.r-up.d4 { transition-delay: .31s; }
-
-.r-fade {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity .85s var(--ease), transform .85s var(--ease);
-}
-.r-fade.fired { opacity: 1; transform: translateY(0); }
-.r-fade.d1 { transition-delay: .1s; }
-.r-fade.d2 { transition-delay: .2s; }
-.r-fade.d3 { transition-delay: .3s; }
-.r-fade.d4 { transition-delay: .4s; }
-
-/* â”€â”€â”€ KEYFRAMES â”€â”€â”€ */
-@keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
-@keyframes slideUp { from { transform:translateY(110%); } to { transform:translateY(0); } }
-
-/* â”€â”€â”€ EXPERIENCE SUMMARY STRIP â”€â”€â”€ */
-#exp-summary-strip {
-  background: var(--paper);
-  border-top: 1px solid rgba(43,43,43,0.1);
-  padding: 32px 56px;
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 16px;
-}
-.exp-sum-item {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: var(--navy); flex: 1;
-}
-.exp-sum-item span {
-  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(43,43,43,0.45); text-align: center;
-}
-.exp-sum-item svg { opacity: 0.7; }
-
-/* â”€â”€â”€ MOBILE RESPONSIVE â”€â”€â”€ */
-@media (max-width: 768px) {
-  /* Nav */
-  #nav { padding: 18px 24px; }
-  .nav-center { display: none; }
-  .nav-cta { padding: 8px 16px; font-size: 9px; }
-
-  /* Loader */
-  #loader { padding: 0 24px 36px; }
-  #loader-count { font-size: clamp(72px, 20vw, 120px); }
-
-  /* Hero */
-  .hero-body { padding: 0 24px 48px; }
-  .hero-title { font-size: clamp(44px, 12vw, 72px); }
-  .hero-right { display: none; }
-
-  /* Experience cards */
-  .exp-intro { padding: 40px 24px 0; flex-direction: column; gap: 12px; }
-  .exp-intro-right { text-align: left; max-width: 100%; }
-  .exp-card {
-    grid-template-columns: 40px 56px 1fr; gap: 12px;
-    padding: 20px 24px;
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #001526; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #BFA06A; text-decoration: none; }
+  a:hover { color: #EAE5DC; }
+  input, textarea, select, button { font: inherit; color: inherit; }
+  @keyframes elhHeroPan {
+    from { transform: scale(1.06) translate3d(-1.2%, 0.6%, 0); }
+    to   { transform: scale(1.15) translate3d(1.2%, -1.2%, 0); }
   }
-  .exp-card .exp-card-tag { display: none; }
-  .exp-card-icon { width: 56px; height: 56px; }
-  .exp-card-icon svg { width: 24px; height: 24px; }
-  .exp-card-num { font-size: 10px; }
+  @keyframes elhCueDraw { 0% { transform: translateY(-14px) } 70% { transform: translateY(34px) } 100% { transform: translateY(34px) } }
+      @keyframes elhOverlayOut {
+    0%, 62% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+  }
+  @keyframes elhBore {
+    0%   { -webkit-mask-size: auto 0, cover;       mask-size: auto 0, cover; }
+    14%  { -webkit-mask-size: auto 34vmin, cover;  mask-size: auto 34vmin, cover; }
+    58%  { -webkit-mask-size: auto 37vmin, cover;  mask-size: auto 37vmin, cover; }
+    100% { -webkit-mask-size: auto 460vmax, cover; mask-size: auto 460vmax, cover; visibility: hidden; }
+  }
+  @keyframes elhIntroText {
+    0%, 6%   { opacity: 0; transform: translateY(10px); }
+    24%, 52% { opacity: 1; transform: none; }
+    68%, 100% { opacity: 0; transform: none; }
+  }
+  @media (max-width: 767px) {
+    [data-elh-nav] nav { display: none !important; }
+    [data-elh-cta] { display: none !important; }
+    [data-elh-burger] { display: flex !important; }
+    [data-elh-scrim] { display: block !important; }
+    [data-elh-drawer] { display: flex !important; }
+    [data-elh-tl-cue] { display: none !important; }
+    [data-elh-tl-cue-m] { display: flex !important; }
+    [data-elh-tl-marker] { gap: 10px !important; }
+    [data-elh-tl-label] { font-size: 11px !important; letter-spacing: .04em !important; white-space: normal !important; line-height: 1.3 !important; }
+    [data-elh-tl-cue-m] span:last-child { font-size: 12px !important; letter-spacing: .18em !important; }
+    [data-elh-projpanel] {
+      justify-content: flex-start !important;
+      gap: 20px !important;
+      padding: 96px 0 40px !important;
+    }
+    [data-elh-strip] { padding: 6px 0 !important; }
+    [data-elh-faqhead] { position: static !important; top: auto !important; }
+    [data-elh-proj] { height: auto !important; }
+    [data-elh-projpanel] {
+      position: static !important;
+      min-height: 0 !important;
+      padding: 72px 0 34px !important;
+    }
+    [data-elh-testi] { padding-top: 34px !important; }
+    [data-elh-testi] > div { gap: 28px !important; }
+  }
+  @keyframes elhRise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes elhDrift {
+    from { transform: scale(1.02); }
+    to { transform: scale(1.12); }
+  }
 
-  /* Meet */
-  #meet { grid-template-columns: 1fr; gap: 32px; padding: 60px 24px 80px; }
+  /* Opening keyhole wipe over the hero; bores open, then takes itself out. */
+  .elh-intro {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    pointer-events: none;
+    background: linear-gradient(to bottom, #07263C 0%, #021C2E 34%, #001526 62%, #00060D 100%);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 600'%3E%3Cg fill='%23000'%3E%3Ccircle cx='150' cy='150' r='137'/%3E%3Cpath d='M62 258 L238 258 L279 600 L21 600 Z'/%3E%3C/g%3E%3C/svg%3E"), linear-gradient(#000, #000);
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 600'%3E%3Cg fill='%23000'%3E%3Ccircle cx='150' cy='150' r='137'/%3E%3Cpath d='M62 258 L238 258 L279 600 L21 600 Z'/%3E%3C/g%3E%3C/svg%3E"), linear-gradient(#000, #000);
+    -webkit-mask-repeat: no-repeat, no-repeat;
+            mask-repeat: no-repeat, no-repeat;
+    -webkit-mask-position: 50% 38%, center;
+            mask-position: 50% 38%, center;
+    -webkit-mask-size: auto 0, cover;
+            mask-size: auto 0, cover;
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: elhBore 3.1s cubic-bezier(.74, 0, .26, 1) forwards;
+  }
+  .elh-intro-copy {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 11%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(20px, 2.6vw, 32px);
+    padding: 0 24px;
+    text-align: center;
+    animation: elhIntroText 3.1s ease forwards;
+  }
+  .elh-intro-copy p {
+    margin: 0;
+    white-space: nowrap;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: clamp(9px, 1.25vw, 15px);
+    font-weight: 300;
+    letter-spacing: .2em;
+    line-height: 1.8;
+    text-transform: uppercase;
+    color: #EAE5DC;
+  }
+  .elh-intro-copy p span { color: #BFA06A; }
+  .elh-intro-rule {
+    width: clamp(90px, 12vw, 150px);
+    height: 1px;
+    background: linear-gradient(to right, rgba(191,160,106,0), #BFA06A, rgba(191,160,106,0));
+  }
+  .elh-intro-copy img { width: clamp(44px, 5vw, 66px); height: auto; }
 
-  /* Projects */
-  .proj-slide-info { padding: 32px 24px 48px; }
-  .proj-name { font-size: clamp(28px, 8vw, 44px); }
-  .proj-pips { display: none; }
-  .proj-nav-hint { display: none; }
+  /* Hover states. The elements style themselves inline, so these must win. */
+  .elh-h1:hover { background: #EAE5DC !important; color: #001526 !important; }
+  .elh-h2:hover { background: #EAE5DC !important; border-color: #EAE5DC !important; color: #001526 !important; }
+  .elh-h3:hover { opacity: .72 !important; }
+  .elh-h4:hover { background: #BFA06A !important; }</style>
+</head>
+<body>
+<div style="--disp: 'DM Serif Display', Georgia, serif; font-family: Inter, system-ui, sans-serif; font-weight: 300; color: #001526; background: #EAE5DC; overflow-x: clip">
 
-  /* Philosophy */
-  #philosophy { padding: 80px 24px; min-height: 60vh; }
-  .phil-title { font-size: clamp(32px, 10vw, 56px); }
-
-  /* Testimonials */
-  #testimonials { padding: 60px 24px; }
-  .testi-grid { grid-template-columns: 1fr; }
-  .testi-hd { flex-direction: column; gap: 8px; }
-
-  /* CTA */
-  #cta { padding: 60px 24px; grid-template-columns: 1fr; gap: 48px; }
-  .cta-form { padding: 28px; }
-  .cta-form-row { grid-template-columns: 1fr; }
-  .cta-form-row .cta-field { border-right: none; padding-right: 0; padding-left: 0; border-bottom: 1px solid rgba(244,241,234,0.08); }
-  .cta-form-actions { flex-direction: column; align-items: flex-start; gap: 16px; }
-
-  /* Expand clip */
-  .expand-clip { width: 90vw !important; }
-
-  /* Scroll logo */
-  #scroll-logo svg { width: 160px; height: 160px; }
-
-  /* Projects header */
-  .projects-hd { padding: 60px 24px 40px; flex-direction: column; gap: 16px; }
-
-  /* Meet stats */
-  .meet-stats { grid-template-columns: repeat(3,1fr); }
-
-  /* Tweaks panel */
-  #tweaks { right: 12px; bottom: 12px; width: 200px; }
-}
-
-@media (max-width: 480px) {
-  .exp-card { grid-template-columns: 1fr; gap: 10px; padding: 18px 20px; }
-  .exp-card-num { display: none; }
-  .meet-stats { grid-template-columns: 1fr 1fr; }
-  .cta-actions { flex-direction: column; }
-}
-
-/* â”€â”€â”€ TWEAKS PANEL â”€â”€â”€ */
-#tweaks {
-  display: none; position: fixed; bottom: 24px; right: 24px; z-index: 7000;
-  background: rgba(13,12,11,.96); border: 1px solid rgba(244,241,234,.1);
-  backdrop-filter: blur(20px); width: 248px;
-  box-shadow: 0 8px 48px rgba(0,0,0,.5);
-}
-#tweaks.open { display: block; }
-.tw-hd { padding: 13px 16px; border-bottom: 1px solid rgba(244,241,234,.07); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); }
-.tw-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; }
-.tw-row label { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(244,241,234,.3); display: block; margin-bottom: 8px; }
-.tw-range { width: 100%; accent-color: var(--gold); cursor: pointer; }
-.tw-hint { display: flex; justify-content: space-between; font-size: 8px; color: rgba(244,241,234,.18); margin-top: 3px; }
-.tw-opts { display: flex; gap: 5px; }
-.tw-opt {
-  flex: 1; border: 1px solid rgba(244,241,234,.12); background: none;
-  color: rgba(244,241,234,.35); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
-  padding: 6px 4px; cursor: pointer; font-family: var(--sans); transition: all .15s;
-}
-.tw-opt.on, .tw-opt:hover { border-color: var(--gold); color: var(--gold); }
-</style>
-<link rel="stylesheet" href="assets/site-cursor.css">
-
-
-
-<!-- CURSOR_PARTIAL -->
-
-<!-- LOADER -->
-<div id="loader" data-cc-id="cc-1" class="exit">
-  <div id="loader-inner">
-    <div id="loader-count">100</div>
-    <div id="loader-right">
-      <div id="loader-name">Ella Lee Homes</div>
-      <div id="loader-sub">Arizona's luxury home builder</div>
+  <div class="elh-intro" aria-hidden="true">
+    <div class="elh-intro-copy">
+      <p>Unlock the true potential<br><span>of your dream home</span></p>
+      <div class="elh-intro-rule"></div>
+      <img src="assets/elh-monogram-gold.svg" alt="" width="66" height="66">
     </div>
   </div>
-  <div id="loader-line"><div id="loader-fill" style="width: 100%;"></div></div>
-</div>
 
-<!-- SCROLL LOGO OVERLAY "” circular badge appears during hero transition -->
-<div id="scroll-logo" style="opacity: 0;">
-  <div id="scroll-logo-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;max-width:600px;text-align:center;">
-    <svg width="320" height="320" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="80" cy="80" r="76" stroke="rgba(234,229,220,0.75)" stroke-width="1"></circle>
-      <circle cx="80" cy="80" r="68" stroke="rgba(234,229,220,0.35)" stroke-width="1"></circle>
-      <defs>
-        <path id="circlePath2" d="M80,80 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"></path>
-      </defs>
-      <text font-family="Inter,sans-serif" font-size="8.5" letter-spacing="5" fill="rgba(234,229,220,0.6)" font-weight="400">
-        <textPath href="#circlePath2" startOffset="2%">ELLA LEE HOMES · ARIZONA · CUSTOM LUXURY HOMES ·</textPath>
-      </text>
-      <text x="80" y="75" text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="200" letter-spacing="6" fill="rgba(234,229,220,1)">ELH</text>
-      <text x="80" y="94" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" font-weight="300" letter-spacing="3.5" fill="rgba(201,169,110,1)">EST. 2012</text>
-      <line x1="50" y1="101" x2="110" y2="101" stroke="rgba(201,169,110,0.7)" stroke-width="1"></line>
-    </svg>
-    <p id="scroll-origin-text" style="font-family: Barlow, sans-serif; font-size: 15px; line-height: 1.85; color: rgba(234, 229, 220, 0.7); font-weight: 300; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 0.2s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;">
-      Ella Lee Homes was born from a simple, heartfelt promise "” to build something that would stand the test of time for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others. Every home we build carries that same devotion. A foundation of love, care, and legacy designed to nurture life's most meaningful moments.
-    </p>
-  </div>
-</div>
-
-<!-- NAV_PARTIAL -->
-
-<!-- â•â•â• HERO â•â•â• -->
-<div id="hero-scroll-zone" style="position:relative;height:300vh;">
-<div id="hero-wrapper">
-<section id="hero" class="grain">
-  <div id="hero-media" style="opacity: 0;"></div>
-  <!-- Hero video from ellaleehomes.com -->
-  <video id="hero-video" autoplay="" muted="" loop="" playsinline="" style="display:block;">
-    <source src="https://ellaleehomes.com/wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v" type="video/mp4">
-  </video>
-  <div class="hero-grad"></div>
-  <div class="hero-body" data-cc-id="cc-2">
-    <div class="hero-eyebrow" data-cc-id="cc-4" style="font-size: 2px">Arizona-Custom Luxury Homes</div>
-    <div class="hero-headline">
-      <span class="line l1" style="color: rgb(255, 255, 255); animation-play-state: running;" data-cc-id="cc-3">Ella Lee Homes
-Built Right</span>
-      <span class="line l2" style="animation-play-state: running;"><em></em></span>
-    </div>
-    <!-- Circular badge "” appears only on scroll, not on load -->
-    <div class="hero-badge" id="heroBadge" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; pointer-events: none;">
-      <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="80" cy="80" r="76" stroke="rgba(234,229,220,0.25)" stroke-width="1"></circle>
-        <circle cx="80" cy="80" r="68" stroke="rgba(234,229,220,0.1)" stroke-width="1"></circle>
-        <!-- Circular text path -->
-        <defs>
-          <path id="circlePath" d="M80,80 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"></path>
-        </defs>
-        <text font-family="Inter,sans-serif" font-size="8.5" letter-spacing="5" fill="rgba(234,229,220,0.55)" font-weight="400">
-          <textPath href="#circlePath" startOffset="2%">ELLA LEE HOMES · ARIZONA · CUSTOM LUXURY HOMES ·</textPath>
-        </text>
-        <!-- Center monogram -->
-        <text x="80" y="75" text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="200" letter-spacing="6" fill="rgba(234,229,220,0.9)">ELH</text>
-        <text x="80" y="94" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" font-weight="300" letter-spacing="3.5" fill="rgba(201,169,110,0.8)">EST. 2012</text>
-        <!-- decorative lines -->
-        <line x1="50" y1="101" x2="110" y2="101" stroke="rgba(201,169,110,0.3)" stroke-width="0.5"></line>
-      </svg>
-    </div>
-    <div class="hero-footer">
-      <p class="hero-desc"></p>
-      <div class="hero-scroll-hint">
-        <div class="hero-scroll-line"></div>
-        
-      </div>
-    </div>
-  </div>
-</section>
-</div>
-</div>
-
-
-
-<!-- â•â•â• EXPERIENCE "” SPLIT SCROLL â•â•â• -->
-<section id="experience" class="grain">
-  <div id="exp-split-zone">
-    <div id="exp-split-sticky">
-
-      <!-- LEFT: sticky text -->
-      <div id="exp-left">
-        <div class="exp-left-eyebrow" style="font-size: 1px">ellaleehomes.com</div>
-        <h2 class="exp-left-title">You Dream it,<br><em>we build it.</em></h2>
-        <p class="exp-left-body">Close your eyes and imagine your dream home: a beautifully crafted luxury custom home that balances modern elegance with timeless charm. Nestled in one of Arizona's most sought-after neighborhoods, your home is surrounded by thoughtful landscaping and architectural details that invite you in before you ever step through the front door.</p>
-        <p class="exp-left-body" style="margin-top:16px;">Inside, natural light fills an open-concept floor plan designed with intention. A gourmet kitchen becomes the heart of the home, while cozy living areas and serene bedrooms offer both functionality and quiet luxury. Whether it's morning coffee in the sun-drenched kitchen or evenings spent in your private backyard retreat, every square foot is tailored to how you live.</p>
-      </div>
-
-      <!-- RIGHT: two image columns scrolling opposite directions -->
-      <div id="exp-right">
-        <div class="exp-col" id="expColA" style="transform: translateY(-400px);">
-          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt=""></div>
-          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt=""></div>
-          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt=""></div>
-          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt=""></div>
-        </div>
-        <div class="exp-col" id="expColB" style="transform: translateY(200px);">
-          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt=""></div>
-          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8103.jpg" alt=""></div>
-          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/02/1.jpg" alt=""></div>
-          <div class="exp-img-wrap"><img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt=""></div>
+  <header data-elh-nav="1" style="position: fixed; top: 0; left: 0; right: 0; z-index: 300; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px clamp(20px, 4vw, 64px); transition: background .4s ease, padding .4s ease, border-color .4s ease, transform .45s cubic-bezier(.4,0,.2,1); border-bottom: 1px solid rgba(234,229,220,0)">
+    <a href="#top" aria-label="Ella Lee Homes home" style="flex: 0 0 auto; display: block; line-height: 0">
+      <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: clamp(42px, 3.6vw, 56px); height: auto">
+    </a>
+    <nav style="display: flex; flex: 1 1 auto; align-items: center; justify-content: center; gap: clamp(14px, 2.2vw, 34px)">
+      <a href="#story" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Our Story</a>
+      <a href="#inquiry" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Build Your Home</a>
+      <a href="#contact" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Contact</a>
+      <div data-elh-more="1" style="position: relative; display: flex; align-items: center">
+        <button type="button" data-elh-click="toggleMore" style="display: flex; align-items: center; gap: 7px; padding: 0; font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC; background: none; border: 0; cursor: pointer">More
+          <span data-elh-more-caret="1" style="display: block; width: 6px; height: 6px; border-right: 1px solid #BFA06A; border-bottom: 1px solid #BFA06A; transform: rotate(45deg) translateY(-2px); transition: transform .3s ease"></span>
+        </button>
+        <div data-elh-more-panel="1" style="position: absolute; top: calc(100% + 18px); right: 0; display: none; flex-direction: column; min-width: 220px; padding: 10px 0; background: #001526; border: 1px solid rgba(191,160,106,.34)">
+          <a href="#projects" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Previous Projects</a>
+          <a href="#experience" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Our Process</a>
+          <a href="#faq" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">FAQ</a>
+          <a href="#giving" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Giving Back</a>
+          <a href="#" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Sell Your Home</a>
+          <a href="#" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Warranty</a>
+          <a href="#" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Homeowner Resources</a>
+          <a href="#" style="padding: 11px 20px; font-size: 13px; letter-spacing: .08em; color: #EAE5DC">Client Portal</a>
         </div>
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- â•â•â• MEET SECTION "” IMAGE SWITCHER â•â•â• -->
-<section id="meet">
-  <div id="meet-bg">
-    <img id="meet-img-el" class="meet-bg-img" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2327-2.jpg" alt="Kitchen">
-    <img id="meet-img-ki" class="meet-bg-img" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2442-2.jpg" alt="Bathroom">
-    <img id="meet-img-ba" class="meet-bg-img" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2407-2.jpg" alt="Powder">
-    <img id="meet-img-po" class="meet-bg-img" src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2468-2.jpg" alt="Outdoor">
-    <img id="meet-img-bt" class="meet-bg-img active" src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Elevations">
-  </div>
-  <div id="meet-overlay"></div>
-  <div id="meet-labels">
-    <div class="meet-label-eyebrow">Our Story</div>
-    <nav class="meet-nav">
-      <button class="meet-btn active" data-img="meet-img-bt">Elevations</button>
-      <button class="meet-btn" data-img="meet-img-el">Kitchen</button>
-      <button class="meet-btn" data-img="meet-img-po">Outdoor</button>
-      <button class="meet-btn" data-img="meet-img-ba">Powder</button>
-      <button class="meet-btn" data-img="meet-img-ki">Bathroom</button>
     </nav>
-  </div>
+    <a class="elh-h1" data-elh-cta="1" href="#inquiry" style="flex: 0 0 auto; padding: 11px 22px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #EAE5DC; border: 1px solid rgba(234,229,220,.5); border-radius: 100px; transition: background .3s ease, color .3s ease">Get Started</a>
+    <button type="button" data-elh-burger="1" aria-label="Open menu" data-elh-click="openDrawer" style="display: none; flex: 0 0 auto; flex-direction: column; gap: 6px; width: 44px; height: 44px; align-items: center; justify-content: center; padding: 0; background: none; border: 0; cursor: pointer">
+      <span style="display: block; width: 24px; height: 1px; background: #EAE5DC"></span>
+      <span style="display: block; width: 24px; height: 1px; background: #EAE5DC"></span>
+      <span style="display: block; width: 16px; height: 1px; background: #BFA06A"></span>
+    </button>
+  </header>
 
-</section>
-
-<!-- â•â•â• PROJECTS "” REMOVED â•â•â• -->
-<template id="projects-removed">
-<section id="projects" data-om-id="021145ab:120">
-  <div class="projects-hd" data-om-id="021145ab:121">
-    <div class="projects-hd-left" data-om-id="021145ab:122">
-      <div class="eyebrow r-fade" data-om-id="021145ab:123">Selected Work</div>
-      <h2 class="r-fade d1" data-om-id="021145ab:124">Recent <em data-om-id="021145ab:125">Homes</em></h2>
+  <div data-elh-scrim="1" data-elh-click="closeDrawer" style="position: fixed; inset: 0; z-index: 310; display: none; background: rgba(0,13,25,.6); opacity: 0; pointer-events: none; transition: opacity .4s ease; backdrop-filter: blur(2px)"></div>
+  <aside data-elh-drawer="1" style="position: fixed; top: 0; bottom: 0; left: 0; z-index: 320; display: none; flex-direction: column; gap: 28px; width: min(84vw, 340px); padding: 26px 28px 40px; background: #001526; border-right: 1px solid rgba(191,160,106,.3); transform: translateX(-100%); transition: transform .45s cubic-bezier(.4,0,.2,1); overflow-y: auto">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+      <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: 44px; height: auto">
+      <button type="button" aria-label="Close menu" data-elh-click="closeDrawer" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; font-size: 22px; line-height: 1; color: #EAE5DC; background: none; border: 1px solid rgba(234,229,220,.22); border-radius: 100px; cursor: pointer">×</button>
     </div>
-    <a href="projects.html" class="all-link r-fade d2" data-om-id="021145ab:126">View All Projects</a>
-  </div>
+    <nav data-elh-drawernav="1" style="display: flex; flex-direction: column; gap: 2px">
+      <a href="#story" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Our Story</a>
+      <a href="#projects" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Previous Projects</a>
+      <a href="#experience" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Our Process</a>
+      <a href="#inquiry" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Build Your Home</a>
+      <a href="#giving" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Giving Back</a>
+      <a href="#faq" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">FAQ</a>
+      <a href="#contact" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Contact</a>
+    </nav>
+    <nav style="display: flex; flex-direction: column; gap: 14px; margin-top: -8px">
+      <a href="#" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Sell Your Home</a>
+      <a href="#" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Warranty</a>
+      <a href="#" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Homeowner Resources</a>
+      <a href="#" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Client Portal</a>
+    </nav>
+    <a href="#inquiry" data-elh-click="closeDrawer" style="margin-top: auto; padding: 15px 22px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; text-align: center; color: #001526; background: #BFA06A; border-radius: 100px">Start Your Build</a>
+  </aside>
 
-  <div id="proj-scroll-zone" style="height: 1200vh;" data-om-id="021145ab:127">
-    <div id="proj-sticky" data-om-id="021145ab:128">
-      <div id="proj-track" style="transform: translateX(0vw);" data-om-id="021145ab:129">
+  <section id="top" data-screen-label="Hero" style="position: relative; display: flex; align-items: flex-end; min-height: 118vh; padding: 0; overflow: hidden; background: #001526">
+    <div style="position: absolute; inset: 0; z-index: 1; overflow: hidden">
+      <div style="position: absolute; inset: -6%; animation: elhHeroPan 34s ease-in-out infinite alternate; will-change: transform">
+        <img class="elh-img" id="elh-hero-poster" src="uploads/home/hero-poster.jpg" alt="" loading="eager" decoding="async">
+      </div>
+      <video data-elh-herovid="1" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="auto" src="https://ellaleehomes.com/wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease"></video>
+    </div>
+    <div style="position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.58) 34%, rgba(0,0,0,.42) 62%, rgba(0,0,0,.2) 100%)"></div>
+    <div style="position: absolute; left: 0; right: 0; top: 0; z-index: 2; height: 48%; pointer-events: none; background: linear-gradient(to bottom, rgba(0,0,0,.68) 0%, rgba(0,0,0,.44) 40%, rgba(0,0,0,0) 100%)"></div>
+    <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 13%; pointer-events: none; background: linear-gradient(to bottom, rgba(0,21,38,0) 0%, rgba(0,21,38,.45) 52%, #001526 100%)"></div>
+    <div style="position: relative; z-index: 3; display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: none; margin: 0; padding: 0 clamp(18px, 2.4vw, 40px) calc(18vh + clamp(40px, 5vw, 72px)); pointer-events: none">
+      <h1 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(29px, 5.1vw, 98px); text-wrap: nowrap; font-weight: 400; line-height: 1.02; letter-spacing: -.01em; color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5); pointer-events: auto" data-comment-anchor="12e3f23568-h1">Custom Homes in Arizona,<br>Built Right.</h1>
+      <div style="height: 1px; margin-top: 6px; background: rgba(234,229,220,.42); pointer-events: auto"></div>
+      <p style="max-width: 32ch; margin: 0; font-size: clamp(14px, 1.1vw, 17px); font-weight: 300; line-height: 1.5; color: rgba(234,229,220,.9); pointer-events: auto">Luxury custom home builder for<br>Arcadia, Paradise Valley &amp; Scottsdale.</p>
+    </div>
+  </section>
 
-        <!-- Slide 1 -->
-        <div class="proj-slide in-view" data-idx="0" data-om-id="021145ab:130">
-          <div class="proj-slide-visual" data-om-id="021145ab:131">
-            <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="68TH" data-om-id="021145ab:132">
-            <div class="proj-slide-num" data-om-id="021145ab:133">01</div>
-          </div>
-          <div class="proj-slide-info" data-om-id="021145ab:134">
-            <div class="proj-pips" data-om-id="021145ab:135">
-              <div class="proj-pip active" data-om-id="021145ab:136"></div><div class="proj-pip" data-om-id="021145ab:137"></div>
-              <div class="proj-pip" data-om-id="021145ab:138"></div>
+  <section id="story" data-screen-label="Our Story" style="padding: clamp(80px, 11vw, 168px) clamp(20px, 4vw, 64px); background: #001526; color: #EAE5DC">
+    <div style="display: flex; flex-direction: column; gap: clamp(48px, 6vw, 88px); max-width: 1500px; margin: 0 auto">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: clamp(24px, 4vw, 64px)">
+        <span style="flex: 0 0 auto; padding-top: 14px; font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Our Story</span>
+        <h2 data-elh-sweep="1" style="flex: 1 1 520px; margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(28px, 3.9vw, 62px); font-weight: 400; line-height: 1.14; letter-spacing: -.01em; text-wrap: pretty; color: transparent; background-image: linear-gradient(100deg, #EAE5DC 0%, #EAE5DC 0%, rgba(234,229,220,.3) 14%, rgba(234,229,220,.3) 100%); background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text">Ella Lee Homes was born from a simple, heartfelt promise — to build something that would stand the test of time for our daughter, Ella, and the generations that follow.</h2>
+      </div>
+      <div style="height: 1px; background: rgba(234,229,220,.18)"></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(28px, 4vw, 72px)">
+        <div style="display: flex; gap: 18px">
+          <span style="flex: 0 0 auto; width: 9px; height: 9px; margin-top: 9px; border-radius: 50%; background: #BFA06A"></span>
+          <p style="margin: 0; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.72; color: rgba(234,229,220,.88)">What began as a dream for our own family grew into a mission to create lasting homes for others. Founder <strong style="font-weight: 500; color: rgb(234, 229, 220);">Shay Segev</strong> has led every build since the company founded.</p>
+        </div>
+        <div style="display: flex; gap: 18px">
+          <span style="flex: 0 0 auto; width: 9px; height: 9px; margin-top: 9px; border-radius: 50%; background: #BFA06A"></span>
+          <p style="margin: 0; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.72; color: rgba(234,229,220,.88)">Every home we build carries that same devotion — a foundation of love, care, and legacy, designed to nurture life's most meaningful moments for the family who lives in it.</p>
+        </div>
+        <div style="position: relative; min-height: 260px">
+          <img class="elh-img" id="elh-story-photo" src="uploads/home/story.jpg" alt="Ella Lee Homes on site during a custom build" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dream" data-screen-label="You Dream It" style="position: relative; display: flex; align-items: center; min-height: 100vh; overflow: hidden; background: #001526">
+    <div style="position: absolute; inset: 0; z-index: 1">
+      <img class="elh-img" id="elh-dream" src="uploads/home/dream.jpg" alt="" loading="lazy" decoding="async">
+    </div>
+    <div style="position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(to right, rgba(0,0,0,.74) 0%, rgba(0,0,0,.56) 46%, rgba(0,0,0,.46) 100%)"></div>
+    <div style="position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(to top, rgba(0,0,0,.5) 0%, rgba(0,0,0,.12) 46%, rgba(0,0,0,0) 100%)"></div>
+    <div style="position: relative; z-index: 3; display: flex; flex-direction: column; gap: clamp(24px, 3vw, 40px); width: 100%; max-width: 1500px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) clamp(20px, 4vw, 64px); pointer-events: none">
+      <h2 style="max-width: 16ch; margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(32px, 4.6vw, 82px); font-weight: 400; line-height: 1.02; letter-spacing: -.015em; color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5); pointer-events: auto">You Dream It,<br>We Build It</h2>
+      <div style="height: 1px; background: rgba(234,229,220,.4); pointer-events: auto"></div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px">
+        <p style="max-width: 46ch; margin: 0; font-size: clamp(14px, 1.15vw, 17px); font-weight: 300; line-height: 1.7; color: rgba(234,229,220,.92); pointer-events: auto">Picture your home: open-concept living filled with natural light, a kitchen built for gathering, a primary retreat that's entirely yours. Every square foot tailored to how you live.</p>
+        <a class="elh-h2" href="#experience" style="flex: 0 0 auto; padding: 14px 34px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #EAE5DC; background: transparent; border: 1px solid rgba(234,229,220,.6); border-radius: 100px; pointer-events: auto; transition: background .3s ease, color .3s ease, border-color .3s ease">Read More</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" data-screen-label="The Experience" style="position: relative">
+
+    <div data-elh-var="b">
+      <div data-elh-tl-wrap="1" style="position: relative; height: 205vh; background: #001526">
+        <div style="position: sticky; top: 0; display: flex; align-items: center; height: 100vh; overflow: hidden; padding: clamp(64px, 9vh, 108px) clamp(20px, 4vw, 64px) clamp(28px, 5vh, 64px)">
+          
+
+          <div style="display: flex; flex-direction: column; gap: clamp(16px, 3.2vh, 48px); width: 100%; max-width: 1500px; margin: 0 auto">
+            <div style="display: flex; flex-direction: column; gap: clamp(8px, 1.4vh, 14px); max-width: 760px">
+              <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">The Experience</span>
+              <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 3.8vw, 58px); font-weight: 400; line-height: 1.05; letter-spacing: -.015em; color: #EAE5DC">What working with us feels like</h2>
             </div>
-            <div class="proj-idx" data-om-id="021145ab:139">Project 01 / 03</div>
-            <div class="proj-name-wrap" data-om-id="021145ab:140"><span class="proj-name" data-om-id="021145ab:141">68th &amp; Camelback</span></div>
-            <div class="proj-location-line" data-om-id="021145ab:142">Paradise Valley, Arizona</div>
-            <div class="proj-spec-row" data-om-id="021145ab:143"><span data-om-id="021145ab:144">5 BD</span><span data-om-id="021145ab:145">5.5 BA</span><span data-om-id="021145ab:146">5,214 SqFt</span></div>
-            <div class="proj-price" data-om-id="021145ab:147">$7,035,000</div>
-            <a href="#" class="proj-cta" data-om-id="021145ab:148">View Project</a>
-            <div class="proj-nav-hint" data-om-id="021145ab:149"><div class="proj-nav-arrow" data-om-id="021145ab:150"></div>Scroll for next</div>
+            <div style="position: relative; padding-top: 4px">
+              <div data-elh-tl-rail="1" style="position: absolute; top: 9px; left: 0; width: 100%; height: 1px; background: rgba(234,229,220,.2)"></div>
+              <div data-elh-tl-fill="1" style="position: absolute; top: 9px; left: 0; width: 0%; height: 1px; background: #BFA06A; transition: width .5s ease"></div>
+              <div style="position: relative; display: flex; gap: 16px">
+            <button class="elh-h3" type="button" data-elh-tl-marker="0" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit">
+              <span data-elh-tl-node="0" style="width: 11px; height: 11px; border-radius: 50%; background: #BFA06A; border: 1px solid #BFA06A; transition: background .45s ease, border-color .45s ease"></span>
+              <span data-elh-tl-label="0" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #EAE5DC; white-space: nowrap; transition: color .45s ease">Plan &amp; Price</span>
+            </button>
+            <button class="elh-h3" type="button" data-elh-tl-marker="1" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit">
+              <span data-elh-tl-node="1" style="width: 11px; height: 11px; border-radius: 50%; background: #001526; border: 1px solid rgba(234,229,220,.42); transition: background .45s ease, border-color .45s ease"></span>
+              <span data-elh-tl-label="1" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.44); white-space: nowrap; transition: color .45s ease">Design With You</span>
+            </button>
+            <button class="elh-h3" type="button" data-elh-tl-marker="2" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit">
+              <span data-elh-tl-node="2" style="width: 11px; height: 11px; border-radius: 50%; background: #001526; border: 1px solid rgba(234,229,220,.42); transition: background .45s ease, border-color .45s ease"></span>
+              <span data-elh-tl-label="2" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.44); white-space: nowrap; transition: color .45s ease">Build</span>
+            </button><button class="elh-h3" type="button" data-elh-tl-marker="3" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit; width: 238px; height: 39px" data-comment-anchor="05af61a286-button">
+              <span data-elh-tl-node="3" style="width: 11px; height: 11px; border-radius: 50%; background: #001526; border: 1px solid rgba(234,229,220,.42); transition: background .45s ease, border-color .45s ease"></span>
+              <span data-elh-tl-label="3" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.44); white-space: nowrap; transition: color .45s ease">Move In</span>
+            </button>
+            
+              </div>
+            <div data-elh-tl-cue="1" style="position: absolute; left: 87.5%; z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 10px; transform: translateX(-50%); pointer-events: none; top: 0">
+            <span style="font-size: 10px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: rgba(234,229,220,.6)">Keep scrolling</span>
+            <span style="position: relative; display: block; width: 1px; height: clamp(22px, 3.6vh, 34px); overflow: hidden; background: rgba(234,229,220,.16)"><span style="position: absolute; left: 0; top: 0; width: 1px; height: 14px; background: #BFA06A; animation: elhCueDraw 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
+          </div></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(28px, 4vw, 72px); align-items: center">
+              <div style="position: relative; aspect-ratio: 16 / 11; width: 100%; max-height: 52vh; overflow: hidden; background: #000D19">
+              <div data-elh-tl-img="0" style="position: absolute; inset: 0; opacity: 1; transition: opacity .7s ease">
+                <img class="elh-img" id="elh-expb-1" src="uploads/home/experience-process.jpg" alt="Plans, permits and a site walk" loading="lazy" decoding="async">
+              </div>
+              <div data-elh-tl-img="1" style="position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease">
+                <img class="elh-img" id="elh-expb-2" src="uploads/home/experience-service.jpg" alt="A selections meeting with finish samples" loading="lazy" decoding="async">
+              </div>
+              <div data-elh-tl-img="2" style="position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease">
+                <img class="elh-img" id="elh-expb-3" src="uploads/home/experience-warranty.jpg" alt="Handing over the keys to a finished home" loading="lazy" decoding="async">
+              </div>
+              <div data-elh-tl-img="3" style="position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease">
+                <img class="elh-img" id="elh-expb-4" src="uploads/home/experience-craftsmanship.jpg" alt="Interior craftsmanship detail" loading="lazy" decoding="async">
+              </div>
+              </div>
+              <div data-elh-tl-cue-m="1" style="display: none; align-items: center; gap: 12px; margin-top: 22px; pointer-events: none">
+                <span style="position: relative; display: block; width: 1px; height: 30px; overflow: hidden; background: rgba(234,229,220,.16)"><span style="position: absolute; left: 0; top: 0; width: 1px; height: 14px; background: #BFA06A; animation: elhCueDraw 2.4s cubic-bezier(.4,0,.2,1) infinite"></span></span>
+                <span style="font-size: 10px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(234,229,220,.6)">Keep scrolling</span>
+              </div>
+              <div style="display: grid">
+              <div data-elh-tl-copy="0" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 1; transform: translateY(0); transition: opacity .55s ease, transform .55s ease; pointer-events: auto">
+                <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Transparent, Turnkey Process</h3>
+                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">From permitting to move-in you always know exactly where your project and your budget stand. We build on a cost-plus basis, which means you see the real cost of every line item plus one agreed fee — no hidden markups, no surprise change orders.</p>
+              </div>
+              <div data-elh-tl-copy="1" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none">
+                <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Personalized Service</h3>
+                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">Every Ella Lee home is a one-on-one process built around your lifestyle, your lot, and your vision — never a template. You work directly with the people making the decisions, from first sketch to final walkthrough.</p>
+              </div>
+              <div data-elh-tl-copy="2" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none">
+                <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Comprehensive Warranty</h3>
+                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">Our commitment continues after move-in, with a full builder warranty for long-term peace of mind. Ella Lee Homes is licensed in Arizona under ROC KB2-333410.</p>
+              </div>
+              <div data-elh-tl-copy="3" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none">
+                <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Proven Craftsmanship</h3>
+                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">Nearly 50 custom homes completed across Arcadia, Paradise Valley and Scottsdale since 2021 — homes that live as beautifully as they look, rated 5.0 by the families who live in them.</p>
+              </div>
+              </div>
+
+            </div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- 68TH-1 pip update -->
-        <div class="proj-slide" data-idx="1" data-om-id="021145ab:151">
-          <div class="proj-slide-visual" data-om-id="021145ab:152">
-            <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="DC2" data-om-id="021145ab:153">
-            <div class="proj-slide-num" data-om-id="021145ab:154">02</div>
-          </div>
-          <div class="proj-slide-info" data-om-id="021145ab:155">
-            <div class="proj-pips" data-om-id="021145ab:156">
-              <div class="proj-pip" data-om-id="021145ab:157"></div><div class="proj-pip active" data-om-id="021145ab:158"></div>
-              <div class="proj-pip" data-om-id="021145ab:159"></div>
-            </div>
-            <div class="proj-idx" data-om-id="021145ab:160">Project 02 / 03</div>
-            <div class="proj-name-wrap" data-om-id="021145ab:161"><span class="proj-name" data-om-id="021145ab:162">Desert Contemporary II</span></div>
-            <div class="proj-location-line" data-om-id="021145ab:163">Arcadia, Arizona</div>
-            <div class="proj-spec-row" data-om-id="021145ab:164"><span data-om-id="021145ab:165">6 BD</span><span data-om-id="021145ab:166">7.5 BA</span><span data-om-id="021145ab:167">5,874 SqFt</span></div>
-            <div class="proj-price" data-om-id="021145ab:168">$4,400,000</div>
-            <a href="#" class="proj-cta" data-om-id="021145ab:169">View Project</a>
-            <div class="proj-nav-hint" data-om-id="021145ab:170"><div class="proj-nav-arrow" data-om-id="021145ab:171"></div>Scroll for next</div>
-          </div>
+  </section>
+
+  <section id="projects" data-elh-proj="1" data-screen-label="Our Projects" style="display: block; height: 135vh; padding: 0 clamp(20px, 4vw, 64px); background: #001526; color: #EAE5DC">
+    <div data-elh-projpanel="1" style="position: sticky; top: 0; display: flex; flex-direction: column; justify-content: space-between; gap: clamp(18px, 2.2vw, 32px); min-height: 100vh; padding: clamp(96px, 15vh, 190px) 0 clamp(64px, 10vh, 130px); width: 100%; max-width: 1500px; margin: 0 auto">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px">
+        <div style="display: flex; flex-direction: column; gap: 18px; max-width: 760px">
+          <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(34px, 4.8vw, 74px); font-weight: 400; line-height: 1.04; letter-spacing: -.015em; color: #EAE5DC">Our Projects</h2>
+          <p style="margin: 0; max-width: 52ch; font-size: clamp(12px, 1.05vw, 15px); font-weight: 400; letter-spacing: .14em; line-height: 1.6; text-transform: uppercase; color: #BFA06A">Custom homes built in Paradise Valley, Scottsdale and Arcadia</p>
         </div>
-
-        <!-- Slide 3 -->
-        <div class="proj-slide" data-idx="2" data-om-id="021145ab:172">
-          <div class="proj-slide-visual" data-om-id="021145ab:173">
-            <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Via Estrella" data-om-id="021145ab:174">
-            <div class="proj-slide-num" data-om-id="021145ab:175">03</div>
-          </div>
-          <div class="proj-slide-info" data-om-id="021145ab:176">
-            <div class="proj-pips" data-om-id="021145ab:177">
-              <div class="proj-pip" data-om-id="021145ab:178"></div><div class="proj-pip" data-om-id="021145ab:179"></div>
-              <div class="proj-pip active" data-om-id="021145ab:180"></div>
+        <a href="#" style="flex: 0 0 auto; padding-bottom: 6px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(191,160,106,.6)">Explore more of our work</a>
+      </div>
+      <div data-elh-strip="1" style="position: relative; margin: 0 calc(-1 * clamp(20px, 4vw, 64px)); padding: clamp(10px, 1.2vw, 22px) 0; overflow: hidden">
+      <div data-elh-track="1" style="display: flex; align-items: flex-start; gap: clamp(14px, 1.6vw, 26px); padding: 0 clamp(20px, 4vw, 64px); cursor: grab; transform-style: preserve-3d; will-change: transform">
+        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+          <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
+            <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
+              <img class="elh-img" id="elh-proj-1" src="uploads/home/project-charter-oak.jpg" alt="Charter Oak custom home" loading="lazy" decoding="async">
             </div>
-            <div class="proj-idx" data-om-id="021145ab:181">Project 03 / 03</div>
-            <div class="proj-name-wrap" data-om-id="021145ab:182"><span class="proj-name" data-om-id="021145ab:183">Via Estrella</span></div>
-            <div class="proj-location-line" data-om-id="021145ab:184">Scottsdale, Arizona</div>
-            <div class="proj-spec-row" data-om-id="021145ab:185"><span data-om-id="021145ab:186">5 BD</span><span data-om-id="021145ab:187">6.5 BA</span><span data-om-id="021145ab:188">6,222 SqFt</span></div>
-            <div class="proj-price" data-om-id="021145ab:189">$5,450,000</div>
-            <a href="#" class="proj-cta" data-om-id="021145ab:190">View Project</a>
           </div>
-        </div>
-
-      </div><!-- /proj-track -->
-    </div><!-- /proj-sticky -->
-  </div><!-- /proj-scroll-zone -->
-</section>
-</template>
-
-<!-- â•â•â• TESTIMONIALS â•â•â• -->
-<section id="testimonials" data-cc-id="cc-5">
-  <div class="testi-hd" data-cc-id="cc-12">
-    <div>
-      <div class="eyebrow r-fade fired" style="font-size: 18px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43, 43, 43, 0.5); margin-bottom: 12px;" data-cc-id="cc-6">Client Stories</div>
-      <h2 class="r-fade d1 fired">What they <em>say.</em></h2>
-    </div>
-  </div>
-  <div class="testi-grid">
-    <div class="testi-card r-fade fired" data-cc-id="cc-9">
-      <div class="testi-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
-      <p class="testi-text">"Completed on time, within budget, and exceeded our expectations. The craftsmanship and attention to detail were simply amazing."</p>
-      <div class="testi-who" data-cc-id="cc-3" style="font-size: 12px;">Mike · Scottsdale, AZ 2023</div>
-    </div>
-    <div class="testi-card r-fade d1 fired" data-cc-id="cc-8">
-      <div class="testi-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
-      <p class="testi-text">"Real experts in luxury homes. Their follow-up and attention to detail after close was second to none. I'd recommend them to anyone."</p>
-      <div class="testi-who" data-cc-id="cc-2" style="font-size: 12px;">Mark · Paradise Valley, AZ · 2024</div>
-    </div>
-    <div class="testi-card r-fade d2 fired" data-cc-id="cc-7">
-      <div class="testi-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
-      <p class="testi-text">"Blown away by the quality. Shay &amp; team have been so meticulous "” something most builders completely disregard. So lucky to live here."</p>
-      <div class="testi-who" data-cc-id="cc-4" style="font-size: 12px;">Anastasia · Arcadia, AZ · 2024</div>
-    </div>
-  </div>
-</section>
-
-<!-- â•â•â• PHILOSOPHY â•â•â• -->
-<section id="philosophy" class="grain" data-cc-id="cc-11">
-  <div class="phil-bg" id="philBg" style="transform: translateY(7.99186%);"></div>
-  <div class="phil-inner">
-    <div class="phil-pre r-fade fired">Our Philosophy</div>
-    <div class="r-mask"><span class="r-up phil-title d1 fired">We don't build houses.</span></div>
-    <div class="r-mask"><span class="r-up phil-title d2 fired">We build <em>legacies.</em></span></div>
-    <p class="phil-body r-fade d3 fired" data-cc-id="cc-1" style="">
-      Transparent process. Uncompromising craft. Every Ella Lee home is a collaborative
-      journey from the first sketch to the final walkthrough.
-    </p>
-    <a href="process.html" class="phil-btn r-fade d4 fired">Our Process</a>
-  </div>
-</section>
-
-<!-- â•â•â• CONTACT â•â•â• -->
-<section id="cta" class="grain" data-cc-id="cc-10">
-  <div class="cta-left">
-    <div class="cta-eyebrow r-fade fired" style="font-size: 12px">Begin the Conversation</div>
-    <div class="cta-text">
-      <div class="r-mask"><span class="r-up d1 fired">Ready to build</span></div>
-      <div class="r-mask"><span class="r-up d2 fired">your <em>legacy?</em></span></div>
-    </div>
-    <p class="cta-sub r-fade d3 fired">Tell us about your vision. Whether you're building from the ground up, selling a custom home, or simply exploring what's possible, we'd love to hear from you.</p>
-    <div class="cta-meta r-fade d4 fired">
-      <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
-      <div class="cta-meta-row"><span class="cta-meta-label">Email</span><span class="cta-meta-val">hello@ellaleehomes.com</span></div>
-      <div class="cta-meta-row"><span class="cta-meta-label">Studio</span><span class="cta-meta-val">4408 N 12th St, Phoenix, AZ 85014</span></div>
-    </div>
-  </div>
-
-  <form class="cta-form r-fade d2 fired" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We\u2019ll be in touch.';">
-    <div class="cta-form-row">
-      <div class="cta-field">
-        <label>First Name</label>
-        <input type="text" placeholder="Jane" required="">
+          <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 500; letter-spacing: .02em">Charter Oak</h3>
+            <div style="display: flex; flex-wrap: nowrap; gap: 14px">
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">5 Bed</span>
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">5.5 Bath</span>
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">5,214 Sqft</span>
+            </div>
+          </div>
+        </a>
+        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+          <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
+            <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
+              <img class="elh-img" id="elh-proj-2" src="uploads/home/project-via-estrella.jpg" alt="Via Estrella custom home" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 500; letter-spacing: .02em">Via Estrella</h3>
+            <div style="display: flex; flex-wrap: nowrap; gap: 14px">
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">5 Bed</span>
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">5.5 Bath</span>
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">5,214 Sqft</span>
+            </div>
+          </div>
+        </a>
+        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+          <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
+            <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
+              <img class="elh-img" id="elh-proj-3" src="uploads/home/project-68th.jpg" alt="68th Street custom home" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 500; letter-spacing: .02em">68th</h3>
+            <div style="display: flex; flex-wrap: nowrap; gap: 14px">
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">5 Bed</span>
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">5.5 Bath</span>
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">5,214 Sqft</span>
+            </div>
+          </div>
+        </a>
+        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+          <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
+            <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
+              <img class="elh-img" id="elh-proj-4" src="uploads/home/project-4.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 500; letter-spacing: .02em">Stanford</h3>
+            <div style="display: flex; flex-wrap: nowrap; gap: 14px">
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">Coming soon</span>
+            </div>
+          </div>
+        </a>
+        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+          <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
+            <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
+              <img class="elh-img" id="elh-proj-5" src="uploads/home/project-5.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 500; letter-spacing: .02em">Camino</h3>
+            <div style="display: flex; flex-wrap: nowrap; gap: 14px">
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">Coming soon</span>
+            </div>
+          </div>
+        </a>
+        <a href="#" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
+          <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
+            <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
+              <img class="elh-img" id="elh-proj-6" src="uploads/home/project-6.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 500; letter-spacing: .02em">Glenrosa</h3>
+            <div style="display: flex; flex-wrap: nowrap; gap: 14px">
+              <span style="flex: 0 0 auto; font-size: 11px; letter-spacing: .09em; white-space: nowrap; text-transform: uppercase; color: rgba(234,229,220,.82)">Coming soon</span>
+            </div>
+          </div>
+        </a>
       </div>
-      <div class="cta-field">
-        <label>Last Name</label>
-        <input type="text" placeholder="Doe" required="">
-      </div>
-    </div>
-    <div class="cta-form-row">
-      <div class="cta-field">
-        <label>Email</label>
-        <input type="email" placeholder="jane@email.com" required="">
-      </div>
-      <div class="cta-field">
-        <label>Phone</label>
-        <input type="tel" placeholder="(480) 555-0100">
-      </div>
-    </div>
-    <div class="cta-field">
-      <label>I'm interested in</label>
-      <select>
-        <option>Building a custom home</option>
-        <option>Selling my home</option>
-        <option>Investor / development opportunity</option>
-        <option>General inquiry</option>
-      </select>
-    </div>
-    <div class="cta-field">
-      <label>Tell us about your project</label>
-      <textarea placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
-    </div>
-    <div class="cta-form-actions">
-      <p class="cta-form-note">We respond personally within one business day.</p>
-      <button type="submit" class="cta-submit">
-        Send Inquiry
-        <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"></path></svg>
+      <button class="elh-h2" type="button" aria-label="Previous project" data-elh-click="stripPrev" style="position: absolute; top: 50%; left: clamp(12px, 2vw, 28px); display: flex; align-items: center; justify-content: center; width: clamp(44px, 4vw, 58px); height: clamp(44px, 4vw, 58px); margin-top: -29px; color: #EAE5DC; background: rgba(0,21,38,.55); border: 1px solid rgba(234,229,220,.5); border-radius: 50%; cursor: pointer; backdrop-filter: blur(6px); transition: background .3s ease, border-color .3s ease">
+        <span style="display: block; width: 9px; height: 9px; border-left: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translate(1px, -1px)"></span>
       </button>
+      <button class="elh-h2" type="button" aria-label="Next project" data-elh-click="stripNext" style="position: absolute; top: 50%; right: clamp(12px, 2vw, 28px); display: flex; align-items: center; justify-content: center; width: clamp(44px, 4vw, 58px); height: clamp(44px, 4vw, 58px); margin-top: -29px; color: #EAE5DC; background: rgba(0,21,38,.55); border: 1px solid rgba(234,229,220,.5); border-radius: 50%; cursor: pointer; backdrop-filter: blur(6px); transition: background .3s ease, border-color .3s ease">
+        <span style="display: block; width: 9px; height: 9px; border-right: 1px solid currentColor; border-top: 1px solid currentColor; transform: rotate(45deg) translate(-1px, 1px)"></span>
+      </button>
+      </div>
     </div>
-  </form>
-</section>
+  </section>
 
-<!-- FOOTER_PARTIAL -->
+  <section id="testimonials" data-elh-testi="1" data-screen-label="Testimonials" style="padding: clamp(48px, 6vw, 96px) clamp(20px, 4vw, 64px) clamp(80px, 11vw, 160px); background: linear-gradient(#001526 0px, #000D19 260px); color: #EAE5DC">
+    <div style="display: flex; flex-direction: column; gap: clamp(44px, 5vw, 68px); max-width: 1500px; margin: 0 auto">
+      <div style="display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center">
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Testimonials</span>
+        <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4.1vw, 60px); font-weight: 400; line-height: 1.08">What homeowners say about us</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(18px, 2.2vw, 32px)">
+        <figure style="display: flex; flex-direction: column; gap: 24px; margin: 0; padding: 36px 32px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <blockquote style="margin: 0; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.62; color: #EAE5DC">Blown away by the quality and attention to detail — Shay and the team have been so meticulous about warranty and repair work.</blockquote>
+          <figcaption style="display: flex; align-items: center; gap: 14px; margin-top: auto">
+            <span style="position: relative; flex: 0 0 auto; width: 46px; height: 46px; overflow: hidden; border-radius: 50%">
+              <span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 15px; font-weight: 400; color: #BFA06A; background: rgba(191,160,106,.14); border: 1px solid rgba(191,160,106,.4); border-radius: 50%">A</span>
+            </span>
+            <span style="font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #BFA06A">Anastasia</span>
+          </figcaption>
+        </figure>
+        <figure style="display: flex; flex-direction: column; gap: 24px; margin: 0; padding: 36px 32px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <blockquote style="margin: 0; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.62; color: #EAE5DC">Professional, approachable, and efficient — completed on time, within budget, and exceeded our expectations.</blockquote>
+          <figcaption style="display: flex; align-items: center; gap: 14px; margin-top: auto">
+            <span style="position: relative; flex: 0 0 auto; width: 46px; height: 46px; overflow: hidden; border-radius: 50%">
+              <span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 15px; font-weight: 400; color: #BFA06A; background: rgba(191,160,106,.14); border: 1px solid rgba(191,160,106,.4); border-radius: 50%">M</span>
+            </span>
+            <span style="font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #BFA06A">Mike</span>
+          </figcaption>
+        </figure>
+        <figure style="display: flex; flex-direction: column; gap: 24px; margin: 0; padding: 36px 32px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <blockquote style="margin: 0; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.62; color: #EAE5DC">Real experts when it comes to luxury homes in the greater Scottsdale and Phoenix area — their follow-up and attention to detail were second to none.</blockquote>
+          <figcaption style="display: flex; align-items: center; gap: 14px; margin-top: auto">
+            <span style="position: relative; flex: 0 0 auto; width: 46px; height: 46px; overflow: hidden; border-radius: 50%">
+              <span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 15px; font-weight: 400; color: #BFA06A; background: rgba(191,160,106,.14); border: 1px solid rgba(191,160,106,.4); border-radius: 50%">M</span>
+            </span>
+            <span style="font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #BFA06A">Mark</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
 
-<!-- TWEAKS -->
-<div id="tweaks" class="">
-  <div class="tw-hd" data-cc-id="cc-5">Tweaks</div>
-  <div class="tw-body" data-cc-id="cc-6">
-    <div class="tw-row">
-      <label>Motion Speed</label>
-      <input type="range" class="tw-range" min="0" max="2" step="1" value="1" id="motionSlider" data-cc-id="cc-7">
-      <div class="tw-hint" data-cc-id="cc-8"><span>Subtle</span><span>Medium</span><span>Bold</span></div>
-    </div>
-    <div class="tw-row" data-cc-id="cc-10">
-      <label data-cc-id="cc-9">Accent Color</label>
-      <div class="tw-opts" data-cc-id="cc-12">
-        <button class="tw-opt on" onclick="setAccent('#C9A96E');setOn(this)">Gold</button>
-        <button class="tw-opt" onclick="setAccent('#002855');setOn(this)" data-cc-id="cc-13">Navy</button>
-        <button class="tw-opt" onclick="setAccent('#A5A09D');setOn(this)" data-cc-id="cc-11">Nickel</button>
+  <section id="giving" data-screen-label="Giving Back" style="padding: clamp(80px, 11vw, 160px) clamp(20px, 4vw, 64px); background: #E3DACA">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(32px, 5vw, 80px); align-items: center; max-width: 1500px; margin: 0 auto">
+      <div style="display: flex; flex-direction: column; gap: 22px">
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #8A6E3C">Giving Back</span>
+        <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(28px, 3.6vw, 54px); font-weight: 400; line-height: 1.1; letter-spacing: -.01em; text-wrap: pretty; color: #001526">Ten percent of our profit goes back out</h2>
+        <p style="margin: 0; max-width: 52ch; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.7; color: #2B2B2B">Ella Lee Homes is dedicated to donating a minimum of 10% of our annual profits to support non-profit organizations both locally and globally.</p>
+      </div>
+      <div style="position: relative; aspect-ratio: 3 / 2; width: 100%">
+        <img class="elh-img" id="elh-giving" src="uploads/home/giving-back.jpg" alt="The Ella Lee Homes team giving back in the community" loading="lazy" decoding="async">
       </div>
     </div>
-    <div class="tw-row">
-      <label>Cards Scroll Speed</label>
-      <div class="tw-opts">
-        <button class="tw-opt" onclick="setCardSpeed(300);setOn(this)">Fast</button>
-        <button class="tw-opt on" onclick="setCardSpeed(700);setOn(this)">Medium</button>
-        <button class="tw-opt" onclick="setCardSpeed(1200);setOn(this)">Slow</button>
+  </section>
+
+  <section id="inquiry" data-screen-label="Inquiry" style="padding: clamp(80px, 11vw, 160px) clamp(20px, 4vw, 64px); background: #001526; color: #EAE5DC">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(36px, 5vw, 90px); max-width: 1500px; margin: 0 auto">
+      <div style="display: flex; flex-direction: column; gap: 22px">
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Build Your Home</span>
+        <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -.015em">Start your build</h2>
+        <p style="margin: 0; max-width: 46ch; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.7; color: rgba(234,229,220,.88)">Tell us about your project and we'll come back to you within one business day. If you'd rather talk it through, call <a href="tel:+14803408700" style="color: #EAE5DC; border-bottom: 1px solid rgba(191,160,106,.7)">(480) 340-8700</a>.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px; font-size: 14px; line-height: 1.6; color: #A5A09D">
+          <span>4408 N 12th St, Ste 200, Phoenix, AZ 85014</span>
+          <a href="mailto:hello@ellaleehomes.com" style="color: #A5A09D">hello@ellaleehomes.com</a>
+        </div>
+      </div>
+      <form data-elh-submit="submitForm" style="display: flex; flex-direction: column; gap: 22px">
+        <label style="display: flex; flex-direction: column; gap: 9px">
+          <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Name</span>
+          <input name="name" type="text" required="required" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none">
+        </label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 22px">
+          <label style="display: flex; flex-direction: column; gap: 9px">
+            <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Email</span>
+            <input name="email" type="email" required="required" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 9px">
+            <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Phone</span>
+            <input name="phone" type="tel" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none">
+          </label>
+        </div>
+        <label style="display: flex; flex-direction: column; gap: 9px">
+          <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Target budget range</span>
+          <sc-raw-select name="budget" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none">
+            <option value="" style="color: #001526">Select a range</option>
+            <option value="1-2m" style="color: #001526">$1M – $2M</option>
+            <option value="2-3m" style="color: #001526">$2M – $3M</option>
+            <option value="3-5m" style="color: #001526">$3M – $5M</option>
+            <option value="5m+" style="color: #001526">$5M+</option>
+            <option value="unsure" style="color: #001526">Not sure yet</option>
+          </sc-raw-select>
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 9px">
+          <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Tell us about your project</span>
+          <textarea name="project" rows="4" style="padding: 13px 0; font-size: 16px; font-weight: 300; line-height: 1.6; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; resize: vertical"></textarea>
+        </label>
+        <button class="elh-h4" type="submit" style="align-self: flex-start; margin-top: 8px; padding: 17px 40px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #001526; background: #EAE5DC; border: 0; cursor: pointer; transition: background .3s ease">Send Inquiry</button>
+        <p data-elh-form-msg="1" style="display: none; margin: 0; font-size: 14px; color: #BFA06A">Thank you — we'll be in touch within one business day.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq" data-screen-label="FAQs" style="padding: clamp(80px, 11vw, 160px) clamp(20px, 4vw, 64px); background: linear-gradient(#001526 0px, #000D19 260px); color: #EAE5DC">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(36px, 5vw, 84px); align-items: start; max-width: 1500px; margin: 0 auto">
+      <div data-elh-faqhead="1" style="display: flex; flex-direction: column; gap: 24px; position: sticky; top: 108px">
+        <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(34px, 4.6vw, 68px); font-weight: 400; line-height: 1.02">FAQs</h2>
+        <p style="margin: 0; max-width: 40ch; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.7; color: rgba(234,229,220,.82)">Straight answers on cost, timeline and building on your own lot across Paradise Valley, Scottsdale and Arcadia.</p>
+        <a class="elh-h1" href="#inquiry" style="align-self: flex-start; padding: 14px 30px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #EAE5DC; border: 1px solid rgba(234,229,220,.5); border-radius: 100px; transition: background .3s ease, color .3s ease">Contact</a>
+      </div>
+      <div data-elh-faq="1" style="display: flex; flex-direction: column; gap: 2px">
+        <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <button type="button" data-elh-click="toggleFaq" aria-expanded="false" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 24px 26px; text-align: left; background: none; border: 0; cursor: pointer">
+            <h3 style="margin: 0; font-size: clamp(15px, 1.25vw, 18px); font-weight: 500; line-height: 1.4; color: #EAE5DC">How long does it take to build a custom home in Arizona?</h3>
+            <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
+          </button>
+          <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
+            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">Most Ella Lee homes are complete within 12 to 18 months from the start of construction. Design and permitting typically add three to six months before that, depending on the municipality and whether your lot needs variances. We give you a written schedule before we break ground and update it at every milestone.</p>
+          </div>
+        </div>
+        <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <button type="button" data-elh-click="toggleFaq" aria-expanded="false" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 24px 26px; text-align: left; background: none; border: 0; cursor: pointer">
+            <h3 style="margin: 0; font-size: clamp(15px, 1.25vw, 18px); font-weight: 500; line-height: 1.4; color: #EAE5DC">What does cost-plus mean in home building?</h3>
+            <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
+          </button>
+          <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
+            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">Cost-plus means you pay the actual cost of labor and materials, plus one agreed builder's fee. You see every subcontractor bid and every invoice, so there is no hidden markup and no incentive for us to cut corners on quality. It is the most transparent way to build a custom home, and it is how we build every one of ours.</p>
+          </div>
+        </div>
+        <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <button type="button" data-elh-click="toggleFaq" aria-expanded="false" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 24px 26px; text-align: left; background: none; border: 0; cursor: pointer">
+            <h3 style="margin: 0; font-size: clamp(15px, 1.25vw, 18px); font-weight: 500; line-height: 1.4; color: #EAE5DC">How much does it cost to build a custom home in Paradise Valley?</h3>
+            <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
+          </button>
+          <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
+            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">Send us your lot and a rough program and we will give you a real number rather than a range pulled from the air. Cost is driven by lot conditions, square footage, ceiling heights and level of finish, and the difference between those choices is significant. We build a detailed line-item budget before you commit to anything.</p>
+          </div>
+        </div>
+        <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <button type="button" data-elh-click="toggleFaq" aria-expanded="false" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 24px 26px; text-align: left; background: none; border: 0; cursor: pointer">
+            <h3 style="margin: 0; font-size: clamp(15px, 1.25vw, 18px); font-weight: 500; line-height: 1.4; color: #EAE5DC">Can Ella Lee Homes build on my lot?</h3>
+            <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
+          </button>
+          <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
+            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">Yes. We build on client-owned lots across Paradise Valley, Scottsdale, Arcadia and Phoenix, and we can review a lot before you buy it. If you are still looking, we will walk candidate lots with you and flag the ones whose grading, setbacks or utilities will cost you later.</p>
+          </div>
+        </div>
+        <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <button type="button" data-elh-click="toggleFaq" aria-expanded="false" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 24px 26px; text-align: left; background: none; border: 0; cursor: pointer">
+            <h3 style="margin: 0; font-size: clamp(15px, 1.25vw, 18px); font-weight: 500; line-height: 1.4; color: #EAE5DC">What services does Ella Lee Homes offer?</h3>
+            <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
+          </button>
+          <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
+            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">We build custom new homes only — no remodels, additions or commercial work. That focus is deliberate: it keeps our team, our subcontractors and our schedule built entirely around ground-up residential construction. Ella Lee Homes is licensed in Arizona under ROC KB2-333410.</p>
+          </div>
+        </div>
+        <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <button type="button" data-elh-click="toggleFaq" aria-expanded="false" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 24px 26px; text-align: left; background: none; border: 0; cursor: pointer">
+            <h3 style="margin: 0; font-size: clamp(15px, 1.25vw, 18px); font-weight: 500; line-height: 1.4; color: #EAE5DC">I want to start a project but don't know where to begin. What's the first step?</h3>
+            <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
+          </button>
+          <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
+            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">Start with a conversation — no drawings or decisions required. We will talk through your lot, how you want to live in the house, and a realistic budget and timeline, then tell you honestly whether we are the right builder for it. Call (480) 340-8700 or send the form above.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="tw-row">
-      <label>Meet Section</label>
-      <div class="tw-opts">
-        <button class="tw-opt on" onclick="toggleLight(true);setOn(this)">Light</button>
-        <button class="tw-opt" onclick="toggleLight(false);setOn(this)">Dark</button>
-      </div>
-    </div>
-    <div class="tw-row">
-      <label>Hero Media</label>
-      <div class="tw-opts">
-        <button class="tw-opt on" onclick="setHero('image');setOn(this)">Image</button>
-        <button class="tw-opt" onclick="setHero('video');setOn(this)">Video</button>
-      </div>
-    </div>
-  </div>
+  </section>
+
+  <!-- FOOTER_PARTIAL -->
 </div>
 
-<script>
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "motionIntensity": 0,
-  "accent": "#C9A96E",
-  "heroMedia": "video",
-  "cardSpeed": 1200
-}/*EDITMODE-END*/;
-
-/* â”€â”€ LOADER â”€â”€ */
-const loaderEl = document.getElementById('loader');
-const loaderCount = document.getElementById('loader-count');
-const loaderFill = document.getElementById('loader-fill');
-const navEl = document.getElementById('nav');
-
-(function(){
-  const dur = 2200, start = performance.now();
-  function tick(now){
-    const p = Math.min((now-start)/dur, 1);
-    const e = p<.5 ? 2*p*p : -1+(4-2*p)*p;
-    loaderCount.textContent = Math.floor(e*100);
-    loaderFill.style.width = (e*100)+'%';
-    if(p<1){ requestAnimationFrame(tick); }
-    else {
-      loaderCount.textContent = 100;
-      setTimeout(()=>{
-        loaderEl.classList.add('exit');
-        fireHero();
-        onScroll();
-        setTimeout(initReveals, 600);
-      }, 400);
-    }
-  }
-  requestAnimationFrame(tick);
-})();
-
-function fireHero(){
-  // hero lines already animate via CSS animation "” just ensure they run
-  document.querySelectorAll('.hero-headline .line').forEach(l => l.style.animationPlayState='running');
-}
-
-/* â”€â”€ NAV COMPACT â”€â”€ */
-window.addEventListener('scroll', onScroll, {passive:true});
-
-/* â”€â”€ EXPAND LOGIC â”€â”€ */
-function setupExpand(zoneId, clipId, imgId){
-  const zone = document.getElementById(zoneId);
-  const clip = document.getElementById(clipId);
-  const img  = document.getElementById(imgId);
-  // initial size
-  clip.style.width = '50vw';
-  clip.style.height = '60vh';
-  img.style.transform = 'scale(1.1)';
-  return {zone, clip, img};
-}
-const ex1 = null;
-
-function lerp(a,b,t){ return a+(b-a)*t; }
-
-function updateExpand(ex){
-  const rect = ex.zone.getBoundingClientRect();
-  const zH = ex.zone.offsetHeight;
-  const wH = window.innerHeight;
-  const scrollInZone = -rect.top;
-  const range = zH - wH;
-  const p = Math.max(0, Math.min(1, scrollInZone / range));
-
-  const w = lerp(50,100,p);
-  const h = lerp(60,100,p);
-  ex.clip.style.width = w+'vw';
-  ex.clip.style.height = h+'vh';
-  ex.img.style.transform = `scale(${lerp(1.1,1.0,p)})`;
-  if(p > .72) ex.clip.classList.add('revealed');
-  else ex.clip.classList.remove('revealed');
-}
-
-/* â”€â”€ PHILOSOPHY PARALLAX â”€â”€ */
-const philBg = document.getElementById('philBg');
-const philEl = document.getElementById('philosophy');
-
-function updatePhil(){
-  const rect = philEl.getBoundingClientRect();
-  const p = (window.innerHeight - rect.top) / (window.innerHeight + philEl.offsetHeight);
-  philBg.style.transform = `translateY(${lerp(-8,8,p)}%)`;
-}
-
-/* â”€â”€ EXPERIENCE SPLIT SCROLL â”€â”€ */
-const expSplitZone = document.getElementById('exp-split-zone');
-const expColA = document.getElementById('expColA');
-const expColB = document.getElementById('expColB');
-
-function updateExpSplit() {
-  if (!expSplitZone || !expColA || !expColB) return;
-  const rect = expSplitZone.getBoundingClientRect();
-  const zoneH = expSplitZone.offsetHeight;
-  const wh = window.innerHeight;
-  const scrollInZone = -rect.top;
-  const p = Math.max(0, Math.min(1, scrollInZone / (zoneH - wh)));
-  
-  // Column A scrolls down, Column B scrolls up
-  const range = 400;
-  expColA.style.transform = `translateY(${-p * range}px)`;
-  expColB.style.transform = `translateY(${p * range - range * 0.5}px)`;
-}
-
-
-const expCards = Array.from(document.querySelectorAll('.exp-card'));
-const expZone = document.getElementById('expScrollZone');
-const CARD_OFFSET = 8;
-// Show first card immediately
-if (expCards[0]) { expCards[0].style.opacity = 1; expCards[0].style.transform = 'translateY(20px)'; }
-
-function updateCards() {
-  if (!expZone) return;
-  const rect = expZone.getBoundingClientRect();
-  const zoneH = expZone.offsetHeight;
-  const wh = window.innerHeight;
-  const scrollInZone = -rect.top;
-  const perCard = (zoneH - wh) / expCards.length;
-
-  expCards.forEach((card, i) => {
-    const cardStart = i * perCard;
-    const cardEnd = cardStart + perCard;
-    const p = Math.max(0, Math.min(1, (scrollInZone - cardStart) / perCard));
-
-    // First card starts visible immediately; subsequent cards slide in
-    const yPct = i === 0 ? (1 - Math.max(p, 0)) * 0 : (1 - p) * 100;
-    const stackY = i > 0 ? i * CARD_OFFSET : 0;
-    const buriedBy = Math.max(0, expCards.length - 1 - i);
-    const scale = scrollInZone > cardEnd ? 1 - buriedBy * 0.012 : 1;
-
-    const CARD_TOP_OFFSET = 20;
-    if (i === 0) {
-      // First card always visible from start
-      card.style.transform = `translateY(${stackY + CARD_TOP_OFFSET}px) scale(${scale})`;
-      card.style.opacity = 1;
-    } else {
-      card.style.transform = p >= 1
-        ? `translateY(${stackY + CARD_TOP_OFFSET}px) scale(${scale})`
-        : `translateY(calc(${(1 - p) * 100}vh + ${stackY + CARD_TOP_OFFSET}px))`;
-      card.style.opacity = p > 0 ? 1 : 0;
-    }
-  });
-}
-
-/* â”€â”€ HORIZONTAL PROJECTS SCROLL â”€â”€ */
-const projZone = document.getElementById('proj-scroll-zone');
-const projTrack = document.getElementById('proj-track');
-const projSlides = Array.from(document.querySelectorAll('.proj-slide'));
-const NUM_SLIDES = projSlides.length;
-if (projZone) projZone.style.height = (NUM_SLIDES * 300) + 'vh';
-
-function updateProjects() {
-  if (!projZone || !projTrack) return;
-  const rect = projZone.getBoundingClientRect();
-  const zoneH = projZone.offsetHeight;
-  const wh = window.innerHeight;
-  const scrollInZone = -rect.top;
-  const maxScroll = zoneH - wh;
-  const p = Math.max(0, Math.min(1, scrollInZone / maxScroll));
-  const tx = p * (NUM_SLIDES - 1) * 100;
-  projTrack.style.transform = `translateX(-${tx}vw)`;
-  const activeIdx = Math.min(NUM_SLIDES - 1, Math.round(p * (NUM_SLIDES - 1)));
-  projSlides.forEach((s, i) => s.classList.toggle('in-view', i === activeIdx));
-}
-
-let revealEls = [];
-function initReveals() {
-  revealEls = Array.from(document.querySelectorAll('.r-up, .r-fade, [data-reveal]'));
-  checkReveals();
-}
-function checkReveals() {
-  const wh = window.innerHeight;
-  revealEls = revealEls.filter(el => {
-    const top = el.getBoundingClientRect().top;
-    if (top < wh - 60) {
-      el.classList.add('fired');
-      if (el.hasAttribute('data-reveal')) el.classList.add('visible');
-      return false; // remove from list
-    }
-    return true;
-  });
-}
-
-/* â”€â”€ MAIN SCROLL HANDLER â”€â”€ */
-function onScroll(){
-  const sy = window.scrollY;
-  // Show nav after scrolling past hero (>10vh), hide when back at top
-  navEl.classList.toggle('compact', sy > 80);
-
-  // Nav logo drifts to center as hero fades, waits for badge peak, then snaps back
-  const navLogo = document.getElementById('navLogo');
-  if (navLogo) {
-    const heroH = window.innerHeight;
-    const fadeStart = heroH * 0.1;
-    const fadePeak = heroH * 0.35;   // logo fully faded here
-    const badgePeak = heroH * 0.72;  // badge peaks here (matches logoEnd in badge logic)
-    const snapEnd = heroH * 0.85;    // logo fully back by here
-
-    if (sy < fadeStart) {
-      navLogo.style.transform = 'translate(0,0) scale(1)';
-      navLogo.style.opacity = '1';
-    } else if (sy < fadePeak) {
-      // drift toward center + fade out
-      const p = (sy - fadeStart) / (fadePeak - fadeStart);
-      const tx = p * (window.innerWidth / 2 - 120);
-      const ty = p * (window.innerHeight / 2 - 40);
-      navLogo.style.transform = `translate(${tx}px, ${ty}px) scale(${1 + p * 0.3})`;
-      navLogo.style.opacity = String(1 - p);
-    } else if (sy < badgePeak) {
-      // stay invisible while badge is showing
-      navLogo.style.transform = 'translate(0,0) scale(1)';
-      navLogo.style.opacity = '0';
-    } else {
-      // drift back from center to top-left after badge fades
-      const p = Math.min(1, (sy - badgePeak) / (snapEnd - badgePeak));
-      const tx = (1 - p) * (window.innerWidth / 2 - 120);
-      const ty = (1 - p) * (window.innerHeight / 2 - 40);
-      navLogo.style.transform = `translate(${tx}px, ${ty}px) scale(${1 + (1-p) * 0.3})`;
-      navLogo.style.opacity = String(p);
-    }
-  }
-
-  // Scroll logo "” appears during hero fade, stays long with origin text, then fades
-  const scrollLogo = document.getElementById('scroll-logo');
-  const originText = document.getElementById('scroll-origin-text');
-  const logoStart = window.innerHeight * 0.35;
-  const logoEnd = window.innerHeight * 2.2;   // stays much longer
-  const logoPeak = window.innerHeight * 0.72;
-  const textReveal = window.innerHeight * 0.9; // text appears here
-  let logoOpacity = 0;
-  if (sy > logoStart && sy < logoEnd) {
-    const up = Math.min(1, (sy - logoStart) / (logoPeak - logoStart));
-    const down = sy > logoEnd * 0.85 ? Math.min(1, (sy - logoEnd * 0.85) / (logoEnd * 0.15)) : 0;
-    logoOpacity = up * (1 - down);
-  }
-  scrollLogo.style.opacity = logoOpacity;
-
-  // Reveal origin text once logo is fully shown
-  if (originText) {
-    if (sy > textReveal && sy < logoEnd) {
-      originText.style.opacity = '1';
-      originText.style.transform = 'translateY(0)';
-    } else {
-      originText.style.opacity = '0';
-      originText.style.transform = 'translateY(16px)';
-    }
-  }
-  const heroBadge = document.getElementById('heroBadge');
-  if (heroBadge) heroBadge.style.opacity = logoOpacity;
-
-  // Hero fade-out on scroll
-  const heroZone = document.getElementById('hero-scroll-zone');
-  const heroWrapper = document.getElementById('hero-wrapper');
-  const heroH = window.innerHeight;
-  const fadeProgress = Math.max(0, Math.min(1, (sy - heroH * 0.4) / (heroH * 0.55)));
-  heroWrapper.style.opacity = 1 - fadeProgress;
-  heroWrapper.style.transform = `scale(${1 - fadeProgress * 0.04})`;
-
-  if (ex1) updateExpand(ex1);
-  updatePhil();
-  updateExpSplit();
-  updateProjects();
-  checkReveals();
-}
-
-/* â”€â”€ TWEAKS â”€â”€ */
-function toggleLight(on) {
-  const meet = document.getElementById('meet');
-  if (on) meet.classList.add('section-light');
-  else meet.classList.remove('section-light');
-}
-function setCardSpeed(vh) {
-  const zone = document.getElementById('expScrollZone');
-  if (zone) zone.style.height = vh + 'vh';
-  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{cardSpeed:vh}},'*');
-}
-function setOn(btn){
-  btn.closest('.tw-opts').querySelectorAll('.tw-opt').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-}
-function setAccent(v){
-  document.documentElement.style.setProperty('--gold', v);
-  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{accent:v}},'*');
-}
-function setHero(mode){
-  const vid = document.getElementById('hero-video');
-  const bg  = document.getElementById('hero-media');
-  if(mode==='video'){ vid.style.display='block'; if(bg) bg.style.opacity='0'; }
-  else { vid.style.display='none'; if(bg) bg.style.opacity='1'; }
-  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{heroMedia:mode}},'*');
-}
-document.getElementById('motionSlider').addEventListener('input', function(){
-  const s = ['0.55s','0.95s','1.35s'][this.value];
-  document.querySelectorAll('.r-up,.r-fade').forEach(el => el.style.transitionDuration = s);
-  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{motionIntensity:+this.value}},'*');
-});
-window.addEventListener('message', e=>{
-  if(e.data?.type==='__activate_edit_mode') document.getElementById('tweaks').classList.add('open');
-  if(e.data?.type==='__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('open');
-});
-window.parent.postMessage({type:'__edit_mode_available'},'*');
-
-/* â”€â”€ MEET IMAGE SWITCHER â”€â”€ */
-document.querySelectorAll('.meet-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.meet-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.meet-bg-img').forEach(img => img.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(btn.dataset.img)?.classList.add('active');
-  });
-});
-
-// Apply saved defaults
-document.documentElement.style.setProperty('--gold', TWEAK_DEFAULTS.accent || '#C9A96E');
-setHero(TWEAK_DEFAULTS.heroMedia || 'video');
-document.documentElement.style.setProperty('--ink', '#2B2B2B');
-document.documentElement.style.setProperty('--ink-deep', '#1a1a1a');
-document.documentElement.style.setProperty('--paper', '#EAE5DC');
-document.documentElement.style.setProperty('--nickel', '#A5A09D');
-document.documentElement.style.setProperty('--navy', '#002855');
-document.getElementById('motionSlider').value = TWEAK_DEFAULTS.motionIntensity ?? 0;
-</script>
-
-
-</body></html>
+<script defer src="assets/home.js"></script>
+</body>
+</html>
