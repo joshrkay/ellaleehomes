@@ -6,9 +6,9 @@ Top-level nav (`partials/nav.html`):
 
 | Label | Target |
 |--------|--------|
-| Portfolio | `projects.html` |
-| Build | `process.html` |
-| Sell | `sell.html` |
+| Portfolio | `previous-projects.html` |
+| Build | `build-your-home.html` |
+| Sell | `sell-your-home.html` |
 | Our Story | `our-story.html` |
 | Learn | dropdown, built by `assets/site-nav-dd.js` |
 | Schedule a Consultation | `index.html#inquiry`, or `contact.html` on the help/legal/article pages |
@@ -71,7 +71,7 @@ Hero and marketing imagery use dates under `wp-content/uploads/2025/` (02, 03, 0
 
 **Video:** `wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v` (hero).
 
-**Portfolio cards (`projects.html`):** Mixed dates; placeholders use `2025/01/placeholder.jpg`.
+**Portfolio cards (`previous-projects.html`):** Mixed dates; placeholders use `2025/01/placeholder.jpg`.
 
 **Logo (live site header reference):** `wp-content/uploads/2025/04/ELLA-LEE-HOMES-Updated-LOGO-1-01.png` (full wordmark; exported into repo as `uploads/Monogram_Navy.png`).
 

@@ -1,5 +1,5 @@
 /**
- * Regenerates the portfolio grid in src/projects.html from wp-project-media.json
+ * Regenerates the portfolio grid in src/previous-projects.html from wp-project-media.json
  * and the same canonical specs as apply-projects-from-wp.mjs.
  */
 import fs from 'node:fs';
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
 const media = JSON.parse(fs.readFileSync(path.join(__dirname, 'wp-project-media.json'), 'utf8'));
-const projectsPath = path.join(root, 'src', 'projects.html');
+const projectsPath = path.join(root, 'src', 'previous-projects.html');
 
 const CARDS = [
   { slug: 'charter-oak', sqft: 4833, price: 7035000, year: 2024, name: 'Charter Oak', loc: 'Scottsdale, Arizona', beds: 5, baths: '5.2', priceStr: '$7,035,000' },

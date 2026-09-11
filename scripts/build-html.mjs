@@ -59,17 +59,17 @@ const PAGES = [
   { file: 'index.html', url: '/', changefreq: 'weekly', priority: '1.0', nav: false, cursor: false },
 
   // Primary pages
-  { file: 'projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', theme: 'theme-projects', cta: CTA_HOME, active: { portfolio: true } },
+  { file: 'previous-projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', theme: 'theme-projects', cta: CTA_HOME, active: { portfolio: true } },
   // The project detail template renders per-slug; those URLs are listed from
   // the portfolio's own structured data instead of this entry.
   { file: 'project.html', url: null, theme: 'theme-portfolio', cta: CTA_HOME, active: { portfolio: true } },
-  { file: 'process.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', theme: 'theme-process', cta: CTA_HOME, active: { process: true } },
-  { file: 'sell.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7', theme: 'theme-sell', cta: CTA_HOME, active: { sell: true } },
+  { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', theme: 'theme-process', cta: CTA_HOME, active: { process: true } },
+  { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7', theme: 'theme-sell', cta: CTA_HOME, active: { sell: true } },
   { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', theme: 'theme-about', cta: CTA_HOME, active: { about: true } },
   // Print variant of Our Story — same content, so it stays out of the index.
   { file: 'our-story-print.html', url: null, theme: 'theme-about', cta: CTA_HOME, active: { about: true } },
   { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', theme: 'theme-why-us', cta: CTA_HOME },
-  { file: 'investors.html', url: '/developers', changefreq: 'monthly', priority: '0.7', theme: 'theme-investors', cta: CTA_HOME },
+  { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7', theme: 'theme-investors', cta: CTA_HOME },
   { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7', theme: 'theme-stories', cta: CTA_HOME },
   // Carries `robots: noindex` and is disallowed in robots.txt.
   { file: 'client-portal.html', url: null, theme: 'theme-portal', cta: CTA_HOME },
@@ -148,7 +148,7 @@ function renderFooter(isHome) {
  * @returns {string[]}
  */
 function projectUrls() {
-  const html = fs.readFileSync(path.join(srcDir, 'projects.html'), 'utf8');
+  const html = fs.readFileSync(path.join(srcDir, 'previous-projects.html'), 'utf8');
   const blocks = html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g);
   for (const [, body] of blocks) {
     let data;
@@ -163,7 +163,7 @@ function projectUrls() {
       .filter((u) => typeof u === 'string' && u.startsWith(SITE_ORIGIN));
     if (urls.length) return urls;
   }
-  console.error('No project URLs found in the ItemList structured data of projects.html');
+  console.error('No project URLs found in the ItemList structured data of previous-projects.html');
   process.exit(1);
 }
 
@@ -228,6 +228,9 @@ function copyDir(from, to) {
   }
 }
 
+// Start from an empty dist. Without this a renamed or deleted page keeps
+// shipping from the previous build's leftovers.
+fs.rmSync(distDir, { recursive: true, force: true });
 fs.mkdirSync(distDir, { recursive: true });
 
 // Every page in src/ must be accounted for, or it would silently stop shipping.
