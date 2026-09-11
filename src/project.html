@@ -2221,6 +2221,18 @@ function renderProject() {
   document.getElementById('project-content').style.display = 'block';
   document.title = `Ella Lee Homes — ${project.name.replace(/&amp;/g, '&')}`;
 
+  // Every project renders from this one shell, and the aliases above plus the
+  // no-slug default mean several URLs show the same home. Point each variant
+  // at the resolved slug — the URL the sitemap lists — so crawlers collapse
+  // them instead of indexing the template many times over.
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.appendChild(canonical);
+  }
+  canonical.href = `https://ellaleehomes.com/project/?slug=${encodeURIComponent(slug)}`;
+
   // Hero
   const heroImg = document.getElementById('hero-img');
   heroImg.src = project.heroImg;

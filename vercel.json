@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/process", "destination": "/build-your-home/", "permanent": true },
+    { "source": "/projects", "destination": "/previous-projects/", "permanent": true },
+    { "source": "/sell", "destination": "/sell-your-home/", "permanent": true },
+    { "source": "/investors", "destination": "/developers/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/build-your-home", "destination": "/process.html" },
+    { "source": "/previous-projects", "destination": "/projects.html" },
+    { "source": "/sell-your-home", "destination": "/sell.html" },
+    { "source": "/developers", "destination": "/investors.html" },
+    { "source": "/project", "destination": "/project.html" }
+  ]
+}
