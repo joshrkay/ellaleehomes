@@ -16,7 +16,7 @@ function build() {
 }
 
 chokidar
-  .watch(['src/**/*.html', 'partials/**/*.html', 'assets/**/*.css'], {
+  .watch(['src/**/*.html', 'partials/**/*.html', 'assets/**/*.css', 'assets/**/*.js'], {
     cwd: root,
     ignoreInitial: true,
   })

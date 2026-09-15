@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Injects partials (nav, footer, cursor) into src/*.html and emits dist/.
+ * Injects partials (nav, footer) into src/*.html and emits dist/.
  */
 import fs from 'fs';
 import path from 'path';
@@ -12,32 +12,28 @@ const distDir = path.join(root, 'dist');
 const srcDir = path.join(root, 'src');
 const partialPath = path.join(root, 'partials', 'nav.html');
 const footerPath = path.join(root, 'partials', 'footer.html');
-const cursorPath = path.join(root, 'partials', 'cursor.html');
 const dropdownPath = path.join(root, 'partials', 'nav-dropdown.html');
 
 const PLACEHOLDER = '<!-- NAV_PARTIAL -->';
 const FOOTER_PLACEHOLDER = '<!-- FOOTER_PARTIAL -->';
-const CURSOR_PLACEHOLDER = '<!-- CURSOR_PARTIAL -->';
 const DROPDOWN_PLACEHOLDER = '<!-- NAV_DROPDOWN_PARTIAL -->';
 
 const partialTemplate = fs.readFileSync(partialPath, 'utf8');
 const footerTemplate = fs.readFileSync(footerPath, 'utf8');
-const cursorTemplate = fs.readFileSync(cursorPath, 'utf8');
 const dropdownTemplate = fs.readFileSync(dropdownPath, 'utf8');
 
 /** Canonical origin of the live site, used for sitemap URLs. */
 const SITE_ORIGIN = 'https://ellaleehomes.com';
 
-/** Where the nav's "Schedule a Consultation" button points. */
+/** Where the nav's "Get Started" button points. */
 const CTA_HOME = 'index.html#inquiry';
 const CTA_CONTACT = 'contact.html';
 
 /**
- * `theme` is the nav's per-page colour class (see assets/site-nav.css and
- * assets/site-nav-contrast.js). `active` marks the current top-level nav
- * entry. `nav` / `cursor` say whether a page takes those shared partials —
- * the homepage carries its own header and drag interactions, so it opts out
- * of both.
+ * `active` marks the current top-level nav entry. Every page takes the shared
+ * nav — the homepage's own header is what the partial was cut from, so it is
+ * no longer a special case. The homepage resolves the logo, "Home" link and
+ * CTA to its own in-page anchors; see `renderNav`.
  *
  * `url` is the page's path on the live site, which is not the built filename:
  * `vercel.json` serves clean, extension-less URLs, and four pages use a
@@ -50,51 +46,50 @@ const CTA_CONTACT = 'contact.html';
  * relatively, so a trailing slash would resolve `assets/…` one level too deep
  * and 404 every stylesheet and image on the page.
  *
- * @typedef {'portfolio'|'process'|'sell'|'about'} NavEntry
- * @typedef {{ file: string; url: string | null; changefreq?: string; priority?: string; theme?: string; cta?: string; nav?: boolean; cursor?: boolean; active?: Partial<Record<NavEntry, boolean>> }} PageCfg
+ * @typedef {'portfolio'|'process'|'about'} NavEntry
+ * @typedef {{ file: string; url: string | null; changefreq?: string; priority?: string; cta?: string; active?: Partial<Record<NavEntry, boolean>> }} PageCfg
  */
 
 /** @type {PageCfg[]} */
 const PAGES = [
-  { file: 'index.html', url: '/', changefreq: 'weekly', priority: '1.0', nav: false, cursor: false },
+  { file: 'index.html', url: '/', changefreq: 'weekly', priority: '1.0', cta: '#inquiry' },
 
   // Primary pages
-  { file: 'previous-projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', theme: 'theme-projects', cta: CTA_HOME, active: { portfolio: true } },
+  { file: 'previous-projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', cta: CTA_HOME, active: { portfolio: true } },
   // The project detail template renders per-slug; those URLs are listed from
   // the portfolio's own structured data instead of this entry.
-  { file: 'project.html', url: null, theme: 'theme-portfolio', cta: CTA_HOME, active: { portfolio: true } },
-  { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', theme: 'theme-process', cta: CTA_HOME, active: { process: true } },
-  { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7', theme: 'theme-sell', cta: CTA_HOME, active: { sell: true } },
-  { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', theme: 'theme-about', cta: CTA_HOME, active: { about: true } },
+  { file: 'project.html', url: null, cta: CTA_HOME, active: { portfolio: true } },
+  { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { process: true } },
+  { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
+  { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { about: true } },
   // Print variant of Our Story — same content, so it stays out of the index.
-  { file: 'our-story-print.html', url: null, theme: 'theme-about', cta: CTA_HOME, active: { about: true } },
-  { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', theme: 'theme-why-us', cta: CTA_HOME },
-  { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7', theme: 'theme-investors', cta: CTA_HOME },
-  { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7', theme: 'theme-stories', cta: CTA_HOME },
+  { file: 'our-story-print.html', url: null, cta: CTA_HOME, active: { about: true } },
+  { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', cta: CTA_HOME },
+  { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
+  { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7', cta: CTA_HOME },
   // Carries `robots: noindex` and is disallowed in robots.txt.
-  { file: 'client-portal.html', url: null, theme: 'theme-portal', cta: CTA_HOME },
-  { file: 'contact.html', url: '/contact', changefreq: 'monthly', priority: '0.8', theme: 'theme-portal', cta: CTA_CONTACT },
+  { file: 'client-portal.html', url: null, cta: CTA_HOME },
+  { file: 'contact.html', url: '/contact', changefreq: 'monthly', priority: '0.8', cta: CTA_CONTACT },
 
   // Help / legal
-  { file: 'faq.html', url: '/faq', changefreq: 'monthly', priority: '0.7', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'warranty.html', url: '/warranty', changefreq: 'yearly', priority: '0.6', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'homeowner-resources.html', url: '/homeowner-resources', changefreq: 'yearly', priority: '0.6', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'code-of-conduct.html', url: '/code-of-conduct', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'privacy.html', url: '/privacy', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'terms.html', url: '/terms', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
-  { file: 'disclaimer.html', url: '/disclaimer', changefreq: 'yearly', priority: '0.3', theme: 'theme-faq', cta: CTA_CONTACT },
+  { file: 'faq.html', url: '/faq', changefreq: 'monthly', priority: '0.7', cta: CTA_CONTACT },
+  { file: 'warranty.html', url: '/warranty', changefreq: 'yearly', priority: '0.6', cta: CTA_CONTACT },
+  { file: 'homeowner-resources.html', url: '/homeowner-resources', changefreq: 'yearly', priority: '0.6', cta: CTA_CONTACT },
+  { file: 'code-of-conduct.html', url: '/code-of-conduct', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
+  { file: 'privacy.html', url: '/privacy', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
+  { file: 'terms.html', url: '/terms', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
+  { file: 'disclaimer.html', url: '/disclaimer', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
 
   // Articles
-  { file: 'steps-to-building-a-custom-home.html', url: '/steps-to-building-a-custom-home', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
-  { file: 'how-to-find-a-custom-home-builder.html', url: '/how-to-find-a-custom-home-builder', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
-  { file: 'is-custom-home-building-a-good-investment.html', url: '/is-custom-home-building-a-good-investment', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
-  { file: 'new-luxury-essentials-custom-homes-arizona.html', url: '/new-luxury-essentials-custom-homes-arizona', changefreq: 'monthly', priority: '0.6', theme: 'theme-stories', cta: CTA_CONTACT },
+  { file: 'steps-to-building-a-custom-home.html', url: '/steps-to-building-a-custom-home', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
+  { file: 'how-to-find-a-custom-home-builder.html', url: '/how-to-find-a-custom-home-builder', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
+  { file: 'is-custom-home-building-a-good-investment.html', url: '/is-custom-home-building-a-good-investment', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
+  { file: 'new-luxury-essentials-custom-homes-arizona.html', url: '/new-luxury-essentials-custom-homes-arizona', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
   {
     file: 'exploring-the-costs-of-building-your-dream-home-a-comprehensive-guide.html',
     url: '/exploring-the-costs-of-building-your-dream-home-a-comprehensive-guide',
     changefreq: 'monthly',
     priority: '0.6',
-    theme: 'theme-stories',
     cta: CTA_CONTACT,
   },
   {
@@ -102,7 +97,6 @@ const PAGES = [
     url: '/why-choosing-a-professional-home-builder-matters-for-your-custom-house',
     changefreq: 'monthly',
     priority: '0.6',
-    theme: 'theme-stories',
     cta: CTA_CONTACT,
   },
 ];
@@ -116,12 +110,15 @@ function aria(on) {
  */
 function renderNav(page) {
   const active = page.active ?? {};
+  const isHome = page.file === 'index.html';
   const map = {
-    __THEME__: page.theme ?? '',
+    // The logo and the "Home" link share this token — on the homepage they
+    // scroll back to the top rather than reloading the page.
+    __HREF_HOME__: isHome ? '#top' : 'index.html',
     __HREF_CTA__: page.cta ?? CTA_HOME,
+    __ARIA_HOME__: aria(isHome),
     __ARIA_PORTFOLIO__: aria(active.portfolio),
     __ARIA_PROCESS__: aria(active.process),
-    __ARIA_SELL__: aria(active.sell),
     __ARIA_ABOUT__: aria(active.about),
   };
   let html = partialTemplate;
@@ -249,31 +246,22 @@ for (const page of PAGES) {
     process.exit(1);
   }
   let content = fs.readFileSync(srcFile, 'utf8');
-  const wantsNav = page.nav !== false;
-  const wantsCursor = page.cursor !== false;
-  const required = [
-    [FOOTER_PLACEHOLDER, true],
-    [DROPDOWN_PLACEHOLDER, true],
-    [PLACEHOLDER, wantsNav],
-    [CURSOR_PLACEHOLDER, wantsCursor],
-  ];
-  for (const [token, needed] of required) {
-    if (needed && !content.includes(token)) {
+  for (const token of [PLACEHOLDER, FOOTER_PLACEHOLDER]) {
+    if (!content.includes(token)) {
       console.error('Missing', token, 'in', page.file);
       process.exit(1);
     }
   }
-  if (wantsNav) {
-    content = content.split(PLACEHOLDER).join(renderNav(page));
+  content = content.split(PLACEHOLDER).join(renderNav(page));
+  // The "Learn" panel ships inside the nav partial, so it arrives with the
+  // nav rather than from the page. Checked all the same: a nav that stopped
+  // carrying it would silently drop the menu from all 25 pages.
+  if (!content.includes(DROPDOWN_PLACEHOLDER)) {
+    console.error('Missing', DROPDOWN_PLACEHOLDER, '— partials/nav.html no longer carries it');
+    process.exit(1);
   }
-  // The "Learn" panel is shared by every page, the homepage included — its own
-  // header drives the same markup.
   content = content.split(DROPDOWN_PLACEHOLDER).join(dropdownTemplate);
-  const isHome = page.file === 'index.html';
-  content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(isHome));
-  if (wantsCursor) {
-    content = content.split(CURSOR_PLACEHOLDER).join(cursorTemplate);
-  }
+  content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(page.file === 'index.html'));
   fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
   console.log('Wrote', path.join('dist', page.file));
 }

@@ -25,7 +25,7 @@
 <meta name="twitter:image" content="https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -33,24 +33,25 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ink: #2B2B2B;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --disp: 'DM Serif Display', Georgia, serif;
+  --ink: #001526;
   --ink-deep: #2B2B2B;
   --paper: #EAE5DC;
   --nickel: #A5A09D;
-  --navy: #001F33;
-  --gold: #C9A96E;
+  --navy: #001526;
+  --gold: #BFA06A;
   --sans: 'Inter', Helvetica, sans-serif;
-  --serif: 'Cormorant Garamond', Georgia, serif;
+  --serif: 'DM Serif Display', Georgia, serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --nav-h: 88px;
-  --door-p: 0;
   --hero-cream: var(--paper);
 }
 html { scroll-behavior: auto; }
 body {
   font-family: var(--sans);
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--navy);
+  color: var(--paper);
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.9s var(--ease), color 0.9s var(--ease);
 }
@@ -60,18 +61,18 @@ body {
    the viewport. Each section advertises its theme via data-theme.
    The change is driven by IntersectionObserver below. */
 body.theme-our-story[data-active-section="dark"] {
-  background: #1B1B1B;
+  background: #001526;
   color: #EAE5DC;
 }
 /* Text & chrome overrides for the dark theme. Kept explicit (rather than
    via CSS variables) so each rule can be transitioned smoothly. */
 body[data-active-section="dark"] .story-kicker { color: rgba(234,229,220,0.48); }
 body[data-active-section="dark"] .story-display { color: rgba(234,229,220,0.94); }
-body[data-active-section="dark"] .story-display em { color: #C9A96E; }
+body[data-active-section="dark"] .story-display em { color: #BFA06A; }
 body[data-active-section="dark"] .story-h2-sub { color: #EAE5DC; }
-body[data-active-section="dark"] .story-h2-sub em { color: #C9A96E; }
+body[data-active-section="dark"] .story-h2-sub em { color: #BFA06A; }
 body[data-active-section="dark"] .story-section h2 { color: #EAE5DC; }
-body[data-active-section="dark"] .story-section h2 em { color: #C9A96E; }
+body[data-active-section="dark"] .story-section h2 em { color: #BFA06A; }
 body[data-active-section="dark"] .story-lede { color: rgba(234,229,220,0.86); }
 body[data-active-section="dark"] .story-body { color: rgba(234,229,220,0.72); }
 body[data-active-section="dark"] .story-body strong { color: #EAE5DC; }
@@ -92,7 +93,7 @@ body[data-active-section="dark"] .where-sub { color: rgba(234,229,220,0.62); }
 body[data-active-section="dark"] .where-map-wrap { background: rgba(234,229,220,0.03); border-color: rgba(234,229,220,0.10); }
 body[data-active-section="dark"] .where-legend { border-top-color: rgba(234,229,220,0.10); }
 body[data-active-section="dark"] .where-legend-item { border-right-color: rgba(234,229,220,0.10); }
-body[data-active-section="dark"] .where-legend-num { color: #C9A96E; }
+body[data-active-section="dark"] .where-legend-num { color: #BFA06A; }
 body[data-active-section="dark"] .where-legend-place { color: #EAE5DC; }
 body[data-active-section="dark"] .where-legend-note { color: rgba(234,229,220,0.55); }
 body[data-active-section="dark"] .conv-inner > .sub { color: rgba(234,229,220,0.55); }
@@ -116,157 +117,26 @@ details.story-faq {
   transition: background-color 0.9s var(--ease), border-color 0.9s var(--ease), box-shadow 0.9s var(--ease);
 }
 
-/* ── HERO PHOTO: full-bleed, zooms out + fades slowly into the next section ── */
-#door-scroll-zone {
-  height: 260vh;
-  position: relative;
+/* ── HERO BANNER — same shell as the other interior pages ── */
+#hero-banner {
+  position: relative; width: 100%;
+  height: 100vh; min-height: 560px;
+  overflow: hidden; background: var(--navy);
 }
-#door-stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  min-height: 520px;
-  overflow: hidden;
-  background: var(--paper);
-  --door-p: 0;
+#hero-banner img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.95) brightness(0.82); }
+#hero-banner::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(0,21,38,0) 87%, rgba(0,21,38,.45) 93.7%, #001526 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.68) 0%, rgba(0,0,0,.44) 19%, rgba(0,0,0,0) 48%),
+    linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.58) 34%, rgba(0,0,0,.42) 62%, rgba(0,0,0,.2) 100%);
 }
-.clip-svg {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
+.hero-head { color: var(--paper); }
+.hero-head .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.7); margin-bottom: 14px;
 }
-/* Full-bleed photo that zooms out + fades as you scroll into the next section */
-#door-bg {
-  position: absolute;
-  inset: 0;
-  background: url('https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A6650.jpg') center / cover no-repeat;
-  transform-origin: center center;
-  transform: scale(calc(1.25 - var(--door-p) * 0.25));
-  opacity: calc(1 - var(--door-p) * 1.05);
-  will-change: transform, opacity;
-}
-/* Soft bottom vignette so the photo blends into whatever comes next */
-#door-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(43, 43, 43, calc(0.15 + var(--door-p) * 0.35)) 100%);
-  pointer-events: none;
-}
-/* Wordmark intro overlay — covers the photo on arrival; fades as --door-p rises */
-.door-wordmark {
-  position: absolute; inset: 0; z-index: 10;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--paper);
-  opacity: calc(1 - var(--door-p) * 8);
-  /* negative values treated as 0 by the browser — no JS needed */
-  pointer-events: none;
-  will-change: opacity;
-}
-.door-wm-inner { text-align: center; user-select: none; display: flex; flex-direction: column; align-items: center; gap: 0; }
-.door-wm-arc {
-  width: clamp(220px, 36vw, 480px);
-  height: auto;
-  overflow: visible;
-  margin-bottom: -10px;
-}
-.door-wm-arc-text {
-  font-family: var(--serif);
-  font-size: 54px;
-  font-weight: 300;
-  font-style: normal;
-  fill: var(--ink);
-  letter-spacing: 0.04em;
-}
-.door-wm-name {
-  font-family: var(--sans); font-weight: 300;
-  font-size: clamp(22px, 4vw, 60px);
-  letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--ink); line-height: 1;
-}
-.door-wm-tagline {
-  font-family: var(--sans); font-weight: 300;
-  font-size: clamp(9px, 1.1vw, 15px);
-  letter-spacing: 0.55em; text-transform: uppercase;
-  color: var(--ink); margin-top: 18px;
-}
-.door-accent-dot {
-  position: absolute;
-  z-index: 5;
-  left: calc(50% + clamp(72px, 16vw, 180px));
-  top: 42%;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--navy);
-  pointer-events: none;
-  opacity: clamp(0, calc(1 - var(--door-p) * 1.15), 1);
-  transition: opacity 0.2s linear;
-}
-
-#door-copy {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: calc(var(--nav-h) + 36px) 56px 48px;
-  pointer-events: none;
-  transition: opacity 0.35s var(--ease);
-}
-#door-copy .door-home-word {
-  font-family: var(--sans);
-  font-size: clamp(52px, 12vw, 160px);
-  font-weight: 200;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  color: rgba(255, 255, 255, 0.96);
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
-  margin: 0;
-  padding: 0;
-}
-#door-copy .door-sub {
-  margin-top: 28px;
-  font-size: 10px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--nickel);
-}
-#door-copy .door-tag {
-  margin-top: 10px;
-  font-size: 15px;
-  font-weight: 300;
-  letter-spacing: 0.02em;
-  color: rgba(43, 43, 43, 0.45);
-  max-width: 320px;
-  text-align: center;
-  line-height: 1.5;
-}
-.door-hint {
-  margin-top: auto;
-  padding-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 9px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(43, 43, 43, 0.35);
-}
-.door-hint span.line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(180deg, rgba(0, 31, 51, 0.25), transparent);
-  animation: doorPulse 2.2s ease-in-out infinite;
-}
-@keyframes doorPulse {
-  0%, 100% { opacity: 0.35; transform: scaleY(1); }
-  50% { opacity: 0.85; transform: scaleY(1.15); }
-}
+.hero-caption { color: #fff; }
 
 /* ── Scroll reveals (below hero) ── */
 .reveal {
@@ -305,12 +175,12 @@ details.story-faq {
   box-shadow: 0 0 0 rgba(0,0,0,0);
 }
 .pillar-card.reveal.is-visible {
-  box-shadow: 0 18px 48px rgba(43,43,43,0.06);
+  box-shadow: 0 18px 48px rgba(0,21,38,0.06);
 }
 @media (hover: hover) and (pointer: fine) {
   .pillar-card.reveal.is-visible:hover {
     transform: translate3d(0, -3px, 0);
-    box-shadow: 0 24px 56px rgba(43,43,43,0.09);
+    box-shadow: 0 24px 56px rgba(0,21,38,0.09);
   }
 }
 
@@ -320,13 +190,13 @@ details.story-faq.reveal {
 
 /* ── NARRATIVE SECTIONS ── */
 .story-wrap {
-  max-width: 1080px;
+  max-width: 1500px;
   margin: 0 auto;
-  padding: 0 56px;
+  padding: 0 clamp(20px, 4vw, 64px);
 }
 .story-section {
   padding: 96px 0;
-  border-bottom: 1px solid rgba(43,43,43,0.08);
+  border-bottom: 1px solid rgba(0,21,38,0.08);
 }
 .story-section:last-of-type { border-bottom: none; }
 .story-kicker {
@@ -338,19 +208,17 @@ details.story-faq.reveal {
 }
 /* Micro / mega: one display line between kicker and body */
 .story-display {
-  font-family: var(--sans);
+  font-family: var(--disp);
   font-size: clamp(48px, 8vw, 96px);
-  font-weight: 200;
+  font-weight: 400;
   font-style: normal;
   letter-spacing: -0.045em;
-  line-height: 1.02;
+  line-height: 1.1;
   margin: 0 0 20px;
-  color: rgba(43, 43, 43, 0.92);
+  color: rgba(234,229,220,0.94);
 }
 .story-display em {
-  font-family: var(--serif);
-  font-style: normal;
-  font-weight: 300;
+  font-family: var(--disp); font-style: normal; font-weight: 400;
   color: var(--navy);
 }
 .story-display:has(br) {
@@ -363,7 +231,7 @@ details.story-faq.reveal {
   letter-spacing: -0.02em;
   line-height: 1.2;
   margin: 0 0 28px;
-  color: var(--ink);
+  color: var(--paper);
 }
 .story-h2-sub em {
   font-family: var(--serif);
@@ -371,13 +239,13 @@ details.story-faq.reveal {
   color: var(--navy);
 }
 .story-section h2 {
-  font-family: var(--sans);
+  font-family: var(--disp);
   font-size: clamp(28px, 3.2vw, 42px);
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1.15;
   margin-bottom: 28px;
-  color: var(--ink);
+  color: var(--paper);
 }
 .story-section h2 em {
   font-family: var(--serif);
@@ -389,17 +257,17 @@ details.story-faq.reveal {
   font-size: clamp(22px, 2.4vw, 28px);
   font-weight: 300;
   line-height: 1.45;
-  color: rgba(43,43,43,0.88);
+  color: rgba(234,229,220,0.86);
   margin-bottom: 24px;
 }
 .story-body {
   font-size: 16px;
   line-height: 1.85;
   font-weight: 300;
-  color: rgba(43,43,43,0.78);
+  color: rgba(234,229,220,0.72);
 }
 .story-body p + p { margin-top: 1.25em; }
-.story-body strong { font-weight: 500; color: var(--ink); }
+.story-body strong { font-weight: 500; color: var(--paper); }
 
 /* Pull quote */
 .story-pull {
@@ -411,7 +279,7 @@ details.story-faq.reveal {
   font-style: normal;
   font-weight: 300;
   line-height: 1.5;
-  color: rgba(43,43,43,0.85);
+  color: rgba(234,229,220,0.88);
 }
 .story-pull.reveal {
   border-left-color: transparent;
@@ -431,14 +299,14 @@ details.story-faq.reveal {
 
 /* Pillars */
 .pillar-board {
-  padding: 96px 56px 112px;
-  background: rgba(43,43,43,0.03);
-  border-top: 1px solid rgba(43,43,43,0.06);
+  padding: 96px clamp(20px, 4vw, 64px) 112px;
+  background: rgba(0,21,38,0.03);
+  border-top: 1px solid rgba(0,21,38,0.06);
 }
-.pillar-inner { max-width: 1040px; margin: 0 auto; }
-.pillar-inner > .story-kicker { text-align: center; margin-bottom: 12px; }
+.pillar-inner { max-width: 1500px; margin: 0 auto; }
+.pillar-inner > .story-kicker { text-align: left; margin-bottom: 12px; }
 .pillar-inner > .story-display {
-  text-align: center;
+  text-align: left;
   margin-bottom: 52px;
 }
 .pillar-grid {
@@ -449,7 +317,7 @@ details.story-faq.reveal {
 .pillar-card {
   padding: 28px 24px;
   background: var(--paper);
-  border: 1px solid rgba(43,43,43,0.08);
+  border: 1px solid rgba(0,21,38,0.08);
   min-height: 100%;
 }
 .pillar-num {
@@ -463,20 +331,20 @@ details.story-faq.reveal {
   font-weight: 500;
   letter-spacing: -0.01em;
   margin-bottom: 12px;
-  color: var(--ink);
+  color: var(--paper);
 }
 .pillar-card p {
   font-size: 14px;
   line-height: 1.7;
   font-weight: 300;
-  color: rgba(43,43,43,0.65);
+  color: rgba(234,229,220,0.65);
 }
 
 /* Q&A */
 #conversation {
-  padding: 96px 56px 120px;
+  padding: 96px clamp(20px, 4vw, 64px) 120px;
 }
-.conv-inner { max-width: 1080px; margin: 0 auto; }
+.conv-inner { max-width: 1500px; margin: 0 auto; }
 .conv-inner > .story-display {
   margin-bottom: 16px;
 }
@@ -487,10 +355,10 @@ details.story-faq.reveal {
   line-height: 1.6;
 }
 details.story-faq {
-  border-bottom: 1px solid rgba(43,43,43,0.1);
+  border-bottom: 1px solid rgba(0,21,38,0.1);
   padding: 22px 0;
 }
-details.story-faq:first-of-type { border-top: 1px solid rgba(43,43,43,0.1); }
+details.story-faq:first-of-type { border-top: 1px solid rgba(0,21,38,0.1); }
 details.story-faq summary {
   list-style: none;
   cursor: pointer;
@@ -499,7 +367,7 @@ details.story-faq summary {
   letter-spacing: -0.01em;
   padding-right: 32px;
   position: relative;
-  color: var(--ink);
+  color: var(--paper);
 }
 details.story-faq summary::-webkit-details-marker { display: none; }
 details.story-faq summary::after {
@@ -518,7 +386,7 @@ details.story-faq[open] summary::after { transform: rotate(45deg); }
   font-size: 15px;
   line-height: 1.75;
   font-weight: 300;
-  color: rgba(43,43,43,0.72);
+  color: rgba(234,229,220,0.72);
 }
 .faq-attrib {
   display: block;
@@ -531,27 +399,15 @@ details.story-faq .faq-a p + p {
 }
 
 @media (max-width: 900px) {
-  .door-accent-dot {
-    left: calc(50% + clamp(48px, 28vw, 120px));
-    top: 40%;
-  }
-  #door-copy { padding: calc(var(--nav-h) + 20px) 24px 40px; }
+  #hero-banner { min-height: 520px; }
   .story-wrap { padding: 0 24px; }
   .story-section { padding: 64px 0; }
   .pillar-board { padding: 64px 24px 80px; }
   .pillar-grid { grid-template-columns: 1fr; gap: 20px; }
   #conversation { padding: 64px 24px 88px; }
-  #door-scroll-zone { height: 200vh; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #door-scroll-zone { height: auto; min-height: 100vh; }
-  #door-stage { position: relative; min-height: 85vh; }
-  #door-bg {
-    transform: none;
-    opacity: 1;
-  }
-  .door-accent-dot { opacity: 0; }
   .reveal {
     opacity: 1 !important;
     transform: none !important;
@@ -561,7 +417,6 @@ details.story-faq .faq-a p + p {
   .story-pull.reveal { border-left-color: var(--gold) !important; }
 }
 </style>
-<link rel="stylesheet" href="assets/site-cursor.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -684,47 +539,30 @@ details.story-faq .faq-a p + p {
 </head>
 <body class="theme-our-story">
 
-<!-- CURSOR_PARTIAL -->
-<script defer src="assets/site-nav-dd.js"></script>
+<script defer src="assets/elh-nav.js"></script>
 
 <!-- Canonical site nav — edit once; injected by scripts/build-html.mjs -->
 <!-- NAV_PARTIAL -->
-<!-- NAV_DROPDOWN_PARTIAL -->
+
+
 
 <main id="main">
-  <svg class="clip-svg" aria-hidden="true" focusable="false">
-    <defs>
-      <clipPath id="archClip" clipPathUnits="objectBoundingBox">
-        <path id="archPath" d="M 0.38 1 L 0.38 0.44 Q 0.5 0.218 0.62 0.44 L 0.62 1 Z"></path>
-      </clipPath>
-    </defs>
-  </svg>
-  <!-- Tall scroll zone: sticky viewport; tombstone clip expands with scroll -->
-  <div id="door-scroll-zone" aria-label="Introduction">
-    <div id="door-stage">
-      <div class="door-wordmark" aria-hidden="true">
-        <div class="door-wm-inner">
-          <svg class="door-wm-arc" viewBox="0 0 400 110" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <defs>
-              <path id="aboutArc" d="M 30,95 Q 200,-15 370,95" />
-            </defs>
-            <text class="door-wm-arc-text">
-              <textPath href="#aboutArc" startOffset="50%" text-anchor="middle">About</textPath>
-            </text>
-          </svg>
-          <div class="door-wm-name">Ella Lee Homes</div>
-          <div class="door-wm-tagline">Built&nbsp;&nbsp;Right</div>
-        </div>
-      </div>
-      <div id="door-bg" aria-hidden="true"></div>
-
-      <span class="door-accent-dot" aria-hidden="true"></span>
-      <div id="door-copy" aria-hidden="true"></div>
+  <!-- HERO BANNER — full-bleed image with the homepage fade, copy bottom-left -->
+<section id="hero-banner" aria-label="Ella Lee Homes">
+  <img src="uploads/home/story.jpg" alt="Ella Lee Homes on site during a custom build">
+  <div class="hero-head">
+    <div>
+      <div class="eyebrow">Our Story</div>
+      <h1 class="hero-title">Built on a promise,<br><em>kept in every home.</em></h1>
     </div>
   </div>
+  <div class="hero-caption">
+    <p>Arizona&rsquo;s premier luxury custom home builder, designing and building across Arcadia, Paradise Valley and Scottsdale.</p>
+  </div>
+</section>
 
-  <article class="story-article">
-    <section class="story-section" aria-labelledby="h-journey" data-theme="light">
+<article class="story-article">
+    <section class="story-section" aria-labelledby="h-journey" data-theme="dark">
       <div class="story-wrap">
         <p class="story-kicker reveal reveal-delay-1">Our Story</p>
         <p class="story-display reveal reveal-delay-2" id="h-journey">You Dream it,<br><em>we build it.</em></p>
@@ -758,7 +596,7 @@ details.story-faq .faq-a p + p {
           <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:22px;">Ella Lee Homes started with my daughter, Ella. When we set out to build her home, I realized the standard I wanted held was higher than most builders were willing to meet. So we built it ourselves &mdash; and then we kept building.</p>
           <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:22px;">Every home we take on gets that same standard. I'm on the sites. I know our trades by name. And when a client calls a year after move-in, they reach our team, not a call center. That isn't a policy &mdash; it's simply how I'd want to be treated.</p>
           <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:34px;">If you're trusting us with the most important home you'll ever build, you deserve to know who stands behind it.</p>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-size:30px; line-height:1; color:var(--gold,#C9A96E);">Shay Segev</div>
+          <div style="font-family:'DM Serif Display', Georgia,serif; font-style:italic; font-size:30px; line-height:1; color:var(--gold,#BFA06A);">Shay Segev</div>
           <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(244,241,234,0.5); margin-top:8px;">Founder, Ella Lee Homes</div>
         </div>
       </div>
@@ -767,27 +605,27 @@ details.story-faq .faq-a p + p {
     <!-- ── WHERE WE BUILD: stylized Phoenix Valley map ── -->
     <section id="where" class="story-section" aria-labelledby="h-where" data-theme="light">
       <style>
-        #where { padding: 96px 0; border-bottom: 1px solid rgba(43,43,43,0.08); }
-        .where-wrap { max-width: 1080px; margin: 0 auto; padding: 0 56px; }
-        .where-hd { text-align: center; margin-bottom: 56px; }
+        #where { padding: 96px 0; border-bottom: 1px solid rgba(0,21,38,0.08); }
+        .where-wrap { max-width: 1500px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px); }
+        .where-hd { text-align: left; margin-bottom: 56px; }
         .where-hd .story-kicker { margin-bottom: 12px; }
         .where-hd .story-display { font-size: clamp(44px, 7vw, 84px); margin-bottom: 18px; }
         .where-sub {
           font-family: var(--sans); font-weight: 300;
           font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6;
-          color: rgba(43,43,43,0.62); max-width: 540px; margin: 0 auto;
+          color: rgba(0,21,38,0.62); max-width: 540px; margin: 0;
         }
         .where-map-wrap {
           position: relative;
           background: var(--paper);
-          border: 1px solid rgba(43,43,43,0.08);
+          border: 1px solid rgba(0,21,38,0.08);
           padding: 32px;
           margin: 0 auto;
         }
         #where-leaflet {
           width: 100%;
           aspect-ratio: 8 / 5;
-          background: rgba(43, 43, 43, 0.03);
+          background: rgba(0,21,38, 0.03);
         }
         /* Tone down OSM tiles to match the brand neutral palette */
         #where-leaflet .leaflet-tile {
@@ -801,7 +639,7 @@ details.story-faq .faq-a p + p {
           transition: transform 0.2s ease;
           border-radius: 50%;
           background: var(--navy);
-          box-shadow: 0 0 0 4px rgba(0, 31, 51, 0.18), 0 0 0 10px rgba(0, 31, 51, 0.08);
+          box-shadow: 0 0 0 4px rgba(0,21,38, 0.18), 0 0 0 10px rgba(0,21,38, 0.08);
         }
         .where-pin::before {
           content: '';
@@ -816,8 +654,8 @@ details.story-faq .faq-a p + p {
         .where-pin:not(.studio):hover {
           transform: scale(1.18);
           box-shadow:
-            0 0 0 5px rgba(0, 31, 51, 0.30),
-            0 0 0 12px rgba(0, 31, 51, 0.12);
+            0 0 0 5px rgba(0,21,38, 0.30),
+            0 0 0 12px rgba(0,21,38, 0.12);
         }
         .where-pin.studio {
           background: transparent;
@@ -832,7 +670,7 @@ details.story-faq .faq-a p + p {
           color: var(--ink);
           border-radius: 2px;
           padding: 4px 4px;
-          box-shadow: 0 8px 32px rgba(43, 43, 43, 0.18);
+          box-shadow: 0 8px 32px rgba(0,21,38, 0.18);
         }
         .leaflet-popup-content {
           font-family: var(--sans);
@@ -864,30 +702,30 @@ details.story-faq .faq-a p + p {
         .leaflet-popup-content .pin-pop-cta {
           margin-top: 8px;
           padding-top: 8px;
-          border-top: 1px solid rgba(43,43,43,0.12);
+          border-top: 1px solid rgba(0,21,38,0.12);
           font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase;
           color: var(--navy); font-weight: 500;
           transition: color 0.2s ease;
         }
         .leaflet-popup-content .pin-pop-cta span { margin-left: 6px; }
         .leaflet-popup-tip { background: var(--paper); }
-        .leaflet-control-attribution { font-size: 9px; color: rgba(43, 43, 43, 0.4); }
-        .leaflet-control-attribution a { color: rgba(43, 43, 43, 0.55); }
+        .leaflet-control-attribution { font-size: 9px; color: rgba(0,21,38, 0.4); }
+        .leaflet-control-attribution a { color: rgba(0,21,38, 0.55); }
         .where-map { /* legacy SVG class — no longer used */ display: none; }
         .where-map text { font-family: var(--sans); pointer-events: none; }
-        .where-grid-line { stroke: rgba(43,43,43,0.05); stroke-width: 1; }
-        .where-terrain { fill: none; stroke: rgba(43,43,43,0.10); stroke-width: 1; }
+        .where-grid-line { stroke: rgba(0,21,38,0.05); stroke-width: 1; }
+        .where-terrain { fill: none; stroke: rgba(0,21,38,0.10); stroke-width: 1; }
         .where-mtn-label {
           font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-          fill: rgba(43,43,43,0.32); font-weight: 500;
+          fill: rgba(0,21,38,0.32); font-weight: 500;
         }
-        .where-loop { fill: none; stroke: rgba(43,43,43,0.09); stroke-width: 1; stroke-dasharray: 3 4; }
+        .where-loop { fill: none; stroke: rgba(0,21,38,0.09); stroke-width: 1; stroke-dasharray: 3 4; }
         .where-loop-label {
           font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
-          fill: rgba(43,43,43,0.30); font-weight: 500;
+          fill: rgba(0,21,38,0.30); font-weight: 500;
         }
-        .where-compass { fill: rgba(43,43,43,0.35); }
-        .where-compass-letter { font-size: 9px; letter-spacing: 0.15em; fill: rgba(43,43,43,0.45); font-weight: 600; }
+        .where-compass { fill: rgba(0,21,38,0.35); }
+        .where-compass-letter { font-size: 9px; letter-spacing: 0.15em; fill: rgba(0,21,38,0.45); font-weight: 600; }
 
         .where-pin-group { cursor: default; }
         .where-pin-halo {
@@ -919,11 +757,11 @@ details.story-faq .faq-a p + p {
 
         .where-legend {
           display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-          margin-top: 32px; border-top: 1px solid rgba(43,43,43,0.08);
+          margin-top: 32px; border-top: 1px solid rgba(0,21,38,0.08);
         }
         .where-legend-item {
           padding: 22px 20px;
-          border-right: 1px solid rgba(43,43,43,0.08);
+          border-right: 1px solid rgba(0,21,38,0.08);
         }
         .where-legend-item:last-child { border-right: none; }
         .where-legend-num {
@@ -936,7 +774,7 @@ details.story-faq .faq-a p + p {
           color: var(--ink); font-weight: 500; margin-bottom: 4px;
         }
         .where-legend-note {
-          font-size: 12px; color: rgba(43,43,43,0.55); line-height: 1.5;
+          font-size: 12px; color: rgba(0,21,38,0.55); line-height: 1.5;
         }
 
         @media (max-width: 900px) {
@@ -944,15 +782,68 @@ details.story-faq .faq-a p + p {
           .where-map-wrap { padding: 20px; }
           .where-pin-label-name { font-size: 14px; }
           .where-legend { grid-template-columns: 1fr 1fr; }
-          .where-legend-item { border-right: none; border-bottom: 1px solid rgba(43,43,43,0.08); }
-          .where-legend-item:nth-child(odd) { border-right: 1px solid rgba(43,43,43,0.08); }
+          .where-legend-item { border-right: none; border-bottom: 1px solid rgba(0,21,38,0.08); }
+          .where-legend-item:nth-child(odd) { border-right: 1px solid rgba(0,21,38,0.08); }
           .where-legend-item:nth-last-child(-n+2) { border-bottom: none; }
         }
         @media (max-width: 600px) {
           .where-map text.where-pin-label-name { font-size: 18px; }
           .where-mtn-label { font-size: 13px; }
         }
-      </style>
+      
+/* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
+.hero-title {
+  font-family: var(--disp); font-weight: 400;
+  font-size: clamp(29px, 5.1vw, 98px); line-height: 1.04; letter-spacing: -.01em;
+  color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5);
+  margin: 0;
+}
+.hero-title::after {
+  content: ''; display: block; height: 1px;
+  margin-top: clamp(14px, 1.6vw, 22px);
+  background: rgba(234,229,220,.42);
+}
+.hero-title em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
+.hero-caption p {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); max-width: 42ch; margin: 0;
+}
+
+/* ── HERO COPY PLACEMENT — bottom-left stack, on the homepage's baseline ── */
+#hero-banner { display: flex; flex-direction: column; justify-content: flex-end; }
+#hero-banner > img { position: absolute; inset: 0; }
+#hero-banner > .hero-head, #hero-banner > .hero-caption {
+  position: relative; z-index: 3;
+  padding-left: clamp(18px, 2.4vw, 40px); padding-right: clamp(18px, 2.4vw, 40px);
+}
+#hero-banner > .hero-head { margin: 0 0 clamp(14px, 1.6vw, 22px); }
+#hero-banner > .hero-caption { margin: 0 0 calc(18vh + clamp(40px, 5vw, 72px)); }
+@media (max-width: 760px) {
+  #hero-banner > .hero-head, #hero-banner > .hero-caption { padding-left: 20px; padding-right: 20px; }
+  #hero-banner > .hero-caption { margin-bottom: calc(13vh + 32px); }
+}
+
+/* ── LIGHT THEME = the homepage's Giving Back beige, used as the page's one accent ── */
+body.theme-our-story[data-active-section="light"] { background: #E3DACA; color: #2B2B2B; }
+body[data-active-section="light"] .story-kicker { color: #8A6E3C; }
+body[data-active-section="light"] .story-display { color: #001526; }
+body[data-active-section="light"] .story-display em { color: #8A6E3C; }
+body[data-active-section="light"] .story-h2-sub,
+body[data-active-section="light"] .story-section h2 { color: #001526; }
+body[data-active-section="light"] .story-h2-sub em,
+body[data-active-section="light"] .story-section h2 em { color: #8A6E3C; }
+body[data-active-section="light"] .story-lede,
+body[data-active-section="light"] .story-body { color: #2B2B2B; }
+body[data-active-section="light"] .story-body strong { color: #001526; }
+body[data-active-section="light"] .story-section { border-bottom-color: rgba(0,21,38,0.12); }
+body[data-active-section="light"] .where-sub { color: #2B2B2B; }
+body[data-active-section="light"] .where-map-wrap { background: rgba(255,255,255,0.28); border-color: rgba(0,21,38,0.12); }
+body[data-active-section="light"] .where-legend { border-top-color: rgba(0,21,38,0.12); }
+body[data-active-section="light"] .where-legend-item { border-right-color: rgba(0,21,38,0.12); }
+body[data-active-section="light"] .where-legend-num { color: #8A6E3C; }
+body[data-active-section="light"] .where-legend-place { color: #001526; }
+body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
+</style>
 
       <div class="where-wrap">
         <div class="where-hd">
@@ -1030,37 +921,6 @@ details.story-faq .faq-a p + p {
 <!-- FOOTER_PARTIAL -->
 
 <script>
-(function () {
-  const zone = document.getElementById('door-scroll-zone');
-  const stage = document.getElementById('door-stage');
-  const bg = document.getElementById('door-bg');
-  const copy = document.getElementById('door-copy');
-
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    stage.style.setProperty('--door-p', '0');
-    if (copy) copy.style.opacity = '1';
-    return;
-  }
-
-  function tick() {
-    const rect = zone.getBoundingClientRect();
-    const scrollable = zone.offsetHeight - window.innerHeight;
-    const scrolled = -rect.top;
-    const p = Math.max(0, Math.min(1, scrollable > 0 ? scrolled / scrollable : 0));
-    // Slow fade: photo holds at full opacity through the first 35% of the scroll,
-    // then eases out across the remaining 65%. Smoothstep on the back half so
-    // the next section has time to come in underneath.
-    const holdEnd = 0.35;
-    const t = p < holdEnd ? 0 : (p - holdEnd) / (1 - holdEnd);
-    const e = t * t * (3 - 2 * t);
-    stage.style.setProperty('--door-p', String(e));
-    if (copy) copy.style.opacity = String(Math.max(0, 1 - e * 1.15));
-  }
-
-  window.addEventListener('scroll', tick, { passive: true });
-  window.addEventListener('resize', tick, { passive: true });
-  tick();
-})();
 
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1267,6 +1127,5 @@ details.story-faq .faq-a p + p {
   start();
 })();
 </script>
-  <script defer src="assets/site-nav-contrast.js"></script>
 </body>
 </html>

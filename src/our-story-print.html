@@ -7,7 +7,7 @@
 <meta name="description" content="Ella Lee Homes — Arizona luxury custom home builder. Our story: legacy, craft, and a collaborative journey from first sketch to final walkthrough.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -15,14 +15,16 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ink: #2B2B2B;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --disp: 'DM Serif Display', Georgia, serif;
+  --ink: #001526;
   --ink-deep: #2B2B2B;
   --paper: #EAE5DC;
   --nickel: #A5A09D;
-  --navy: #001F33;
-  --gold: #C9A96E;
+  --navy: #001526;
+  --gold: #BFA06A;
   --sans: 'Inter', Helvetica, sans-serif;
-  --serif: 'Cormorant Garamond', Georgia, serif;
+  --serif: 'DM Serif Display', Georgia, serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --nav-h: 88px;
   --door-p: 0;
@@ -42,18 +44,18 @@ body {
    the viewport. Each section advertises its theme via data-theme.
    The change is driven by IntersectionObserver below. */
 body.theme-our-story[data-active-section="dark"] {
-  background: #1B1B1B;
+  background: #001526;
   color: #EAE5DC;
 }
 /* Text & chrome overrides for the dark theme. Kept explicit (rather than
    via CSS variables) so each rule can be transitioned smoothly. */
 body[data-active-section="dark"] .story-kicker { color: rgba(234,229,220,0.48); }
 body[data-active-section="dark"] .story-display { color: rgba(234,229,220,0.94); }
-body[data-active-section="dark"] .story-display em { color: #C9A96E; }
+body[data-active-section="dark"] .story-display em { color: #BFA06A; }
 body[data-active-section="dark"] .story-h2-sub { color: #EAE5DC; }
-body[data-active-section="dark"] .story-h2-sub em { color: #C9A96E; }
+body[data-active-section="dark"] .story-h2-sub em { color: #BFA06A; }
 body[data-active-section="dark"] .story-section h2 { color: #EAE5DC; }
-body[data-active-section="dark"] .story-section h2 em { color: #C9A96E; }
+body[data-active-section="dark"] .story-section h2 em { color: #BFA06A; }
 body[data-active-section="dark"] .story-lede { color: rgba(234,229,220,0.86); }
 body[data-active-section="dark"] .story-body { color: rgba(234,229,220,0.72); }
 body[data-active-section="dark"] .story-body strong { color: #EAE5DC; }
@@ -74,7 +76,7 @@ body[data-active-section="dark"] .where-sub { color: rgba(234,229,220,0.62); }
 body[data-active-section="dark"] .where-map-wrap { background: rgba(234,229,220,0.03); border-color: rgba(234,229,220,0.10); }
 body[data-active-section="dark"] .where-legend { border-top-color: rgba(234,229,220,0.10); }
 body[data-active-section="dark"] .where-legend-item { border-right-color: rgba(234,229,220,0.10); }
-body[data-active-section="dark"] .where-legend-num { color: #C9A96E; }
+body[data-active-section="dark"] .where-legend-num { color: #BFA06A; }
 body[data-active-section="dark"] .where-legend-place { color: #EAE5DC; }
 body[data-active-section="dark"] .where-legend-note { color: rgba(234,229,220,0.55); }
 body[data-active-section="dark"] .conv-inner > .sub { color: rgba(234,229,220,0.55); }
@@ -135,7 +137,7 @@ details.story-faq {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(43, 43, 43, calc(0.15 + var(--door-p) * 0.35)) 100%);
+  background: linear-gradient(to bottom, transparent 60%, rgba(0,21,38, calc(0.15 + var(--door-p) * 0.35)) 100%);
   pointer-events: none;
 }
 /* Decorative dot — reference layout */
@@ -166,12 +168,12 @@ details.story-faq {
   transition: opacity 0.35s var(--ease);
 }
 #door-copy .door-home-word {
-  font-family: var(--sans);
+  font-family: var(--disp);
   font-size: clamp(52px, 12vw, 160px);
-  font-weight: 200;
+  font-weight: 400;
   font-style: normal;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
   color: rgba(255, 255, 255, 0.96);
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
   margin: 0;
@@ -189,7 +191,7 @@ details.story-faq {
   font-size: 15px;
   font-weight: 300;
   letter-spacing: 0.02em;
-  color: rgba(43, 43, 43, 0.45);
+  color: rgba(0,21,38, 0.45);
   max-width: 320px;
   text-align: center;
   line-height: 1.5;
@@ -203,12 +205,12 @@ details.story-faq {
   font-size: 9px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(43, 43, 43, 0.35);
+  color: rgba(0,21,38, 0.35);
 }
 .door-hint span.line {
   width: 1px;
   height: 40px;
-  background: linear-gradient(180deg, rgba(0, 31, 51, 0.25), transparent);
+  background: linear-gradient(180deg, rgba(0,21,38, 0.25), transparent);
   animation: doorPulse 2.2s ease-in-out infinite;
 }
 @keyframes doorPulse {
@@ -253,12 +255,12 @@ details.story-faq {
   box-shadow: 0 0 0 rgba(0,0,0,0);
 }
 .pillar-card.reveal.is-visible {
-  box-shadow: 0 18px 48px rgba(43,43,43,0.06);
+  box-shadow: 0 18px 48px rgba(0,21,38,0.06);
 }
 @media (hover: hover) and (pointer: fine) {
   .pillar-card.reveal.is-visible:hover {
     transform: translate3d(0, -3px, 0);
-    box-shadow: 0 24px 56px rgba(43,43,43,0.09);
+    box-shadow: 0 24px 56px rgba(0,21,38,0.09);
   }
 }
 
@@ -274,7 +276,7 @@ details.story-faq.reveal {
 }
 .story-section {
   padding: 96px 0;
-  border-bottom: 1px solid rgba(43,43,43,0.08);
+  border-bottom: 1px solid rgba(0,21,38,0.08);
 }
 .story-section:last-of-type { border-bottom: none; }
 .story-kicker {
@@ -286,19 +288,17 @@ details.story-faq.reveal {
 }
 /* Micro / mega: one display line between kicker and body */
 .story-display {
-  font-family: var(--sans);
+  font-family: var(--disp);
   font-size: clamp(48px, 8vw, 96px);
-  font-weight: 200;
+  font-weight: 400;
   font-style: normal;
   letter-spacing: -0.045em;
-  line-height: 1.02;
+  line-height: 1.1;
   margin: 0 0 20px;
-  color: rgba(43, 43, 43, 0.92);
+  color: rgba(0,21,38, 0.92);
 }
 .story-display em {
-  font-family: var(--serif);
-  font-style: normal;
-  font-weight: 300;
+  font-family: var(--disp); font-style: normal; font-weight: 400;
   color: var(--navy);
 }
 .story-display:has(br) {
@@ -319,10 +319,10 @@ details.story-faq.reveal {
   color: var(--navy);
 }
 .story-section h2 {
-  font-family: var(--sans);
+  font-family: var(--disp);
   font-size: clamp(28px, 3.2vw, 42px);
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1.15;
   margin-bottom: 28px;
   color: var(--ink);
@@ -337,14 +337,14 @@ details.story-faq.reveal {
   font-size: clamp(22px, 2.4vw, 28px);
   font-weight: 300;
   line-height: 1.45;
-  color: rgba(43,43,43,0.88);
+  color: rgba(0,21,38,0.88);
   margin-bottom: 24px;
 }
 .story-body {
   font-size: 16px;
   line-height: 1.85;
   font-weight: 300;
-  color: rgba(43,43,43,0.78);
+  color: rgba(0,21,38,0.78);
 }
 .story-body p + p { margin-top: 1.25em; }
 .story-body strong { font-weight: 500; color: var(--ink); }
@@ -359,7 +359,7 @@ details.story-faq.reveal {
   font-style: normal;
   font-weight: 300;
   line-height: 1.5;
-  color: rgba(43,43,43,0.85);
+  color: rgba(0,21,38,0.85);
 }
 .story-pull.reveal {
   border-left-color: transparent;
@@ -380,8 +380,8 @@ details.story-faq.reveal {
 /* Pillars */
 .pillar-board {
   padding: 96px 56px 112px;
-  background: rgba(43,43,43,0.03);
-  border-top: 1px solid rgba(43,43,43,0.06);
+  background: rgba(0,21,38,0.03);
+  border-top: 1px solid rgba(0,21,38,0.06);
 }
 .pillar-inner { max-width: 1040px; margin: 0 auto; }
 .pillar-inner > .story-kicker { text-align: center; margin-bottom: 12px; }
@@ -397,7 +397,7 @@ details.story-faq.reveal {
 .pillar-card {
   padding: 28px 24px;
   background: var(--paper);
-  border: 1px solid rgba(43,43,43,0.08);
+  border: 1px solid rgba(0,21,38,0.08);
   min-height: 100%;
 }
 .pillar-num {
@@ -417,7 +417,7 @@ details.story-faq.reveal {
   font-size: 14px;
   line-height: 1.7;
   font-weight: 300;
-  color: rgba(43,43,43,0.65);
+  color: rgba(0,21,38,0.65);
 }
 
 /* Q&A */
@@ -435,10 +435,10 @@ details.story-faq.reveal {
   line-height: 1.6;
 }
 details.story-faq {
-  border-bottom: 1px solid rgba(43,43,43,0.1);
+  border-bottom: 1px solid rgba(0,21,38,0.1);
   padding: 22px 0;
 }
-details.story-faq:first-of-type { border-top: 1px solid rgba(43,43,43,0.1); }
+details.story-faq:first-of-type { border-top: 1px solid rgba(0,21,38,0.1); }
 details.story-faq summary {
   list-style: none;
   cursor: pointer;
@@ -466,7 +466,7 @@ details.story-faq[open] summary::after { transform: rotate(45deg); }
   font-size: 15px;
   line-height: 1.75;
   font-weight: 300;
-  color: rgba(43,43,43,0.72);
+  color: rgba(0,21,38,0.72);
 }
 .faq-attrib {
   display: block;
@@ -509,7 +509,6 @@ details.story-faq .faq-a p + p {
   .story-pull.reveal { border-left-color: var(--gold) !important; }
 }
 </style>
-<link rel="stylesheet" href="assets/site-cursor.css">
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
 {
@@ -595,12 +594,12 @@ details.story-faq .faq-a p + p {
 </head>
 <body class="theme-our-story">
 
-<!-- CURSOR_PARTIAL -->
 
 
 <!-- Canonical site nav — edit once; injected by scripts/build-html.mjs -->
 <!-- NAV_PARTIAL -->
-<!-- NAV_DROPDOWN_PARTIAL -->
+
+
 
 
 <main id="main">
@@ -674,7 +673,7 @@ details.story-faq .faq-a p + p {
     <!-- ── WHERE WE BUILD: stylized Phoenix Valley map ── -->
     <section id="where" class="story-section" aria-labelledby="h-where" data-theme="light">
       <style>
-        #where { padding: 96px 0; border-bottom: 1px solid rgba(43,43,43,0.08); }
+        #where { padding: 96px 0; border-bottom: 1px solid rgba(0,21,38,0.08); }
         .where-wrap { max-width: 1080px; margin: 0 auto; padding: 0 56px; }
         .where-hd { text-align: center; margin-bottom: 56px; }
         .where-hd .story-kicker { margin-bottom: 12px; }
@@ -682,19 +681,19 @@ details.story-faq .faq-a p + p {
         .where-sub {
           font-family: var(--sans); font-weight: 300;
           font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6;
-          color: rgba(43,43,43,0.62); max-width: 540px; margin: 0 auto;
+          color: rgba(0,21,38,0.62); max-width: 540px; margin: 0 auto;
         }
         .where-map-wrap {
           position: relative;
           background: var(--paper);
-          border: 1px solid rgba(43,43,43,0.08);
+          border: 1px solid rgba(0,21,38,0.08);
           padding: 32px;
           margin: 0 auto;
         }
         #where-leaflet {
           width: 100%;
           aspect-ratio: 8 / 5;
-          background: rgba(43, 43, 43, 0.03);
+          background: rgba(0,21,38, 0.03);
         }
         /* Tone down OSM tiles to match the brand neutral palette */
         #where-leaflet .leaflet-tile {
@@ -708,7 +707,7 @@ details.story-faq .faq-a p + p {
           transition: transform 0.2s ease;
           border-radius: 50%;
           background: var(--navy);
-          box-shadow: 0 0 0 4px rgba(0, 31, 51, 0.18), 0 0 0 10px rgba(0, 31, 51, 0.08);
+          box-shadow: 0 0 0 4px rgba(0,21,38, 0.18), 0 0 0 10px rgba(0,21,38, 0.08);
         }
         .where-pin::before {
           content: '';
@@ -723,8 +722,8 @@ details.story-faq .faq-a p + p {
         .where-pin:not(.studio):hover {
           transform: scale(1.18);
           box-shadow:
-            0 0 0 5px rgba(0, 31, 51, 0.30),
-            0 0 0 12px rgba(0, 31, 51, 0.12);
+            0 0 0 5px rgba(0,21,38, 0.30),
+            0 0 0 12px rgba(0,21,38, 0.12);
         }
         .where-pin.studio {
           background: transparent;
@@ -739,7 +738,7 @@ details.story-faq .faq-a p + p {
           color: var(--ink);
           border-radius: 2px;
           padding: 4px 4px;
-          box-shadow: 0 8px 32px rgba(43, 43, 43, 0.18);
+          box-shadow: 0 8px 32px rgba(0,21,38, 0.18);
         }
         .leaflet-popup-content {
           font-family: var(--sans);
@@ -771,30 +770,30 @@ details.story-faq .faq-a p + p {
         .leaflet-popup-content .pin-pop-cta {
           margin-top: 8px;
           padding-top: 8px;
-          border-top: 1px solid rgba(43,43,43,0.12);
+          border-top: 1px solid rgba(0,21,38,0.12);
           font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase;
           color: var(--navy); font-weight: 500;
           transition: color 0.2s ease;
         }
         .leaflet-popup-content .pin-pop-cta span { margin-left: 6px; }
         .leaflet-popup-tip { background: var(--paper); }
-        .leaflet-control-attribution { font-size: 9px; color: rgba(43, 43, 43, 0.4); }
-        .leaflet-control-attribution a { color: rgba(43, 43, 43, 0.55); }
+        .leaflet-control-attribution { font-size: 9px; color: rgba(0,21,38, 0.4); }
+        .leaflet-control-attribution a { color: rgba(0,21,38, 0.55); }
         .where-map { /* legacy SVG class — no longer used */ display: none; }
         .where-map text { font-family: var(--sans); pointer-events: none; }
-        .where-grid-line { stroke: rgba(43,43,43,0.05); stroke-width: 1; }
-        .where-terrain { fill: none; stroke: rgba(43,43,43,0.10); stroke-width: 1; }
+        .where-grid-line { stroke: rgba(0,21,38,0.05); stroke-width: 1; }
+        .where-terrain { fill: none; stroke: rgba(0,21,38,0.10); stroke-width: 1; }
         .where-mtn-label {
           font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-          fill: rgba(43,43,43,0.32); font-weight: 500;
+          fill: rgba(0,21,38,0.32); font-weight: 500;
         }
-        .where-loop { fill: none; stroke: rgba(43,43,43,0.09); stroke-width: 1; stroke-dasharray: 3 4; }
+        .where-loop { fill: none; stroke: rgba(0,21,38,0.09); stroke-width: 1; stroke-dasharray: 3 4; }
         .where-loop-label {
           font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
-          fill: rgba(43,43,43,0.30); font-weight: 500;
+          fill: rgba(0,21,38,0.30); font-weight: 500;
         }
-        .where-compass { fill: rgba(43,43,43,0.35); }
-        .where-compass-letter { font-size: 9px; letter-spacing: 0.15em; fill: rgba(43,43,43,0.45); font-weight: 600; }
+        .where-compass { fill: rgba(0,21,38,0.35); }
+        .where-compass-letter { font-size: 9px; letter-spacing: 0.15em; fill: rgba(0,21,38,0.45); font-weight: 600; }
 
         .where-pin-group { cursor: default; }
         .where-pin-halo {
@@ -826,11 +825,11 @@ details.story-faq .faq-a p + p {
 
         .where-legend {
           display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-          margin-top: 32px; border-top: 1px solid rgba(43,43,43,0.08);
+          margin-top: 32px; border-top: 1px solid rgba(0,21,38,0.08);
         }
         .where-legend-item {
           padding: 22px 20px;
-          border-right: 1px solid rgba(43,43,43,0.08);
+          border-right: 1px solid rgba(0,21,38,0.08);
         }
         .where-legend-item:last-child { border-right: none; }
         .where-legend-num {
@@ -843,7 +842,7 @@ details.story-faq .faq-a p + p {
           color: var(--ink); font-weight: 500; margin-bottom: 4px;
         }
         .where-legend-note {
-          font-size: 12px; color: rgba(43,43,43,0.55); line-height: 1.5;
+          font-size: 12px; color: rgba(0,21,38,0.55); line-height: 1.5;
         }
 
         @media (max-width: 900px) {
@@ -851,8 +850,8 @@ details.story-faq .faq-a p + p {
           .where-map-wrap { padding: 20px; }
           .where-pin-label-name { font-size: 14px; }
           .where-legend { grid-template-columns: 1fr 1fr; }
-          .where-legend-item { border-right: none; border-bottom: 1px solid rgba(43,43,43,0.08); }
-          .where-legend-item:nth-child(odd) { border-right: 1px solid rgba(43,43,43,0.08); }
+          .where-legend-item { border-right: none; border-bottom: 1px solid rgba(0,21,38,0.08); }
+          .where-legend-item:nth-child(odd) { border-right: 1px solid rgba(0,21,38,0.08); }
           .where-legend-item:nth-last-child(-n+2) { border-bottom: none; }
         }
         @media (max-width: 600px) {
@@ -1266,7 +1265,7 @@ details.story-faq .faq-a p + p {
   setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
 })();
 </script>
-  <script defer src="assets/site-nav-dd.js"></script>
-<script defer src="assets/site-nav-contrast.js"></script>
+  <script defer src="assets/elh-nav.js"></script>
+
 </body>
 </html>

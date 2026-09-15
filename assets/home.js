@@ -249,40 +249,7 @@
   var moreOpen = false;
 
   function handleScroll() {
-    var nav = document.querySelector('[data-elh-nav]');
-    if (nav) {
-      var y = window.scrollY;
-      var hero = document.getElementById('top');
-      var heroBottom = hero ? hero.offsetHeight - 80 : 600;
-      var prev = lastY == null ? 0 : lastY;
-      var goingDown = y > prev + 4;
-      var goingUp = y < prev - 4;
-      if (goingDown || goingUp) lastY = y;
-      else if (lastY == null) lastY = y;
-      var isPhone = window.matchMedia('(max-width: 767px)').matches;
-      if (isPhone) {
-        nav.style.transform = 'translateY(0)';
-        nav.style.background = 'transparent';
-        nav.style.backdropFilter = 'none';
-        nav.style.borderBottomColor = 'rgba(234,229,220,0)';
-        lastY = y;
-      } else if (y < heroBottom) {
-        nav.style.transform = 'translateY(0)';
-      } else if (goingDown) {
-        nav.style.transform = 'translateY(-105%)';
-      } else if (goingUp) {
-        nav.style.transform = 'translateY(0)';
-      }
-      var past = y > 80;
-      if (!isPhone) {
-        nav.style.background = past ? 'rgba(0,21,38,.94)' : 'transparent';
-        nav.style.backdropFilter = past ? 'blur(10px)' : 'none';
-        nav.style.paddingTop = past ? '13px' : '20px';
-        nav.style.paddingBottom = past ? '13px' : '20px';
-        nav.style.borderBottomColor = past ? 'rgba(234,229,220,.14)' : 'rgba(234,229,220,0)';
-      }
-    }
-
+    // The shared top nav is owned by assets/elh-nav.js.
     var sweep = document.querySelector('[data-elh-sweep]');
     if (sweep) {
       var r = sweep.getBoundingClientRect();
@@ -356,9 +323,6 @@
   }
 
   var CLICK = {
-    openDrawer: function () { setDrawer(true); },
-    closeDrawer: function () { setDrawer(false); },
-    toggleMore: function (e) { e.stopPropagation(); setMore(!moreOpen); },
     stripPrev: function () { stripNudge(-1); },
     stripNext: function () { stripNudge(1); },
     toggleFaq: function (e, el) { toggleFaq(el); },
