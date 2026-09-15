@@ -17,7 +17,7 @@
   --serif: 'DM Serif Display', Georgia, serif;
   --disp: 'DM Serif Display', Georgia, serif;
   --ink: #001526; --paper: #EAE5DC; --nickel: #A5A09D;
-  --navy: #001526; --gold: #BFA06A;
+  --navy: #001526; --navy-alt: #123049; --gold: #BFA06A;
   --sans: 'Inter', Helvetica, sans-serif;
   --serif: 'DM Serif Display', Georgia, serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
@@ -186,11 +186,11 @@ body {
   box-shadow: 0 -1px 0 rgba(234,229,220,.14), 0 -24px 48px -24px rgba(234,229,220,.14);
 }
 /* Alternate the card background subtly so consecutive cards read as
-   distinct layers when stacked. Even cards = paper, odd cards = a
-   slightly cooler stone tone. */
-.pillar:nth-of-type(2) { background: #E3DDD2; }
+   distinct layers when stacked. Odd cards = navy, even cards = a
+   lighter navy-blue tone. */
+.pillar:nth-of-type(2) { background: var(--navy-alt); }
 .pillar:nth-of-type(3) { background: var(--navy); }
-.pillar:nth-of-type(4) { background: #E3DDD2; }
+.pillar:nth-of-type(4) { background: var(--navy-alt); }
 
 .pillar-media {
   position: relative;
