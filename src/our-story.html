@@ -192,7 +192,7 @@ details.story-faq.reveal {
 .story-wrap {
   max-width: 1500px;
   margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 64px);
+  padding: 0 clamp(18px, 2.4vw, 40px);
 }
 .story-section {
   padding: 96px 0;
@@ -299,7 +299,7 @@ details.story-faq.reveal {
 
 /* Pillars */
 .pillar-board {
-  padding: 96px clamp(20px, 4vw, 64px) 112px;
+  padding: 96px clamp(18px, 2.4vw, 40px) 112px;
   background: rgba(0,21,38,0.03);
   border-top: 1px solid rgba(0,21,38,0.06);
 }
@@ -342,7 +342,7 @@ details.story-faq.reveal {
 
 /* Q&A */
 #conversation {
-  padding: 96px clamp(20px, 4vw, 64px) 120px;
+  padding: 96px clamp(18px, 2.4vw, 40px) 120px;
 }
 .conv-inner { max-width: 1500px; margin: 0 auto; }
 .conv-inner > .story-display {
@@ -550,14 +550,9 @@ details.story-faq .faq-a p + p {
   <!-- HERO BANNER — full-bleed image with the homepage fade, copy bottom-left -->
 <section id="hero-banner" aria-label="Ella Lee Homes">
   <img src="uploads/home/story.jpg" alt="Ella Lee Homes on site during a custom build">
-  <div class="hero-head">
-    <div>
-      <div class="eyebrow">Our Story</div>
-      <h1 class="hero-title">Built on a promise,<br><em>kept in every home.</em></h1>
-    </div>
-  </div>
-  <div class="hero-caption">
-    <p>Arizona&rsquo;s premier luxury custom home builder, designing and building across Arcadia, Paradise Valley and Scottsdale.</p>
+  <div class="hero-copy">
+    <h1 class="hero-title">Built on a promise,<br>kept in every home.</h1>
+    <p class="hero-lede">Arizona&rsquo;s premier luxury custom home builder, designing and building across Arcadia, Paradise Valley and Scottsdale.</p>
   </div>
 </section>
 
@@ -606,7 +601,7 @@ details.story-faq .faq-a p + p {
     <section id="where" class="story-section" aria-labelledby="h-where" data-theme="light">
       <style>
         #where { padding: 96px 0; border-bottom: 1px solid rgba(0,21,38,0.08); }
-        .where-wrap { max-width: 1500px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px); }
+        .where-wrap { max-width: 1500px; margin: 0 auto; padding: 0 clamp(18px, 2.4vw, 40px); }
         .where-hd { text-align: left; margin-bottom: 56px; }
         .where-hd .story-kicker { margin-bottom: 12px; }
         .where-hd .story-display { font-size: clamp(44px, 7vw, 84px); margin-bottom: 18px; }
@@ -803,24 +798,23 @@ details.story-faq .faq-a p + p {
   margin-top: clamp(14px, 1.6vw, 22px);
   background: rgba(234,229,220,.42);
 }
-.hero-title em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
-.hero-caption p {
+.hero-lede {
   font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
-  line-height: 1.5; color: rgba(234,229,220,.9); max-width: 42ch; margin: 0;
+  line-height: 1.5; color: rgba(234,229,220,.9); max-width: 32ch; margin: 0;
 }
 
-/* ── HERO COPY PLACEMENT — bottom-left stack, on the homepage's baseline ── */
+/* ── HERO COPY PLACEMENT — one bottom-left stack, on the homepage's baseline ── */
 #hero-banner { display: flex; flex-direction: column; justify-content: flex-end; }
 #hero-banner > img { position: absolute; inset: 0; }
-#hero-banner > .hero-head, #hero-banner > .hero-caption {
-  position: relative; z-index: 3;
-  padding-left: clamp(18px, 2.4vw, 40px); padding-right: clamp(18px, 2.4vw, 40px);
+#hero-banner > .hero-copy {
+  position: relative; z-index: 3; width: 100%; max-width: none;
+  display: flex; flex-direction: column; gap: 20px;
+  margin: 0; padding: 0 clamp(18px, 2.4vw, 40px) calc(18vh + clamp(40px, 5vw, 72px));
 }
-#hero-banner > .hero-head { margin: 0 0 clamp(14px, 1.6vw, 22px); }
-#hero-banner > .hero-caption { margin: 0 0 calc(18vh + clamp(40px, 5vw, 72px)); }
+.hero-title { line-height: 1.02; }
+.hero-title::after { margin-top: 6px; }
 @media (max-width: 760px) {
-  #hero-banner > .hero-head, #hero-banner > .hero-caption { padding-left: 20px; padding-right: 20px; }
-  #hero-banner > .hero-caption { margin-bottom: calc(13vh + 32px); }
+  #hero-banner > .hero-copy { padding: 0 20px calc(13vh + 32px); }
 }
 
 /* ── LIGHT THEME = the homepage's Giving Back beige, used as the page's one accent ── */
@@ -843,6 +837,21 @@ body[data-active-section="light"] .where-legend-item { border-right-color: rgba(
 body[data-active-section="light"] .where-legend-num { color: #8A6E3C; }
 body[data-active-section="light"] .where-legend-place { color: #001526; }
 body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
+
+/* hero copy runs all white */
+#hero-banner .hero-title, #hero-banner .hero-title em,
+#hero-banner .hero-head-meta, #hero-banner .hero-head-meta strong,
+#hero-banner .hero-caption h2, #hero-banner .hero-caption h2 em,
+#hero-banner .hero-caption p, #hero-banner .hero-meta, #hero-banner .hero-meta strong,
+#hero-banner .hero-lede, #hero-banner .hero-lede strong, #hero-banner #result-count { color: #fff; }
+
+/* hero height matches the homepage's 118vh so the copy lands on its baseline */
+#hero-banner { height: auto; min-height: 118vh; }
+@media (max-width: 760px) { #hero-banner { min-height: 112vh; } }
+
+/* hairline spans the measure, like the homepage's */
+#hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
+#hero-banner .hero-title { width: 100%; }
 </style>
 
       <div class="where-wrap">

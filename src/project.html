@@ -137,7 +137,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   gap: 0; border-bottom: 1px solid rgba(234,229,220,.24);
 }
 #amenities-col {
-  padding: 64px clamp(20px, 4vw, 64px);
+  padding: 64px clamp(18px, 2.4vw, 40px);
   border-right: 1px solid rgba(234,229,220,.24);
   background: var(--navy);
 }
@@ -301,13 +301,14 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   .stat-box:nth-child(1), .stat-box:nth-child(2) { border-bottom: 1px solid rgba(234,229,220,.24); }
   #content { grid-template-columns: 1fr; }
   #amenities-col { border-right: none; border-bottom: 1px solid rgba(234,229,220,.24); }
-  #inquiry-cta { grid-template-columns: 1fr; gap: 32px; padding: clamp(20px, 4vw, 64px) 32px; }
+  #inquiry-cta { grid-template-columns: 1fr; gap: 32px; padding: clamp(18px, 2.4vw, 40px) 32px; }
   .related-grid { grid-template-columns: 1fr; }
   .story-cols { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
   body { padding-top: 80px; }
+  #nav { padding: 12px 20px; }
   #back-strip { padding: 14px 20px; }
   #hero { height: 100vh; min-height: 460px; }
   .hero-back { top: 88px; left: 20px; }

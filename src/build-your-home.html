@@ -100,7 +100,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   max-width: 1500px;
   margin: 0 auto;
   text-align: left;
-  padding: 100px clamp(20px, 4vw, 64px) 64px;
+  padding: 100px clamp(18px, 2.4vw, 40px) 64px;
 }
 .ts-intro .ts-eyebrow {
   font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
@@ -133,7 +133,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 36px;
-  padding: 40px clamp(20px, 4vw, 64px) 72px;
+  padding: 40px clamp(18px, 2.4vw, 40px) 72px;
   max-width: 1500px;
   margin: 0 auto;
   width: 100%;
@@ -225,72 +225,17 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 }
 
 /* ── CTA STRIP (shared with index.html) ── */
-#cta {
-  padding: 120px clamp(20px, 4vw, 64px);
-  background: var(--navy); color: var(--paper);
-  display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start;
-  position: relative; z-index: 1;
-}
-.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
-.cta-text { font-family: var(--disp); font-size: clamp(32px,4.6vw,64px); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; color: var(--paper); }
-.cta-text em { font-style: normal; color: var(--gold); }
-.cta-sub {
-  margin-top: 28px; max-width: 440px;
-  font-size: 15px; font-weight: 400; line-height: 1.6; color: rgba(234,229,220,.86);
-}
-.cta-meta {
-  margin-top: 36px; display: flex; flex-direction: column; gap: 14px;
-  font-size: 13px; color: rgba(234,229,220,.86);
-}
-.cta-meta-row { display: flex; align-items: center; gap: 14px; }
-.cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(234,229,220,.55); width: 64px; }
-.cta-meta-val { font-family: var(--sans); }
 
 /* form */
-.cta-form { display: flex; flex-direction: column; gap: 0; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.18); padding: 40px; }
-.cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.cta-field {
-  display: flex; flex-direction: column;
-  border-bottom: 1px solid rgba(234,229,220,.16);
-  padding: 14px 0;
-}
 .cta-field + .cta-field { padding-top: 18px; }
-.cta-form-row .cta-field { border-right: 1px solid rgba(234,229,220,.16); padding-right: 18px; }
-.cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
-.cta-field label {
-  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(234,229,220,.6); margin-bottom: 8px;
-}
 .cta-field input, .cta-field textarea, .cta-field select {
   background: transparent; border: none; outline: none;
   font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--paper);
   padding: 0; cursor: text;
 }
-.cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
-/* Grid items default to min-width:auto, so an input's intrinsic width would
-   otherwise stop the CTA column shrinking on phones and scroll the page. */
-#cta > * { min-width: 0; }
-.cta-field input, .cta-field select, .cta-field textarea { width: 100%; min-width: 0; }
 .cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(234,229,220,.42); }
-.cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23EAE5DC' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
-.cta-field select option { background: var(--navy); color: var(--paper); }
 
-.cta-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
-.cta-form-note { font-size: 11px; color: rgba(234,229,220,.6); line-height: 1.5; }
-.cta-submit {
-  background: var(--gold); color: var(--navy); border: none;
-  font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
-  padding: 18px 36px; cursor: default; transition: background .2s, color .2s; white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 14px;
-}
-.cta-submit svg { width: 16px; height: 8px; transition: transform .25s; }
-.cta-submit:hover { background: var(--paper); color: var(--navy); }
-.cta-submit:hover svg { transform: translateX(4px); }
 .btn-outline:hover { border-color: var(--paper); }
-
-/* Same collapse the other CTA pages carry — must sit after the rules above. */
-@media (max-width: 1100px) {
-  #cta { grid-template-columns: 1fr; gap: 48px; }
-}
 
 
 /* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
@@ -310,27 +255,46 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
 }
 
-/* ── HERO COPY PLACEMENT — bottom-left stack, on the homepage's baseline ── */
-#hero-banner { display: flex; flex-direction: column; justify-content: flex-end; }
+/* ── HERO COPY PLACEMENT — one bottom-left stack, on the homepage's baseline ── */
+#hero-banner {
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 20px;
+  padding: 0 clamp(18px, 2.4vw, 40px) calc(18vh + clamp(40px, 5vw, 72px));
+}
 #hero-banner > img, #hero-banner > picture { position: absolute; inset: 0; }
-#hero-banner > .hero-head, #hero-banner > .hero-caption {
-  position: relative; inset: auto; z-index: 3;
-  padding-left: clamp(18px, 2.4vw, 40px); padding-right: clamp(18px, 2.4vw, 40px);
-  left: auto; right: auto; top: auto; bottom: auto;
+#hero-banner > .hero-head, #hero-banner > .hero-caption,
+#hero-banner > .hero-chips, #hero-banner > .hero-copy, #hero-banner > .hero-actions {
+  position: relative; inset: auto; left: auto; right: auto; top: auto; bottom: auto;
+  z-index: 3; margin: 0; padding: 0; width: 100%; max-width: none;
 }
 #hero-banner > .hero-head {
-  flex-direction: column; align-items: flex-start; justify-content: flex-end;
-  gap: clamp(12px, 1.4vw, 20px); margin: 0 0 clamp(14px, 1.6vw, 22px);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
 }
-#hero-banner > .hero-caption { margin: 0 0 calc(18vh + clamp(40px, 5vw, 72px)); }
-.hero-head-meta { text-align: left; padding-top: 0; max-width: 42ch; }
-@media (max-width: 760px) {
-  #hero-banner > .hero-head, #hero-banner > .hero-caption { padding-left: 20px; padding-right: 20px; }
-  #hero-banner > .hero-caption { margin-bottom: calc(13vh + 32px); }
-  /* Two-up fields keep their intrinsic input width and push the page sideways. */
-  .cta-form-row { grid-template-columns: 1fr; }
-  .cta-form-row .cta-field { border-right: none; padding-right: 0; padding-left: 0; }
+#hero-banner .eyebrow, #hero-banner .hero-eyebrow, #hero-banner .hero-scroll-hint { display: none; }
+.hero-title { line-height: 1.02; }
+.hero-title::after { margin-top: 6px; }
+.hero-head-meta, .hero-caption h2, .hero-caption p, .hero-meta, .hero-lede {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
+  text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+#hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
+@media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
+
+/* hero copy runs all white */
+#hero-banner .hero-title, #hero-banner .hero-title em,
+#hero-banner .hero-head-meta, #hero-banner .hero-head-meta strong,
+#hero-banner .hero-caption h2, #hero-banner .hero-caption h2 em,
+#hero-banner .hero-caption p, #hero-banner .hero-meta, #hero-banner .hero-meta strong,
+#hero-banner .hero-lede, #hero-banner .hero-lede strong, #hero-banner #result-count { color: #fff; }
+
+/* hero height matches the homepage's 118vh so the copy lands on its baseline */
+#hero-banner { height: auto; min-height: 118vh; }
+@media (max-width: 760px) { #hero-banner { min-height: 112vh; } }
+
+/* hairline spans the measure, like the homepage's */
+#hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
+#hero-banner .hero-title { width: 100%; }
 </style>
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
@@ -602,74 +566,58 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 </script>
 
 <!-- AIO Block A: cost-plus transparency (visible body text for AI search) -->
-<section style="background:#E3DACA; padding: 96px clamp(20px, 4vw, 64px);">
+<section style="background:#E3DACA; padding: 96px clamp(18px, 2.4vw, 40px);">
   <div style="max-width:900px; margin:0 auto;">
     <div style="font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:#8A6E3C; margin-bottom:20px;">Cost-Plus, Fully Open-Book</div>
     <p style="font-size:20px; line-height:1.75; color:#2B2B2B;">The cost-plus contract structure is the gold standard for high-end residential construction because it eliminates the hidden margins built into fixed-price building. At Ella Lee Homes, we operate on a fully open-book system &mdash; every subcontractor bid, every premium material invoice, and every city permit fee is disclosed with complete transparency. Your budget goes entirely into the physical integrity, custom millwork, and architectural execution of your home, not into a builder&rsquo;s inflated contingency fund. Our clients track every dollar in real time through their dedicated Buildertrend client portal, from the first design invoice to the final punch-list close-out.</p>
   </div>
 </section>
 
-<section id="cta" class="grain">
-  <div class="cta-left">
-    <div class="cta-eyebrow" style="font-size: 12px">Begin the Conversation</div>
-    <div class="cta-text">
-      <div class="r-mask"><span class="r-up d1 fired">Ready to build</span></div>
-      <div class="r-mask"><span class="r-up d2 fired">your <em>legacy?</em></span></div>
+<section id="cta" data-screen-label="Inquiry" style="display: block; padding: clamp(80px, 11vw, 160px) clamp(18px, 2.4vw, 40px); background: #001526; color: #EAE5DC">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(36px, 5vw, 90px); max-width: 1500px; margin: 0 auto">
+    <div style="display: flex; flex-direction: column; gap: 22px">
+      <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Build Your Home</span>
+      <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -.015em">Start your build</h2>
+      <p style="margin: 0; max-width: 46ch; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.7; color: rgba(234,229,220,.88)">Tell us about your project and we'll come back to you within one business day. If you'd rather talk it through, call <a href="tel:+14803408700" style="color: #EAE5DC; border-bottom: 1px solid rgba(191,160,106,.7)">(480) 340-8700</a>.</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px; font-size: 14px; line-height: 1.6; color: #A5A09D">
+        <span>4408 N 12th St, Ste 200, Phoenix, AZ 85014</span>
+        <a href="mailto:hello@ellaleehomes.com" style="color: #A5A09D">hello@ellaleehomes.com</a>
+      </div>
     </div>
-    <p class="cta-sub r-fade d3 fired">Tell us about your vision. Whether you're building from the ground up, selling a custom home, or simply exploring what's possible, we'd love to hear from you.</p>
-    <blockquote class="r-fade d3 fired" style="margin-top:30px; padding-left:20px; border-left:2px solid var(--gold); max-width:48ch;">
-      <p style="font-size:17px; line-height:1.6; color:rgba(0,21,38,0.82);">&ldquo;Completed on time, within budget, and exceeded our expectations. The craftsmanship and attention to detail were simply amazing.&rdquo;</p>
-      <cite style="display:block; margin-top:12px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(0,21,38,0.5); font-style:normal;">Mike &middot; Scottsdale, AZ</cite>
-    </blockquote>
-    <div class="cta-meta r-fade d4 fired">
-      <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
-      <div class="cta-meta-row"><span class="cta-meta-label">Email</span><span class="cta-meta-val">hello@ellaleehomes.com</span></div>
-      <div class="cta-meta-row"><span class="cta-meta-label">Studio</span><span class="cta-meta-val">4408 N 12th St, Phoenix, AZ 85014</span></div>
-    </div>
+    <form onsubmit="event.preventDefault(); this.querySelector('[data-msg]').style.display='block'; this.querySelector('button').disabled=true;" style="display: flex; flex-direction: column; gap: 22px">
+      <label style="display: flex; flex-direction: column; gap: 9px">
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Name</span>
+        <input name="name" type="text" required="required" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; font-family: inherit">
+      </label>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 22px">
+        <label style="display: flex; flex-direction: column; gap: 9px">
+          <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Email</span>
+          <input name="email" type="email" required="required" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; font-family: inherit">
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 9px">
+          <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Phone</span>
+          <input name="phone" type="tel" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; font-family: inherit">
+        </label>
+      </div>
+      <label style="display: flex; flex-direction: column; gap: 9px">
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Target budget range</span>
+        <select name="budget" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; font-family: inherit">
+          <option value="" style="color: #001526">Select a range</option>
+          <option value="1-2m" style="color: #001526">$1M &ndash; $2M</option>
+          <option value="2-3m" style="color: #001526">$2M &ndash; $3M</option>
+          <option value="3-5m" style="color: #001526">$3M &ndash; $5M</option>
+          <option value="5m+" style="color: #001526">$5M+</option>
+          <option value="unsure" style="color: #001526">Not sure yet</option>
+        </select>
+      </label>
+      <label style="display: flex; flex-direction: column; gap: 9px">
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Tell us about your project</span>
+        <textarea name="project" rows="4" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; line-height: 1.6; resize: vertical; font-family: inherit"></textarea>
+      </label>
+      <button type="submit" style="align-self: flex-start; margin-top: 8px; padding: 17px 40px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #001526; background: #EAE5DC; border: 0; cursor: pointer; font-family: inherit; transition: background .3s ease">Send Inquiry</button>
+      <p data-msg="1" style="display: none; margin: 0; font-size: 14px; color: #BFA06A">Thank you &mdash; we'll be in touch within one business day.</p>
+    </form>
   </div>
-
-  <form class="cta-form r-fade d2 fired" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We\u2019ll be in touch.';">
-    <div class="cta-form-row">
-      <div class="cta-field">
-        <label>First Name</label>
-        <input type="text" placeholder="Jane" required="">
-      </div>
-      <div class="cta-field">
-        <label>Last Name</label>
-        <input type="text" placeholder="Doe" required="">
-      </div>
-    </div>
-    <div class="cta-form-row">
-      <div class="cta-field">
-        <label>Email</label>
-        <input type="email" placeholder="jane@email.com" required="">
-      </div>
-      <div class="cta-field">
-        <label>Phone</label>
-        <input type="tel" placeholder="(480) 555-0100">
-      </div>
-    </div>
-    <div class="cta-field">
-      <label>I'm interested in</label>
-      <select>
-        <option>Building a custom home</option>
-        <option>Selling my home</option>
-        <option>Investor / development opportunity</option>
-        <option>General inquiry</option>
-      </select>
-    </div>
-    <div class="cta-field">
-      <label>Tell us about your project</label>
-      <textarea placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
-    </div>
-    <div class="cta-form-actions">
-      <p class="cta-form-note">We respond personally within one business day. Still have questions? <a href="faq.html" style="color:var(--navy); font-weight:500;">Read our FAQs</a>.</p>
-      <button type="submit" class="cta-submit">
-        Send Inquiry
-        <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"></path></svg>
-      </button>
-    </div>
-  </form>
 </section>
 
 <!-- FOOTER_PARTIAL -->
