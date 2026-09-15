@@ -87,7 +87,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 }
 
 /* ── Section scaffolding (shared) ── */
-.section { padding: 120px clamp(20px, 4vw, 64px); border-bottom: 1px solid rgba(234,229,220,.12); }
+.section { padding: 120px clamp(18px, 2.4vw, 40px); border-bottom: 1px solid rgba(234,229,220,.12); }
 .section-inner { max-width: 1500px; margin: 0 auto; }
 .eyebrow-line {
   font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
@@ -221,7 +221,7 @@ details.faq .faq-a {
 }
 
 /* ── CTA ── */
-#cta { padding: 120px clamp(20px, 4vw, 64px); background: var(--navy); color: var(--paper);
+#cta { padding: 120px clamp(18px, 2.4vw, 40px); background: var(--navy); color: var(--paper);
   display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start; }
 .cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
 .cta-text { font-family: var(--disp); font-size: clamp(32px,4.6vw,64px); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; color: var(--paper); }
@@ -242,10 +242,6 @@ details.faq .faq-a {
   border: none; outline: none; width: 100%;
 }
 .cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
-/* Grid items default to min-width:auto, so an input's intrinsic width would
-   otherwise stop the CTA column shrinking on phones and scroll the page. */
-#cta > * { min-width: 0; }
-.cta-field input, .cta-field select, .cta-field textarea { width: 100%; min-width: 0; }
 .cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(234,229,220,.42); }
 .cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23EAE5DC' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
 .cta-field select option { background: var(--navy); color: var(--paper); }
@@ -319,24 +315,46 @@ details.faq .faq-a {
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
 }
 
-/* ── HERO COPY PLACEMENT — bottom-left stack, on the homepage's baseline ── */
-#hero-banner { display: flex; flex-direction: column; justify-content: flex-end; }
+/* ── HERO COPY PLACEMENT — one bottom-left stack, on the homepage's baseline ── */
+#hero-banner {
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 20px;
+  padding: 0 clamp(18px, 2.4vw, 40px) calc(18vh + clamp(40px, 5vw, 72px));
+}
 #hero-banner > img, #hero-banner > picture { position: absolute; inset: 0; }
-#hero-banner > .hero-head, #hero-banner > .hero-caption {
-  position: relative; inset: auto; z-index: 3;
-  padding-left: clamp(18px, 2.4vw, 40px); padding-right: clamp(18px, 2.4vw, 40px);
-  left: auto; right: auto; top: auto; bottom: auto;
+#hero-banner > .hero-head, #hero-banner > .hero-caption,
+#hero-banner > .hero-chips, #hero-banner > .hero-copy, #hero-banner > .hero-actions {
+  position: relative; inset: auto; left: auto; right: auto; top: auto; bottom: auto;
+  z-index: 3; margin: 0; padding: 0; width: 100%; max-width: none;
 }
 #hero-banner > .hero-head {
-  flex-direction: column; align-items: flex-start; justify-content: flex-end;
-  gap: clamp(12px, 1.4vw, 20px); margin: 0 0 clamp(14px, 1.6vw, 22px);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
 }
-#hero-banner > .hero-caption { margin: 0 0 calc(18vh + clamp(40px, 5vw, 72px)); }
-.hero-head-meta { text-align: left; padding-top: 0; max-width: 42ch; }
-@media (max-width: 760px) {
-  #hero-banner > .hero-head, #hero-banner > .hero-caption { padding-left: 20px; padding-right: 20px; }
-  #hero-banner > .hero-caption { margin-bottom: calc(13vh + 32px); }
+#hero-banner .eyebrow, #hero-banner .hero-eyebrow, #hero-banner .hero-scroll-hint { display: none; }
+.hero-title { line-height: 1.02; }
+.hero-title::after { margin-top: 6px; }
+.hero-head-meta, .hero-caption h2, .hero-caption p, .hero-meta, .hero-lede {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
+  text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+#hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
+@media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
+
+/* hero copy runs all white */
+#hero-banner .hero-title, #hero-banner .hero-title em,
+#hero-banner .hero-head-meta, #hero-banner .hero-head-meta strong,
+#hero-banner .hero-caption h2, #hero-banner .hero-caption h2 em,
+#hero-banner .hero-caption p, #hero-banner .hero-meta, #hero-banner .hero-meta strong,
+#hero-banner .hero-lede, #hero-banner .hero-lede strong, #hero-banner #result-count { color: #fff; }
+
+/* hero height matches the homepage's 118vh so the copy lands on its baseline */
+#hero-banner { height: auto; min-height: 118vh; }
+@media (max-width: 760px) { #hero-banner { min-height: 112vh; } }
+
+/* hairline spans the measure, like the homepage's */
+#hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
+#hero-banner .hero-title { width: 100%; }
 </style>
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
@@ -455,7 +473,7 @@ details.faq .faq-a {
 </section>
 
 <!-- TEARDOWN / LOT SELLER STRIP -->
-<section style="background:var(--navy); border-top:1px solid rgba(234,229,220,.12); padding: 80px clamp(20px, 4vw, 64px);">
+<section style="background:var(--navy); border-top:1px solid rgba(234,229,220,.12); padding: 80px clamp(18px, 2.4vw, 40px);">
   <div style="max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
     <div>
       <div style="font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;">Arcadia &middot; Scottsdale &middot; Paradise Valley</div>

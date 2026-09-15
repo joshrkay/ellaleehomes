@@ -115,7 +115,7 @@ body {
 
 /* ── MAIN PORTAL SECTION ── */
 #portal-body {
-  padding: 96px clamp(20px, 4vw, 64px) 120px;
+  padding: 96px clamp(18px, 2.4vw, 40px) 120px;
   max-width: 1500px;
   margin: 0 auto;
 }
@@ -239,7 +239,7 @@ body {
 
 /* ── FOOTER ── */
 .footer-btm {
-  padding: 20px clamp(20px, 4vw, 64px);
+  padding: 20px clamp(18px, 2.4vw, 40px);
   display: flex; justify-content: space-between; align-items: center;
   font-size: 9px; color: rgba(244,241,234,0.18);
   letter-spacing: 0.06em;
@@ -276,24 +276,46 @@ body {
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
 }
 
-/* ── HERO COPY PLACEMENT — bottom-left stack, on the homepage's baseline ── */
-#hero-banner { display: flex; flex-direction: column; justify-content: flex-end; }
+/* ── HERO COPY PLACEMENT — one bottom-left stack, on the homepage's baseline ── */
+#hero-banner {
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 20px;
+  padding: 0 clamp(18px, 2.4vw, 40px) calc(18vh + clamp(40px, 5vw, 72px));
+}
 #hero-banner > img, #hero-banner > picture { position: absolute; inset: 0; }
-#hero-banner > .hero-head, #hero-banner > .hero-caption {
-  position: relative; inset: auto; z-index: 3;
-  padding-left: clamp(18px, 2.4vw, 40px); padding-right: clamp(18px, 2.4vw, 40px);
-  left: auto; right: auto; top: auto; bottom: auto;
+#hero-banner > .hero-head, #hero-banner > .hero-caption,
+#hero-banner > .hero-chips, #hero-banner > .hero-copy, #hero-banner > .hero-actions {
+  position: relative; inset: auto; left: auto; right: auto; top: auto; bottom: auto;
+  z-index: 3; margin: 0; padding: 0; width: 100%; max-width: none;
 }
 #hero-banner > .hero-head {
-  flex-direction: column; align-items: flex-start; justify-content: flex-end;
-  gap: clamp(12px, 1.4vw, 20px); margin: 0 0 clamp(14px, 1.6vw, 22px);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
 }
-#hero-banner > .hero-caption { margin: 0 0 calc(18vh + clamp(40px, 5vw, 72px)); }
-.hero-head-meta { text-align: left; padding-top: 0; max-width: 42ch; }
-@media (max-width: 760px) {
-  #hero-banner > .hero-head, #hero-banner > .hero-caption { padding-left: 20px; padding-right: 20px; }
-  #hero-banner > .hero-caption { margin-bottom: calc(13vh + 32px); }
+#hero-banner .eyebrow, #hero-banner .hero-eyebrow, #hero-banner .hero-scroll-hint { display: none; }
+.hero-title { line-height: 1.02; }
+.hero-title::after { margin-top: 6px; }
+.hero-head-meta, .hero-caption h2, .hero-caption p, .hero-meta, .hero-lede {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
+  text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+#hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
+@media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
+
+/* hero copy runs all white */
+#hero-banner .hero-title, #hero-banner .hero-title em,
+#hero-banner .hero-head-meta, #hero-banner .hero-head-meta strong,
+#hero-banner .hero-caption h2, #hero-banner .hero-caption h2 em,
+#hero-banner .hero-caption p, #hero-banner .hero-meta, #hero-banner .hero-meta strong,
+#hero-banner .hero-lede, #hero-banner .hero-lede strong, #hero-banner #result-count { color: #fff; }
+
+/* hero height matches the homepage's 118vh so the copy lands on its baseline */
+#hero-banner { height: auto; min-height: 118vh; }
+@media (max-width: 760px) { #hero-banner { min-height: 112vh; } }
+
+/* hairline spans the measure, like the homepage's */
+#hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
+#hero-banner .hero-title { width: 100%; }
 </style>
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
