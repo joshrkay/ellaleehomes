@@ -12,61 +12,62 @@
 <meta property="og:site_name" content="Ella Lee Homes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,300;1,300&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
-<link rel="stylesheet" href="assets/site-cursor.css">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
-  --navy: #001F33; --gold: #C9A96E;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --disp: 'DM Serif Display', Georgia, serif;
+  --ink: #001526; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001526; --gold: #BFA06A;
   --sans: 'Inter', Helvetica, sans-serif;
-  --serif: 'Cormorant Garamond', Georgia, serif;
+  --serif: 'DM Serif Display', Georgia, serif;
   --dim: rgba(234,229,220,0.45);
   --ease: cubic-bezier(0.16,1,0.3,1);
 }
 html { scroll-behavior: smooth; }
-body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+body { font-family: var(--sans); background: var(--navy); color: var(--paper); -webkit-font-smoothing: antialiased; }
 em { font-style: normal; color: var(--gold); font-weight: 500; }
 
 /* ── HERO ── */
-#faq-hero { background: var(--navy); color: var(--paper); padding: 200px 56px 96px; }
+#faq-hero { background: var(--navy); color: var(--paper); padding: 200px clamp(20px, 4vw, 64px) 96px; }
 .faq-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
-#faq-hero h1 { font-family: var(--sans); font-weight: 300; font-size: clamp(42px, 6.4vw, 88px); line-height: 1.0; letter-spacing: -0.035em; max-width: 13ch; }
+#faq-hero h1 { font-family: var(--disp); font-weight: 400; font-size: clamp(42px, 6.4vw, 88px); line-height: 1.1; letter-spacing: -0.035em; max-width: 13ch; }
 #faq-hero .faq-hero-sub { margin-top: 28px; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
 
 /* ── LIST ── */
-#faq { max-width: 1040px; margin: 0 auto; padding: 100px 56px 40px; }
+#faq { max-width: 1500px; margin: 0 auto; padding: 100px clamp(20px, 4vw, 64px) 40px; }
 .faq-intro { margin-bottom: 60px; }
-.faq-intro .faq-eyebrow { color: rgba(43,43,43,0.5); }
-.faq-intro h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 4vw, 54px); line-height: 1.05; letter-spacing: -0.01em; }
-.faq-intro p { margin-top: 18px; max-width: 62ch; font-size: 18px; line-height: 1.7; color: rgba(43,43,43,0.72); }
-.faq-list { border-top: 1px solid rgba(43,43,43,0.16); }
-.faq-item { border-bottom: 1px solid rgba(43,43,43,0.16); }
+.faq-intro .faq-eyebrow { color: rgba(234,229,220,.6); }
+.faq-intro h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 4vw, 54px); line-height: 1.05; letter-spacing: -0.01em; }
+.faq-intro p { margin-top: 18px; max-width: 62ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,.86); }
+.faq-list { border-top: 1px solid rgba(234,229,220,.14); }
+.faq-item { border-bottom: 1px solid rgba(234,229,220,.14); }
 .faq-q {
   width: 100%; background: none; border: none; cursor: pointer; text-align: left;
   display: flex; justify-content: space-between; align-items: center; gap: 28px;
   padding: 32px 0; font-family: var(--sans); font-size: clamp(18px, 2vw, 24px); font-weight: 400;
-  color: var(--ink); letter-spacing: -0.01em; line-height: 1.35; transition: color 0.2s;
+  color: var(--paper); letter-spacing: -0.01em; line-height: 1.35; transition: color 0.2s;
 }
-.faq-q:hover { color: var(--navy); }
+.faq-q:hover { color: var(--gold); }
 .faq-icon { position: relative; flex-shrink: 0; width: 20px; height: 20px; margin-top: 4px; }
 .faq-icon::before, .faq-icon::after { content: ''; position: absolute; background: var(--gold); transition: transform 0.3s var(--ease); }
 .faq-icon::before { top: 9px; left: 0; width: 20px; height: 2px; }
 .faq-icon::after { top: 0; left: 9px; width: 2px; height: 20px; }
 .faq-item.open .faq-icon::after { transform: scaleY(0); }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
-.faq-a p { padding: 0 56px 32px 0; max-width: 72ch; font-size: 18px; line-height: 1.8; color: rgba(43,43,43,0.74); }
+.faq-a p { padding: 0 clamp(20px, 4vw, 64px) 32px 0; max-width: 72ch; font-size: 18px; line-height: 1.8; color: rgba(234,229,220,.86); }
 .faq-a a { color: var(--gold); }
 
 /* ── CTA STRIP ── */
-#faq-cta { background: var(--navy); color: var(--paper); text-align: center; padding: 120px 24px; margin-top: 72px; }
-#faq-cta h2 { font-family: var(--sans); font-weight: 300; font-size: clamp(34px, 4.6vw, 62px); letter-spacing: -0.035em; line-height: 1.0; }
-#faq-cta p { margin: 26px auto 0; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
+#faq-cta { background: var(--navy); color: var(--paper); text-align: left; padding: 120px 24px; margin-top: 72px; }
+#faq-cta h2 { font-family: var(--disp); font-weight: 400; font-size: clamp(34px, 4.6vw, 62px); letter-spacing: -0.035em; line-height: 1.1; }
+#faq-cta p { margin: 26px 0 0; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
 .faq-btn { display: inline-block; margin-top: 42px; background: var(--gold); color: #1a1a1a; text-decoration: none; padding: 18px 46px; border-radius: 100px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: background 0.2s, transform 0.2s; }
-.faq-btn:hover { background: #fff; transform: translateY(-2px); }
+.faq-btn:hover { background:#E3DACA; color: #001526; transform: translateY(-2px); }
 
 @media (max-width: 700px) {
   #faq-hero { padding: 150px 24px 64px; }
@@ -76,28 +77,46 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
 }
 </style>
 </head>
-<body class="theme-faq">
-<!-- CURSOR_PARTIAL -->
+<body>
+
 
 <!-- NAV -->
 <!-- NAV_PARTIAL -->
-<!-- NAV_DROPDOWN_PARTIAL -->
+
+
 
 <style>
-.legal-prose h2 { font-family: var(--sans); font-size: 26px; font-weight: 500; color: var(--navy); margin: 40px 0 14px; letter-spacing: -0.01em; }
+.legal-prose h2 { font-family: var(--sans); font-size: 26px; font-weight: 500; color: var(--gold); margin: 40px 0 14px; letter-spacing: -0.01em; }
 .legal-prose h2:first-child { margin-top: 0; }
 .legal-prose p { margin-bottom: 16px; }
 .legal-prose a { color: var(--gold); }
 .legal-prose ul { margin: 0 0 16px 22px; }
 .legal-prose li { margin-bottom: 8px; }
+
+/* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
+.hero-title, #faq-hero h1, .hero-name {
+  font-family: var(--disp); font-weight: 400;
+  font-size: clamp(29px, 5.1vw, 98px); line-height: 1.04; letter-spacing: -.01em;
+  color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5);
+}
+.hero-title::after, #faq-hero h1::after, .hero-name::after {
+  content: ''; display: block; height: 1px;
+  margin-top: clamp(14px, 1.6vw, 22px);
+  background: rgba(234,229,220,.42);
+}
+.hero-title em, .hero-name em, #faq-hero h1 em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
+.hero-head-meta, .hero-caption h2, .hero-caption p, #faq-hero .faq-hero-sub {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
+}
 </style>
 <section id="faq-hero">
   <div class="faq-eyebrow">Ella Lee Homes</div>
   <h1>Homeowner resources.</h1>
   <p class="faq-hero-sub">Everything you need after move-in, in one place.</p>
 </section>
-<section style="max-width:840px; margin:0 auto; padding:90px 56px 100px;">
-  <div class="legal-prose" style="font-size:18px; line-height:1.8; color:rgba(43,43,43,0.82);">
+<section style="max-width:840px; margin:0 auto; padding: 90px clamp(20px, 4vw, 64px) 100px;">
+  <div class="legal-prose" style="font-size:18px; line-height:1.8; color: rgba(234,229,220,.86);">
 <p>A custom home is built to last, and looking after it well is most of what keeps it that way. Here is where to find your documents, how to reach us, and what a desert climate asks of a house through the year.</p>
 <h2>Your client portal</h2>
 <p>Buildertrend is the secure portal where your project lives &mdash; schedules, daily photos, selections and approvals, documents, and direct messaging with the Ella Lee team. Your manuals, warranty paperwork, and product registrations are filed there too. Log in from the <a href="client-portal.html">client portal</a> page.</p>
@@ -117,14 +136,14 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
 <h2>Who to call</h2>
 <p>For anything at all &mdash; a warranty question, a recommendation, or a referral to a trade we trust &mdash; email <a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a> or call <a href="tel:4803408700">(480) 340-8700</a>. For a new project, start at <a href="contact.html">contact</a>.</p>
   </div>
-  <p style="margin-top:48px; padding-top:24px; border-top:1px solid rgba(43,43,43,0.14); font-size:14px; color:rgba(43,43,43,0.55);">Last updated September 2026. The guidance here is general and does not replace the manufacturer instructions for the specific products in your home, which govern their care and their warranty terms.</p>
+  <p style="margin-top:48px; padding-top:24px; border-top:1px solid rgba(234,229,220,.14); font-size:14px; color: rgba(234,229,220,.6);">Last updated September 2026. The guidance here is general and does not replace the manufacturer instructions for the specific products in your home, which govern their care and their warranty terms.</p>
 </section>
 
 <!-- FOOTER -->
 <!-- FOOTER_PARTIAL -->
 
-<script defer src="assets/site-nav-dd.js"></script>
-<script defer src="assets/site-nav-contrast.js"></script>
+<script defer src="assets/elh-nav.js"></script>
+
 <script>
 document.querySelectorAll('.faq-q').forEach(function (q) {
   q.addEventListener('click', function () {

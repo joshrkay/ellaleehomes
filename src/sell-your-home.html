@@ -8,21 +8,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
-  --navy: #001F33; --gold: #C9A96E;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --disp: 'DM Serif Display', Georgia, serif;
+  --ink: #001526; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001526; --gold: #BFA06A;
   --sans: 'Inter', Helvetica, sans-serif;
-  --serif: 'Cormorant Garamond', Georgia, serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
   --nav-h: 88px;
 }
 html { scroll-behavior: smooth; }
-body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; /* Hero is full-bleed under the fixed nav */ padding-top: 0; }
+body { font-family: var(--sans); background: var(--navy); color: var(--paper); -webkit-font-smoothing: antialiased; /* Hero is full-bleed under the fixed nav */ padding-top: 0; }
 
 /* ── Scroll reveals ── */
 .reveal { opacity: 0; transform: translate3d(0, 28px, 0); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
@@ -35,17 +36,19 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 /* ── HERO BANNER (full-bleed image, title overlaid — matches site) ── */
 #hero-banner {
   position: relative; width: 100%;
-  height: clamp(560px, 82vh, 820px);
-  overflow: hidden; background: var(--ink);
-  border-bottom: 1px solid rgba(43,43,43,0.1);
+  height: 100vh; min-height: 560px;
+  overflow: hidden; background: var(--navy);
 }
 #hero-banner img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   filter: saturate(0.95) brightness(0.78);
 }
 #hero-banner::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 26%, rgba(0,0,0,0.30) 60%, rgba(0,31,51,0.66) 100%);
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(0,21,38,0) 87%, rgba(0,21,38,.45) 93.7%, #001526 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.68) 0%, rgba(0,0,0,.44) 19%, rgba(0,0,0,0) 48%),
+    linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.58) 34%, rgba(0,0,0,.42) 62%, rgba(0,0,0,.2) 100%);
 }
 .hero-head {
   position: absolute; z-index: 2;
@@ -58,10 +61,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   color: rgba(234,229,220,0.7); margin-bottom: 14px;
 }
 .hero-title {
-  font-size: clamp(46px, 6.6vw, 100px);
-  font-weight: 300; letter-spacing: -0.04em; line-height: 0.95; color: var(--paper);
+  font-family: var(--disp); font-size: clamp(46px, 6.6vw, 100px);
+  font-weight: 400; letter-spacing: -0.02em; line-height: 1.04; color: var(--paper);
 }
-.hero-title em { font-style: normal; color: var(--gold); font-family: var(--serif); font-weight: 300; }
+.hero-title em { font-style: normal; color: var(--gold); font-family: var(--disp); font-weight: 400; }
 .hero-head-meta {
   font-size: 12px; line-height: 1.7; color: rgba(234,229,220,0.72);
   text-align: right; max-width: 280px; font-weight: 300; padding-top: 12px;
@@ -69,7 +72,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .hero-head-meta strong { color: var(--paper); font-weight: 500; }
 /* Bottom-left chip row: No Hassle · No Repairs · No Waiting */
 .hero-caption {
-  position: absolute; left: 56px; bottom: 40px; z-index: 2; color: #fff;
+  position: absolute; left: 56px; right: 56px; bottom: calc(13vh + 40px); z-index: 3; color: #fff;
 }
 .hero-caption .eyebrow {
   font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
@@ -84,32 +87,32 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 
 /* ── Section scaffolding (shared) ── */
-.section { padding: 120px 56px; border-bottom: 1px solid rgba(43,43,43,0.08); }
-.section-inner { max-width: 1080px; margin: 0 auto; }
+.section { padding: 120px clamp(20px, 4vw, 64px); border-bottom: 1px solid rgba(234,229,220,.12); }
+.section-inner { max-width: 1500px; margin: 0 auto; }
 .eyebrow-line {
   font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--nickel); margin-bottom: 20px;
+  color: var(--gold); margin-bottom: 20px;
 }
 .sec-title {
-  font-size: clamp(32px, 4.2vw, 58px); font-weight: 300;
-  letter-spacing: -0.03em; line-height: 1.02; color: var(--ink);
+  font-family: var(--disp); font-size: clamp(32px, 4.2vw, 58px); font-weight: 400;
+  letter-spacing: -0.015em; line-height: 1.1; color: var(--paper);
   max-width: 18ch;
 }
-.sec-title em { font-style: normal; color: var(--gold); font-family: var(--serif); font-weight: 300; }
+.sec-title em { font-style: normal; color: var(--gold); font-family: var(--disp); font-weight: 400; }
 .sec-lede {
-  font-size: 17px; line-height: 1.75; color: rgba(43,43,43,0.78);
+  font-size: 17px; line-height: 1.75; color: rgba(234,229,220,.86);
   font-weight: 300; max-width: 62ch; margin-top: 28px;
 }
-.sec-lede strong { color: var(--ink); font-weight: 500; }
-.sec-body { font-size: 16px; line-height: 1.85; color: rgba(43,43,43,0.74); font-weight: 300; }
+.sec-lede strong { color: var(--paper); font-weight: 500; }
+.sec-body { font-size: 16px; line-height: 1.85; color: rgba(234,229,220,.82); font-weight: 300; }
 .sec-body p + p { margin-top: 1.2em; }
-.sec-body strong { color: var(--ink); font-weight: 500; }
+.sec-body strong { color: var(--paper); font-weight: 500; }
 
 /* ── INTRO: two-column lede + image ── */
 #intro .intro-grid {
   display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: center;
 }
-.intro-media { position: relative; aspect-ratio: 4/5; overflow: hidden; background: rgba(43,43,43,0.08); }
+.intro-media { position: relative; aspect-ratio: 4/5; overflow: hidden; background: rgba(234,229,220,.08); }
 .intro-media img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.95); }
 .intro-media-tag {
   position: absolute; left: 22px; bottom: 20px;
@@ -141,7 +144,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 /* ── STEPS ── */
 .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 64px; }
 .step {
-  padding: 0 32px 0 0; border-right: 1px solid rgba(43,43,43,0.12);
+  padding: 0 32px 0 0; border-right: 1px solid rgba(234,229,220,.16);
 }
 .step:last-child { border-right: none; }
 .step:not(:first-child) { padding-left: 32px; }
@@ -149,30 +152,33 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   font-family: var(--serif); font-style: normal; font-size: 56px; line-height: 1;
   color: var(--gold); margin-bottom: 24px;
 }
-.step h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 12px; }
-.step p { font-size: 14px; line-height: 1.7; color: rgba(43,43,43,0.7); font-weight: 300; }
+.step h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 12px; color: var(--paper); }
+.step p { font-size: 14px; line-height: 1.7; color: rgba(234,229,220,.82); font-weight: 300; }
 
 /* ── COMPARISON TABLE ── */
-#compare { background: var(--paper); }
+#compare { background: #E3DACA; color: #2B2B2B; border-bottom: none; }
+#compare .sec-title { color: #001526; }
+#compare .eyebrow-line { color: #8A6E3C; }
+#compare .sec-lede, #compare .sec-body { color: #2B2B2B; }
 .cmp {
   margin-top: 56px; width: 100%;
-  border: 1px solid rgba(43,43,43,0.14); border-collapse: collapse;
-  background: rgba(255,255,255,0.35);
+  border: 1px solid rgba(0,21,38,0.14); border-collapse: collapse;
+  background: rgba(255,255,255,0.28);
 }
 .cmp th, .cmp td {
   padding: 20px 24px; text-align: left; vertical-align: top;
-  border-bottom: 1px solid rgba(43,43,43,0.12);
+  border-bottom: 1px solid rgba(0,21,38,0.12);
   font-size: 14px; line-height: 1.5;
 }
 .cmp thead th {
   font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
-  color: var(--ink); background: rgba(43,43,43,0.04);
+  color: var(--ink); background: rgba(0,21,38,0.04);
 }
-.cmp thead th.col-ella { color: var(--navy); background: rgba(0,31,51,0.06); }
+.cmp thead th.col-ella { color: var(--navy); background: rgba(0,21,38,0.06); }
 .cmp .row-cat { font-weight: 500; color: var(--ink); width: 26%; }
-.cmp td.col-ella { color: var(--ink); font-weight: 400; width: 37%; background: rgba(0,31,51,0.035); }
+.cmp td.col-ella { color: var(--ink); font-weight: 400; width: 37%; background: rgba(0,21,38,0.035); }
 .cmp td.col-ella strong { color: var(--navy); font-weight: 600; }
-.cmp td.col-trad { color: rgba(43,43,43,0.62); width: 37%; }
+.cmp td.col-trad { color: rgba(0,21,38,0.62); width: 37%; }
 .cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: none; }
 .cmp .tick { color: var(--gold); font-weight: 600; margin-right: 8px; }
 
@@ -195,11 +201,11 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .area span { font-family: var(--sans); font-style: normal; font-size: 12px; color: var(--gold); letter-spacing: 0.1em; }
 
 /* ── FAQ ── */
-#faq .faq-list { margin-top: 48px; border-top: 1px solid rgba(43,43,43,0.12); }
-details.faq { border-bottom: 1px solid rgba(43,43,43,0.12); }
+#faq .faq-list { margin-top: 48px; border-top: 1px solid rgba(234,229,220,.16); }
+details.faq { border-bottom: 1px solid rgba(234,229,220,.16); }
 details.faq summary {
   list-style: none; cursor: pointer; padding: 26px 48px 26px 0; position: relative;
-  font-size: clamp(17px, 1.7vw, 20px); font-weight: 400; color: var(--ink);
+  font-size: clamp(17px, 1.7vw, 20px); font-weight: 400; color: var(--paper);
   letter-spacing: -0.01em; transition: color 0.2s;
 }
 details.faq summary::-webkit-details-marker { display: none; }
@@ -208,47 +214,51 @@ details.faq summary::after {
   font-size: 24px; font-weight: 300; color: var(--gold); transition: transform 0.3s var(--ease);
 }
 details.faq[open] summary::after { transform: translateY(-50%) rotate(45deg); }
-details.faq summary:hover { color: var(--navy); }
+details.faq summary:hover { color: var(--gold); }
 details.faq .faq-a {
   padding: 0 64px 28px 0; font-size: 15px; line-height: 1.8;
-  color: rgba(43,43,43,0.74); font-weight: 300; max-width: 76ch;
+  color: rgba(234,229,220,.82); font-weight: 300; max-width: 76ch;
 }
 
 /* ── CTA ── */
-#cta { padding: 120px 56px; background: var(--paper); color: var(--ink);
+#cta { padding: 120px clamp(20px, 4vw, 64px); background: var(--navy); color: var(--paper);
   display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start; }
-.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(43,43,43,.5); margin-bottom: 24px; }
-.cta-text { font-family: var(--sans); font-size: clamp(32px,4.6vw,64px); font-weight: 300; line-height: .98; letter-spacing: -0.03em; color: var(--ink); }
-.cta-text em { font-style: normal; color: var(--gold); font-family: var(--serif); }
-.cta-sub { margin-top: 28px; max-width: 440px; font-size: 15px; font-weight: 400; line-height: 1.6; color: rgba(43,43,43,0.78); }
-.cta-meta { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; font-size: 13px; color: rgba(43,43,43,0.85); }
+.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+.cta-text { font-family: var(--disp); font-size: clamp(32px,4.6vw,64px); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; color: var(--paper); }
+.cta-text em { font-style: normal; color: var(--gold); font-family: var(--disp); }
+.cta-sub { margin-top: 28px; max-width: 440px; font-size: 15px; font-weight: 400; line-height: 1.6; color: rgba(234,229,220,.86); }
+.cta-meta { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; font-size: 13px; color: rgba(234,229,220,.86); }
 .cta-meta-row { display: flex; align-items: center; gap: 14px; }
-.cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.5); width: 64px; }
-.cta-form { display: flex; flex-direction: column; gap: 0; background: rgba(255,255,255,0.4); border: 1px solid rgba(43,43,43,0.15); padding: 40px; }
+.cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(234,229,220,.55); width: 64px; }
+.cta-form { display: flex; flex-direction: column; gap: 0; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.18); padding: 40px; }
 .cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.cta-field { display: flex; flex-direction: column; border-bottom: 1px solid rgba(43,43,43,0.12); padding: 14px 0; }
+.cta-field { display: flex; flex-direction: column; border-bottom: 1px solid rgba(234,229,220,.16); padding: 14px 0; }
 .cta-field + .cta-field { padding-top: 18px; }
-.cta-form-row .cta-field { border-right: 1px solid rgba(43,43,43,0.12); padding-right: 18px; }
+.cta-form-row .cta-field { border-right: 1px solid rgba(234,229,220,.16); padding-right: 18px; }
 .cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
-.cta-field label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(43,43,43,.5); margin-bottom: 8px; }
+.cta-field label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(234,229,220,.6); margin-bottom: 8px; }
 .cta-field input, .cta-field select, .cta-field textarea {
-  font-family: var(--sans); font-size: 15px; color: var(--ink); background: transparent;
+  font-family: var(--sans); font-size: 15px; color: var(--paper); background: transparent;
   border: none; outline: none; width: 100%;
 }
 .cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
-.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(43,43,43,0.35); }
-.cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%232B2B2B' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
-.cta-field select option { background: var(--paper); color: var(--ink); }
+/* Grid items default to min-width:auto, so an input's intrinsic width would
+   otherwise stop the CTA column shrinking on phones and scroll the page. */
+#cta > * { min-width: 0; }
+.cta-field input, .cta-field select, .cta-field textarea { width: 100%; min-width: 0; }
+.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(234,229,220,.42); }
+.cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23EAE5DC' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
+.cta-field select option { background: var(--navy); color: var(--paper); }
 .cta-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
-.cta-form-note { font-size: 11px; color: rgba(43,43,43,.55); line-height: 1.5; }
+.cta-form-note { font-size: 11px; color: rgba(234,229,220,.6); line-height: 1.5; }
 .cta-submit {
-  background: var(--ink); color: var(--paper); border: none;
+  background: var(--gold); color: var(--navy); border: none;
   font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
   padding: 18px 36px; cursor: pointer; transition: background .2s, color .2s; white-space: nowrap;
   display: inline-flex; align-items: center; gap: 14px;
 }
 .cta-submit svg { width: 16px; height: 8px; transition: transform .25s; }
-.cta-submit:hover { background: var(--gold); color: var(--ink); }
+.cta-submit:hover { background: var(--paper); color: var(--navy); }
 .cta-submit:hover svg { transform: translateX(4px); }
 
 /* ── Responsive ── */
@@ -266,7 +276,7 @@ details.faq .faq-a {
   #cta { padding: 80px 24px; }
   .hero-head { top: calc(var(--nav-h) + 28px); left: 24px; right: 24px; flex-direction: column; gap: 16px; }
   .hero-head-meta { text-align: left; padding-top: 0; }
-  .hero-caption { left: 24px; right: 24px; bottom: 28px; }
+  .hero-caption { left: 24px; right: 24px; bottom: calc(13vh + 24px); }
   .why-grid { grid-template-columns: 1fr; }
   .why-item, .why-item:nth-child(odd), .why-item:nth-child(even) { padding: 28px 0; border-right: none; }
   .steps-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -278,12 +288,12 @@ details.faq .faq-a {
 }
 /* Mobile comparison cards (hidden on desktop) */
 .cmp-cards { display: none; margin-top: 40px; }
-.cmp-card { border: 1px solid rgba(43,43,43,0.14); background: rgba(255,255,255,0.35); padding: 22px 24px; margin-bottom: 14px; }
+.cmp-card { border: 1px solid rgba(0,21,38,0.14); background: rgba(255,255,255,0.35); padding: 22px 24px; margin-bottom: 14px; }
 .cmp-card h4 { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); margin-bottom: 14px; }
-.cmp-card .cc-row { display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-top: 1px solid rgba(43,43,43,0.1); }
+.cmp-card .cc-row { display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-top: 1px solid rgba(0,21,38,0.1); }
 .cmp-card .cc-lab { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; }
 .cmp-card .cc-ella { color: var(--navy); font-weight: 500; font-size: 14px; }
-.cmp-card .cc-trad { color: rgba(43,43,43,0.6); font-size: 14px; }
+.cmp-card .cc-trad { color: rgba(0,21,38,0.6); font-size: 14px; }
 .cmp-card .cc-lab.ella { color: var(--navy); }
 .cmp-card .cc-lab.trad { color: var(--nickel); }
 
@@ -291,8 +301,43 @@ details.faq .faq-a {
   .reveal { opacity: 1 !important; transform: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
+.hero-title, #faq-hero h1, .hero-name {
+  font-family: var(--disp); font-weight: 400;
+  font-size: clamp(29px, 5.1vw, 98px); line-height: 1.04; letter-spacing: -.01em;
+  color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5);
+}
+.hero-title::after, #faq-hero h1::after, .hero-name::after {
+  content: ''; display: block; height: 1px;
+  margin-top: clamp(14px, 1.6vw, 22px);
+  background: rgba(234,229,220,.42);
+}
+.hero-title em, .hero-name em, #faq-hero h1 em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
+.hero-head-meta, .hero-caption h2, .hero-caption p, #faq-hero .faq-hero-sub {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
+}
+
+/* ── HERO COPY PLACEMENT — bottom-left stack, on the homepage's baseline ── */
+#hero-banner { display: flex; flex-direction: column; justify-content: flex-end; }
+#hero-banner > img, #hero-banner > picture { position: absolute; inset: 0; }
+#hero-banner > .hero-head, #hero-banner > .hero-caption {
+  position: relative; inset: auto; z-index: 3;
+  padding-left: clamp(18px, 2.4vw, 40px); padding-right: clamp(18px, 2.4vw, 40px);
+  left: auto; right: auto; top: auto; bottom: auto;
+}
+#hero-banner > .hero-head {
+  flex-direction: column; align-items: flex-start; justify-content: flex-end;
+  gap: clamp(12px, 1.4vw, 20px); margin: 0 0 clamp(14px, 1.6vw, 22px);
+}
+#hero-banner > .hero-caption { margin: 0 0 calc(18vh + clamp(40px, 5vw, 72px)); }
+.hero-head-meta { text-align: left; padding-top: 0; max-width: 42ch; }
+@media (max-width: 760px) {
+  #hero-banner > .hero-head, #hero-banner > .hero-caption { padding-left: 20px; padding-right: 20px; }
+  #hero-banner > .hero-caption { margin-bottom: calc(13vh + 32px); }
+}
 </style>
-<link rel="stylesheet" href="assets/site-cursor.css">
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
 {
@@ -377,12 +422,13 @@ details.faq .faq-a {
 </script>
 </head>
 <body>
-<!-- CURSOR_PARTIAL -->
-<script defer src="assets/site-nav-dd.js"></script>
+
+<script defer src="assets/elh-nav.js"></script>
 
 <!-- Canonical site nav -->
 <!-- NAV_PARTIAL -->
-<!-- NAV_DROPDOWN_PARTIAL -->
+
+
 
 <!-- HERO -->
 <section id="hero-banner" aria-label="Sell your home to Ella Lee Homes">
@@ -409,15 +455,15 @@ details.faq .faq-a {
 </section>
 
 <!-- TEARDOWN / LOT SELLER STRIP -->
-<section style="background:var(--paper); border-top:1px solid rgba(43,43,43,0.08); padding:80px 56px;">
+<section style="background:var(--navy); border-top:1px solid rgba(234,229,220,.12); padding: 80px clamp(20px, 4vw, 64px);">
   <div style="max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
     <div>
-      <div style="font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--nickel); margin-bottom:16px;">Arcadia &middot; Scottsdale &middot; Paradise Valley</div>
-      <h2 style="font-family:var(--sans); font-weight:300; font-size:clamp(30px,4vw,52px); letter-spacing:-0.03em; line-height:1.05; color:var(--ink);">Own a lot or<br>older home?</h2>
+      <div style="font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;">Arcadia &middot; Scottsdale &middot; Paradise Valley</div>
+      <h2 style="font-family:var(--disp); font-weight:400; font-size:clamp(30px,4vw,52px); letter-spacing:-0.015em; line-height:1.1; color:var(--paper);">Own a lot or<br>older home?</h2>
     </div>
     <div>
-      <p style="font-size:18px; line-height:1.8; color:rgba(43,43,43,0.78); margin-bottom:28px;">As a custom builder actively building in Arcadia, Scottsdale, and Paradise Valley, Ella Lee Homes often acquires teardown properties and infill lots directly from owners. No agents, no listings, no open houses &mdash; just a direct conversation.</p>
-      <a href="contact.html" style="display:inline-block; background:var(--navy); color:var(--paper); text-decoration:none; padding:16px 36px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; font-weight:500;">Start the Conversation</a>
+      <p style="font-size:18px; line-height:1.8; color:rgba(234,229,220,.86); margin-bottom:28px;">As a custom builder actively building in Arcadia, Scottsdale, and Paradise Valley, Ella Lee Homes often acquires teardown properties and infill lots directly from owners. No agents, no listings, no open houses &mdash; just a direct conversation.</p>
+      <a href="contact.html" style="display:inline-block; background:var(--gold); color:var(--navy); text-decoration:none; padding:16px 36px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; font-weight:500;">Start the Conversation</a>
     </div>
   </div>
 </section>
@@ -642,7 +688,7 @@ details.faq .faq-a {
       <div class="area reveal reveal-d2">Scottsdale</div>
       <div class="area reveal reveal-d3">Phoenix</div>
     </div>
-    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size:16px; color:rgba(43,43,43,0.62); max-width:60ch;">&mdash; and additional communities throughout the Phoenix Valley. <a href="contact.html" style="color:var(--navy); font-weight:500;">Contact us</a> to confirm your area.</p>
+    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size:16px; color:rgba(0,21,38,0.62); max-width:60ch;">&mdash; and additional communities throughout the Phoenix Valley. <a href="contact.html" style="color:var(--navy); font-weight:500;">Contact us</a> to confirm your area.</p>
   </div>
 </section>
 
@@ -775,6 +821,5 @@ details.faq .faq-a {
 })();
 </script>
 
-  <script defer src="assets/site-nav-contrast.js"></script>
 </body>
 </html>

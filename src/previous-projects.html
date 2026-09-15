@@ -10,61 +10,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
-  --navy: #001F33; --gold: #C9A96E;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --disp: 'DM Serif Display', Georgia, serif;
+  --ink: #001526; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001526; --gold: #BFA06A;
   --sans: 'Inter', Helvetica, sans-serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
   --nav-h: 88px;
 }
-body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; padding-top: 0; }
-
-/* Nav: assets/site-nav.css */
-/* Solid nav once scrolled past hero */
-#nav {
-  transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease !important;
-}
-#nav.scrolled {
-  background: var(--paper) !important;
-  box-shadow: 0 1px 0 rgba(43,43,43,0.1) !important;
-}
-#nav.scrolled .nav-pill {
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-}
-#nav.scrolled .nav-links a,
-#nav.scrolled .nav-dd-trigger,
-#nav.scrolled .nav-phone,
-#nav.scrolled .nav-cta {
-  color: var(--ink) !important;
-}
-#nav.scrolled .nav-cta {
-  border-color: rgba(43,43,43,0.25) !important;
-  background: transparent !important;
-}
-#nav.scrolled .nav-cta:hover {
-  background: rgba(43,43,43,0.06) !important;
-}
-#nav.scrolled .nav-logo-img {
-  filter: none !important;
-}
+body { font-family: var(--sans); background: var(--navy); color: var(--paper); -webkit-font-smoothing: antialiased; padding-top: 0; }
 
 /* ── HERO BANNER (full-bleed image with title overlaid, like Process) ── */
 #hero-banner {
   position: relative;
   width: 100%;
-  height: clamp(520px, 72vh, 760px);
+  height: 100vh; min-height: 560px;
   overflow: hidden;
-  background: var(--ink);
-  border-bottom: 1px solid rgba(43,43,43,0.1);
+  background: var(--navy);
+  border-bottom: 1px solid rgba(234,229,220,.24);
 }
 #hero-banner img {
   width: 100%; height: 100%; object-fit: cover; display: block;
@@ -72,7 +41,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 #hero-banner::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 26%, rgba(0,0,0,0.28) 60%, rgba(0,31,51,0.62) 100%);
+  background:
+    linear-gradient(to bottom, rgba(0,21,38,0) 87%, rgba(0,21,38,.45) 93.7%, #001526 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.68) 0%, rgba(0,0,0,.44) 19%, rgba(0,0,0,0) 48%),
+    linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.58) 34%, rgba(0,0,0,.42) 62%, rgba(0,0,0,.2) 100%);
 }
 .hero-head {
   position: absolute; z-index: 2;
@@ -86,14 +58,14 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
   color: rgba(234,229,220,0.7); margin-bottom: 14px;
 }
-.hero-title {
+.hero-title { font-family: var(--disp);
   font-size: clamp(48px, 7vw, 104px);
-  font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
+  font-weight: 400; letter-spacing: -0.015em; line-height: 1.1;
   color: var(--paper);
 }
 .hero-title em {
   font-style: normal; color: var(--gold);
-  font-family: var(--serif); font-weight: 300;
+  font-family: var(--serif); font-weight: 400;
 }
 .hero-head-meta {
   font-size: 12px; line-height: 1.7; color: rgba(234,229,220,0.7);
@@ -103,15 +75,15 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .hero-head-meta strong { color: var(--paper); font-weight: 500; }
 .hero-head-meta #result-count { color: var(--gold); font-size: 28px; font-weight: 300; display: block; margin-bottom: 4px; }
 .hero-caption {
-  position: absolute; left: 56px; bottom: 40px; z-index: 2;
+  position: absolute; left: 56px; bottom: calc(13vh + 40px); z-index: 2;
   color: #fff;
 }
 .hero-caption .eyebrow {
   font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
   color: rgba(255,255,255,0.75); margin-bottom: 10px;
 }
-.hero-caption h2 {
-  font-size: clamp(28px, 3.6vw, 44px); font-weight: 300; letter-spacing: -0.02em;
+.hero-caption h2 { font-family: var(--disp);
+  font-size: clamp(28px, 3.6vw, 44px); font-weight: 400; letter-spacing: -0.02em;
   line-height: 1.05; max-width: 640px;
 }
 .hero-caption h2 em { font-style: normal; color: var(--gold); }
@@ -119,59 +91,63 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 /* ── SQFT TABS ── */
 #sqft-tabs {
   display: flex; align-items: center; gap: 0;
-  border-bottom: 1px solid rgba(43,43,43,0.1);
-  padding: 0 56px;
-  background: var(--paper);
-  position: sticky; top: 88px; z-index: 90;
+  border-bottom: 1px solid rgba(234,229,220,.24);
+  padding: 0 clamp(20px, 4vw, 64px);
+  background: var(--navy);
+  position: static;
+  /* The row is wider than the viewport between ~900 and ~1030px — scroll it
+     internally rather than pushing the whole document sideways. */
+  overflow-x: auto; scrollbar-width: none;
 }
+#sqft-tabs::-webkit-scrollbar { display: none; }
 .sqft-tab {
   padding: 18px 28px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(43,43,43,0.45); background: none; border: none; cursor: pointer;
+  color: rgba(234,229,220,.6); background: none; border: none; cursor: pointer;
   font-family: var(--sans); position: relative; border-bottom: 2px solid transparent;
   transition: color .2s; white-space: nowrap;
 }
-.sqft-tab.active { color: var(--ink); border-bottom-color: var(--navy); font-weight: 500; }
-.sqft-tab:hover { color: var(--ink); }
+.sqft-tab.active { color: var(--paper); border-bottom-color: var(--gold); font-weight: 500; }
+.sqft-tab:hover { color: var(--paper); }
 .sqft-tab-count {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 18px; height: 18px; border-radius: 50%; background: rgba(43,43,43,0.1);
+  width: 18px; height: 18px; border-radius: 50%; background: rgba(234,229,220,.24);
   font-size: 9px; font-weight: 600; margin-left: 6px;
 }
-.sqft-tab.active .sqft-tab-count { background: var(--navy); color: var(--paper); }
+.sqft-tab.active .sqft-tab-count { background: var(--gold); color: var(--navy); }
 
 .tab-divider { flex: 1; }
 
 /* Sort */
 .sort-select {
   font-family: var(--sans); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--ink); background: none; border: 1px solid rgba(43,43,43,0.2);
+  color: var(--paper); background: none; border: 1px solid rgba(234,229,220,.24);
   padding: 8px 14px; cursor: pointer; outline: none;
 }
 
 /* ── SECTION HEADER ── */
 .section-band {
-  padding: 28px 56px 0;
+  padding: 28px clamp(20px, 4vw, 64px) 0;
   display: flex; align-items: center; gap: 16px;
 }
 .section-band-title {
   font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nickel);
 }
-.section-band-line { flex: 1; height: 1px; background: rgba(43,43,43,0.1); }
+.section-band-line { flex: 1; height: 1px; background: rgba(234,229,220,.24); }
 .section-band-count { font-size: 11px; color: var(--nickel); }
 
 /* ── PROJECT GRID ── */
 .projects-grid {
-  padding: 28px 56px 72px;
+  padding: 28px clamp(20px, 4vw, 64px) 72px;
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
 .proj-card {
-  background: rgba(43, 43, 43, 0.05); overflow: hidden; cursor: pointer;
+  background: rgba(234,229,220,.14); overflow: hidden; cursor: pointer;
   transition: transform 0.3s var(--ease), box-shadow 0.3s;
   position: relative;
 }
-.proj-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(43,43,43,0.15); }
+.proj-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(234,229,220,.14); }
 
 .proj-card.hidden { display: none; }
 
@@ -193,10 +169,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 .proj-card-name { font-size: 22px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 16px; line-height: 1.1; }
 .proj-card-specs {
   display: flex; gap: 16px; flex-wrap: wrap;
-  padding-top: 14px; border-top: 1px solid rgba(43,43,43,0.1);
+  padding-top: 14px; border-top: 1px solid rgba(234,229,220,.24);
   font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--nickel);
 }
-.proj-card-price { font-size: 16px; font-weight: 400; color: var(--ink); margin-bottom: 12px; letter-spacing: -0.01em; }
+.proj-card-price { font-size: 16px; font-weight: 400; color: var(--paper); margin-bottom: 12px; letter-spacing: -0.01em; }
 .proj-card-year {
   position: absolute; top: 16px; right: 16px;
   background: rgba(234,229,220,0.9); backdrop-filter: blur(8px);
@@ -205,23 +181,23 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 .proj-card-sold {
   position: absolute; top: 16px; left: 16px;
-  background: var(--ink);
+  background: var(--navy);
   font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--paper); padding: 5px 12px; border-radius: 100px;
 }
 .proj-card-link {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--navy); text-decoration: none; margin-top: 16px;
-  border-bottom: 1px solid rgba(0,31,51,0.2); padding-bottom: 2px;
+  color: var(--gold); text-decoration: none; margin-top: 16px;
+  border-bottom: 1px solid rgba(234,229,220,.24); padding-bottom: 2px;
   transition: border-color .2s;
 }
-.proj-card-link:hover { border-color: var(--navy); }
+.proj-card-link:hover { border-color: var(--gold); }
 .proj-card-link::after { content: '→'; }
 
 /* ── EMPTY STATE ── */
 #empty-state {
-  display: none; padding: 80px 56px; text-align: center;
+  display: none; padding: 80px clamp(20px, 4vw, 64px); text-align: center;
 }
 #empty-state.show { display: block; }
 .empty-title { font-size: 24px; font-weight: 300; margin-bottom: 12px; }
@@ -230,19 +206,17 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 /* Mobile */
 @media(max-width:900px){
   .projects-grid { grid-template-columns: 1fr 1fr; padding: 20px 24px 48px; gap: 16px; }
-  #hero-banner { height: clamp(440px, 70vh, 620px); }
+  #hero-banner { height: 100vh; min-height: 560px; }
   .hero-head { top: calc(var(--nav-h) + 28px); left: 24px; right: 24px; flex-direction: column; gap: 16px; }
   .hero-head-meta { text-align: left; padding-top: 0; }
-  .hero-caption { left: 24px; right: 24px; bottom: 28px; }
+  .hero-caption { left: 24px; right: 24px; bottom: calc(13vh + 40px); }
   #sqft-tabs { padding: 0 24px; overflow-x: auto; }
   .section-band { padding: 20px 24px 0; }
-  #nav { padding: 14px 24px; }
 }
 @media(max-width:600px){
   .projects-grid { grid-template-columns: 1fr; }
 }
 </style>
-<link rel="stylesheet" href="assets/site-cursor.css">
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
 {
@@ -845,12 +819,13 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 </script>
 </head>
 <body>
-<!-- CURSOR_PARTIAL -->
-<script defer src="assets/site-nav-dd.js"></script>
+
+<script defer src="assets/elh-nav.js"></script>
 
 <!-- Canonical site nav — edit once; injected by scripts/build-html.mjs -->
 <!-- NAV_PARTIAL -->
-<!-- NAV_DROPDOWN_PARTIAL -->
+
+
 
 <!-- HERO BANNER (title overlaid on image, like Process) -->
 <section id="hero-banner" aria-label="Ella Lee Homes portfolio">
@@ -874,9 +849,9 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 </section>
 
 <!-- INTRO (SEO body copy) -->
-<section id="portfolio-intro" style="max-width:1100px; margin:0 auto; padding:80px 56px 24px;">
-  <p style="font-size:18px; line-height:1.8; color:rgba(43,43,43,0.82); max-width:80ch;">Ella Lee Homes designs and builds <strong>luxury custom homes across Scottsdale, Paradise Valley, Arcadia, and greater Phoenix, Arizona</strong>. The portfolio below spans new construction and recently completed residences &mdash; from Old Town Scottsdale infill to private estates in Paradise Valley &mdash; each built to the same standard of craftsmanship, on time and on budget. Filter by square footage or sort by price and year to find homes that match your vision.</p>
-  <p style="margin-top:16px; font-size:14px; color:rgba(43,43,43,0.55);">Prices shown reflect home sale values, not construction costs.</p>
+<section id="portfolio-intro" style="max-width:1100px; margin:0 auto; padding: 80px clamp(20px, 4vw, 64px) 24px;">
+  <p style="font-size:18px; line-height:1.8; color: rgba(234,229,220,.86); max-width:80ch;">Ella Lee Homes designs and builds <strong>luxury custom homes across Scottsdale, Paradise Valley, Arcadia, and greater Phoenix, Arizona</strong>. The portfolio below spans new construction and recently completed residences &mdash; from Old Town Scottsdale infill to private estates in Paradise Valley &mdash; each built to the same standard of craftsmanship, on time and on budget. Filter by square footage or sort by price and year to find homes that match your vision.</p>
+  <p style="margin-top:16px; font-size:14px; color: rgba(234,229,220,.6);">Prices shown reflect home sale values, not construction costs.</p>
 </section>
 
 <!-- SQFT TABS -->
@@ -904,20 +879,52 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 </div>
 
 <!-- STYLE FILTER -->
-<div id="style-filter" style="padding:0 56px 28px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--paper);">
-  <span style="font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--nickel); margin-right:8px;">Style</span>
+<div id="style-filter" style="padding: 32px clamp(20px, 4vw, 64px) 36px; display:flex; flex-wrap:wrap; gap:14px; align-items:center; background: var(--navy);">
+  <span style="font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--nickel); margin-right:14px;">Style</span>
   <button class="sf-btn on" data-style="all" onclick="styleFilter(this,'all')" type="button">All</button>
-  <button class="sf-btn" data-style="modern" onclick="styleFilter(this,'modern')" type="button">Modern</button>
   <button class="sf-btn" data-style="contemporary" onclick="styleFilter(this,'contemporary')" type="button">Contemporary</button>
   <button class="sf-btn" data-style="farmhouse" onclick="styleFilter(this,'farmhouse')" type="button">Farmhouse</button>
-  <button class="sf-btn" data-style="mediterranean" onclick="styleFilter(this,'mediterranean')" type="button">Mediterranean</button>
-  <button class="sf-btn" data-style="desert" onclick="styleFilter(this,'desert')" type="button">Desert</button>
-  <button class="sf-btn" data-style="transitional" onclick="styleFilter(this,'transitional')" type="button">Transitional</button>
 </div>
 <style>
-.sf-btn { background:none; border:1px solid rgba(43,43,43,0.18); color:rgba(43,43,43,0.58); font-family:var(--sans); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; padding:8px 16px; border-radius:100px; cursor:pointer; transition:all .2s; }
-.sf-btn:hover { border-color:var(--navy); color:var(--navy); }
-.sf-btn.on { background:var(--navy); border-color:var(--navy); color:var(--paper); }
+.sf-btn { background:none; border:1px solid rgba(234,229,220,.24); color: rgba(234,229,220,.6); font-family:var(--sans); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; padding:14px 24px; border-radius:100px; cursor:pointer; transition:all .2s; }
+.sf-btn:hover { border-color: var(--gold); color: var(--gold); }
+.sf-btn.on { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+
+/* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
+.hero-title, #faq-hero h1, .hero-name {
+  font-family: var(--disp); font-weight: 400;
+  font-size: clamp(29px, 5.1vw, 98px); line-height: 1.04; letter-spacing: -.01em;
+  color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5);
+}
+.hero-title::after, #faq-hero h1::after, .hero-name::after {
+  content: ''; display: block; height: 1px;
+  margin-top: clamp(14px, 1.6vw, 22px);
+  background: rgba(234,229,220,.42);
+}
+.hero-title em, .hero-name em, #faq-hero h1 em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
+.hero-head-meta, .hero-caption h2, .hero-caption p, #faq-hero .faq-hero-sub {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
+}
+
+/* ── HERO COPY PLACEMENT — bottom-left stack, on the homepage's baseline ── */
+#hero-banner { display: flex; flex-direction: column; justify-content: flex-end; }
+#hero-banner > img, #hero-banner > picture { position: absolute; inset: 0; }
+#hero-banner > .hero-head, #hero-banner > .hero-caption {
+  position: relative; inset: auto; z-index: 3;
+  padding-left: clamp(18px, 2.4vw, 40px); padding-right: clamp(18px, 2.4vw, 40px);
+  left: auto; right: auto; top: auto; bottom: auto;
+}
+#hero-banner > .hero-head {
+  flex-direction: column; align-items: flex-start; justify-content: flex-end;
+  gap: clamp(12px, 1.4vw, 20px); margin: 0 0 clamp(14px, 1.6vw, 22px);
+}
+#hero-banner > .hero-caption { margin: 0 0 calc(18vh + clamp(40px, 5vw, 72px)); }
+.hero-head-meta { text-align: left; padding-top: 0; max-width: 42ch; }
+@media (max-width: 760px) {
+  #hero-banner > .hero-head, #hero-banner > .hero-caption { padding-left: 20px; padding-right: 20px; }
+  #hero-banner > .hero-caption { margin-bottom: calc(13vh + 32px); }
+}
 </style>
 <script>
 function styleFilter(btn, cat) {
@@ -1323,9 +1330,9 @@ function styleFilter(btn, cat) {
 </div>
 
 <section style="background:var(--navy); color:var(--paper); text-align:center; padding:100px 24px;">
-  <h2 style="font-family:var(--sans); font-weight:300; font-size:clamp(32px,5vw,62px); letter-spacing:-0.035em; line-height:1.0;">Inspired by what you see? <em style="font-style:normal; color:#C9A96E;">Let&rsquo;s build yours.</em></h2>
+  <h2 style="font-family:var(--sans); font-weight:300; font-size:clamp(32px,5vw,62px); letter-spacing:-0.035em; line-height:1.0;">Inspired by what you see? <em style="font-style:normal; color:#BFA06A;">Let&rsquo;s build yours.</em></h2>
   <p style="margin:22px auto 0; max-width:46ch; font-size:18px; line-height:1.7; color:rgba(234,229,220,0.6);">Every project above was built from the ground up by the same dedicated Ella Lee team &mdash; on time, on budget, and built to last.</p>
-  <a href="contact.html" style="display:inline-block; margin-top:40px; background:#C9A96E; color:#1a1a1a; text-decoration:none; padding:18px 46px; border-radius:100px; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; font-weight:600;">Schedule a Consultation</a>
+  <a href="contact.html" style="display:inline-block; margin-top:40px; background:#BFA06A; color:#1a1a1a; text-decoration:none; padding:18px 46px; border-radius:100px; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; font-weight:600;">Schedule a Consultation</a>
 </section>
 
 <!-- FOOTER_PARTIAL -->
@@ -1385,6 +1392,5 @@ function sortCards(val) {
 })();
 </script>
 
-  <script defer src="assets/site-nav-contrast.js"></script>
 </body>
 </html>

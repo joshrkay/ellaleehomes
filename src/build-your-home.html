@@ -8,21 +8,22 @@
 <link rel="canonical" href="https://ellaleehomes.com/build-your-home">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-footer.css">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ink: #2B2B2B; --paper: #EAE5DC; --nickel: #A5A09D;
-  --navy: #001F33; --gold: #C9A96E;
+  --ink: #001526; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001526; --gold: #BFA06A;
   --sans: 'Inter', Helvetica, sans-serif;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --disp: 'DM Serif Display', Georgia, serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
   --nav-h: 88px;
   --strip-w: 56px;
 }
-body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; /* Hero is full-bleed under the fixed nav — no top padding */ padding-top: 0; }
+body { font-family: var(--sans); background: var(--navy); color: var(--paper); -webkit-font-smoothing: antialiased; /* Hero is full-bleed under the fixed nav — no top padding */ padding-top: 0; }
 
 /* Nav: assets/site-nav.css */
 
@@ -32,18 +33,21 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 #hero-banner {
   position: relative;
   width: 100%;
-  height: clamp(560px, 80vh, 800px);
+  height: 100vh;
+  min-height: 560px;
   overflow: hidden;
-  background: var(--ink);
-  border-bottom: 1px solid rgba(43,43,43,0.1);
+  background: var(--navy);
 }
 #hero-banner img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   filter: saturate(0.95) brightness(0.82);
 }
 #hero-banner::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 26%, rgba(0,0,0,0.28) 60%, rgba(0,31,51,0.62) 100%);
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(0,21,38,0) 87%, rgba(0,21,38,.45) 93.7%, #001526 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.68) 0%, rgba(0,0,0,.44) 19%, rgba(0,0,0,0) 48%),
+    linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.58) 34%, rgba(0,0,0,.42) 62%, rgba(0,0,0,.2) 100%);
 }
 /* Top overlay: eyebrow + page title (left), supporting meta (right) */
 .hero-head {
@@ -59,13 +63,13 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   color: rgba(234,229,220,0.7); margin-bottom: 14px;
 }
 .hero-title {
-  font-size: clamp(48px, 7vw, 104px);
-  font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
+  font-family: var(--disp); font-size: clamp(48px, 7vw, 104px);
+  font-weight: 400; letter-spacing: -0.02em; line-height: 1.04;
   color: var(--paper);
 }
 .hero-title em {
   font-style: normal; color: var(--gold);
-  font-family: var(--serif); font-weight: 300;
+  font-family: var(--disp); font-weight: 400;
 }
 .hero-head-meta {
   font-size: 12px; line-height: 1.7; color: rgba(234,229,220,0.7);
@@ -74,7 +78,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 .hero-head-meta strong { color: var(--paper); font-weight: 500; }
 .hero-caption {
-  position: absolute; left: 56px; bottom: 40px; z-index: 2;
+  position: absolute; left: 56px; right: 56px; bottom: calc(13vh + 40px); z-index: 3;
   color: #fff;
 }
 .hero-caption .eyebrow {
@@ -82,34 +86,34 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   color: rgba(255,255,255,0.75); margin-bottom: 10px;
 }
 .hero-caption h2 {
-  font-size: clamp(28px, 3.6vw, 44px); font-weight: 300; letter-spacing: -0.02em;
-  line-height: 1.05; max-width: 640px;
+  font-family: var(--disp); font-size: clamp(28px, 3.6vw, 44px); font-weight: 400; letter-spacing: -0.015em;
+  line-height: 1.08; max-width: 640px;
 }
 .hero-caption h2 em { font-style: normal; color: var(--gold); }
 
 /* ── TIMELINE SECTION (sticky scroll-driven) ── */
 #timeline-section {
-  background: var(--paper);
+  background: var(--navy);
   position: relative;
 }
 .ts-intro {
-  max-width: 760px;
+  max-width: 1500px;
   margin: 0 auto;
-  text-align: center;
-  padding: 100px 56px 64px;
+  text-align: left;
+  padding: 100px clamp(20px, 4vw, 64px) 64px;
 }
 .ts-intro .ts-eyebrow {
   font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--nickel); margin-bottom: 18px;
+  color: var(--gold); margin-bottom: 18px;
 }
 .ts-title {
-  font-family: var(--sans); font-size: clamp(40px, 5.6vw, 72px); font-weight: 300;
-  letter-spacing: -0.03em; line-height: 1; color: var(--ink); margin-bottom: 24px;
+  font-family: var(--disp); font-size: clamp(40px, 5.6vw, 72px); font-weight: 400;
+  letter-spacing: -0.015em; line-height: 1.1; color: var(--paper); margin-bottom: 24px;
 }
 .ts-title em { font-style: normal; color: var(--gold); }
 .ts-lede {
-  font-size: 16px; line-height: 1.7; color: rgba(43, 43, 43, 0.7);
-  font-weight: 300; max-width: 560px; margin: 0 auto;
+  font-size: 16px; line-height: 1.7; color: rgba(234,229,220,.82);
+  font-weight: 300; max-width: 560px; margin: 0;
 }
 
 /* ── STACKED PHASE CARDS ─────────────────────────────────
@@ -129,8 +133,8 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 36px;
-  padding: 40px 56px 72px;
-  max-width: 1280px;
+  padding: 40px clamp(20px, 4vw, 64px) 72px;
+  max-width: 1500px;
   margin: 0 auto;
   width: 100%;
   overflow: hidden;
@@ -161,14 +165,14 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 
 .ts-bar-label { display: flex; align-items: baseline; gap: 12px; }
 .ts-bar-num { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; color: var(--nickel); font-variant-numeric: tabular-nums; }
-.ts-bar-name { font-family: var(--sans); font-size: clamp(18px, 1.9vw, 24px); font-weight: 400; letter-spacing: -0.01em; color: rgba(43,43,43,0.5); transition: color 0.3s var(--ease); }
+.ts-bar-name { font-family: var(--disp); font-size: clamp(18px, 1.9vw, 24px); font-weight: 400; letter-spacing: -0.01em; color: rgba(234,229,220,.5); transition: color 0.3s var(--ease); }
 .ts-bar-duration { margin-left: auto; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--nickel); font-variant-numeric: tabular-nums; }
-.ts-bar-track { position: relative; height: 12px; background: rgba(43,43,43,0.08); border-radius: 6px; overflow: hidden; }
-.ts-bar-fill { position: absolute; inset: 0 auto 0 0; width: 0%; background: var(--navy); border-radius: 6px; transition: width 0.18s linear; will-change: width; }
-.ts-bar.active .ts-bar-name { color: var(--ink); font-weight: 500; }
-.ts-bar.complete .ts-bar-name { color: var(--navy); }
-.ts-bar.complete .ts-bar-fill { background: var(--navy); }
-.ts-bar:hover .ts-bar-name { color: var(--ink); }
+.ts-bar-track { position: relative; height: 12px; background: rgba(234,229,220,.12); border-radius: 6px; overflow: hidden; }
+.ts-bar-fill { position: absolute; inset: 0 auto 0 0; width: 0%; background: var(--gold); border-radius: 6px; transition: width 0.18s linear; will-change: width; }
+.ts-bar.active .ts-bar-name { color: var(--paper); font-weight: 500; }
+.ts-bar.complete .ts-bar-name { color: var(--gold); }
+.ts-bar.complete .ts-bar-fill { background: var(--gold); }
+.ts-bar:hover .ts-bar-name { color: var(--paper); }
 
 .ts-active-area { position: relative; min-height: 0; overflow: hidden; }
 .ts-body {
@@ -186,24 +190,24 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 }
 .ts-body-phase-name {
   font-size: clamp(24px, 2.8vw, 36px); font-weight: 500;
-  letter-spacing: -0.02em; color: var(--navy); line-height: 1.1;
+  letter-spacing: -0.02em; color: var(--gold); line-height: 1.1;
 }
 .ts-body-phase-time {
   font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
   font-weight: 400; color: var(--nickel);
 }
-.ts-body-title { font-family: var(--sans); font-size: clamp(28px, 3.4vw, 44px); font-weight: 300; letter-spacing: -0.02em; color: var(--ink); line-height: 1.05; }
-.ts-body-text { font-size: 15px; line-height: 1.75; color: rgba(43,43,43,0.7); font-weight: 300; }
+.ts-body-title { font-family: var(--disp); font-size: clamp(28px, 3.4vw, 44px); font-weight: 400; letter-spacing: -0.015em; color: var(--paper); line-height: 1.08; }
+.ts-body-text { font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.82); font-weight: 300; }
 .ts-body-deliverables { grid-column: 2; grid-row: 3; }
 .ts-body-deliverables-label { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nickel); margin-bottom: 16px; }
 .ts-body-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-.ts-body-list li { position: relative; padding-left: 18px; font-size: 14px; color: rgba(43,43,43,0.85); }
+.ts-body-list li { position: relative; padding-left: 18px; font-size: 14px; color: rgba(234,229,220,.86); }
 .ts-body-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
 
 @media (max-width: 900px) {
   .hero-head { top: calc(var(--nav-h) + 28px); left: 24px; right: 24px; flex-direction: column; gap: 16px; }
   .hero-head-meta { text-align: left; padding-top: 0; }
-  .hero-caption { left: 24px; right: 24px; bottom: 32px; }
+  .hero-caption { left: 24px; right: 24px; bottom: calc(13vh + 24px); }
   .ts-intro { padding: 72px 24px 40px; }
   #timeline-scroll-zone { height: auto; }
   #timeline-sticky { position: static; height: auto; padding: 24px 24px 64px; gap: 28px; }
@@ -211,72 +215,123 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   .ts-bar { grid-column: 1 !important; grid-row: auto !important; }
   .ts-bar-label { flex-wrap: wrap; }
   .ts-bar-duration { margin-left: 0; flex-basis: 100%; }
-  .ts-active-area { position: static; min-height: auto; }
-  .ts-body { position: static; opacity: 1; transform: none; grid-template-columns: 1fr; gap: 24px; margin-top: 32px; pointer-events: auto; }
+  .ts-active-area { display: none; }
+  .ts-grid { gap: 0 0; }
+  .ts-bar { padding-top: 34px; }
+  .ts-bar + .ts-body { display: grid; position: static; opacity: .5; transform: none; grid-template-columns: 1fr; gap: 20px; margin: 18px 0 0; padding: 0 0 34px 18px; border-left: 1px solid rgba(234,229,220,.16); pointer-events: auto; transition: opacity .45s var(--ease); }
+  .ts-bar + .ts-body.in-view { opacity: 1; border-left-color: var(--gold); }
+  .ts-body-meta { margin-bottom: 4px; }
   .ts-body-deliverables { grid-column: 1; grid-row: auto; }
 }
 
 /* ── CTA STRIP (shared with index.html) ── */
 #cta {
-  padding: 120px 56px;
-  background: var(--paper); color: var(--ink);
+  padding: 120px clamp(20px, 4vw, 64px);
+  background: var(--navy); color: var(--paper);
   display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start;
   position: relative; z-index: 1;
 }
-.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(43,43,43,.5); margin-bottom: 24px; }
-.cta-text { font-family: var(--sans); font-size: clamp(32px,4.6vw,64px); font-weight: 300; line-height: .98; letter-spacing: -0.03em; color: var(--ink); }
+.cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+.cta-text { font-family: var(--disp); font-size: clamp(32px,4.6vw,64px); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; color: var(--paper); }
 .cta-text em { font-style: normal; color: var(--gold); }
 .cta-sub {
   margin-top: 28px; max-width: 440px;
-  font-size: 15px; font-weight: 400; line-height: 1.6; color: rgba(43,43,43,0.78);
+  font-size: 15px; font-weight: 400; line-height: 1.6; color: rgba(234,229,220,.86);
 }
 .cta-meta {
   margin-top: 36px; display: flex; flex-direction: column; gap: 14px;
-  font-size: 13px; color: rgba(43,43,43,0.85);
+  font-size: 13px; color: rgba(234,229,220,.86);
 }
 .cta-meta-row { display: flex; align-items: center; gap: 14px; }
-.cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.5); width: 64px; }
+.cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(234,229,220,.55); width: 64px; }
 .cta-meta-val { font-family: var(--sans); }
 
 /* form */
-.cta-form { display: flex; flex-direction: column; gap: 0; background: rgba(255,255,255,0.4); border: 1px solid rgba(43,43,43,0.15); padding: 40px; }
+.cta-form { display: flex; flex-direction: column; gap: 0; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.18); padding: 40px; }
 .cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 .cta-field {
   display: flex; flex-direction: column;
-  border-bottom: 1px solid rgba(43,43,43,0.12);
+  border-bottom: 1px solid rgba(234,229,220,.16);
   padding: 14px 0;
 }
 .cta-field + .cta-field { padding-top: 18px; }
-.cta-form-row .cta-field { border-right: 1px solid rgba(43,43,43,0.12); padding-right: 18px; }
+.cta-form-row .cta-field { border-right: 1px solid rgba(234,229,220,.16); padding-right: 18px; }
 .cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
 .cta-field label {
-  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(43,43,43,.55); margin-bottom: 8px;
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(234,229,220,.6); margin-bottom: 8px;
 }
 .cta-field input, .cta-field textarea, .cta-field select {
   background: transparent; border: none; outline: none;
-  font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--ink);
+  font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--paper);
   padding: 0; cursor: text;
 }
 .cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
-.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(43,43,43,0.35); }
-.cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%232B2B2B' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
-.cta-field select option { background: var(--paper); color: var(--ink); }
+/* Grid items default to min-width:auto, so an input's intrinsic width would
+   otherwise stop the CTA column shrinking on phones and scroll the page. */
+#cta > * { min-width: 0; }
+.cta-field input, .cta-field select, .cta-field textarea { width: 100%; min-width: 0; }
+.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(234,229,220,.42); }
+.cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23EAE5DC' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
+.cta-field select option { background: var(--navy); color: var(--paper); }
 
 .cta-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
-.cta-form-note { font-size: 11px; color: rgba(43,43,43,.55); line-height: 1.5; }
+.cta-form-note { font-size: 11px; color: rgba(234,229,220,.6); line-height: 1.5; }
 .cta-submit {
-  background: var(--ink); color: var(--paper); border: none;
+  background: var(--gold); color: var(--navy); border: none;
   font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
-  padding: 18px 36px; cursor: none; transition: background .2s, color .2s; white-space: nowrap;
+  padding: 18px 36px; cursor: default; transition: background .2s, color .2s; white-space: nowrap;
   display: inline-flex; align-items: center; gap: 14px;
 }
 .cta-submit svg { width: 16px; height: 8px; transition: transform .25s; }
-.cta-submit:hover { background: var(--gold); color: var(--ink); }
+.cta-submit:hover { background: var(--paper); color: var(--navy); }
 .cta-submit:hover svg { transform: translateX(4px); }
 .btn-outline:hover { border-color: var(--paper); }
 
+/* Same collapse the other CTA pages carry — must sit after the rules above. */
+@media (max-width: 1100px) {
+  #cta { grid-template-columns: 1fr; gap: 48px; }
+}
+
+
+/* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
+.hero-title, #faq-hero h1, .hero-name {
+  font-family: var(--disp); font-weight: 400;
+  font-size: clamp(29px, 5.1vw, 98px); line-height: 1.04; letter-spacing: -.01em;
+  color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5);
+}
+.hero-title::after, #faq-hero h1::after, .hero-name::after {
+  content: ''; display: block; height: 1px;
+  margin-top: clamp(14px, 1.6vw, 22px);
+  background: rgba(234,229,220,.42);
+}
+.hero-title em, .hero-name em, #faq-hero h1 em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
+.hero-head-meta, .hero-caption h2, .hero-caption p, #faq-hero .faq-hero-sub {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
+}
+
+/* ── HERO COPY PLACEMENT — bottom-left stack, on the homepage's baseline ── */
+#hero-banner { display: flex; flex-direction: column; justify-content: flex-end; }
+#hero-banner > img, #hero-banner > picture { position: absolute; inset: 0; }
+#hero-banner > .hero-head, #hero-banner > .hero-caption {
+  position: relative; inset: auto; z-index: 3;
+  padding-left: clamp(18px, 2.4vw, 40px); padding-right: clamp(18px, 2.4vw, 40px);
+  left: auto; right: auto; top: auto; bottom: auto;
+}
+#hero-banner > .hero-head {
+  flex-direction: column; align-items: flex-start; justify-content: flex-end;
+  gap: clamp(12px, 1.4vw, 20px); margin: 0 0 clamp(14px, 1.6vw, 22px);
+}
+#hero-banner > .hero-caption { margin: 0 0 calc(18vh + clamp(40px, 5vw, 72px)); }
+.hero-head-meta { text-align: left; padding-top: 0; max-width: 42ch; }
+@media (max-width: 760px) {
+  #hero-banner > .hero-head, #hero-banner > .hero-caption { padding-left: 20px; padding-right: 20px; }
+  #hero-banner > .hero-caption { margin-bottom: calc(13vh + 32px); }
+  /* Two-up fields keep their intrinsic input width and push the page sideways. */
+  .cta-form-row { grid-template-columns: 1fr; }
+  .cta-form-row .cta-field { border-right: none; padding-right: 0; padding-left: 0; }
+}
 </style>
-<link rel="stylesheet" href="assets/site-cursor.css">
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
 {
@@ -361,12 +416,13 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 </script>
 </head>
 <body>
-<!-- CURSOR_PARTIAL -->
-<script defer src="assets/site-nav-dd.js"></script>
+
+<script defer src="assets/elh-nav.js"></script>
 
 <!-- Canonical site nav — edit once; injected by scripts/build-html.mjs -->
 <!-- NAV_PARTIAL -->
-<!-- NAV_DROPDOWN_PARTIAL -->
+
+
 
 <!-- HERO BANNER (title sits ON the image, like Why Us) -->
 <section id="hero-banner" aria-label="A completed Ella Lee home">
@@ -498,6 +554,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
   }
   bars.forEach((bar, i) => {
     bar.addEventListener('click', () => {
+      if (window.matchMedia('(max-width: 900px)').matches) {
+        window.scrollTo({ top: bar.getBoundingClientRect().top + window.scrollY - 96, behavior: 'smooth' });
+        return;
+      }
       const zoneTop = zone.getBoundingClientRect().top + window.scrollY;
       const scrollableH = zone.offsetHeight - window.innerHeight;
       const targetProgress = i / N + 0.02;
@@ -505,17 +565,47 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     });
   });
-  window.addEventListener('scroll', tick, { passive: true });
-  window.addEventListener('resize', tick, { passive: true });
-  tick();
+  // Mobile has no sticky scroll zone, so each bar carries its own phase body
+  // and fills as that card passes the middle of the screen.
+  const mq = window.matchMedia('(max-width: 900px)');
+  let stacked = false;
+  function stack() {
+    if (stacked) return;
+    bars.forEach((bar, i) => { if (bodies[i]) bar.after(bodies[i]); });
+    stacked = true;
+  }
+  function mobileTick() {
+    const mid = window.innerHeight * 0.55;
+    let active = 0;
+    bars.forEach((bar, i) => {
+      const body = bodies[i];
+      const top = bar.getBoundingClientRect().top;
+      const span = (body ? body.offsetHeight : 0) + bar.offsetHeight;
+      const p = Math.max(0, Math.min(1, (mid - top) / Math.max(1, span)));
+      const fillEl = bar.querySelector('.ts-bar-fill');
+      if (fillEl) fillEl.style.width = (p * 100) + '%';
+      if (p > 0) active = i;
+      bar.classList.toggle('complete', p >= 1);
+      if (body) body.classList.toggle('in-view', top < mid);
+    });
+    bars.forEach((bar, i) => bar.classList.toggle('active', i === active));
+    bodies.forEach(b => b.classList.remove('active'));
+  }
+  function update() {
+    if (mq.matches) { stack(); mobileTick(); } else { tick(); }
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  mq.addEventListener('change', update);
+  update();
 })();
 </script>
 
 <!-- AIO Block A: cost-plus transparency (visible body text for AI search) -->
-<section style="background:var(--paper); padding:96px 56px; border-top:1px solid rgba(43,43,43,0.08);">
+<section style="background:#E3DACA; padding: 96px clamp(20px, 4vw, 64px);">
   <div style="max-width:900px; margin:0 auto;">
-    <div style="font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--nickel); margin-bottom:20px;">Cost-Plus, Fully Open-Book</div>
-    <p style="font-size:20px; line-height:1.75; color:rgba(43,43,43,0.82);">The cost-plus contract structure is the gold standard for high-end residential construction because it eliminates the hidden margins built into fixed-price building. At Ella Lee Homes, we operate on a fully open-book system &mdash; every subcontractor bid, every premium material invoice, and every city permit fee is disclosed with complete transparency. Your budget goes entirely into the physical integrity, custom millwork, and architectural execution of your home, not into a builder&rsquo;s inflated contingency fund. Our clients track every dollar in real time through their dedicated Buildertrend client portal, from the first design invoice to the final punch-list close-out.</p>
+    <div style="font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:#8A6E3C; margin-bottom:20px;">Cost-Plus, Fully Open-Book</div>
+    <p style="font-size:20px; line-height:1.75; color:#2B2B2B;">The cost-plus contract structure is the gold standard for high-end residential construction because it eliminates the hidden margins built into fixed-price building. At Ella Lee Homes, we operate on a fully open-book system &mdash; every subcontractor bid, every premium material invoice, and every city permit fee is disclosed with complete transparency. Your budget goes entirely into the physical integrity, custom millwork, and architectural execution of your home, not into a builder&rsquo;s inflated contingency fund. Our clients track every dollar in real time through their dedicated Buildertrend client portal, from the first design invoice to the final punch-list close-out.</p>
   </div>
 </section>
 
@@ -528,8 +618,8 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
     </div>
     <p class="cta-sub r-fade d3 fired">Tell us about your vision. Whether you're building from the ground up, selling a custom home, or simply exploring what's possible, we'd love to hear from you.</p>
     <blockquote class="r-fade d3 fired" style="margin-top:30px; padding-left:20px; border-left:2px solid var(--gold); max-width:48ch;">
-      <p style="font-size:17px; line-height:1.6; color:rgba(43,43,43,0.82);">&ldquo;Completed on time, within budget, and exceeded our expectations. The craftsmanship and attention to detail were simply amazing.&rdquo;</p>
-      <cite style="display:block; margin-top:12px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(43,43,43,0.5); font-style:normal;">Mike &middot; Scottsdale, AZ</cite>
+      <p style="font-size:17px; line-height:1.6; color:rgba(0,21,38,0.82);">&ldquo;Completed on time, within budget, and exceeded our expectations. The craftsmanship and attention to detail were simply amazing.&rdquo;</p>
+      <cite style="display:block; margin-top:12px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(0,21,38,0.5); font-style:normal;">Mike &middot; Scottsdale, AZ</cite>
     </blockquote>
     <div class="cta-meta r-fade d4 fired">
       <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
@@ -584,6 +674,5 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); -w
 
 <!-- FOOTER_PARTIAL -->
 
-  <script defer src="assets/site-nav-contrast.js"></script>
 </body>
 </html>

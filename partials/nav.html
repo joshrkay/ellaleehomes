@@ -1,55 +1,53 @@
-<!-- Canonical site nav — edit once; injected by scripts/build-html.mjs.
-     __THEME__ / __HREF_CTA__ / __ARIA_*__ are resolved per page at build. -->
-<nav id="nav" class="__THEME__">
-  <a href="index.html" class="nav-logo" id="navLogo" aria-label="Ella Lee Homes">
-    <img class="nav-logo-img" src="assets/elh-monogram.svg" alt="Ella Lee Homes">
+<!-- Canonical site nav — the homepage header, shared by every page.
+     Injected by the build; __HREF_*__ / __ARIA_*__ resolve per page. -->
+<header data-elh-nav="1" style="position: fixed; top: 0; left: 0; right: 0; z-index: 300; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px clamp(20px, 4vw, 64px); transition: background .4s ease, padding .4s ease, border-color .4s ease, transform .45s cubic-bezier(.4,0,.2,1); border-bottom: 1px solid rgba(234,229,220,0)">
+  <a href="__HREF_HOME__" aria-label="Ella Lee Homes home" style="flex: 0 0 auto; display: block; line-height: 0">
+    <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: clamp(42px, 3.6vw, 56px); height: auto">
   </a>
-  <ul class="nav-links nav-pill">
-    <li><a href="previous-projects.html"__ARIA_PORTFOLIO__>Portfolio</a></li>
-    <li><a href="build-your-home.html"__ARIA_PROCESS__>Build</a></li>
-    <li><a href="sell-your-home.html"__ARIA_SELL__>Sell</a></li>
-    <li><a href="our-story.html"__ARIA_ABOUT__>Our Story</a></li>
-    <li class="nav-has-dd">
-      <button class="nav-dd-trigger" type="button" aria-expanded="false" aria-haspopup="true">
-        Learn
-        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+  <nav style="display: flex; flex: 1 1 auto; align-items: center; justify-content: center; gap: clamp(14px, 2.2vw, 34px)">
+    <a href="__HREF_HOME__"__ARIA_HOME__ style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Home</a>
+    <a href="previous-projects.html"__ARIA_PORTFOLIO__ style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Portfolio</a>
+    <a href="build-your-home.html"__ARIA_PROCESS__ style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Build</a>
+    <a href="our-story.html"__ARIA_ABOUT__ style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Our Story</a>
+    <div data-elh-more="1" style="position: relative; display: flex; align-items: center">
+      <button type="button" data-elh-click="toggleMore" aria-expanded="false" aria-haspopup="true" style="display: flex; align-items: center; gap: 7px; padding: 0; font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC; background: none; border: 0; cursor: pointer">Learn
+        <span data-elh-more-caret="1" style="display: block; width: 6px; height: 6px; border-right: 1px solid #BFA06A; border-bottom: 1px solid #BFA06A; transform: rotate(45deg) translateY(-2px); transition: transform .3s ease"></span>
       </button>
-    </li>
-  </ul>
-  <div class="nav-right">
-    <a href="tel:4803408700" class="nav-phone">(480) 340-8700</a>
-    <a href="__HREF_CTA__" class="nav-cta">Schedule a Consultation</a>
-  </div>
-  <a href="tel:4803408700" class="nav-phone-mobile" aria-label="Call Ella Lee Homes at (480) 340-8700"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M4.5 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.6 1.5A15.5 15.5 0 013 4.6 1.5 1.5 0 014.5 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
-  <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" type="button">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- Mobile menu for the shared nav; the hamburger above opens it. -->
-<div class="nav-mobile-overlay" aria-hidden="true">
-  <div class="nav-mobile-panel">
-    <a href="previous-projects.html" class="nav-mobile-link">Portfolio</a>
-    <a href="build-your-home.html" class="nav-mobile-link">Build</a>
-    <a href="sell-your-home.html" class="nav-mobile-link">Sell</a>
-    <a href="our-story.html" class="nav-mobile-link">Our Story</a>
-    <div class="nav-mobile-learn-section">
-      <button class="nav-mobile-learn-btn" type="button">
-        Learn
-        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
-      </button>
-      <div class="nav-mobile-learn-items">
-        <a href="why-us.html">Why Ella Lee</a>
-        <a href="developers.html">Developers &amp; Investors</a>
-        <a href="stories.html">Stories &amp; Insights</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="client-portal.html">Client Portal</a>
-        <a href="faq.html">FAQ</a>
-        <a href="warranty.html">Warranty</a>
-        <a href="homeowner-resources.html">Homeowner Resources</a>
-      </div>
     </div>
-    <div class="nav-mobile-sep"></div>
-    <a href="__HREF_CTA__" class="nav-mobile-cta">Schedule a Consultation</a>
+  </nav>
+  <a class="elh-h1" data-elh-cta="1" href="__HREF_CTA__" style="flex: 0 0 auto; padding: 11px 22px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #EAE5DC; border: 1px solid rgba(234,229,220,.5); border-radius: 100px; transition: background .3s ease, color .3s ease">Get Started</a>
+  <button type="button" data-elh-burger="1" aria-label="Open menu" data-elh-click="openDrawer" style="display: none; flex: 0 0 auto; flex-direction: column; gap: 6px; width: 44px; height: 44px; align-items: center; justify-content: center; padding: 0; background: none; border: 0; cursor: pointer">
+    <span style="display: block; width: 24px; height: 1px; background: #EAE5DC"></span>
+    <span style="display: block; width: 24px; height: 1px; background: #EAE5DC"></span>
+    <span style="display: block; width: 16px; height: 1px; background: #BFA06A"></span>
+  </button>
+</header>
+
+<!-- NAV_DROPDOWN_PARTIAL -->
+
+<div data-elh-scrim="1" data-elh-click="closeDrawer" style="position: fixed; inset: 0; z-index: 310; display: none; background: rgba(0,13,25,.6); opacity: 0; pointer-events: none; transition: opacity .4s ease; backdrop-filter: blur(2px)"></div>
+<aside data-elh-drawer="1" style="position: fixed; top: 0; bottom: 0; left: 0; z-index: 320; display: none; flex-direction: column; gap: 28px; width: min(84vw, 340px); padding: 26px 28px 40px; background: #001526; border-right: 1px solid rgba(191,160,106,.3); transform: translateX(-100%); transition: transform .45s cubic-bezier(.4,0,.2,1); overflow-y: auto">
+  <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+    <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: 44px; height: auto">
+    <button type="button" aria-label="Close menu" data-elh-click="closeDrawer" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; font-size: 22px; line-height: 1; color: #EAE5DC; background: none; border: 1px solid rgba(234,229,220,.22); border-radius: 100px; cursor: pointer">×</button>
   </div>
-</div>
+  <nav data-elh-drawernav="1" style="display: flex; flex-direction: column; gap: 2px">
+    <a href="__HREF_HOME__" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Home</a>
+    <a href="previous-projects.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Portfolio</a>
+    <a href="build-your-home.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Build</a>
+    <a href="our-story.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Our Story</a>
+  </nav>
+  <nav style="display: flex; flex-direction: column; gap: 14px; margin-top: -8px">
+    <span style="font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #BFA06A">Learn</span>
+    <a href="why-us.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Why Ella Lee</a>
+    <a href="developers.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Developers &amp; Investors</a>
+    <a href="stories.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Stories &amp; Insights</a>
+    <a href="client-portal.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Client Portal</a>
+    <a href="faq.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">FAQ</a>
+    <a href="warranty.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Warranty</a>
+    <a href="homeowner-resources.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Homeowner Resources</a>
+    <a href="contact.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Contact Us</a>
+    <a href="sell-your-home.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Sell Your Home</a>
+  </nav>
+  <a href="__HREF_CTA__" data-elh-click="closeDrawer" style="margin-top: auto; padding: 15px 22px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; text-align: center; color: #001526; background: #BFA06A; border-radius: 100px">Start Your Build</a>
+</aside>

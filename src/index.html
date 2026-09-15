@@ -134,11 +134,17 @@
   .elh-h2:hover { background: #EAE5DC !important; border-color: #EAE5DC !important; color: #001526 !important; }
   .elh-h3:hover { opacity: .72 !important; }
   .elh-h4:hover { background: #BFA06A !important; }</style>
+<style>html.elh-no-intro .elh-intro{display:none!important}</style>
+<script>
+// Runs before paint: an internal trip home skips the intro so it stays a
+// first-arrival moment. Reloads and fresh visits still get it.
+(function(){try{if(sessionStorage.getItem('elhSkipIntro')){document.documentElement.className+=' elh-no-intro';sessionStorage.removeItem('elhSkipIntro')}}catch(e){}})();
+</script>
 </head>
 <body>
 <div style="--disp: 'DM Serif Display', Georgia, serif; font-family: Inter, system-ui, sans-serif; font-weight: 300; color: #001526; background: #EAE5DC; overflow-x: clip">
 
-  <div class="elh-intro" aria-hidden="true">
+  <div class="elh-intro" aria-hidden="true" data-elh-intro="1">
     <div class="elh-intro-copy">
       <p>Unlock the true potential<br><span>of your dream home</span></p>
       <div class="elh-intro-rule"></div>
@@ -146,56 +152,8 @@
     </div>
   </div>
 
-  <header data-elh-nav="1" style="position: fixed; top: 0; left: 0; right: 0; z-index: 300; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px clamp(20px, 4vw, 64px); transition: background .4s ease, padding .4s ease, border-color .4s ease, transform .45s cubic-bezier(.4,0,.2,1); border-bottom: 1px solid rgba(234,229,220,0)">
-    <a href="#top" aria-label="Ella Lee Homes home" style="flex: 0 0 auto; display: block; line-height: 0">
-      <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: clamp(42px, 3.6vw, 56px); height: auto">
-    </a>
-    <nav style="display: flex; flex: 1 1 auto; align-items: center; justify-content: center; gap: clamp(14px, 2.2vw, 34px)">
-      <a href="previous-projects.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Portfolio</a>
-      <a href="build-your-home.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Build</a>
-      <a href="sell-your-home.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Sell</a>
-      <a href="our-story.html" style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Our Story</a>
-      <div data-elh-more="1" style="position: relative; display: flex; align-items: center">
-        <button type="button" data-elh-click="toggleMore" aria-expanded="false" aria-haspopup="true" style="display: flex; align-items: center; gap: 7px; padding: 0; font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC; background: none; border: 0; cursor: pointer">Learn
-          <span data-elh-more-caret="1" style="display: block; width: 6px; height: 6px; border-right: 1px solid #BFA06A; border-bottom: 1px solid #BFA06A; transform: rotate(45deg) translateY(-2px); transition: transform .3s ease"></span>
-        </button>
-      </div>
-    </nav>
-    <a class="elh-h1" data-elh-cta="1" href="#inquiry" style="flex: 0 0 auto; padding: 11px 22px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #EAE5DC; border: 1px solid rgba(234,229,220,.5); border-radius: 100px; transition: background .3s ease, color .3s ease">Get Started</a>
-    <button type="button" data-elh-burger="1" aria-label="Open menu" data-elh-click="openDrawer" style="display: none; flex: 0 0 auto; flex-direction: column; gap: 6px; width: 44px; height: 44px; align-items: center; justify-content: center; padding: 0; background: none; border: 0; cursor: pointer">
-      <span style="display: block; width: 24px; height: 1px; background: #EAE5DC"></span>
-      <span style="display: block; width: 24px; height: 1px; background: #EAE5DC"></span>
-      <span style="display: block; width: 16px; height: 1px; background: #BFA06A"></span>
-    </button>
-  </header>
+  <!-- NAV_PARTIAL -->
 
-  <!-- NAV_DROPDOWN_PARTIAL -->
-
-  <div data-elh-scrim="1" data-elh-click="closeDrawer" style="position: fixed; inset: 0; z-index: 310; display: none; background: rgba(0,13,25,.6); opacity: 0; pointer-events: none; transition: opacity .4s ease; backdrop-filter: blur(2px)"></div>
-  <aside data-elh-drawer="1" style="position: fixed; top: 0; bottom: 0; left: 0; z-index: 320; display: none; flex-direction: column; gap: 28px; width: min(84vw, 340px); padding: 26px 28px 40px; background: #001526; border-right: 1px solid rgba(191,160,106,.3); transform: translateX(-100%); transition: transform .45s cubic-bezier(.4,0,.2,1); overflow-y: auto">
-    <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
-      <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: 44px; height: auto">
-      <button type="button" aria-label="Close menu" data-elh-click="closeDrawer" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; font-size: 22px; line-height: 1; color: #EAE5DC; background: none; border: 1px solid rgba(234,229,220,.22); border-radius: 100px; cursor: pointer">×</button>
-    </div>
-    <nav data-elh-drawernav="1" style="display: flex; flex-direction: column; gap: 2px">
-      <a href="previous-projects.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Portfolio</a>
-      <a href="build-your-home.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Build</a>
-      <a href="sell-your-home.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Sell</a>
-      <a href="our-story.html" style="padding: 14px 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #EAE5DC; border-bottom: 1px solid rgba(234,229,220,.1)">Our Story</a>
-    </nav>
-    <nav style="display: flex; flex-direction: column; gap: 14px; margin-top: -8px">
-      <span style="font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #BFA06A">Learn</span>
-      <a href="why-us.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Why Ella Lee</a>
-      <a href="developers.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Developers &amp; Investors</a>
-      <a href="stories.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Stories &amp; Insights</a>
-      <a href="client-portal.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Client Portal</a>
-      <a href="faq.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">FAQ</a>
-      <a href="warranty.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Warranty</a>
-      <a href="homeowner-resources.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Homeowner Resources</a>
-      <a href="contact.html" style="font-size: 13px; letter-spacing: .06em; color: rgba(234,229,220,.62)">Contact Us</a>
-    </nav>
-    <a href="#inquiry" data-elh-click="closeDrawer" style="margin-top: auto; padding: 15px 22px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; text-align: center; color: #001526; background: #BFA06A; border-radius: 100px">Start Your Build</a>
-  </aside>
 
   <section id="top" data-screen-label="Hero" style="position: relative; display: flex; align-items: flex-end; min-height: 118vh; padding: 0; overflow: hidden; background: #001526">
     <div style="position: absolute; inset: 0; z-index: 1; overflow: hidden">
@@ -208,7 +166,7 @@
     <div style="position: absolute; left: 0; right: 0; top: 0; z-index: 2; height: 48%; pointer-events: none; background: linear-gradient(to bottom, rgba(0,0,0,.68) 0%, rgba(0,0,0,.44) 40%, rgba(0,0,0,0) 100%)"></div>
     <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 13%; pointer-events: none; background: linear-gradient(to bottom, rgba(0,21,38,0) 0%, rgba(0,21,38,.45) 52%, #001526 100%)"></div>
     <div style="position: relative; z-index: 3; display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: none; margin: 0; padding: 0 clamp(18px, 2.4vw, 40px) calc(18vh + clamp(40px, 5vw, 72px)); pointer-events: none">
-      <h1 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(29px, 5.1vw, 98px); text-wrap: nowrap; font-weight: 400; line-height: 1.02; letter-spacing: -.01em; color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5); pointer-events: auto" data-comment-anchor="12e3f23568-h1">Custom Homes in Arizona,<br>Built Right.</h1>
+      <h1 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(29px, 5.1vw, 98px); text-wrap: nowrap; font-weight: 400; line-height: 1.02; letter-spacing: -.01em; color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5); pointer-events: auto">Custom Homes in Arizona,<br>Built Right.</h1>
       <div style="height: 1px; margin-top: 6px; background: rgba(234,229,220,.42); pointer-events: auto"></div>
       <p style="max-width: 32ch; margin: 0; font-size: clamp(14px, 1.1vw, 17px); font-weight: 300; line-height: 1.5; color: rgba(234,229,220,.9); pointer-events: auto">Luxury custom home builder for<br>Arcadia, Paradise Valley &amp; Scottsdale.</p>
     </div>
@@ -280,7 +238,7 @@
             <button class="elh-h3" type="button" data-elh-tl-marker="2" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit">
               <span data-elh-tl-node="2" style="width: 11px; height: 11px; border-radius: 50%; background: #001526; border: 1px solid rgba(234,229,220,.42); transition: background .45s ease, border-color .45s ease"></span>
               <span data-elh-tl-label="2" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.44); white-space: nowrap; transition: color .45s ease">Build</span>
-            </button><button class="elh-h3" type="button" data-elh-tl-marker="3" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit; width: 238px; height: 39px" data-comment-anchor="05af61a286-button">
+            </button><button class="elh-h3" type="button" data-elh-tl-marker="3" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit; width: 238px; height: 39px">
               <span data-elh-tl-node="3" style="width: 11px; height: 11px; border-radius: 50%; background: #001526; border: 1px solid rgba(234,229,220,.42); transition: background .45s ease, border-color .45s ease"></span>
               <span data-elh-tl-label="3" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.44); white-space: nowrap; transition: color .45s ease">Move In</span>
             </button>
@@ -610,5 +568,6 @@
 </div>
 
 <script defer src="assets/home.js"></script>
+<script defer src="assets/elh-nav.js"></script>
 </body>
 </html>
