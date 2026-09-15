@@ -266,6 +266,10 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   padding: 0; cursor: text;
 }
 .cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
+/* Grid items default to min-width:auto, so an input's intrinsic width would
+   otherwise stop the CTA column shrinking on phones and scroll the page. */
+#cta > * { min-width: 0; }
+.cta-field input, .cta-field select, .cta-field textarea { width: 100%; min-width: 0; }
 .cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(234,229,220,.42); }
 .cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23EAE5DC' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
 .cta-field select option { background: var(--navy); color: var(--paper); }
@@ -282,6 +286,11 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 .cta-submit:hover { background: var(--paper); color: var(--navy); }
 .cta-submit:hover svg { transform: translateX(4px); }
 .btn-outline:hover { border-color: var(--paper); }
+
+/* Same collapse the other CTA pages carry — must sit after the rules above. */
+@media (max-width: 1100px) {
+  #cta { grid-template-columns: 1fr; gap: 48px; }
+}
 
 
 /* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
@@ -318,6 +327,9 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 @media (max-width: 760px) {
   #hero-banner > .hero-head, #hero-banner > .hero-caption { padding-left: 20px; padding-right: 20px; }
   #hero-banner > .hero-caption { margin-bottom: calc(13vh + 32px); }
+  /* Two-up fields keep their intrinsic input width and push the page sideways. */
+  .cta-form-row { grid-template-columns: 1fr; }
+  .cta-form-row .cta-field { border-right: none; padding-right: 0; padding-left: 0; }
 }
 </style>
 <!-- @localbusiness-schema -->

@@ -511,6 +511,10 @@ body {
   font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--paper);
 }
 .cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
+/* Grid items default to min-width:auto, so an input's intrinsic width would
+   otherwise stop the CTA column shrinking on phones and scroll the page. */
+#cta > * { min-width: 0; }
+.cta-field input, .cta-field select, .cta-field textarea { width: 100%; min-width: 0; }
 .cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(234,229,220,.42); }
 .cta-field select { -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23EAE5DC' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
 .cta-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
@@ -558,6 +562,9 @@ body {
   #founding, #pull, #proof, #cta { padding-left: 24px; padding-right: 24px; }
   .proof-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 240px); gap: 12px; }
   .proof-hd { flex-direction: column; align-items: flex-start; }
+  /* Two-up fields keep their intrinsic input width and push the page sideways. */
+  .cta-form-row { grid-template-columns: 1fr; }
+  .cta-form-row .cta-field { border-right: none; padding-right: 0; padding-left: 0; }
 }
 
 /* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
