@@ -98,3 +98,11 @@ Once Google Drive assets are delivered, store every image/video **on the new sit
 3. **Last:** WS7 asset migration, staging pass, domain cutover.
 
 Each workstream ships as its own small PR so it can be reviewed against the punch-list item numbers it closes.
+
+---
+
+## 6. Progress
+
+**Shipped (defaults applied):** WS0 guardrail (`scripts/check-copy.mjs`, runs in `npm run build`); WS2 facts sweep (home count "40+", 11–18 month construction range, budget ranges and form dropdowns removed, unverified stats/badges/aggregate-rating markup removed, no response-time promises, no contract-type claims, singular "Founder"); WS4 design-language removal and rewrites on Why Us, Developers, Our Story, Build, FAQ, Home, Portfolio, Stories, Sell (lots and teardowns; "second life" line kept, framed for the property); the unverified "Mark, 2024" testimonial removed.
+
+**Still open:** forms + Buildertrend login (WS1), legal-page note (awaiting counsel), Portfolio data (WS3), hero standard and layout work (WS5), SEO schema/meta/FAQ build-out (WS6), asset migration (WS7). The C1/C3/C4 defaults above are in place and easy to change in `check-copy.mjs` and the pages.
