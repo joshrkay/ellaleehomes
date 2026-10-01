@@ -23,6 +23,7 @@ const RULES = [
   [/\b12 to 18|12\s*(?:–|-|&ndash;)\s*18 months|14(?:–|-|&ndash;)24/i, 'One timeline: construction 11–18 months'],
   [/4408 N 12th St(?!, Ste 200)(?!["'])/, 'Always include "Ste 200"'],
   [/first sketch|4 phases|four (?:clear )?phases/i, 'Construction only: no design/permitting phases'],
+  [/\bdozens of\b.{0,40}(?:homes|families|properties)/i, 'Use the real number ("40+ homes"), not "dozens"'],
   [/open[- ]books?/i, 'Cost-plus is stated plainly; never "open books"'],
   [/fixed[- ]price|choice of contract/i, 'Never imply fixed price or a choice of contract structures'],
   [/remodel|renovation|new homes only|commercial (?:work|building|projects)/i, 'Custom homes only; do not mention what we do not do'],

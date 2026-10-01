@@ -17,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-reviews.css">
 <link rel="stylesheet" href="assets/site-footer.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -279,10 +280,7 @@ body {
   background: var(--navy);
   border: 1px solid rgba(234,229,220,.14);
   overflow: hidden;
-  box-shadow:
-    0 -2px 0 rgba(234,229,220,.14),
-    0 30px 60px -20px rgba(234,229,220,.24),
-    0 12px 28px -12px rgba(234,229,220,.14);
+  box-shadow: none;
 }
 
 /* Alternating layout: even cards have image right, text left */
@@ -592,6 +590,13 @@ body {
 /* hairline spans the measure, like the homepage's */
 #hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
 #hero-banner .hero-title { width: 100%; }
+/* ── First strip after the hero ── */
+.wu-strip { background: var(--navy); color: var(--paper); display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(32px, 6vw, 96px); align-items: start; padding: clamp(72px, 9vw, 128px) clamp(18px, 2.4vw, 40px); border-bottom: 1px solid rgba(234,229,220,.12); }
+.wu-eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+.wu-strip h2, .rv-head h2 { font-family: var(--disp); font-weight: 400; font-size: clamp(32px, 4vw, 58px); line-height: 1.08; letter-spacing: -.015em; color: var(--paper); }
+.wu-strip h2 em, .rv-head h2 em { font-style: normal; color: var(--gold); }
+.wu-strip-r p { max-width: 62ch; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.8; color: rgba(234,229,220,.86); }
+@media (max-width: 860px) { .wu-strip { grid-template-columns: 1fr; } }
 </style>
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
@@ -719,9 +724,15 @@ body {
   </div>
 </section>
 
-<!-- Block 5: SEO keyword intro beneath hero -->
-<section style="background: var(--navy); color: var(--paper); padding: 80px clamp(18px, 2.4vw, 40px) 24px;">
-  <p style="max-width:860px; font-size:18px; line-height:1.8; color: rgba(234,229,220,.86);">When you are choosing a luxury custom home builder in Arizona, the decision comes down to trust: trust in the quality of the work, trust in the transparency of the process, and trust that the builder you choose in month one is the same team beside you at move-in and during warranty calls. Ella Lee Homes has built dozens of custom homes across Arcadia, Paradise Valley, Scottsdale, and Phoenix, with a repeat-client rate that reflects what our clients consistently tell us: the experience is as good as the home itself.</p>
+<!-- First strip after the hero: same two-column treatment as the front page -->
+<section class="wu-strip">
+  <div class="wu-strip-l reveal">
+    <div class="wu-eyebrow">Why Us</div>
+    <h2>Trust in the work, <em>and in the process.</em></h2>
+  </div>
+  <div class="wu-strip-r reveal">
+    <p>When you are choosing a luxury custom home builder in Arizona, the decision comes down to trust: trust in the quality of the work, trust in the transparency of the process, and trust that the builder you choose in month one is the same team beside you at move-in and during warranty calls. Ella Lee Homes has built and is building 40+ custom homes across Paradise Valley, Scottsdale, Arcadia, and Phoenix, and our clients consistently tell us the experience is as good as the home itself.</p>
+  </div>
 </section>
 
 <!-- FOUNDING STORY -->
@@ -742,7 +753,7 @@ body {
 
 <!-- AIO Block B: hyper-local authority -->
 <section style="background: var(--navy); color: var(--paper); padding: 16px clamp(18px, 2.4vw, 40px) 56px;">
-  <p style="max-width:860px; font-size:16px; line-height:1.85; color: rgba(234,229,220,.6); border-left:2px solid rgba(201,169,110,0.35); padding-left:20px;">Building a custom home in Arizona requires a builder who knows each neighborhood from the ground up. From navigating Paradise Valley&rsquo;s strict building height restrictions and Camelback Mountain view corridor ordinances, to preserving the mature citrus groves and historic character that define Arcadia, to meeting Scottsdale&rsquo;s design review board standards for luxury residential construction &mdash; the regulatory and cultural landscape of each community shapes every decision we make. Ella Lee Homes has built dozens of custom homes across these neighborhoods. That experience is not something you can import.</p>
+  <p style="max-width:860px; font-size:16px; line-height:1.85; color: rgba(234,229,220,.6); border-left:2px solid rgba(201,169,110,0.35); padding-left:20px;">Building a custom home in Arizona requires a builder who knows each neighborhood from the ground up. From navigating Paradise Valley&rsquo;s strict building height restrictions and Camelback Mountain view corridor ordinances, to preserving the mature citrus groves and historic character that define Arcadia, to meeting Scottsdale&rsquo;s design review board standards for luxury residential construction &mdash; the regulatory and cultural landscape of each community shapes every decision we make. Ella Lee Homes has built and is building 40+ custom homes across these neighborhoods. That experience is not something you can import.</p>
 </section>
 
 <!-- 7 REASONS -->
@@ -916,11 +927,47 @@ body {
   </div>
 </section>
 
+<!-- TESTIMONIALS (same cards as the front page) -->
+<section id="testimonials">
+  <div class="rv-head reveal">
+    <div class="wu-eyebrow">Reviews</div>
+    <h2>What homeowners <em>say about us.</em></h2>
+  </div>
+  <div class="rv-grid reveal">
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>Ella Lee Homes built our home in 2023, and we couldn’t be happier! The project was completed on time, within budget, and exceeded our expectations.</blockquote>
+        <figcaption><span class="rv-av">M</span><span class="rv-who"><span class="rv-name">Mike M</span><span class="rv-meta">Google review &middot; a year ago</span></span></figcaption>
+      </figure></a>
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>As an investor, I’ve entrusted Ella Lee Homes to build 9 custom homes. I could not be more pleased by the outcome.</blockquote>
+        <figcaption><span class="rv-av">M</span><span class="rv-who"><span class="rv-name">Michael Wiss</span><span class="rv-meta">Google review &middot; 3 years ago</span></span></figcaption>
+      </figure></a>
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>Shay &amp; team have been so meticulous about all warranty and repair work, which is something most builders completely disregard.</blockquote>
+        <figcaption><span class="rv-av">A</span><span class="rv-who"><span class="rv-name">Anastasia Foster</span><span class="rv-meta">Google review &middot; 2 years ago</span></span></figcaption>
+      </figure></a>
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>Attention to detail, quality construction, responsiveness of the warranty team &mdash; owning an Ella Lee home is truly enjoyable.</blockquote>
+        <figcaption><span class="rv-av">H</span><span class="rv-who"><span class="rv-name">Heather Wilson</span><span class="rv-meta">Google review &middot; 8 months ago</span></span></figcaption>
+      </figure></a>
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>From the very beginning, communication was easy and stress-free. What stood out most was his honesty and sincerity.</blockquote>
+        <figcaption><span class="rv-av">G</span><span class="rv-who"><span class="rv-name">Gordon Yonel</span><span class="rv-meta">Google review &middot; 8 months ago</span></span></figcaption>
+      </figure></a>
+  </div>
+  <p class="rv-more"><a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener">Read all of our reviews on Google</a></p>
+</section>
+
 <!-- PROOF GRID -->
 <section id="proof">
   <div class="proof-hd reveal">
     <div class="proof-hd-l">
-      <div class="eyebrow">In Practice</div>
+      <div class="eyebrow">Recent Homes</div>
       <h2>See the <em>craft</em> for yourself.</h2>
     </div>
     <div class="proof-hd-r">
