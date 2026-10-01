@@ -589,7 +589,7 @@ details.story-faq .faq-a p + p {
           aspect-ratio: 8 / 5;
           background: rgba(0,21,38, 0.03);
         }
-        #where-leaflet.is-sample { position: relative; overflow: hidden; }
+        #where-leaflet.is-sample { position: relative; }
         #where-leaflet.is-sample svg { display: block; }
         .sm-area { font-size: 11px; letter-spacing: .22em; fill: #8B8578; font-weight: 500; }
         .sm-town { font-size: 10px; letter-spacing: .08em; fill: #6B665D; }
@@ -599,14 +599,15 @@ details.story-faq .faq-a p + p {
         .sm-pin::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: #BFA06A; }
         .sm-pin.sm-studio { width: 24px; height: 24px; margin: -12px 0 0 -12px; border-color: #BFA06A; z-index: 2; }
         .sm-pin:hover, .sm-pin:focus-visible { z-index: 5; outline: none; box-shadow: 0 0 0 3px rgba(191,160,106,.55); }
-        .sm-tip { display: none; position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap; background: #EAE5DC; color: #001526; padding: 8px 12px; text-align: left; box-shadow: 0 2px 10px rgba(0,21,38,.25); pointer-events: none; }
+        .sm-tip { display: block; visibility: hidden; position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap; background: #EAE5DC; color: #001526; padding: 8px 12px; text-align: left; box-shadow: 0 2px 10px rgba(0,21,38,.25); pointer-events: none; }
         .sm-tip b { display: block; font-weight: 500; font-size: 14px; }
         .sm-tip i { display: block; font-style: normal; font-size: 12px; color: #605C58; }
         .sm-tip em { display: block; font-style: normal; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #6F5628; margin-top: 4px; }
-        .sm-pin:hover .sm-tip, .sm-pin:focus-visible .sm-tip { display: block; }
-        .sm-note, .sm-open { position: absolute; bottom: 8px; font-size: 11px; letter-spacing: .06em; background: rgba(239,233,221,.9); padding: 3px 8px; color: #605C58; }
-        .sm-note { left: 8px; }
-        @media (max-width: 600px) { .sm-pin { width: 12px; height: 12px; margin: -6px 0 0 -6px; border-width: 1.5px; } .sm-pin::after { inset: 2px; } .sm-pin.sm-studio { width: 16px; height: 16px; margin: -8px 0 0 -8px; } .sm-note { display: none; } }
+        .sm-pin:hover .sm-tip, .sm-pin:focus-visible .sm-tip { visibility: visible; }
+        .sm-open { position: absolute; bottom: 8px; font-size: 11px; letter-spacing: .06em; background: rgba(239,233,221,.9); padding: 3px 8px; color: #605C58; }
+        .sm-note { margin: 10px 0 0; font-size: 13px; line-height: 1.5; color: #605C58; text-align: center; }
+        .sm-pin.tip-below .sm-tip { bottom: auto; top: calc(100% + 8px); }
+        @media (max-width: 600px) { .sm-pin { width: 12px; height: 12px; margin: -6px 0 0 -6px; border-width: 1.5px; } .sm-pin::after { inset: 2px; } .sm-pin.sm-studio { width: 16px; height: 16px; margin: -8px 0 0 -8px; } }
         .sm-open { right: 8px; text-decoration: none; color: #001526; }
         .sm-open:hover { color: #6F5628; }
         .where-fallback { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; color: #001526; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(0,21,38,.14); }
@@ -1064,7 +1065,7 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
       const x = (lng - B.w) / (B.e - B.w) * 100, y = (B.n - lat) / (B.n - B.s) * 100;
       const tag = href ? 'a href="' + href + '"' : 'button type="button"';
       const end = href ? 'a' : 'button';
-      return '<' + tag + ' class="sm-pin ' + cls + '" style="left:' + x.toFixed(2) + '%;top:' + y.toFixed(2) + '%" aria-label="' + name + ', ' + meta + '"><span class="sm-tip"><b>' + name + '</b><i>' + meta + '</i>' + (href ? '<em>View project &rarr;</em>' : '') + '</span></' + end + '>';
+      return '<' + tag + ' class="sm-pin ' + cls + '" data-x="' + x.toFixed(3) + '" data-y="' + y.toFixed(3) + '" style="left:' + x.toFixed(2) + '%;top:' + y.toFixed(2) + '%" aria-label="' + name + ', ' + meta + '"><span class="sm-tip"><b>' + name + '</b><i>' + meta + '</i>' + (href ? '<em>View project &rarr;</em>' : '') + '</span></' + end + '>';
     };
     Object.keys(byNbr).forEach((nbrId) => {
       const c = NBR[nbrId];
@@ -1077,8 +1078,43 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
     el.classList.add('is-sample');
     el.removeAttribute('role'); el.removeAttribute('aria-label');
     el.innerHTML = s + pins +
-      '<span class="sm-note">Illustrative map &middot; pins show neighborhoods, not addresses</span>' +
       '<a class="sm-open" href="' + LISTING + '" target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">&rarr;</span></a>';
+    const cap = document.createElement('p');
+    cap.className = 'sm-note';
+    cap.textContent = 'Illustrative map. Pins show neighborhoods, not addresses.';
+    el.insertAdjacentElement('afterend', cap);
+    // Spread pins apart (in pixels) so every one can be hovered, focused or tapped on its own.
+    const items = [].slice.call(el.querySelectorAll('.sm-pin'));
+    function layout() {
+      const w = el.clientWidth, h = el.clientHeight;
+      if (!w) return;
+      const gap = w <= 600 ? 15 : 22;
+      const pts = items.map((n) => ({ n: n, x: parseFloat(n.dataset.x) / 100 * w, y: parseFloat(n.dataset.y) / 100 * h, fixed: n.classList.contains('sm-studio') }));
+      for (let it = 0; it < 80; it++) {
+        let moved = false;
+        for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+          const a = pts[i], b = pts[j];
+          let dx = b.x - a.x, dy = b.y - a.y, d = Math.sqrt(dx * dx + dy * dy);
+          if (d >= gap) continue;
+          if (d < 0.01) { dx = 1; dy = 0; d = 1; }
+          const push = (gap - d) / 2 + 0.1, ux = dx / d, uy = dy / d;
+          if (!a.fixed) { a.x -= ux * push; a.y -= uy * push; }
+          if (!b.fixed) { b.x += ux * push; b.y += uy * push; }
+          moved = true;
+        }
+        if (!moved) break;
+      }
+      pts.forEach((q) => {
+        q.n.style.left = q.x.toFixed(1) + 'px'; q.n.style.top = q.y.toFixed(1) + 'px';
+        const tip = q.n.querySelector('.sm-tip'), tw = tip.offsetWidth, pw = q.n.offsetWidth;
+        q.n.classList.toggle('tip-below', q.y < h / 2);
+        const left = q.x - pw / 2;
+        const off = Math.max(4 - left, Math.min((pw - tw) / 2, w - 4 - left - tw));
+        tip.style.left = off.toFixed(1) + 'px'; tip.style.transform = 'none';
+      });
+    }
+    layout();
+    if (window.ResizeObserver) new ResizeObserver(layout).observe(el); else window.addEventListener('resize', layout);
   }
   if (!ELH_GOOGLE_MAPS_KEY) { drawSample(); return; }
   function draw() {
