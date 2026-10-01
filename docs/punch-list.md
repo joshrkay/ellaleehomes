@@ -116,6 +116,20 @@ Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned 
 
 1. Decisions made ✅ · 2. Inputs gathered ⛔ (see below) · 3. Forms, Buildertrend, review links ⛔ · 4. Portfolio data ⛔ · 5. Copy rewrites and hero standard ✅ · 6. SEO ✅, legal ⛔ · 7. Photo/video upload ⛔ · 8. Fresh-eyes pass, then cutover.
 
+## Verification against the Sep 29 documents
+
+Every rule in the Fact Sheet and every item in the Punch List was checked against the built site (all 24 published pages), by scripted search plus a visual check of heroes, nav, footer, review strips and Shay's photo.
+
+**Fixed during the final audit:** the home page's "Plan & Price / Design With You" timeline labels (now match their panels); "permitting" claims on Why Us, Code of Conduct and the articles; "designing and building" on Our Story; "guarantees" language; the Valley/Arizona phrasing; market order (Paradise Valley, Scottsdale, Arcadia, Phoenix) on Home, Sell, Our Story, Portfolio and articles; "40+ homes" added back to the footer; the nav button now reads "Start Your Build"; the home H2 now names Paradise Valley, Scottsdale and Arcadia; "Designed for daily life" caption.
+
+**Enforced by the build** (`scripts/check-copy.mjs`): design language, open books, fixed price, budget ranges, response promises, unverified stats, "dozens", 5.0 badge, remodel/commercial, design/permitting phases, "designing and building", "permitting", "the Valley", "guarantees", market order, timeline numbers, "Ste 200", warranty@ placement.
+
+**Left on purpose (your call):**
+- Real client review quotes still say "completed on time, within budget" (Mike M, Google review). They are the client's words, not our promise.
+- Blog category tags and two article titles still use the word "Design" (Stories page). They are general building topics, not a service claim.
+- The Our Story narrative still says "open-concept floor plan designed with intention" in the dream-home passage; Shay's copywriting (item 50) will replace it.
+- Project prices on the Portfolio are the existing per-home figures; they are replaced when Rebecca's records arrive.
+
 ## Still needed from Ella Lee Homes
 
 Form destination · Buildertrend login embed code · direct review URLs and any additional reviews · counsel's legal text · Rebecca's per-home records and sale prices · Shay's notes for "See the craft" and Our Story copy · the new hero video · a screenshot of the old Warranty and Homeowner Resources pages · the Google Drive photo/video export.
