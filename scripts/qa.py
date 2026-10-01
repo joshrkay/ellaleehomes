@@ -48,8 +48,6 @@ def rd(p):
 PAGES = {}
 for f in sorted(glob.glob(os.path.join(DIST, '*.html'))):
     n = os.path.basename(f)[:-5]
-    if n == 'our-story-print':          # not published (no sitemap entry)
-        continue
     PAGES[n] = rd(f)
 if not PAGES:
     sys.exit('dist/ is empty: run `npm run build` first')
@@ -543,8 +541,14 @@ def data_audit():
     reg('11', 'Portfolio records rebuilt from real data (no non-half baths, no duplicate prices/sq ft)', 'BLOCKED',
         '%d projects parsed. Rows breaking the Fact Sheet rules: non-half baths %s; duplicate prices %s; duplicate sq ft %s. Needs Rebecca\'s records.'
         % (len(rows), bathbad, dupprice, dupsq))
-    reg('12', 'Homepage project cards show per-home specs from corrected data', 'BLOCKED',
-        'depends on item 11 (home cards currently show names only: %d cards)' % len(re.findall(r'id="elh-proj-\d"', PAGES['index'])))
+    ix = PAGES['index']
+    i0 = ix.find('data-elh-track="1"')
+    seg = ix[i0: ix.find('</section>', i0)]
+    cards = [norm_ws(m.group(1)) for m in re.finditer(r'<a\b[^>]*draggable="false"[^>]*>(.*?)</a>', seg, re.S)]
+    with_specs = [c for c in cards if re.search(r'\bBed\b|\bBath\b|Sqft', c)]
+    reg('12', 'Homepage project cards show real per-home specs from corrected data', 'BLOCKED',
+        'strip cards now read: %s. The identical placeholder specs (5 Bed / 5.5 Bath / 5,214 Sqft on Charter Oak, Via Estrella and 68th) were taken off because they repeat and contradict the Portfolio; each card shows its location from the Portfolio data instead (cards still showing specs: %d). Real specs go back once Rebecca supplies the records. "Stanford" has no project page and is marked Coming soon.'
+        % (cards, len(with_specs)))
     cp_ = [k for k, v in rows if v['price'] == '$7,035,000']
     reg('13', 'Charter Oak and 68th & Camelback sale prices confirmed', 'BLOCKED', 'both still listed at $7,035,000: %s. Needs the real sale prices.' % cp_)
     return projects
@@ -646,6 +650,249 @@ def ALL_NAMES():
     return list(PAGES)
 
 
+
+# ======================================================================= FACT SHEET RULES (extra, static)
+def git_show(path):
+    r = subprocess.run(['git', 'show', 'origin/claude/implement-ella-lee-homes-lh0JL:' + path], capture_output=True, text=True, cwd=ROOT)
+    return r.stdout if r.returncode == 0 else ''
+
+
+def norm_ws(s):
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', s))).strip()
+
+
+def factsheet_checks():
+    ALL = list(PAGES)
+    section('S. Fact Sheet rules, section by section')
+    # ------------------------------------------------ 1. Company
+    wrong_legal = find_all(r'Ella Lee Homes,? (?:Inc\b|Co\b|Corp|LLP|L\.L\.C|Ltd)', ALL)
+    foot_missing = [n for n in ALL if 'Ella Lee Homes LLC' not in text_of(footer_html(PAGES[n]))]
+    idx_legal = '"legalName": "Ella Lee Homes LLC"' in PAGES['index']
+    reg('FS1a', 'Legal name "Ella Lee Homes LLC": in every footer and the home schema; no other legal form anywhere',
+        'FAIL' if (wrong_legal or foot_missing or not idx_legal) else 'PASS',
+        ('; '.join(filter(None, [fmt_hits(wrong_legal), ('footer lacks LLC on: %s' % foot_missing) if foot_missing else '', '' if idx_legal else 'home schema lacks legalName']))) or
+        'footer of all %d pages reads "Copyright © 2026 Ella Lee Homes LLC"; schema legalName on home; no Inc/Co/Corp variants' % len(ALL))
+    bad_owner = find_all(r'\bco-?founders?\b|\bFounders\b|Shay Segev,? (?:CEO|President|Owner)', ALL)
+    has_title = 'Founder and Principal' in text_of(PAGES['our-story']) and 'Shay Segev, Founder and Principal' in html.unescape(PAGES['index'])
+    reg('FS1b', 'Owner is Shay Segev, "Founder and Principal"; singular Founder, never Founders / co-founder / CEO',
+        'FAIL' if (bad_owner or not has_title) else 'PASS', fmt_hits(bad_owner) or ('title missing' if not has_title else 'home photo alt and Our Story caption read "Founder and Principal"; no plural or other titles'))
+    yrs = Counter()
+    for n in ALL:
+        for st in all_strings(n):
+            for m in re.finditer(r'(?:since|founded(?: in)?|established(?: in)?|est\.?)\s+(\d{4})', st, re.I):
+                yrs[m.group(1)] += 1
+    fd = re.search(r'"foundingDate":\s*"(\d{4})"', PAGES['index'])
+    reg('FS1c', 'Founded 2021: every "since/founded/established" year is 2021; schema foundingDate 2021',
+        'PASS' if (set(yrs) == {'2021'} and fd and fd.group(1) == '2021') else 'FAIL', 'years found: %s; schema foundingDate: %s' % (dict(yrs), fd.group(1) if fd else None))
+    # ------------------------------------------------ 3. What we do
+    none_found('FS3a', 'Never draws attention to what Ella Lee Homes does not do ("we do not offer…", "no remodels")',
+               r"we (?:do not|don't) (?:offer|do|provide|handle|build)|\bno (?:remodels?|renovations?)\b|not (?:a|an) (?:remodel|renovation|design)", ALL)
+    none_found('FS3b', 'No services beyond custom homes (landscaping, interior design, brokerage, mortgages, property management, solar, flipping)',
+               r'\b(?:landscap\w+ (?:services|design)|interior design (?:services|package)|property management|real estate (?:agent|brokerage) services|mortgage (?:services|broker)|solar (?:installation|panels)|house[- ]flipping)\b', ALL)
+    none_found('FS3c', 'Contract wording: cost-plus only (no fixed price, no choice of structures, no "open books" in substance)',
+               r'fixed[- ]price|lump[- ]sum|guaranteed maximum|choice of contract|contract structures?|open[- ]books?|every invoice|every subcontractor bid', ALL)
+    # ------------------------------------------------ 4. Numbers and claims
+    ch = []
+    for n in ALL:
+        for st in all_strings(n):
+            for m in re.finditer(r'(\d+)\s?%', st):
+                near = st[max(0, m.start() - 70):m.end() + 40]
+                if re.search(r'profit', near, re.I) and not re.match(r'10\s?% of (?:our |its )?profits', st[m.start():m.start() + 40]):
+                    ch.append((n, near.strip()))
+            for m in re.finditer(r'minimum of 10|annual profits', st, re.I):
+                ch.append((n, st[max(0, m.start() - 40):m.end() + 40]))
+    reg('FS4a', 'Charitable giving is stated only as "10% of profits" (no "minimum", no "annual")', 'FAIL' if ch else 'PASS',
+        fmt_hits(list(dict.fromkeys(ch))) or '10% of profits on home, developers and FAQ; no other giving figure')
+    none_found('FS4b', 'No urgency or hard-sell tactics', r"\b(?:act now|limited time|hurry|don't miss|last chance|only \d+ (?:spots|lots|homes) left|before it's too late|today only|call now|don't wait|book now)\b", ALL)
+    # testimonials: every quote must exist verbatim in the original home page (the five real Google reviews)
+    orig = norm_ws(git_show('src/index.html'))
+    quotes = {}
+    for n, h in PAGES.items():
+        for m in re.finditer(r'<blockquote\b[^>]*>(.*?)</blockquote>', h, re.S):
+            quotes.setdefault(norm_ws(m.group(1)), set()).add(n)
+    invented = [q[:70] for q in quotes if q not in orig]
+    names = Counter()
+    for n, h in PAGES.items():
+        for m in re.finditer(r'class="rv-card[^"]*".*?</figure>|class="rv-card[^"]*".*?</a>', h, re.S):
+            pass
+    reviewers = set()
+    for n in ('index', 'why-us', 'developers', 'our-story'):
+        for m in re.finditer(r'<figcaption[^>]*>(.*?)</figcaption>', PAGES[n], re.S):
+            reviewers.add(norm_ws(m.group(1)).split(' Google review')[0].strip())
+    okset = {'M Mike M', 'M Michael Wiss', 'A Anastasia Foster', 'H Heather Wilson', 'G Gordon Yonel'}
+    odd = [r for r in reviewers if r not in okset]
+    reg('FS4c', 'Testimonials: only the five real Google reviews; every quote is verbatim in the original home page; reviewer names as on Google; none invented',
+        'FAIL' if (invented or odd or len(quotes) != 5) else 'PASS',
+        'quotes on site: %d (expected 5); not in original home page: %s; unexpected reviewer labels: %s' % (len(quotes), invented, odd) if (invented or odd or len(quotes) != 5)
+        else '5 distinct quotes, all verbatim in the original home page, shown on %s; reviewers: Mike M, Michael Wiss, Anastasia Foster, Heather Wilson, Gordon Yonel' % sorted({p for v in quotes.values() for p in v}))
+    # ------------------------------------------------ 5. Voice (measured, human judges)
+    stats = []
+    for n in ('index', 'why-us', 'our-story', 'build-your-home', 'faq', 'sell-your-home', 'developers', 'contact', 'warranty'):
+        body = norm_ws(re.sub(r'<(script|style)\b[^>]*>.*?</\1>', ' ', body_html(PAGES[n]), flags=re.S))
+        sents = [x for x in re.split(r'(?<=[.!?])\s+', body) if len(x.split()) >= 4]
+        if sents:
+            lens = [len(x.split()) for x in sents]
+            stats.append('%s avg %.0f words, %d%% over 30' % (n, sum(lens) / len(lens), 100 * sum(1 for x in lens if x > 30) // len(lens)))
+    reg('FS5a', 'Voice: short sentences, plain words (sophisticated but simple). Measured; tone is a human judgement', 'MANUAL', 'sentence length per page: ' + '; '.join(stats))
+    # ------------------------------------------------ 7. Navigation and page rules
+    KEY = r'custom home|builder|Arizona|Paradise Valley|Scottsdale|Arcadia|Phoenix'
+    missing_kw = []
+    for n in CORE:
+        if n in ('client-portal', 'project', 'index'):
+            continue
+        t = html.unescape(re.search(r'<title>(.*?)</title>', PAGES[n], re.S).group(1))
+        if not re.search(KEY, t, re.I):
+            missing_kw.append('%s: "%s"' % (n, t))
+    reg('FS7a', 'Page titles carry a keyword ("Topic | Ella Lee Homes", e.g. custom home / builder / Arizona / a market) on every public page', 'FAIL' if missing_kw else 'PASS',
+        '; '.join(missing_kw) or 'every core page title contains one of: custom home, builder, Arizona, Paradise Valley, Scottsdale, Arcadia, Phoenix')
+    # primary call to action: the closing buttons say "Start Your Build" (Sell keeps its own seller prompt; forms keep "Send")
+    other = []
+    for n in ALL:
+        if n == 'sell-your-home':
+            continue
+        h = strip_blocks(body_html(PAGES[n]))
+        labs = []
+        for blk in re.finditer(r'<div class="article-cta-inline">(.*?)</div>', h, re.S):
+            labs += [norm_ws(x) for x in re.findall(r'<a\b[^>]*>(.*?)</a>', blk.group(1), re.S)]
+        for m in re.finditer(r'<a\b[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*href="(?:contact\.html|index\.html#inquiry)[^"]*"[^>]*>(.*?)</a>|<a\b[^>]*href="(?:contact\.html|index\.html#inquiry)[^"]*"[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*>(.*?)</a>', h, re.S):
+            labs.append(norm_ws(m.group(1) or m.group(2)))
+        for lab in labs:
+            if lab and lab != 'Start Your Build':
+                other.append('%s: "%s"' % (n, lab))
+    reg('FS7b', 'Primary call to action is "Start Your Build" on every button that leads to the inquiry (nav and page-closing buttons)', 'FAIL' if other else 'PASS',
+        '; '.join(other[:8]) or 'all inquiry buttons (outside the Sell page) read "Start Your Build"')
+    # ------------------------------------------------ 6. Brand
+    old = [f for f in glob.glob(os.path.join(ROOT, 'assets', '*.css')) + glob.glob(os.path.join(ROOT, 'assets', '*.js')) + glob.glob(os.path.join(ROOT, 'src', '*.html')) + glob.glob(os.path.join(ROOT, 'partials', '*.html'))
+           if re.search(r'#0D2D4E|#002855', rd(f), re.I)]
+    reg('FS6a', 'Navy is #001526 everywhere: neither the old brand-guide navy #002855 nor #0D2D4E is used', 'FAIL' if old else 'PASS',
+        'found in: %s' % [os.path.basename(f) for f in old] if old else 'neither colour appears in any page, partial, stylesheet or script')
+
+
+
+# ======================================================================= SEO / ACCESSIBILITY / STRUCTURE (extra, static)
+def structure_checks2():
+    ALL = list(PAGES)
+    section('X3. SEO, accessibility and structure (every page)')
+    titles, descs = Counter(), Counter()
+    for n, h in PAGES.items():
+        titles[html.unescape(re.search(r'<title>(.*?)</title>', h, re.S).group(1)).strip()] += 1
+        d = re.search(r'<meta name="description" content="([^"]*)"', h)
+        descs[html.unescape(d.group(1)) if d else ''] += 1
+    dt = [t for t, c in titles.items() if c > 1]
+    dd = [d[:50] or '(none)' for d, c in descs.items() if c > 1 or d == '']
+    reg('X3a', 'Every page has its own title and its own meta description (no duplicates, none missing)', 'FAIL' if (dt or dd) else 'PASS',
+        ('duplicate titles %s; duplicate/missing descriptions %s' % (dt, dd)) if (dt or dd) else '%d unique titles, %d unique descriptions' % (len(titles), len(descs)))
+    # canonical + sitemap
+    sm = rd(os.path.join(DIST, 'sitemap.xml'))
+    locs = re.findall(r'<loc>(.*?)</loc>', html.unescape(sm))
+    slugs = set()
+    mproj = re.search(r'const PROJECTS = (\{.*?\n\});', PAGES['project'], re.S)
+    if mproj:
+        slugs = set(re.findall(r'^  "([a-z0-9\-]+)":\s*\{', mproj.group(1), re.M))
+    bad = []
+    for n, h in PAGES.items():
+        if n == 'project':
+            continue
+        c = re.search(r'<link rel="canonical" href="([^"]*)"', h)
+        if not c:
+            bad.append('%s: no canonical' % n)
+            continue
+        url = c.group(1)
+        if not url.startswith('https://ellaleehomes.com'):
+            bad.append('%s: canonical not absolute on the live domain (%s)' % (n, url))
+        if n == 'client-portal':
+            if url in locs:
+                bad.append('client-portal is in the sitemap')
+        elif url not in locs:
+            bad.append('%s: canonical %s is not in the sitemap' % (n, url))
+    for u in locs:
+        path = u.replace('https://ellaleehomes.com', '')
+        pth, _, q = path.partition('?')
+        if pth in ('', '/'):
+            continue
+        if not os.path.exists(os.path.join(DIST, pth.lstrip('/') + '.html')):
+            bad.append('sitemap URL has no page: %s' % u)
+        if q.startswith('slug=') and q[5:] not in slugs:
+            bad.append('sitemap project slug not in data: %s' % u)
+    reg('X3b', 'Canonical tags are absolute, on the live domain and equal to the sitemap URL; every sitemap URL resolves; portal not in sitemap', 'FAIL' if bad else 'PASS',
+        '; '.join(bad[:6]) or '%d sitemap URLs (%d projects with data) all resolve; %d canonicals match' % (len(locs), len(slugs), len(ALL) - 1))
+    # structure basics
+    h1 = {n: len(re.findall(r'<h1\b', strip_blocks(h))) for n, h in PAGES.items()}
+    lang = [n for n, h in PAGES.items() if not re.search(r'<html[^>]*\blang="en"', h)]
+    vp = [n for n, h in PAGES.items() if 'name="viewport"' not in h]
+    reg('X3c', 'Exactly one <h1> per page; <html lang="en"> and a viewport tag on every page', 'FAIL' if ([n for n, c in h1.items() if c != 1] or lang or vp) else 'PASS',
+        'h1 counts != 1: %s; lang missing: %s; viewport missing: %s' % ([n for n, c in h1.items() if c != 1], lang, vp))
+    noalt = []
+    for n, h in PAGES.items():
+        for m in re.finditer(r'<img\b[^>]*>', strip_blocks(h)):
+            if not re.search(r'\balt=', m.group(0)):
+                noalt.append('%s: %s' % (n, re.search(r'src="([^"]*)"', m.group(0)).group(1)[:50] if re.search(r'src="([^"]*)"', m.group(0)) else '?'))
+    reg('X3d', 'Every <img> in the static HTML has an alt attribute', 'FAIL' if noalt else 'PASS', '; '.join(noalt[:6]) or 'all images carry alt (empty alt only where decorative)')
+    nofav = [n for n, h in PAGES.items() if 'rel="icon"' not in h]
+    favfiles = [f for f in ('assets/favicon.ico', 'assets/favicon-32.png', 'assets/apple-touch-icon.png') if not os.path.exists(os.path.join(ROOT, f))]
+    reg('X3e', 'Brand favicon (monogram on navy) on every page, files present', 'FAIL' if (nofav or favfiles) else 'PASS', 'pages without icon: %s; missing files: %s' % (nofav, favfiles))
+    ext = []
+    for n, h in PAGES.items():
+        for m in re.finditer(r'<a\b([^>]*)>', strip_blocks(h)):
+            a = m.group(1)
+            if 'target="_blank"' in a and not re.search(r'rel="[^"]*noopener', a):
+                ext.append('%s: %s' % (n, re.search(r'href="([^"]*)"', a).group(1)[:60]))
+    reg('X3f', 'Links that open a new tab carry rel="noopener"', 'FAIL' if ext else 'PASS', '; '.join(ext[:5]) or 'every target=_blank link has rel noopener')
+    # urls inside JSON-LD that point at our own domain exist
+    miss, wp = [], 0
+    for n, h in PAGES.items():
+        for st in schema_strings(h):
+            if st.startswith('https://ellaleehomes.com/') and not st.startswith('https://ellaleehomes.com/#'):
+                path = st.replace('https://ellaleehomes.com/', '').split('?')[0].split('#')[0]
+                if path.startswith('wp-content/'):
+                    wp += 1          # old WordPress media: tracked as item 62
+                    continue
+                if path and not (os.path.exists(os.path.join(DIST, path)) or os.path.exists(os.path.join(DIST, path + '.html'))):
+                    miss.append('%s: %s' % (n, st))
+    reg('X3g', 'Every URL inside the JSON-LD that points at ellaleehomes.com (logo, image, pages) exists in the build', 'FAIL' if miss else 'PASS', '; '.join(sorted(set(miss))[:6]) or ('all schema URLs on our domain resolve (%d old WordPress media URLs in article schema are counted under item 62)' % wp))
+    # css url() references
+    missing = []
+    def check_urls(text, base_dir, label):
+        for m in re.finditer(r'url\(\s*[\'"]?([^\'")]+)[\'"]?\s*\)', text):
+            u = html.unescape(m.group(1)).strip()
+            if re.match(r'(https?:|data:|#|%23|//)', u):
+                continue
+            if not os.path.exists(os.path.normpath(os.path.join(base_dir, u.split('?')[0].split('#')[0]))):
+                missing.append('%s -> %s' % (label, u))
+    for n, h in PAGES.items():
+        check_urls(h, DIST, n)
+    for f in glob.glob(os.path.join(DIST, 'assets', '*.css')):
+        check_urls(rd(f), os.path.dirname(f), os.path.basename(f))
+    reg('X3h', 'Every local url(...) in styles (inline, <style>, stylesheets) points to an existing file', 'FAIL' if missing else 'PASS', '; '.join(sorted(set(missing))[:6]) or 'all local CSS image references exist')
+    # ---- inherited "MUST" items from the June review that live in the repo (not on the Sep 29 list)
+    raw_all = {n: PAGES[n] for n in ALL}
+    jsfiles = {os.path.basename(f): rd(f) for f in glob.glob(os.path.join(ROOT, 'assets', '*.js'))}
+    tw = [n for n, h in raw_all.items() if re.search(r'Tweaks|Motion Speed|Cards Scroll Speed|Hero Media', h)] + [k for k, v in jsfiles.items() if re.search(r'Tweaks|Motion Speed|Cards Scroll Speed', v)]
+    reg('J1', 'No developer "Tweaks" panel anywhere (June review launch blocker)', 'FAIL' if tw else 'PASS', str(tw) if tw else 'no Tweaks / Motion Speed / Hero Media controls in any page or script')
+    first = {}
+    for n, h in PAGES.items():
+        t = text_of(body_html(h))[:40]
+        if re.match(r'^\d+\b', t):
+            first[n] = t
+    reg('J2', 'No stray number (e.g. "100") as the first text on any page (June review launch blocker)', 'FAIL' if first else 'PASS', str(first) if first else 'first visible text on every page is words, not a counter')
+    badlinks = []
+    for n, h in PAGES.items():
+        ft = footer_html(h)
+        for m in re.finditer(r'<a\b[^>]*href="([^"]*)"[^>]*>(.*?)</a>', ft, re.S):
+            lab = norm_ws(m.group(2))
+            if lab in ('Our Story', 'Build Your Home', 'Developers', 'Contact', 'Why Us', 'Portfolio') and m.group(1).startswith('#'):
+                if not (n == 'index' and re.search(r'\bid="%s"' % re.escape(m.group(1)[1:]), PAGES['index'])):
+                    badlinks.append('%s footer "%s" -> %s' % (n, lab, m.group(1)))
+    for n in ARTICLES:
+        for m in re.finditer(r'<a\b[^>]*href="([^"]*#cta[^"]*)"', body_html(PAGES[n])):
+            badlinks.append('%s article link -> %s' % (n, m.group(1)))
+    reg('J3', 'Footer links go to real pages (not #cta/#meet anchors); article links do not point at #cta', 'FAIL' if badlinks else 'PASS', '; '.join(badlinks[:5]) or 'footer Our Story/Build/Developers/Contact/Why Us/Portfolio links all resolve to pages; no #cta in articles')
+    cp = PAGES['client-portal']
+    bt = re.findall(r'<a\b[^>]*href="https://buildertrend\.net[^"]*"[^>]*>', cp)
+    okbt = bt and all('target="_blank"' in a and 'noopener' in a for a in bt)
+    reg('J4', 'Buildertrend links on the Client Portal open in a new tab with rel="noopener"', 'PASS' if okbt else 'FAIL', '%d Buildertrend link(s): %s' % (len(bt), 'all target=_blank rel=noopener' if okbt else bt))
+
+
 # ======================================================================= ASSET INVENTORY (item 62)
 def asset_inventory():
     section('G. Asset migration (item 62)')
@@ -735,7 +982,7 @@ def browser_checks(projects):
                   textBottom: Math.max(...els.map(e => e.getBoundingClientRect().bottom + window.scrollY)), hasVideo: !!s.querySelector('video')}
         }""")
         hero_pages = ['previous-projects', 'build-your-home', 'stories', 'client-portal', 'faq', 'warranty', 'homeowner-resources',
-                      'code-of-conduct', 'why-us', 'developers', 'contact', 'our-story', 'sell-your-home']
+                      'code-of-conduct', 'why-us', 'developers', 'contact', 'our-story', 'sell-your-home', 'privacy', 'terms', 'disclaimer']
         geo = {}
         for n in hero_pages:
             pg2, e2 = newpage()
@@ -773,7 +1020,7 @@ def browser_checks(projects):
             lines.append('%s: %spx, h1 %s, copy ends y=%s%s' % (n, g['h'], g['fs'], g['textBottom'], (' !!' + '; '.join(problems)) if problems else ''))
             if problems:
                 bad.append('%s: %s' % (n, '; '.join(problems)))
-        reg('40', 'One hero standard: full screen before the blue fade, same type treatment, no stat badges, no video (13 hero pages vs the home hero at 1440×900)',
+        reg('40', 'One hero standard: full screen before the blue fade, same type treatment, no stat badges, no video (16 hero pages vs the home hero at 1440×900)',
             'FAIL' if bad else 'PASS',
             ('; '.join(bad)) if bad else 'home hero: %dpx tall (118vh), h1 %s %s, copy block ends y=%d. ' % (round(home['h']), home['fs'], home['ff'], round(home['textBottom'])) + ' | '.join(lines))
         # colours
@@ -959,6 +1206,165 @@ def browser_checks(projects):
     srv.shutdown()
 
 
+
+# ======================================================================= BROWSER CHECKS (extra)
+def browser_checks2(projects):
+    try:
+        from playwright.sync_api import sync_playwright
+    except Exception:
+        return
+    srv, port = start_server()
+    base = 'http://127.0.0.1:%d' % port
+    placeholder = open(os.path.join(ROOT, 'uploads/home/hero-poster.jpg'), 'rb').read()
+    exe = find_chromium()
+    section('X4. Rendered-page checks: network, images, accessibility, typography, projects, forms')
+    with sync_playwright() as p:
+        browser = p.chromium.launch(executable_path=exe, args=['--no-sandbox']) if exe else p.chromium.launch(args=['--no-sandbox'])
+
+        def newpage(w=1440, h=900):
+            ctx = browser.new_context(viewport={'width': w, 'height': h})
+            pg = ctx.new_page()
+            st = {'bad': [], 'errs': [], 'reqs': []}
+            pg.on('response', lambda r: st['bad'].append('%s %s' % (r.status, r.url.replace(base, ''))) if (r.url.startswith(base) and r.status >= 400) else None)
+            pg.on('requestfailed', lambda r: st['bad'].append('FAILED %s' % r.url.replace(base, '')) if r.url.startswith(base) else None)
+            pg.on('request', lambda r: st['reqs'].append((r.method, r.url)))
+            pg.on('pageerror', lambda e: st['errs'].append(str(e)[:160]))
+
+            def route(r):
+                u = r.request.url
+                if u.startswith(base):
+                    return r.continue_()
+                if (r.request.resource_type == 'image' or re.search(r'\.(jpe?g|png|webp|gif)(\?|$)', u, re.I)) and ('ellaleehomes.com' in u or 'googleusercontent' in u or 'zillow' in u):
+                    return r.fulfill(status=200, content_type='image/jpeg', body=placeholder)
+                return r.abort()
+            pg.route('**/*', route)
+            return pg, st
+
+        def settle_scroll(pg):
+            pg.evaluate("""async () => { const H = document.documentElement.scrollHeight; for (let y = 0; y < H; y += 450) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 90)); } window.scrollTo(0, H); await new Promise(r => setTimeout(r, 1500)); window.scrollTo(0, 0); }""")
+
+        bad404, brokenimg, noname, nolabel, h1fonts = [], [], [], [], {}
+        body_styles, mobile_small, tap = {}, {}, {}
+        for n in PAGES:
+            pg, st = newpage()
+            pg.goto('%s/%s.html' % (base, n), wait_until='load')
+            pg.wait_for_timeout(3300 if n == 'index' else 1000)
+            pg.add_style_tag(content='.elh-intro{display:none!important}')
+            settle_scroll(pg)
+            bad404 += ['%s: %s' % (n, b) for b in st['bad']]
+            imgs = pg.evaluate("""() => [...document.querySelectorAll('img')].filter(i => i.getClientRects().length > 0 && i.offsetParent !== null).map(i => ({src: i.getAttribute('src') || '', ok: i.complete && i.naturalWidth > 0}))""")
+            brokenimg += ['%s: %s' % (n, i['src'][:60]) for i in imgs if not i['ok'] and not i['src'].startswith('data:')]
+            names = pg.evaluate("""() => [...document.querySelectorAll('a[href], button')].filter(e => e.getClientRects().length > 0 && getComputedStyle(e).visibility !== 'hidden' && !e.closest('[aria-hidden="true"]')).filter(e => !((e.innerText || '').trim() || e.getAttribute('aria-label') || e.getAttribute('title') || (e.querySelector('img[alt]:not([alt=""])')))).map(e => (e.tagName + ' ' + (e.getAttribute('href') || e.className || '')).slice(0, 60))""")
+            noname += ['%s: %s' % (n, x) for x in names]
+            labels = pg.evaluate("""() => [...document.querySelectorAll('input, select, textarea')].filter(e => !['hidden', 'submit', 'button'].includes(e.type) && e.getClientRects().length > 0).filter(e => !(e.labels && e.labels.length) && !e.getAttribute('aria-label') && !e.getAttribute('aria-labelledby') && !e.getAttribute('placeholder')).map(e => (e.tagName + ' ' + (e.name || e.id)).slice(0, 40))""")
+            nolabel += ['%s: %s' % (n, x) for x in labels]
+            if True:
+                h1fonts[n] = pg.evaluate("""() => { const f = e => getComputedStyle(e).fontFamily.split(',')[0].replace(/['"]/g, ''); const hs = [...document.querySelectorAll('h1, h2')].filter(e => e.getClientRects().length > 0 && !e.closest('header, footer, aside, nav, .elh-intro') && parseFloat(getComputedStyle(e).fontSize) >= 24); return [...new Set(hs.map(f))] }""")
+                body_styles[n] = pg.evaluate("""() => { const ps = [...document.querySelectorAll('p')].filter(e => e.getClientRects().length > 0 && (e.innerText || '').trim().length >= 70 && !e.closest('header, footer, aside, nav, .elh-intro, #hero-banner')); const k = e => { const c = getComputedStyle(e); return c.fontFamily.split(',')[0].replace(/['"]/g, '') + '|' + c.fontSize + '|' + c.fontWeight }; const cnt = {}; ps.forEach(e => { cnt[k(e)] = (cnt[k(e)] || 0) + 1 }); const top = Object.entries(cnt).sort((a, b) => b[1] - a[1]); return {n: ps.length, top: top.slice(0, 3)} }""")
+            pg.context.close()
+        reg('X4a', 'No local file fails to load (404 / failed request) on any page, including CSS backgrounds, fonts and scripts', 'FAIL' if bad404 else 'PASS',
+            '; '.join(bad404[:6]) or '%d pages scrolled top to bottom: every same-origin request returned 2xx/3xx' % len(PAGES))
+        reg('X4b', 'Every visible image finished loading after scrolling each page (external images were served a placeholder, so this tests our own files)', 'FAIL' if brokenimg else 'PASS',
+            '; '.join(brokenimg[:6]) or 'all visible <img> elements loaded on %d pages' % len(PAGES))
+        reg('X4c', 'Every visible link and button has an accessible name (text, aria-label, title or image alt)', 'FAIL' if noname else 'PASS', '; '.join(noname[:8]) or 'none unnamed on %d pages' % len(PAGES))
+        reg('X4d', 'Every visible form field has a label, aria-label or placeholder', 'FAIL' if nolabel else 'PASS', '; '.join(nolabel[:8]) or 'all fields labelled')
+        # --- typography
+        serif_bad = {n: f for n, f in h1fonts.items() if f and any('DM Serif Display' not in x for x in f)}
+        reg('X4e', 'Display titles (h1/h2 at 24px and up) are serif (DM Serif Display) on every core page', 'FAIL' if serif_bad else 'PASS', str(serif_bad) if serif_bad else 'h1/h2 font on %d core pages: DM Serif Display' % len(h1fonts))
+        # mobile pass for body copy
+        body_m = {}
+        for n in PAGES:
+            pgm, _ = newpage(390, 800)
+            pgm.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
+            pgm.wait_for_timeout(3300 if n == 'index' else 800)
+            pgm.add_style_tag(content='.elh-intro{display:none!important}')
+            body_m[n] = pgm.evaluate("""() => { const ps = [...document.querySelectorAll('p, li')].filter(e => e.getClientRects().length > 0 && getComputedStyle(e).visibility !== 'hidden' && (e.innerText || '').trim().length >= 70 && !e.closest('header, footer, aside, nav, .elh-intro, #hero-banner')); const k = e => { const c = getComputedStyle(e); return c.fontFamily.split(',')[0].replace(/['"]/g, '') + '|' + c.fontSize + '|' + c.fontWeight }; const cnt = {}; ps.forEach(e => { cnt[k(e)] = (cnt[k(e)] || 0) + 1 }); return Object.entries(cnt).sort((a, b) => b[1] - a[1]) }""")
+            pgm.context.close()
+        dom_d = {n: (v['top'][0][0] if v['top'] else None) for n, v in body_styles.items()}
+        dom_m = {n: (v[0][0] if v else None) for n, v in body_m.items()}
+        off = ['%s@1440 %s' % (n, d) for n, d in dom_d.items() if d and d != 'Inter|17px|300'] + ['%s@390 %s' % (n, d) for n, d in dom_m.items() if d and d != 'Inter|16px|300']
+        reg('X4f', 'Body copy matched on every page: Inter Light, 17px on desktop and 16px on mobile (dominant running-copy style per page; ledes, pull quotes and small notes keep their own)',
+            'FAIL' if off else 'PASS', ('differs: ' + '; '.join(off[:8])) if off else '%d pages at 1440 = Inter 300 17px and %d pages at 390 = Inter 300 16px' % (len([d for d in dom_d.values() if d]), len([d for d in dom_m.values() if d])))
+        # --- project pages
+        keys = list(projects) if projects else []
+        titles, canon, issues = {}, {}, []
+        pg, st = newpage()
+        for k in keys:
+            pg.goto('%s/project.html?slug=%s' % (base, k), wait_until='load')
+            pg.wait_for_timeout(350)
+            info = pg.evaluate("""() => ({title: document.title, canon: (document.querySelector('link[rel=canonical]') || {}).href || '', desc: (document.querySelector('meta[name=description]') || {}).content || '', ogt: (document.querySelector('meta[property="og:title"]') || {}).content || '', ogu: (document.querySelector('meta[property="og:url"]') || {}).content || '',
+              h1: document.querySelectorAll('h1').length, content: getComputedStyle(document.querySelector('#project-content')).display, nf: (document.querySelector('#not-found') || {innerText: ''}).innerText.trim(),
+              hero: (document.querySelector('#hero-img') || {}).naturalWidth, text: document.body.innerText})""")
+            titles.setdefault(info['title'], []).append(k)
+            canon.setdefault(info['canon'], []).append(k)
+            if info['content'] != 'block' or info['nf'] or info['h1'] != 1 or not info['hero']:
+                issues.append('%s: content=%s notfound="%s" h1=%d hero=%s' % (k, info['content'], info['nf'][:20], info['h1'], info['hero']))
+            if re.search(r'See live site|Coming Soon|will be added here|undefined|NaN|\[object', info['text']):
+                issues.append('%s: placeholder or broken text on page' % k)
+            if info['ogt'] != info['title'] or not info['ogu'].endswith('slug=' + k):
+                issues.append('%s: og tags not per-project' % k)
+        dupt = {t: v for t, v in titles.items() if len(v) > 1}
+        dupc = {t: v for t, v in canon.items() if len(v) > 1}
+        reg('X4g', 'All %d project pages render populated (one h1, hero image, no placeholder text) with their own title, canonical and share tags' % len(keys),
+            'FAIL' if (issues or dupt or dupc) else 'PASS',
+            '; '.join(issues[:4] + ['duplicate titles %s' % list(dupt)[:2]] * bool(dupt) + ['duplicate canonicals'] * bool(dupc)) or '%d projects: unique titles (e.g. "%s"), unique canonicals, og:url per slug' % (len(keys), next(iter(titles))))
+        pg.context.close()
+        # portfolio cards: every card opens a real project, no duplicate slugs
+        pg, st = newpage()
+        pg.goto('%s/previous-projects.html' % base, wait_until='load')
+        pg.wait_for_timeout(900)
+        cards = pg.evaluate("() => [...document.querySelectorAll('.proj-card')].map(a => (a.getAttribute('href') || (a.querySelector('a') || {getAttribute: () => ''}).getAttribute('href') || ''))")
+        slugs = [re.search(r'slug=([^&]+)', c).group(1) if re.search(r'slug=([^&]+)', c) else '' for c in cards]
+        missing = [x for x in slugs if x not in projects]
+        reg('X4h', 'Portfolio: every card links to an existing project; no project is listed twice', 'FAIL' if (missing or len(set(slugs)) != len(slugs) or not slugs) else 'PASS',
+            '%d cards, %d unique slugs, unknown slugs: %s' % (len(slugs), len(set(slugs)), missing))
+        pg.context.close()
+        # home strip duplicates
+        pg, st = newpage()
+        pg.goto('%s/index.html' % base, wait_until='load')
+        pg.wait_for_timeout(3300)
+        strip = pg.evaluate("() => [...document.querySelectorAll('[data-elh-track] a')].map(a => a.getAttribute('href'))")
+        cycle = strip
+        for k in (4, 3, 2, 1):
+            if strip and len(strip) % k == 0 and strip == strip[:len(strip) // k] * k:
+                cycle = strip[:len(strip) // k]
+                break
+        dup = [x for x, c in Counter(cycle).items() if c > 1 and x]
+        dead = sum(1 for x in cycle if not x or x == '#')
+        reg('X4i', 'Home project strip lists each project once per loop (June review: Charter Oak appeared twice)', 'FAIL' if dup else 'PASS',
+            '%d cards per loop (track repeats %dx for the endless scroll): %s; duplicates: %s; cards without a link: %d' % (len(cycle), len(strip) // max(1, len(cycle)), [re.sub(r'.*slug=', '', x or '(no link)') for x in cycle], dup, dead))
+        # home experience timeline: each label opens the panel that matches it
+        pg.add_style_tag(content='.elh-intro{display:none!important}')
+        pg.evaluate("() => document.querySelector('#experience').scrollIntoView()")
+        pg.wait_for_timeout(700)
+        want = [('Process', 'Process'), ('Service', 'Service'), ('Warranty', 'Warranty'), ('Craftsmanship', 'Craftsmanship')]
+        got = []
+        for i in range(4):
+            pg.evaluate("(i) => document.querySelector('[data-elh-tl-marker=\"' + i + '\"]').click()", i)
+            pg.wait_for_timeout(900)
+            got.append(pg.evaluate("""(i) => ({label: document.querySelector('[data-elh-tl-label="' + i + '"]').textContent.trim(), head: document.querySelector('[data-elh-tl-copy="' + i + '"] h3').textContent.trim(), op: parseFloat(getComputedStyle(document.querySelector('[data-elh-tl-copy="' + i + '"]')).opacity), imgop: parseFloat(getComputedStyle(document.querySelector('[data-elh-tl-img="' + i + '"]')).opacity)})""", i))
+        okmap = all(want[i][0].lower() in got[i]['label'].lower() and want[i][1].lower() in got[i]['head'].lower() and got[i]['op'] > 0.9 for i in range(4))
+        reg('X4j', 'Home "experience" timeline: each label opens the panel with the matching heading (labels match their panels)', 'PASS' if okmap else 'FAIL', '; '.join('%s -> "%s" (shown %.1f)' % (g['label'], g['head'], g['op']) for g in got))
+        pg.context.close()
+        # forms: what happens on submit (evidence for item 1)
+        evid = []
+        for n in ('index', 'build-your-home', 'why-us', 'developers', 'contact', 'sell-your-home'):
+            pg, st = newpage()
+            pg.goto('%s/%s.html' % (base, n), wait_until='load')
+            pg.wait_for_timeout(3300 if n == 'index' else 900)
+            pg.add_style_tag(content='.elh-intro{display:none!important}')
+            before = len(st['reqs'])
+            r = pg.evaluate("""() => { const f = [...document.querySelectorAll('form')].find(f => f.getClientRects().length > 0 || f.closest('section')); if (!f) return null; [...f.querySelectorAll('input, textarea, select')].forEach(e => { if (e.type === 'email') e.value = 'qa@example.com'; else if (e.tagName === 'SELECT') { if (e.options.length > 1) e.selectedIndex = 1 } else if (e.type !== 'hidden' && e.type !== 'submit') e.value = 'QA test' }); const btn = f.querySelector('button[type=submit], input[type=submit], button:not([type])'); btn && btn.click(); return {action: f.getAttribute('action'), method: f.getAttribute('method'), budget: !!f.querySelector('[name=budget], select[name*=budget]')} }""")
+            pg.wait_for_timeout(700)
+            posts = [u for m_, u in st['reqs'][before:] if m_ != 'GET']
+            shown = pg.evaluate("() => /Thank you|we.ll be in touch/i.test(document.body.innerText)")
+            evid.append('%s: form action=%s, POST/other requests sent on submit=%d, "Thank you" message shown=%s, budget field=%s' % (n, (r or {}).get('action'), len(posts), shown, (r or {}).get('budget')))
+            pg.context.close()
+        reg('X4k', 'Forms: what a submit actually does (evidence for item 1; delivery itself is not wired)', 'MANUAL', ' | '.join(evid))
+        browser.close()
+    srv.shutdown()
+
+
 # ======================================================================= REPORT
 def write_report(inv, urls):
     order = {'FAIL': 0, 'BLOCKED': 1, 'MANUAL': 2, 'PASS': 3}
@@ -989,9 +1395,13 @@ def main():
     static_checks()
     projects = data_audit()
     structure_checks()
+    factsheet_checks()
+    structure_checks2()
     inv, urls = asset_inventory()
     if not STATIC_ONLY:
-        browser_checks(projects)
+        if '--only-b2' not in sys.argv:
+            browser_checks(projects)
+        browser_checks2(projects)
     write_report(inv, urls)
     counts = Counter(r['status'] for r in RESULTS)
     width = max(len(r['id']) for r in RESULTS)

@@ -1,0 +1,28 @@
+/*
+ * One body-copy standard across the site (Fact Sheet §6 Type: "Body font matched in style and size across all pages").
+ * The home page is the reference: Inter Light, 17px on desktop, never under 16px (readable for older visitors).
+ * Display text (heroes, ledes, pull quotes, captions, small notes) keeps its own style; running paragraphs and lists use this.
+ */
+:root { --elh-body-size: clamp(16px, 1.2vw, 17px); --elh-body-lh: 1.72; }
+
+/* Why Us */
+.rc-text > p, .founding-r > p, .wu-strip-r > p, .reasons-hd-r > p,
+/* Developers */
+.pillar-text, .lede-body > p,
+/* Our Story */
+.story-body, .story-body > p, .where-sub, .conv-inner > p.sub,
+/* Build */
+.ts-lede, .ts-body-text,
+/* FAQ, Warranty, Homeowner Resources, Code of Conduct, legal pages */
+.faq-a > p, .faq-intro > p, .legal-prose > p, .legal-prose li, .faq-hero-sub,
+/* Sell */
+.sec-body > p, .why-item p, .step > p, .sec-lede, .areas-note, .cta-sub,
+/* Stories, closing strips */
+.post-card > p, .feat-excerpt, .grain > p,
+/* Contact, Client Portal, Project, articles */
+.section-body, .description, .inquiry-sub, .article-wrap > p, .article-wrap li {
+  font-family: Inter, system-ui, sans-serif !important;
+  font-size: var(--elh-body-size) !important;
+  font-weight: 300 !important;
+  line-height: var(--elh-body-lh) !important;
+}

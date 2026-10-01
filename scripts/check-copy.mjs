@@ -52,6 +52,9 @@ const RULES = [
   [/\b\d+ reviews? on Google/i, 'Review counts are not on the Fact Sheet'],
   [/selling my custom home/i, 'Sell framing is "home or lot"'],
   [/no surprises|surprise change orders|hidden surprises/i, 'No absolute promises'],
+  [/never in the dark|never feel left in the dark|will always attract|\bunmatched\b/i, 'No absolute promises'],
+  [/walk candidate lots|review a lot before you buy|if you are still looking/i, 'Nothing about services beyond custom homes (no lot-finding or lot-vetting service)'],
+  [/award[- ]worthy|comprehensive warranty|full builder warranty|long-term peace of mind/i, 'Warranty is described as the Warranty page describes it; no invented distinctions'],
 ];
 
 const files = [

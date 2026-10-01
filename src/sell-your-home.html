@@ -481,7 +481,7 @@ details.faq .faq-a {
       <h2 style="font-family:var(--disp); font-weight:400; font-size:clamp(30px,4vw,52px); letter-spacing:-0.015em; line-height:1.1; color:var(--paper);">Own a lot or<br>older home?</h2>
     </div>
     <div>
-      <p style="font-size:18px; line-height:1.8; color:rgba(234,229,220,.86); margin-bottom:28px;">As a custom builder actively building in Paradise Valley, Scottsdale, Arcadia, and Phoenix, Ella Lee Homes often acquires teardown properties and infill lots directly from owners. No agents, no listings, no open houses &mdash; just a direct conversation.</p>
+      <p style="font-size: clamp(16px, 1.2vw, 17px); line-height:1.8; color:rgba(234,229,220,.86); margin-bottom:28px; font-weight: 300">As a custom builder actively building in Paradise Valley, Scottsdale, Arcadia, and Phoenix, Ella Lee Homes often acquires teardown properties and infill lots directly from owners. No agents, no listings, no open houses &mdash; just a direct conversation.</p>
       <a href="contact.html" style="display:inline-block; background:var(--gold); color:var(--navy); text-decoration:none; padding:16px 36px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; font-weight:500;">Start the Conversation</a>
       <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:28px;"><span style="padding:9px 18px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper); border:1px solid rgba(234,229,220,.35); border-radius:100px;">No Hassle</span><span style="padding:9px 18px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper); border:1px solid rgba(234,229,220,.35); border-radius:100px;">No Repairs</span><span style="padding:9px 18px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper); border:1px solid rgba(234,229,220,.35); border-radius:100px;">No Waiting</span></div>
     </div>
@@ -512,7 +512,7 @@ details.faq .faq-a {
 <section id="why" class="section">
   <div class="section-inner">
     <div class="eyebrow-line reveal">Ella Lee Homes</div>
-    <h2 class="sec-title reveal reveal-d1">Why choose Ella Lee to <em>sell your home?</em></h2>
+    <h2 class="sec-title reveal reveal-d1">Why choose Ella Lee to <em>sell your home or lot?</em></h2>
     <div class="why-grid">
       <div class="why-item reveal">
         <div class="why-num">01</div>
@@ -564,8 +564,8 @@ details.faq .faq-a {
 <section id="how" class="section">
   <div class="section-inner">
     <div class="eyebrow-line reveal">How It Works</div>
-    <h2 class="sec-title reveal reveal-d1">Sell your house in a few <em>easy steps.</em></h2>
-    <p class="sec-lede reveal reveal-d2">Selling your home to us is simple and straightforward — here's how it works.</p>
+    <h2 class="sec-title reveal reveal-d1">Sell your home or lot in a few <em>easy steps.</em></h2>
+    <p class="sec-lede reveal reveal-d2">Selling your home or lot to us is simple and straightforward — here's how it works.</p>
     <div class="steps-grid">
       <div class="step reveal">
         <div class="step-num">1</div>
@@ -706,7 +706,7 @@ details.faq .faq-a {
       <div class="area reveal">Paradise Valley</div> <div class="area reveal reveal-d1">Scottsdale</div> <div class="area reveal reveal-d2">Arcadia</div>
       <div class="area reveal reveal-d3">Phoenix</div>
     </div>
-    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size:16px; color:rgba(0,21,38,0.62); max-width:60ch;">&mdash; and additional communities throughout Arizona. <a href="contact.html" style="color:var(--navy); font-weight:500;">Contact us</a> to confirm your area.</p>
+    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size: clamp(16px, 1.2vw, 17px); color:rgba(0,21,38,0.62); max-width:60ch; font-weight: 300">&mdash; and additional communities throughout Arizona. <a href="contact.html" style="color:var(--navy); font-weight:500;">Contact us</a> to confirm your area.</p>
   </div>
 </section>
 
@@ -781,7 +781,7 @@ details.faq .faq-a {
     <div class="cta-form-row">
       <div class="cta-field">
         <label>Timeline to Sell</label>
-        <select>
+        <select aria-label="Timeline to sell">
           <option>As soon as possible</option>
           <option>Within 30 days</option>
           <option>1 – 3 months</option>
@@ -790,9 +790,10 @@ details.faq .faq-a {
       </div>
       <div class="cta-field">
         <label>Property Type</label>
-        <select>
+        <select aria-label="Property type">
           <option>Single-family home</option>
           <option>Luxury / custom home</option>
+          <option>Lot</option>
           <option>Condo / townhome</option>
           <option>Other</option>
         </select>

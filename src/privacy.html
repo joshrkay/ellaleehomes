@@ -17,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-hero.css">
 <link rel="stylesheet" href="assets/site-footer.css">
 
 <style>
@@ -32,48 +33,44 @@
   --ease: cubic-bezier(0.16,1,0.3,1);
 }
 html { scroll-behavior: smooth; }
-body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+body { font-family: var(--sans); background: var(--navy); color: var(--paper); -webkit-font-smoothing: antialiased; }
 em { font-style: normal; color: var(--gold); font-weight: 500; }
 
 /* ── HERO ── */
-#faq-hero { background: var(--navy); color: var(--paper); padding: 200px clamp(18px, 2.4vw, 40px) 96px; }
 .faq-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
-#faq-hero h1 { font-family: var(--sans); font-weight: 300; font-size: clamp(42px, 6.4vw, 88px); line-height: 1.0; letter-spacing: -0.035em; max-width: 13ch; }
-#faq-hero .faq-hero-sub { margin-top: 28px; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
 
 /* ── LIST ── */
 #faq { max-width: 1500px; margin: 0 auto; padding: 100px clamp(18px, 2.4vw, 40px) 40px; }
 .faq-intro { margin-bottom: 60px; }
-.faq-intro .faq-eyebrow { color: rgba(0,21,38,0.5); }
-.faq-intro h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 4vw, 54px); line-height: 1.05; letter-spacing: -0.01em; }
-.faq-intro p { margin-top: 18px; max-width: 62ch; font-size: 18px; line-height: 1.7; color: rgba(0,21,38,0.72); }
-.faq-list { border-top: 1px solid rgba(0,21,38,0.16); }
-.faq-item { border-bottom: 1px solid rgba(0,21,38,0.16); }
+.faq-intro .faq-eyebrow { color: rgba(234,229,220,.6); }
+.faq-intro h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 4vw, 54px); line-height: 1.05; letter-spacing: -0.01em; }
+.faq-intro p { margin-top: 18px; max-width: 62ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,.86); }
+.faq-list { border-top: 1px solid rgba(234,229,220,.14); }
+.faq-item { border-bottom: 1px solid rgba(234,229,220,.14); }
 .faq-q {
   width: 100%; background: none; border: none; cursor: pointer; text-align: left;
   display: flex; justify-content: space-between; align-items: center; gap: 28px;
   padding: 32px 0; font-family: var(--sans); font-size: clamp(18px, 2vw, 24px); font-weight: 400;
-  color: var(--ink); letter-spacing: -0.01em; line-height: 1.35; transition: color 0.2s;
+  color: var(--paper); letter-spacing: -0.01em; line-height: 1.35; transition: color 0.2s;
 }
-.faq-q:hover { color: var(--navy); }
+.faq-q:hover { color: var(--gold); }
 .faq-icon { position: relative; flex-shrink: 0; width: 20px; height: 20px; margin-top: 4px; }
 .faq-icon::before, .faq-icon::after { content: ''; position: absolute; background: var(--gold); transition: transform 0.3s var(--ease); }
 .faq-icon::before { top: 9px; left: 0; width: 20px; height: 2px; }
 .faq-icon::after { top: 0; left: 9px; width: 2px; height: 20px; }
 .faq-item.open .faq-icon::after { transform: scaleY(0); }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
-.faq-a p { padding: 0 clamp(18px, 2.4vw, 40px) 32px 0; max-width: 72ch; font-size: 18px; line-height: 1.8; color: rgba(0,21,38,0.74); }
+.faq-a p { padding: 0 clamp(18px, 2.4vw, 40px) 32px 0; max-width: 72ch; font-size: 18px; line-height: 1.8; color: rgba(234,229,220,.86); }
 .faq-a a { color: var(--gold); }
 
 /* ── CTA STRIP ── */
 #faq-cta { background: var(--navy); color: var(--paper); text-align: left; padding: 120px 24px; margin-top: 72px; }
-#faq-cta h2 { font-family: var(--sans); font-weight: 300; font-size: clamp(34px, 4.6vw, 62px); letter-spacing: -0.035em; line-height: 1.0; }
+#faq-cta h2 { font-family: var(--disp); font-weight: 400; font-size: clamp(34px, 4.6vw, 62px); letter-spacing: -0.035em; line-height: 1.1; }
 #faq-cta p { margin: 26px 0 0; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
 .faq-btn { display: inline-block; margin-top: 42px; background: var(--gold); color: #1a1a1a; text-decoration: none; padding: 18px 46px; border-radius: 100px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: background 0.2s, transform 0.2s; }
-.faq-btn:hover { background:#E3DACA; transform: translateY(-2px); }
+.faq-btn:hover { background:#E3DACA; color: #001526; transform: translateY(-2px); }
 
 @media (max-width: 700px) {
-  #faq-hero { padding: 150px 24px 64px; }
   #faq { padding: 64px 24px 24px; }
   .faq-a p { padding-right: 0; }
   #faq-cta { padding: 84px 24px; }
@@ -89,20 +86,26 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
 
 
 <style>
-.legal-prose h2 { font-family: var(--sans); font-size: 26px; font-weight: 500; color: var(--navy); margin: 40px 0 14px; letter-spacing: -0.01em; }
+.legal-prose h2 { font-family: var(--serif); font-size: clamp(26px, 2.3vw, 32px); font-weight: 400; line-height: 1.15; color: var(--gold); margin: 40px 0 14px; letter-spacing: -0.01em; }
 .legal-prose h2:first-child { margin-top: 0; }
 .legal-prose p { margin-bottom: 16px; }
 .legal-prose a { color: var(--gold); }
 .legal-prose ul { margin: 0 0 16px 22px; }
 .legal-prose li { margin-bottom: 8px; }
 </style>
-<section id="faq-hero">
-  <div class="faq-eyebrow">Ella Lee Homes</div>
-  <h1>Privacy policy.</h1>
-  <p class="faq-hero-sub">How we collect, use, and protect the information you share with us.</p>
+<section id="hero-banner" aria-label="Privacy policy">
+  <img src="uploads/IMG_9825.jpg" alt="A courtyard entry to a custom home" loading="eager">
+  <div class="hero-head">
+    <div class="hero-head-l">
+      <h1 class="hero-title">Privacy policy.</h1>
+    </div>
+  </div>
+  <div class="hero-caption">
+    <p>How we collect, use, and protect the information you share with us.</p>
+  </div>
 </section>
 <section style="max-width:840px; margin:0 auto; padding: 90px clamp(18px, 2.4vw, 40px) 100px;">
-  <div class="legal-prose" style="font-size:18px; line-height:1.8; color:rgba(0,21,38,0.82);">
+  <div class="legal-prose" style="font-size:18px; line-height:1.8; color: rgba(234,229,220,.86);">
 <p>Ella Lee Homes (&ldquo;we,&rdquo; &ldquo;us&rdquo;) respects your privacy. This policy explains what we collect when you use ellaleehomes.com and how we handle it.</p>
 <h2>Information we collect</h2>
 <p>We collect the information you choose to give us through our contact and inquiry forms, such as your name, email, phone number, and details about your project. We also collect basic, non-identifying analytics about how visitors use the site.</p>
@@ -115,7 +118,7 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
 <h2>Contact</h2>
 <p>Questions about this policy? Email <a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a> or call <a href="tel:4803408700">(480) 340-8700</a>.</p>
   </div>
-  <p style="margin-top:48px; padding-top:24px; border-top:1px solid rgba(0,21,38,0.14); font-size:14px; color:rgba(0,21,38,0.55);">Last updated June 2026. This page is provided for transparency and is a general template, not legal advice; final policy language should be reviewed by counsel before launch.</p>
+  <p style="margin-top:48px; padding-top:24px; border-top:1px solid rgba(234,229,220,.14); font-size:14px; color:rgba(234,229,220,.6);">Last updated June 2026. This page is provided for transparency and is a general template, not legal advice; final policy language should be reviewed by counsel before launch.</p>
 </section>
 
 <!-- FOOTER -->

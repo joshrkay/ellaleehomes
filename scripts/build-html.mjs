@@ -14,6 +14,10 @@ const partialPath = path.join(root, 'partials', 'nav.html');
 const footerPath = path.join(root, 'partials', 'footer.html');
 const dropdownPath = path.join(root, 'partials', 'nav-dropdown.html');
 
+const FAVICON_TAGS = `<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+`;
 const PLACEHOLDER = '<!-- NAV_PARTIAL -->';
 const FOOTER_PLACEHOLDER = '<!-- FOOTER_PARTIAL -->';
 const DROPDOWN_PLACEHOLDER = '<!-- NAV_DROPDOWN_PARTIAL -->';
@@ -260,6 +264,14 @@ for (const page of PAGES) {
   }
   content = content.split(DROPDOWN_PLACEHOLDER).join(dropdownTemplate);
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(page.file === 'index.html'));
+  // Brand favicon on every page (monogram on navy, per the style guide).
+  if (!content.includes('rel="icon"')) {
+    content = content.replace('</head>', FAVICON_TAGS + '</head>');
+  }
+  // One body-copy standard on every page; loaded last so it wins over each page's own styles.
+  if (!content.includes('site-body.css')) {
+    content = content.replace('</head>', '<link rel="stylesheet" href="assets/site-body.css">\n</head>');
+  }
   fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
   console.log('Wrote', path.join('dist', page.file));
 }
