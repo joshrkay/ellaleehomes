@@ -847,7 +847,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 
   <div class="hero-copy">
     <h1 class="hero-title">Our Portfolio.</h1>
-    <p class="hero-lede">Custom homes across Paradise Valley, Scottsdale, Arcadia, and Phoenix.<span id="result-count" hidden>22</span></p>
+    <p class="hero-lede">Custom homes across Paradise Valley, Scottsdale, Arcadia, and Phoenix.<span id="result-count" hidden>25</span></p>
   </div>
 </section>
 
@@ -1341,6 +1341,46 @@ function styleFilter(btn, cat) {
     </div>
 
   </div>
+
+  <!-- SECTION: new photography, details to come -->
+  <div class="section-band" id="band-new">
+    <span class="section-band-title">More projects</span>
+    <div class="section-band-line"></div>
+    <span class="section-band-count">3 homes</span>
+  </div>
+  <div class="projects-grid" id="grid-new">
+
+    <div class="proj-card" data-sqft="0" data-price="0" data-year="0" data-band="new">
+      <div class="proj-card-img"><a href="project.html?slug=arroyo" class="proj-card-img-link" aria-label="View Arroyo project"><img src="https://lh3.googleusercontent.com/d/1784gP0GggV8zpKYA7Kql9w9IGduXinT_" alt="Arroyo" loading="lazy"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Arizona</div>
+        <div class="proj-card-name">Arroyo</div>
+        <div class="proj-card-price">Details coming soon</div>
+        <a href="project.html?slug=arroyo" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="0" data-price="0" data-year="0" data-band="new">
+      <div class="proj-card-img"><a href="project.html?slug=stanford" class="proj-card-img-link" aria-label="View Stanford project"><img src="https://lh3.googleusercontent.com/d/1zqcKIpPs4DJ249PaaMJP4F-wi-1tqHoT" alt="Stanford" loading="lazy"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Arizona</div>
+        <div class="proj-card-name">Stanford</div>
+        <div class="proj-card-price">Details coming soon</div>
+        <a href="project.html?slug=stanford" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-sqft="0" data-price="0" data-year="0" data-band="new">
+      <div class="proj-card-img"><a href="project.html?slug=osborn-south" class="proj-card-img-link" aria-label="View Osborn South project"><img src="https://lh3.googleusercontent.com/d/1AqwZUfukfXQbD8dEid5FSLsmhmPM_-GL" alt="Osborn South" loading="lazy"></a></div>
+      <div class="proj-card-body">
+        <div class="proj-card-location">Arizona</div>
+        <div class="proj-card-name">Osborn South</div>
+        <div class="proj-card-price">Details coming soon</div>
+        <a href="project.html?slug=osborn-south" class="proj-card-link">View Project</a>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div id="empty-state">
@@ -1363,7 +1403,7 @@ function filterTab(btn, filter) {
   document.querySelectorAll('.sqft-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
 
-  const bands = ['small','mid','large'];
+  const bands = ['small','mid','large','new'];
   bands.forEach(band => {
     const bandEl = document.getElementById(`band-${band}`);
     const gridEl = document.getElementById(`grid-${band}`);
@@ -1381,7 +1421,7 @@ function filterTab(btn, filter) {
 }
 
 function sortCards(val) {
-  ['grid-small','grid-mid','grid-large'].forEach(id => {
+  ['grid-small','grid-mid','grid-large','grid-new'].forEach(id => {
     const grid = document.getElementById(id);
     const cards = Array.from(grid.querySelectorAll('.proj-card'));
     cards.sort((a,b) => {
