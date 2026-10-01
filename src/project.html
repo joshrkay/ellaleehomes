@@ -481,7 +481,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   <!-- STAT BOXES -->
   <div id="stats">
     <div class="stat-box">
-      <div class="stat-key">Sales Price</div>
+      <div class="stat-key">Home Appraised At</div>
       <div class="stat-val" id="stat-price"></div>
     </div>
     <div class="stat-box">
@@ -2299,7 +2299,7 @@ function renderProject() {
         <div class="related-card-img"><img src="${p.heroImg}" alt="${p.name.replace(/&amp;/g, '&')}"></div>
         <div class="related-card-loc">${p.location.split(',')[0]}, AZ</div>
         <div class="related-card-name">${p.name}</div>
-        <div class="related-card-price">${p.price} · ${p.sqft} sqft</div>
+        <div class="related-card-price">Appraised at ${p.price} · ${p.sqft} sqft</div>
       </a>
     `;
   }).join('');
