@@ -1188,7 +1188,7 @@ def browser_checks(projects):
         pgq.wait_for_timeout(600)
         st = pgq.evaluate("() => { const i = document.querySelector('.faq-item:nth-child(3)'); return {open: i.classList.contains('open'), aria: i.querySelector('.faq-q').getAttribute('aria-expanded'), h: i.querySelector('.faq-a').getBoundingClientRect().height} }")
         reg('64b', 'FAQ accordion opens (17 questions)', 'PASS' if st['open'] and st['aria'] == 'true' and st['h'] > 10 else 'FAIL', str(st))
-        # ---------------- Build timeline (2 phases)
+        # ---------------- Build timeline (3 phases)
         pgt, et = newpage()
         go(pgt, 'build-your-home', 800)
         info = pgt.evaluate("""() => { const z = document.querySelector('#timeline-scroll-zone'); return {bars: document.querySelectorAll('.ts-bar').length, bodies: document.querySelectorAll('.ts-body').length, zoneH: Math.round(z.getBoundingClientRect().height), vh: innerHeight} }""")
@@ -1199,8 +1199,8 @@ def browser_checks(projects):
             pgt.wait_for_timeout(700)
             act.append(pgt.evaluate("() => [...document.querySelectorAll('.ts-body')].findIndex(b => b.classList.contains('active'))"))
         phase_names = pgt.evaluate("() => [...document.querySelectorAll('.ts-bar-name')].map(e => e.textContent.trim())")
-        ok = info['bars'] == 2 and info['bodies'] == 2 and act[0] == 0 and act[-1] == 1
-        reg('9b', 'Build timeline scroller works with the 2 remaining phases (Construction, Move In)', 'PASS' if ok else 'FAIL',
+        ok = info['bars'] == 3 and info['bodies'] == 3 and phase_names == ['Pre-Construction', 'Construction', 'Move In'] and act[0] == 0 and act[-1] == 2
+        reg('9b', 'Build timeline scroller works with the 3 phases (Pre-Construction, Construction, Move In)', 'PASS' if ok else 'FAIL',
             'phases %s; active body at scroll 0/50/95%%: %s; scroll zone %dpx tall (viewport %d)' % (phase_names, act, info['zoneH'], info['vh']))
         # ---------------- Project pages
         pgp, ep = newpage()
