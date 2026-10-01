@@ -10,7 +10,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://ellaleehomes.com/homeowner-resources">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Homeowner Resources — Ella Lee Homes">
+<meta property="og:title" content="Homeowner Resources | Ella Lee Homes">
 <meta property="og:description" content="Your portal, your warranty, and how to look after a custom home in the Arizona desert.">
 <meta property="og:site_name" content="Ella Lee Homes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,10 +37,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 em { font-style: normal; color: var(--gold); font-weight: 500; }
 
 /* ── HERO ── */
-#faq-hero { background: var(--navy); color: var(--paper); padding: 200px clamp(18px, 2.4vw, 40px) 96px; }
 .faq-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
-#faq-hero h1 { font-family: var(--disp); font-weight: 400; font-size: clamp(42px, 6.4vw, 88px); line-height: 1.1; letter-spacing: -0.035em; max-width: 13ch; }
-#faq-hero .faq-hero-sub { margin-top: 28px; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
 
 /* ── LIST ── */
 #faq { max-width: 1500px; margin: 0 auto; padding: 100px clamp(18px, 2.4vw, 40px) 40px; }
@@ -74,7 +71,6 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
 .faq-btn:hover { background:#E3DACA; color: #001526; transform: translateY(-2px); }
 
 @media (max-width: 700px) {
-  #faq-hero { padding: 150px 24px 64px; }
   #faq { padding: 64px 24px 24px; }
   .faq-a p { padding-right: 0; }
   #faq-cta { padding: 84px 24px; }
@@ -98,18 +94,18 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
 .legal-prose li { margin-bottom: 8px; }
 
 /* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
-.hero-title, #faq-hero h1, .hero-name {
+.hero-title, .hero-name {
   font-family: var(--disp); font-weight: 400;
   font-size: clamp(29px, 5.1vw, 98px); line-height: 1.04; letter-spacing: -.01em;
   color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5);
 }
-.hero-title::after, #faq-hero h1::after, .hero-name::after {
+.hero-title::after, .hero-name::after {
   content: ''; display: block; height: 1px;
   margin-top: clamp(14px, 1.6vw, 22px);
   background: rgba(234,229,220,.42);
 }
-.hero-title em, .hero-name em, #faq-hero h1 em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
-.hero-head-meta, .hero-caption h2, .hero-caption p, #faq-hero .faq-hero-sub {
+.hero-title em, .hero-name em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
+.hero-head-meta, .hero-caption h2, .hero-caption p {
   font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
 }

@@ -62,8 +62,6 @@ const PAGES = [
   { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { process: true } },
   { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
   { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { about: true } },
-  // Print variant of Our Story — same content, so it stays out of the index.
-  { file: 'our-story-print.html', url: null, cta: CTA_HOME, active: { about: true } },
   { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', cta: CTA_HOME },
   { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
   { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7', cta: CTA_HOME },

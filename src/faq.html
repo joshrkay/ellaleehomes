@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Custom Home FAQ | Ella Lee Homes</title>
-<meta name="description" content="Answers to common questions about building a luxury custom home in Arizona with Ella Lee Homes — timelines, cost structure, building on your own lot, permits, warranty, and our process.">
+<meta name="description" content="Answers to common questions about building a luxury custom home in Arizona with Ella Lee Homes: timelines, cost-plus pricing, building on your own lot, warranty, and our process.">
 <meta property="og:url" content="https://ellaleehomes.com/faq">
 <meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://ellaleehomes.com/faq">
 <meta property="og:type" content="website">
-<meta property="og:title" content="FAQ — Ella Lee Homes">
-<meta property="og:description" content="Timelines, cost structure, building on your lot, permits, warranty, and how we work — answered.">
+<meta property="og:title" content="Custom Home FAQ | Ella Lee Homes">
+<meta property="og:description" content="Answers to common questions about building a luxury custom home in Arizona with Ella Lee Homes: timelines, cost-plus pricing, building on your own lot, warranty, and our process.">
 <meta property="og:site_name" content="Ella Lee Homes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -29,7 +29,7 @@
       "name": "How long does it take to build a custom home in Arizona?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Construction of a custom home typically takes 11–18 months. The timing varies with scope, design, and municipal review, so we never quote a single number or make a promise about dates."
+        "text": "Construction of a custom home typically takes 11–18 months, depending on scope and finish selections."
       }
     },
     {
@@ -37,7 +37,7 @@
       "name": "How does pricing work on an Ella Lee home?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We build on a cost-plus basis: you pay the actual cost of the work plus an agreed builder’s fee, and you can follow every cost in your Buildertrend client portal."
+        "text": "We build on a cost-plus basis: you pay the actual cost of the work plus an agreed builder’s fee, and you can follow costs in your Buildertrend client portal."
       }
     },
     {
@@ -61,7 +61,7 @@
       "name": "Can you build on my own lot?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. We build on client-owned lots in Paradise Valley, Scottsdale, Arcadia, and Phoenix. We look at the lot, view corridors, HOA and municipal requirements, and site conditions with you before construction begins, so there are no surprises."
+        "text": "Yes. We build on client-owned lots in Paradise Valley, Scottsdale, Arcadia, and Phoenix. We look at the lot, view corridors, HOA and municipal requirements, and site conditions before construction begins."
       }
     },
     {
@@ -85,7 +85,7 @@
       "name": "How many homes has Ella Lee Homes built?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We have built and are building 40+ homes since 2021: 26 completed and 21 in progress as of September 2026."
+        "text": "We have built and are building 40+ homes since 2021."
       }
     },
     {
@@ -109,7 +109,7 @@
       "name": "How involved will I be during the build?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "As involved as you’d like. You work directly with the Ella Lee team throughout, with clear, consistent communication and weekly progress updates. Our Buildertrend client portal gives you schedules, daily photos, approvals, and direct messaging in one place."
+        "text": "As involved as you’d like. You work directly with the Ella Lee team throughout, with weekly progress updates. Our Buildertrend client portal gives you schedules, daily photos, approvals, and direct messaging in one place."
       }
     },
     {
@@ -141,7 +141,7 @@
       "name": "Do you buy homes or lots?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. We buy homes and lots in Paradise Valley, Scottsdale, Arcadia, and Phoenix, as a clean, private sale. Visit our Sell Your Home page or tell us about your property."
+        "text": "Yes. We buy homes and lots in Paradise Valley, Scottsdale, Arcadia, and Phoenix, as a clean, private sale. Call (480) 340-8700 or email hello@ellaleehomes.com to tell us about your property."
       }
     },
     {
@@ -149,7 +149,7 @@
       "name": "Does Ella Lee Homes give back?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Ella Lee Homes gives 10% of profits back to the community."
+        "text": "Yes. Ella Lee Homes donates 10% of its profits to non-profit organizations, locally and globally."
       }
     },
     {
@@ -179,34 +179,30 @@ html { scroll-behavior: smooth; }
 body { font-family: var(--sans); background: var(--navy); color: var(--paper); -webkit-font-smoothing: antialiased; }
 em { font-style: normal; color: var(--gold); font-weight: 500; }
 
-/* ── HERO ── */
-#faq-hero { background: var(--navy); color: var(--paper); padding: 200px clamp(18px, 2.4vw, 40px) 96px; }
+/* ── LIST: same treatment as the home page FAQ (sticky heading column, bordered cards) ── */
+#faq { max-width: 1500px; margin: 0 auto; padding: clamp(80px, 11vw, 160px) clamp(20px, 4vw, 64px) 40px; }
+.faq-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(36px, 5vw, 84px); align-items: start; }
 .faq-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
-#faq-hero h1 { font-family: var(--disp); font-weight: 400; font-size: clamp(42px, 6.4vw, 88px); line-height: 1.1; letter-spacing: -0.035em; max-width: 13ch; }
-#faq-hero .faq-hero-sub { margin-top: 28px; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
-
-/* ── LIST ── */
-#faq { max-width: 1500px; margin: 0 auto; padding: 100px clamp(18px, 2.4vw, 40px) 40px; }
-.faq-intro { margin-bottom: 60px; }
-.faq-intro .faq-eyebrow { color: rgba(234,229,220,.6); }
-.faq-intro h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 4vw, 54px); line-height: 1.05; letter-spacing: -0.01em; }
-.faq-intro p { margin-top: 18px; max-width: 62ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,.86); }
-.faq-list { border-top: 1px solid rgba(234,229,220,.14); }
-.faq-item { border-bottom: 1px solid rgba(234,229,220,.14); }
+.faq-intro { position: sticky; top: 108px; display: flex; flex-direction: column; gap: 24px; }
+.faq-intro .faq-eyebrow { color: rgba(234,229,220,.6); margin: 0; }
+.faq-intro h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 4.6vw, 68px); line-height: 1.02; letter-spacing: -0.01em; }
+.faq-intro p { max-width: 40ch; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.7; color: rgba(234,229,220,.82); }
+.faq-list { display: flex; flex-direction: column; gap: 2px; }
+.faq-item { background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12); }
 .faq-q {
   width: 100%; background: none; border: none; cursor: pointer; text-align: left;
-  display: flex; justify-content: space-between; align-items: center; gap: 28px;
-  padding: 32px 0; font-family: var(--sans); font-size: clamp(18px, 2vw, 24px); font-weight: 400;
-  color: var(--paper); letter-spacing: -0.01em; line-height: 1.35; transition: color 0.2s;
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  padding: 24px 26px; font-family: var(--sans); font-size: clamp(15px, 1.25vw, 18px); font-weight: 500;
+  color: var(--paper); line-height: 1.4; transition: color 0.2s;
 }
 .faq-q:hover { color: var(--gold); }
-.faq-icon { position: relative; flex-shrink: 0; width: 20px; height: 20px; margin-top: 4px; }
+.faq-icon { position: relative; flex-shrink: 0; width: 16px; height: 16px; }
 .faq-icon::before, .faq-icon::after { content: ''; position: absolute; background: var(--gold); transition: transform 0.3s var(--ease); }
-.faq-icon::before { top: 9px; left: 0; width: 20px; height: 2px; }
-.faq-icon::after { top: 0; left: 9px; width: 2px; height: 20px; }
+.faq-icon::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
+.faq-icon::after { top: 0; left: 7px; width: 1.5px; height: 16px; }
 .faq-item.open .faq-icon::after { transform: scaleY(0); }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
-.faq-a p { padding: 0 clamp(18px, 2.4vw, 40px) 32px 0; max-width: 72ch; font-size: 18px; line-height: 1.8; color: rgba(234,229,220,.86); }
+.faq-a p { padding: 0 26px 26px; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84); }
 .faq-a a { color: var(--gold); }
 
 /* ── CTA STRIP ── */
@@ -217,25 +213,24 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
 .faq-btn:hover { background:#E3DACA; color: #001526; transform: translateY(-2px); }
 
 @media (max-width: 700px) {
-  #faq-hero { padding: 150px 24px 64px; }
   #faq { padding: 64px 24px 24px; }
-  .faq-a p { padding-right: 0; }
+  .faq-intro { position: static; }
   #faq-cta { padding: 84px 24px; }
 }
 
 /* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
-.hero-title, #faq-hero h1, .hero-name {
+.hero-title, .hero-name {
   font-family: var(--disp); font-weight: 400;
   font-size: clamp(29px, 5.1vw, 98px); line-height: 1.04; letter-spacing: -.01em;
   color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5);
 }
-.hero-title::after, #faq-hero h1::after, .hero-name::after {
+.hero-title::after, .hero-name::after {
   content: ''; display: block; height: 1px;
   margin-top: clamp(14px, 1.6vw, 22px);
   background: rgba(234,229,220,.42);
 }
-.hero-title em, .hero-name em, #faq-hero h1 em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
-.hero-head-meta, .hero-caption h2, .hero-caption p, #faq-hero .faq-hero-sub {
+.hero-title em, .hero-name em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
+.hero-head-meta, .hero-caption h2, .hero-caption p {
   font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
 }
@@ -264,6 +259,7 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
 
 <!-- FAQ LIST -->
 <section id="faq">
+  <div class="faq-layout">
   <div class="faq-intro">
     <div class="faq-eyebrow">Before You Call</div>
     <h2>The answers most clients <em>look for first.</em></h2>
@@ -273,11 +269,11 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
   <div class="faq-list">
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">How long does it take to build a custom home in Arizona?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Construction of a custom home typically takes 11–18 months. The timing varies with scope, design, and municipal review, so we never quote a single number or make a promise about dates.</p></div>
+      <div class="faq-a"><p>Construction of a custom home typically takes 11–18 months, depending on scope and finish selections.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">How does pricing work on an Ella Lee home?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>We build on a cost-plus basis: you pay the actual cost of the work plus an agreed builder&rsquo;s fee, and you can follow every cost in your Buildertrend client portal.</p></div>
+      <div class="faq-a"><p>We build on a cost-plus basis: you pay the actual cost of the work plus an agreed builder&rsquo;s fee, and you can follow costs in your Buildertrend client portal.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">What kind of homes does Ella Lee Homes build?<span class="faq-icon"></span></button>
@@ -289,7 +285,7 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">Can you build on my own lot?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Yes. We build on client-owned lots in Paradise Valley, Scottsdale, Arcadia, and Phoenix. We look at the lot, view corridors, HOA and municipal requirements, and site conditions with you before construction begins, so there are no surprises.</p></div>
+      <div class="faq-a"><p>Yes. We build on client-owned lots in Paradise Valley, Scottsdale, Arcadia, and Phoenix. We look at the lot, view corridors, HOA and municipal requirements, and site conditions before construction begins.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">Can I work with my own architect?<span class="faq-icon"></span></button>
@@ -301,7 +297,7 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">How many homes has Ella Lee Homes built?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>We have built and are building 40+ homes since 2021: 26 completed and 21 in progress as of September 2026.</p></div>
+      <div class="faq-a"><p>We have built and are building 40+ homes since 2021.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">Who owns Ella Lee Homes?<span class="faq-icon"></span></button>
@@ -313,7 +309,7 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">How involved will I be during the build?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>As involved as you&rsquo;d like. You work directly with the Ella Lee team throughout, with clear, consistent communication and weekly progress updates. Our Buildertrend client portal gives you schedules, daily photos, approvals, and direct messaging in one place.</p></div>
+      <div class="faq-a"><p>As involved as you&rsquo;d like. You work directly with the Ella Lee team throughout, with weekly progress updates. Our Buildertrend client portal gives you schedules, daily photos, approvals, and direct messaging in one place.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">What is the Buildertrend client portal?<span class="faq-icon"></span></button>
@@ -329,17 +325,18 @@ em { font-style: normal; color: var(--gold); font-weight: 500; }
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">Do you buy homes or lots?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Yes. We buy homes and lots in Paradise Valley, Scottsdale, Arcadia, and Phoenix, as a clean, private sale. Visit our Sell Your Home page or tell us about your property.</p></div>
+      <div class="faq-a"><p>Yes. We buy homes and lots in Paradise Valley, Scottsdale, Arcadia, and Phoenix, as a clean, private sale. Call (480) 340-8700 or email hello@ellaleehomes.com to tell us about your property.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">Does Ella Lee Homes give back?<span class="faq-icon"></span></button>
-      <div class="faq-a"><p>Yes. Ella Lee Homes gives 10% of profits back to the community.</p></div>
+      <div class="faq-a"><p>Yes. Ella Lee Homes donates 10% of its profits to non-profit organizations, locally and globally.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">How do I get started?<span class="faq-icon"></span></button>
       <div class="faq-a"><p>Tell us about your project. Every inquiry is read personally. Call (480) 340-8700, email hello@ellaleehomes.com, or use the form on our Start Your Build page.</p></div>
     </div>
 
+  </div>
   </div>
 </section>
 
