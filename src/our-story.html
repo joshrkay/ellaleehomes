@@ -1019,7 +1019,7 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
       return [Math.cos(angle) * r, Math.sin(angle) * r];
     }
     const pin = (size, ring) => ({ url: 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="#001526" stroke="' + ring + '" stroke-width="1.5"/><circle cx="10" cy="10" r="3.5" fill="#BFA06A"/></svg>'), scaledSize: new g.Size(size, size), anchor: new g.Point(size / 2, size / 2) });
-    const info = new g.InfoWindow({ disableAutoPan: true });
+    const info = new g.InfoWindow();
     Object.keys(byNbr).forEach((nbrId) => {
       const c = NBR[nbrId];
       byNbr[nbrId].forEach((h, i) => {
@@ -1032,7 +1032,9 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
       });
     });
     const sm = new g.Marker({ map: map, position: { lat: studio.lat, lng: studio.lng }, icon: pin(28, '#BFA06A'), title: studio.name, optimized: false });
-    sm.addListener('mouseover', () => { info.setContent('<div class="pin-pop-name">' + studio.name + '</div><div class="pin-pop-meta">' + studio.meta + '</div>'); info.open({ map: map, anchor: sm }); });
+    const showStudio = () => { info.setContent('<div class="pin-pop-name">' + studio.name + '</div><div class="pin-pop-meta">' + studio.meta + '</div>'); info.open({ map: map, anchor: sm }); };
+    sm.addListener('mouseover', showStudio);
+    sm.addListener('click', showStudio);
   }
   window.elhMapReady = draw;
   const s = document.createElement('script');
