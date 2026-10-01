@@ -280,6 +280,8 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 .inquiry-btn:hover { background: var(--paper); color: var(--navy); }
 .inquiry-btn::after { content: '→'; transition: transform 0.2s; }
 .inquiry-btn:hover::after { transform: translateX(4px); }
+.inquiry-meta .nw { white-space: nowrap; }
+@media (max-width: 520px) { .inquiry-meta .sep { display: none; } .inquiry-meta .nw { display: block; } }
 .inquiry-meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(234,229,220,0.66); }
 
 /* ── RELATED ── */
@@ -311,9 +313,9 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   .stat-box:nth-child(1), .stat-box:nth-child(2) { border-bottom: 1px solid rgba(234,229,220,.24); }
   #content { grid-template-columns: 1fr; }
   #amenities-col { border-right: none; border-bottom: 1px solid rgba(234,229,220,.24); }
-  #inquiry-cta { grid-template-columns: 1fr; gap: 32px; padding: clamp(18px, 2.4vw, 40px) 32px; }
+  #inquiry-cta { grid-template-columns: 1fr; gap: 32px; padding: 56px var(--gutter); }
   .related-grid { grid-template-columns: 1fr; }
-  .story-cols { grid-template-columns: 1fr; }
+    .story-cols { grid-template-columns: 1fr; gap: 20px; }
 }
 
 @media (max-width: 640px) {
@@ -529,7 +531,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
     </div>
     <div class="inquiry-actions">
       <a href="index.html#inquiry" class="inquiry-btn">Start Your Build</a>
-      <div class="inquiry-meta">(480) 340-8700 · hello@ellaleehomes.com</div>
+      <div class="inquiry-meta"><span class="nw">(480) 340-8700</span> <span class="sep">·</span> <span class="nw">hello@ellaleehomes.com</span></div>
     </div>
   </section>
 

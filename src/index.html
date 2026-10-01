@@ -73,7 +73,15 @@
     [data-elh-testi] { padding-top: 34px !important; }
     [data-elh-testi] > div { gap: 28px !important; }
   }
-      /* tablet: two columns would leave an empty cell beside the founder photo, so the photo takes the full row */
+      /* very small phones: the nowrap hero title (29px minimum) ran past the screen edge at 320px */
+  @media (max-width: 400px) { [data-elh-h1] { font-size: max(24px, 7.4vw) !important; } }
+  /* small phones: four stage labels do not fit in one row ("Craftsmanship" was cut off at 360px), so the stepper becomes a 2 x 2 grid without the progress rail */
+  @media (max-width: 480px) {
+    [data-elh-tl-markers] { display: grid !important; grid-template-columns: 1fr 1fr; gap: 20px 14px !important; }
+    [data-elh-tl-rail], [data-elh-tl-fill] { display: none !important; }
+    [data-elh-tl-marker] { width: auto !important; height: auto !important; }
+  }
+  /* tablet: two columns would leave an empty cell beside the founder photo, so the photo takes the full row */
   @media (min-width: 600px) and (max-width: 1099px) {
     [data-elh-storyphoto] { grid-column: 1 / -1; min-height: 0 !important; height: 340px; }
   }
@@ -269,7 +277,7 @@
     <div style="position: absolute; left: 0; right: 0; top: 0; z-index: 2; height: 48%; pointer-events: none; background: linear-gradient(to bottom, rgba(0,0,0,.68) 0%, rgba(0,0,0,.44) 40%, rgba(0,0,0,0) 100%)"></div>
     <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 13%; pointer-events: none; background: linear-gradient(to bottom, rgba(0,21,38,0) 0%, rgba(0,21,38,.45) 52%, #001526 100%)"></div>
     <div style="position: relative; z-index: 3; display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: none; margin: 0; padding: 0 clamp(18px, 2.4vw, 40px) calc(18vh + clamp(40px, 5vw, 72px)); pointer-events: none">
-      <h1 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(29px, 5.1vw, 98px); text-wrap: nowrap; font-weight: 400; line-height: 1.02; letter-spacing: -.01em; color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5); pointer-events: auto">Custom Homes in Arizona,<br>Built Right.</h1>
+      <h1 data-elh-h1="1" style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(29px, 5.1vw, 98px); text-wrap: nowrap; font-weight: 400; line-height: 1.02; letter-spacing: -.01em; color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5); pointer-events: auto">Custom Homes in Arizona,<br>Built Right.</h1>
       <div style="height: 1px; margin-top: 6px; background: rgba(234,229,220,.42); pointer-events: auto"></div>
       <p style="max-width: 32ch; margin: 0; font-size: clamp(14px, 1.1vw, 17px); font-weight: 300; line-height: 1.5; color: rgba(234,229,220,.9); pointer-events: auto">Luxury custom home builder for<br>Paradise Valley, Scottsdale &amp; Arcadia.</p>
     </div>
@@ -329,7 +337,7 @@
             <div style="position: relative; padding-top: 4px">
               <div data-elh-tl-rail="1" style="position: absolute; top: 9px; left: 0; width: 100%; height: 1px; background: rgba(234,229,220,.2)"></div>
               <div data-elh-tl-fill="1" style="position: absolute; top: 9px; left: 0; width: 0%; height: 1px; background: #BFA06A; transition: width .5s ease"></div>
-              <div style="position: relative; display: flex; gap: 16px">
+              <div data-elh-tl-markers="1" style="position: relative; display: flex; gap: 16px">
             <button class="elh-h3" type="button" data-elh-tl-marker="0" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit">
               <span data-elh-tl-node="0" style="width: 11px; height: 11px; border-radius: 50%; background: #BFA06A; border: 1px solid #BFA06A; transition: background .45s ease, border-color .45s ease"></span>
               <span data-elh-tl-label="0" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #EAE5DC; white-space: nowrap; transition: color .45s ease">Transparent Process</span>

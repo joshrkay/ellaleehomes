@@ -209,6 +209,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   font-size: clamp(28px, 3vw, 40px); color: var(--paper);
   display: flex; align-items: baseline; gap: 16px;
 }
+@media (max-width: 900px) { .area { flex-basis: 45%; } }
 .area span { font-family: var(--sans); font-style: normal; font-size: 12px; color: var(--gold); letter-spacing: 0.1em; }
 
 /* ── FAQ ── */
@@ -301,7 +302,7 @@ details.faq .faq-a {
   .cta-form-actions .cta-submit { justify-content: center; }
 }
 /* Lot / teardown strip under the hero: two columns on desktop, one on tablet and phone */
-.lot-strip { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.lot-strip { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 @media (max-width: 900px) { .lot-strip { grid-template-columns: 1fr; gap: 28px; } }
 /* Mobile comparison cards (hidden on desktop) */
 .cmp-cards { margin-top: 40px; }
@@ -358,7 +359,7 @@ details.faq .faq-a {
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
   text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
-.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; white-space: nowrap; }
 #hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
 @media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
 

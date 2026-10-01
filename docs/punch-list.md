@@ -120,7 +120,9 @@ Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned 
 
 ## Verification against the Sep 29 documents
 
-Every rule in the Fact Sheet and every item in the Punch List was checked against the built site (all 24 published pages), by scripted search plus a visual check of heroes, nav, footer, review strips and Shay's photo.
+`python3 scripts/qa.py` checks every item above and every Fact Sheet rule against the built site (all 24 pages and the 22 project pages). It renders each page at 1440, 768 and 390px, plus 360 and 320px for small phones, with the real Inter and DM Serif Display fonts. Latest run: **154 checks: 136 pass, 0 fail, 12 blocked, 6 for a person to judge.** The 12 blocked are the items marked ⛔ above. The 6 for a person are item 47 (Camino footer, Shay confirmed it), items 54 and 55 (partly done), the order of work (H), voice and tone (measured, but a human call) and what the forms do on submit (evidence for item 1). The result of every check, with what it measured, is in `docs/qa-report.md`.
+
+**What the QA pass added:** checks that read colour contrast (text and icons, including the open menu, drawer, lightbox and form confirmation), keep phone numbers on one line, show a keyboard focus ring, catch an empty section or a form field sitting lower than its neighbour, and catch text cut off on 320 to 390px phones; two of them have self-tests that prove they can fail. What it found and fixed beyond the list, and the judgment calls that go with it, is in `docs/needs-confirmation.md`.
 
 **Fixed during the final audit:** the home page's "Plan & Price / Design With You" timeline labels (now match their panels); "permitting" claims on Why Us, Code of Conduct and the articles; "designing and building" on Our Story; "guarantees" language; the Valley/Arizona phrasing; market order (Paradise Valley, Scottsdale, Arcadia, Phoenix) on Home, Sell, Our Story, Portfolio and articles; "40+ homes" added back to the footer; the nav button now reads "Start Your Build"; the home H2 now names Paradise Valley, Scottsdale and Arcadia; "Designed for daily life" caption.
 
@@ -135,3 +137,5 @@ Every rule in the Fact Sheet and every item in the Punch List was checked agains
 ## Still needed from Ella Lee Homes
 
 Form destination · Buildertrend login embed code · direct review URLs and any additional reviews · counsel's legal text · Rebecca's per-home records and sale prices · Shay's notes for "See the craft" and Our Story copy · the new hero video · a screenshot of the old Warranty and Homeowner Resources pages · the Google Drive photo/video export.
+
+`docs/needs-confirmation.md` has the same list with what each page says today, plus the wording on the site that is not on the Fact Sheet and needs a yes.

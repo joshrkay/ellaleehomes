@@ -1006,6 +1006,9 @@ EMPTY_FIXTURE = """<html><body>
 </body></html>"""
 
 
+CLIP_JS = """() => { const W = document.documentElement.clientWidth; const out = []; const skip = 'script, style, noscript, svg, template, option, [hidden], [data-elh-track], [data-elh-strip], [data-elh-drawer], [data-elh-scrim], .rv-grid, .nav-dd-panel, [aria-hidden=true]'; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); const seen = new Set(); while (w.nextNode()) { const t = w.currentNode; const tx = (t.nodeValue || '').replace(/\\s+/g, ' ').trim(); if (tx.length < 2) continue; const el = t.parentElement; if (!el || seen.has(el) || el.closest(skip)) continue; seen.add(el); let hid = false; for (let x = el; x; x = x.parentElement) { const c = getComputedStyle(x); if (c.display === 'none' || c.visibility === 'hidden' || parseFloat(c.opacity) < 0.05 || c.overflowX === 'auto' || c.overflowX === 'scroll') { hid = true; break } } if (hid) continue; const r = document.createRange(); r.selectNodeContents(t); const rects = [...r.getClientRects()].filter(q => q.width > 1); if (!rects.length) continue; const right = Math.max(...rects.map(q => q.right)), left = Math.min(...rects.map(q => q.left)); if (right > W + 1 || left < -1) out.push(el.tagName.toLowerCase() + '.' + (el.className && el.className.toString ? el.className.toString().slice(0, 20) : '') + ' "' + tx.slice(0, 28) + '" ' + Math.round(left) + '..' + Math.round(right) + ' of ' + W) } return out }"""
+
+
 def find_chromium():
     for p in glob.glob('/opt/pw-browsers/chromium-*/chrome-linux/chrome') + glob.glob('/opt/pw-browsers/chromium/chrome-linux/chrome'):
         return p
@@ -1547,6 +1550,40 @@ def browser_checks2(projects):
         reg('X5g', 'No section is an empty shell: every section with a heading shows something under it (text, image, form or link) at some scroll position, at 1440 and 390px (the Sell comparison used to vanish on phones)', 'FAIL' if empty_bad else 'PASS', '; '.join(empty_bad[:6]) or 'checked every visible section with a heading on every page at 1440 and 390px')
         reg('X5i', 'Keyboard focus is visible: tabbing through the first 45 focusable elements on every page always shows a focus ring', 'FAIL' if focus_bad else 'PASS', '; '.join(sorted(set(focus_bad))[:6]) + (' ... %d in total' % len(set(focus_bad)) if len(set(focus_bad)) > 6 else '') or 'every element reached by Tab shows an outline or shadow on %d pages' % len(PAGES))
         reg('X5h', 'Side-by-side form labels sit on the same line (no field 4px lower than its neighbour)', 'FAIL' if label_bad else 'PASS', '; '.join(label_bad[:6]) or 'all side-by-side labels in every form share one baseline at 1440 and 768')
+        # ---- small phones: no text may run past the screen edge (the home stage labels were cut off at 360px)
+        clip_bad = []
+        for w in (320, 360, 390):
+            for n in PAGES:
+                pgk, _ = newpage(w, 800)
+                pgk.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
+                pgk.wait_for_timeout(3300 if n == 'index' else 500)
+                pgk.add_style_tag(content='.elh-intro{display:none!important} ' + REVEAL_CSS)
+                clip_bad += ['%s@%d: %s' % (n, w, x) for x in pgk.evaluate(CLIP_JS)]
+                pgk.context.close()
+        reg('X5j', 'No text runs past the screen edge on small phones (320, 360 and 390px), outside the deliberate horizontal scrollers', 'FAIL' if clip_bad else 'PASS',
+            '; '.join(clip_bad[:6]) or 'checked all visible text on %d pages at three phone widths' % len(PAGES))
+
+        # ---- states that stay hidden until you act: the Learn menu, the phone drawer, the project lightbox, the form confirmation
+        open_bad, open_n = [], 0
+        for label, n, w, act in (('Learn menu (home, 1440)', 'index', 1440, "document.querySelector('[data-elh-click=\"toggleMore\"]').click()"),
+                                 ('Learn menu (article, 1440)', 'steps-to-building-a-custom-home', 1440, "document.querySelector('[data-elh-click=\"toggleMore\"]').click()"),
+                                 ('phone drawer (contact, 390)', 'contact', 390, "document.querySelector('[data-elh-burger]').click()"),
+                                 ('project lightbox (1440)', 'project', 1440, "(document.querySelector('#photos-col img, .gallery-main, #gallery img, [onclick*=openLightbox]') || {click(){}}).click()"),
+                                 ('form confirmation (contact, 1440)', 'contact', 1440, "(() => { const f = document.querySelector('form'); [...f.querySelectorAll('input, textarea, select')].forEach(e => { if (e.type === 'email') e.value = 'qa@example.com'; else if (e.tagName === 'SELECT') { if (e.options.length > 1) e.selectedIndex = 1 } else if (e.type !== 'hidden' && e.type !== 'submit') e.value = 'QA test' }); f.querySelector('button[type=submit], button:not([type])').click() })()")):
+            pgo, _ = newpage(w, 900 if w > 500 else 800)
+            pgo.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
+            pgo.wait_for_timeout(3300 if n == 'index' else 1200)
+            pgo.add_style_tag(content='.elh-intro{display:none!important} *,*::before,*::after{transition:none!important}')
+            pgo.evaluate(act)
+            pgo.wait_for_timeout(700)
+            pgo.evaluate(cjs, False)
+            recs_o = pgo.evaluate(cjs, True)
+            open_n += len(recs_o)
+            open_bad += ['%s: %s "%s" %.2f' % (label, r['sel'], r['text'][:24], r['ratio']) for r in recs_o if not r['image'] and r['ratio'] < (3.0 if r['large'] else 4.5)]
+            pgo.context.close()
+        reg('X5k', 'Contrast also holds in the states that stay hidden until you act: the Learn menu, the phone drawer, the project lightbox and the form confirmation',
+            'FAIL' if open_bad else 'PASS', '; '.join(open_bad[:6]) or '%d text elements measured across 5 opened states; none below the threshold' % open_n)
+
         # forms: what happens on submit (evidence for item 1)
 
         evid = []
@@ -1572,8 +1609,10 @@ def write_report(inv, urls):
     order = {'FAIL': 0, 'BLOCKED': 1, 'MANUAL': 2, 'PASS': 3}
     counts = Counter(r['status'] for r in RESULTS)
     rev = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], capture_output=True, text=True, cwd=ROOT).stdout.strip()
+    dirty = bool(subprocess.run(['git', 'status', '--porcelain', '--', 'src', 'assets', 'partials', 'scripts', 'vercel.json'], capture_output=True, text=True, cwd=ROOT).stdout.strip())
+    rev_text = ('commit `%s` plus uncommitted changes' % rev) if dirty else ('commit `%s`' % rev)
     lines = ['# QA report', '',
-             'Generated by `python3 scripts/qa.py` against the built site (`dist/`) at commit `%s`. Every row is the result of a check that ran; the evidence column is what it measured.' % rev,
+             'Generated by `python3 scripts/qa.py` against the built site (`dist/`) at %s. Every row is the result of a check that ran; the evidence column is what it measured.' % rev_text,
              'Rendered checks used %s.' % ('the real Inter and DM Serif Display fonts (QA_FONTS_DIR)' if FONTS_DIR else 'fallback fonts, because Google Fonts is unreachable here; set QA_FONTS_DIR for exact line wraps'), '',
              '**%d checks: %d PASS · %d FAIL · %d BLOCKED (needs input from Ella Lee Homes) · %d MANUAL (needs a human look)**' % (len(RESULTS), counts['PASS'], counts['FAIL'], counts['BLOCKED'], counts['MANUAL']), '']
     byid = {r['id']: r for r in RESULTS}
@@ -1594,6 +1633,32 @@ def write_report(inv, urls):
         f.write('\n'.join(inv_lines) + '\n')
 
 
+def decisions_and_order():
+    """Items that are decisions or plans rather than a single measurable fact: each is derived from the checks that cover it."""
+    section('G / H. Conflicts decided September 29, layout items 54 and 55, order of work')
+    by = {r['id']: r for r in RESULTS}
+
+    def derive(cid, title, srcs):
+        sts = [by[i]['status'] for i in srcs if i in by]
+        st = 'FAIL' if 'FAIL' in sts else ('PASS' if sts and all(s == 'PASS' for s in sts) else 'MANUAL')
+        reg(cid, title, st, 'decided by checks ' + ', '.join('%s = %s' % (i, by[i]['status']) for i in srcs if i in by))
+    derive('G1', 'Conflict G1: "40+ homes", built and in progress, one figure everywhere', ['7', 'FS1a'])
+    derive('G2', 'Conflict G2: 11 to 18 months of construction; the rest of the timeline removed', ['9', '9b'])
+    derive('G3', 'Conflict G3: "We can work with your architect", no design language', ['22', '25', 'FS3a'])
+    derive('G4', 'Conflict G4: Shay\'s line kept, with "lot" added (home or lot)', ['36a', '36b'])
+    derive('G5', 'Conflict G5: no time commitment anywhere', ['26', '26b'])
+    hero_ids = [i for i in ('40', '40b', '40c') if i in by]
+    reg('54', 'Warranty and Homeowner Resources laid out like Why Us ("follow the old site\'s structure")', 'MANUAL',
+        'both pages carry the standard hero (checks %s) and the serif title/body standard. The structure reference is the old site\'s two pages, which are not reachable from the build environment: a screenshot of each is the input that closes this.'
+        % ', '.join('%s = %s' % (i, by[i]['status']) for i in hero_ids))
+    nq = len(re.findall(r'class="faq-q"', PAGES['faq']))
+    reg('55', 'FAQ page laid out like the front page FAQ', 'MANUAL',
+        '%d questions in the sticky-heading, bordered-card list the home page uses, under the standard hero. Whether "matches the front page" means more than that is a design call.' % nq)
+    blocked = [r['id'] for r in RESULTS if r['status'] == 'BLOCKED']
+    reg('H', 'Order of work: decisions, inputs, forms/Buildertrend/reviews, portfolio data, copy and heroes, SEO and legal, photos/video, fresh-eyes pass', 'MANUAL',
+        'steps that need no input (decisions, copy rewrites, hero standard, SEO, fresh-eyes pass) are done and checked in the sections above; steps waiting on Ella Lee Homes: %s' % ', '.join(blocked))
+
+
 def main():
     static_checks()
     projects = data_audit()
@@ -1605,6 +1670,7 @@ def main():
         if '--only-b2' not in sys.argv:
             browser_checks(projects)
         browser_checks2(projects)
+    decisions_and_order()
     write_report(inv, urls)
     counts = Counter(r['status'] for r in RESULTS)
     width = max(len(r['id']) for r in RESULTS)

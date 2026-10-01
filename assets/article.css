@@ -81,7 +81,7 @@ body {
 .article-wrap > p:first-of-type::first-letter {
   /* subtle editorial drop cap */
   font-family: var(--serif); font-size: 3.6em; line-height: 0.8;
-  float: left; padding: 6px 14px 0 0; color: var(--navy); font-weight: 300;
+  float: left; padding: 6px 8px 0 0; color: var(--navy); font-weight: 300;
 }
 .article-wrap h2 {
   font-family: var(--serif); font-size: clamp(26px, 2.8vw, 36px); font-weight: 400;

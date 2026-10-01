@@ -35,3 +35,6 @@ a[href^="tel:"] { white-space: nowrap; }
 
 /* Keyboard focus is always visible: gold ring on the dark pages; navy on the light article pages (article.css). */
 :focus-visible { outline: 2px solid #BFA06A !important; outline-offset: 3px !important; }
+
+/* headings break into even lines (no lone word such as "at" or "lot?" on the last line) */
+h2, h3 { text-wrap: balance; }
