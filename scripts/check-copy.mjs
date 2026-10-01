@@ -20,6 +20,8 @@ const RULES = [
   [/\bFounders\b/, 'Singular "Founder"'],
   [/on time,? on budget|on budget\. always|100% transparency/i, 'No absolute promises'],
   [/target budget range|\$\d+M\+?\s*(?:to|–|-|&ndash;|&mdash;)\s*\$\d+M/i, 'No budget ranges'],
+  [/\b12 to 18|12(?:–|-|&ndash;)18 months|14(?:–|-|&ndash;)24/i, 'One timeline: construction 11–18 months'],
+  [/4408 N 12th St(?!, Ste 200)(?!["'])/, 'Always include "Ste 200"'],
   [/cost-plus|fixed-price/i, 'Say nothing about contract type'],
   [/\bcash (?:home )?buyer|cash offer/i, 'Sell page: brand voice, not a cash-buyer ad'],
 ];
