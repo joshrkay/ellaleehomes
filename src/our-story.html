@@ -29,8 +29,6 @@
 <link rel="stylesheet" href="assets/site-nav.css">
 <link rel="stylesheet" href="assets/site-reviews.css">
 <link rel="stylesheet" href="assets/site-footer.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -591,10 +589,8 @@ details.story-faq .faq-a p + p {
           aspect-ratio: 8 / 5;
           background: rgba(0,21,38, 0.03);
         }
-        /* Tone down OSM tiles to match the brand neutral palette */
-        #where-leaflet .leaflet-tile {
-          filter: grayscale(0.9) sepia(0.18) brightness(1.02) contrast(0.92);
-        }
+        .where-fallback { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; color: #001526; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(0,21,38,.14); }
+        .where-fallback:hover { color: #6F5628; }
         /* Custom brand pin marker — uniform style for every home */
         .where-pin {
           position: relative;
@@ -642,28 +638,28 @@ details.story-faq .faq-a p + p {
           font-size: 12px;
           line-height: 1.5;
         }
-        .leaflet-popup-content .pin-pop-name {
+        .gm-style-iw .pin-pop-name {
           font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
           font-weight: 500; color: var(--ink); margin-bottom: 4px;
         }
-        .leaflet-popup-content .pin-pop-meta {
+        .gm-style-iw .pin-pop-meta {
           font-family: var(--serif); font-style: normal;
           color: var(--navy); font-size: 13px;
         }
         /* Popup turns into a real link → project page. The pin click
            also navigates directly, but this gives the popup a clear,
            tappable affordance for the CTA row. */
-        .leaflet-popup-content .pin-pop-link {
+        .gm-style-iw .pin-pop-link {
           display: block;
           text-decoration: none;
           color: inherit;
           padding: 4px 6px;
           min-width: 160px;
         }
-        .leaflet-popup-content .pin-pop-link:hover .pin-pop-cta {
+        .gm-style-iw .pin-pop-link:hover .pin-pop-cta {
           color: var(--gold);
         }
-        .leaflet-popup-content .pin-pop-cta {
+        .gm-style-iw .pin-pop-cta {
           margin-top: 8px;
           padding-top: 8px;
           border-top: 1px solid rgba(0,21,38,0.12);
@@ -671,7 +667,7 @@ details.story-faq .faq-a p + p {
           color: var(--navy); font-weight: 500;
           transition: color 0.2s ease;
         }
-        .leaflet-popup-content .pin-pop-cta span { margin-left: 6px; }
+        .gm-style-iw .pin-pop-cta span { margin-left: 6px; }
         .leaflet-popup-tip { background: var(--paper); }
         .leaflet-control-attribution { font-size: 9px; color: rgba(0,21,38, 0.4); }
         .leaflet-control-attribution a { color: rgba(0,21,38, 0.55); }
@@ -954,46 +950,29 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
   sections.forEach((s) => io.observe(s));
 })();
 
-/* ── Leaflet map init for #where-leaflet ── */
+/* ── Google Maps init for #where-leaflet ──
+   Needs a Google Maps JavaScript API key (Maps JavaScript API enabled, key restricted to this site's domain).
+   Put it in ELH_GOOGLE_MAPS_KEY below. With no key the map area shows a link to the Google Maps listing instead. */
 (function initWhereMap() {
+  const ELH_GOOGLE_MAPS_KEY = '';
+  const LISTING = 'https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r';
   const el = document.getElementById('where-leaflet');
   if (!el) return;
-  function start() {
-    if (!window.L) { setTimeout(start, 80); return; }
-    const L = window.L;
-    // Centered on Arizona, fixed zoom — no zoom or scroll-wheel.
-    const center = [33.520, -111.93];
-    const map = L.map(el, {
-      center: center,
-      zoom: 11,
-      minZoom: 11,
-      maxZoom: 11,
-      zoomControl: false,
-      scrollWheelZoom: false,
-      doubleClickZoom: false,
-      touchZoom: false,
-      boxZoom: false,
-      keyboard: false,
-      dragging: true,
-      attributionControl: true,
+  if (!ELH_GOOGLE_MAPS_KEY) {
+    el.innerHTML = '<a class="where-fallback" href="' + LISTING + '" target="_blank" rel="noopener">Open Ella Lee Homes on Google Maps <span aria-hidden="true">&rarr;</span></a>';
+    return;
+  }
+  function draw() {
+    const g = google.maps;
+    const bounds = { south: 33.32, west: -112.30, north: 33.78, east: -111.58 };
+    // Fixed zoom, centred on the Valley, panning limited to the bounds; scroll needs ctrl so the page still scrolls.
+    const map = new g.Map(el, {
+      center: { lat: 33.520, lng: -111.93 }, zoom: 11, minZoom: 11, maxZoom: 11,
+      disableDefaultUI: true, gestureHandling: 'cooperative', keyboardShortcuts: false,
+      restriction: { latLngBounds: bounds, strictBounds: true },
+      styles: [{ stylers: [{ saturation: -85 }, { lightness: 8 }] }, { featureType: 'poi', stylers: [{ visibility: 'off' }] }, { featureType: 'transit', stylers: [{ visibility: 'off' }] }],
     });
-    // Constrain panning to a tight bounding box around the Valley so users can't
-    // wander far from the relevant area.
-    const bounds = L.latLngBounds([33.32, -112.30], [33.78, -111.58]);
-    map.setMaxBounds(bounds);
-    map.fitBounds(bounds, { animate: false });
-
-    // CARTO Voyager tiles — clean, neutral basemap. Free / no API key.
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '© OpenStreetMap contributors © CARTO',
-      maxZoom: 19,
-    }).addTo(map);
-
-    // 22 home points across Arizona — one pin per portfolio
-    // home. Each pin links to its project detail page so visitors can
-    // tie a location on the map back to a specific home in the portfolio.
-    // Positions = neighborhood centroid + deterministic ring offset so
-    // multiple homes in the same area never overlap.
+    // 22 home points: one pin per portfolio home, spread around its neighbourhood centre so none overlap.
     const NBR = {
       'scottsdale':            { lat: 33.500, lng: -111.910 },
       'old-town-scottsdale':   { lat: 33.494, lng: -111.926 },
@@ -1006,8 +985,6 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
       'desert-estates':        { lat: 33.580, lng: -111.860 },
       'kierland':              { lat: 33.620, lng: -111.930 },
     };
-    // Each home: slug → project.html?slug=…, name + location for the popup,
-    // neighborhood id for centroid lookup.
     const homes = [
       { slug:'mitchell',          name:'Mitchell',          loc:'Scottsdale, AZ',           nbr:'scottsdale' },
       { slug:'apache',            name:'Apache',            loc:'Old Town Scottsdale, AZ',  nbr:'old-town-scottsdale' },
@@ -1033,62 +1010,36 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
       { slug:'via-estrella',      name:'Via Estrella',      loc:'Scottsdale, AZ',           nbr:'scottsdale' },
     ];
     const studio = { name: 'Our Studio', meta: '4408 N 12th St, Ste 200, Phoenix', lat: 33.504, lng: -112.058 };
-
-    // Group homes by neighborhood so we can spread them around the centroid
-    // deterministically.
     const byNbr = {};
     homes.forEach((h) => { (byNbr[h.nbr] = byNbr[h.nbr] || []).push(h); });
-
     function ringOffset(i, total, baseRadius) {
       if (total <= 1) return [0, 0];
       const r = baseRadius * (0.7 + total * 0.06);
       const angle = (i / total) * Math.PI * 2 + total * 0.37;
       return [Math.cos(angle) * r, Math.sin(angle) * r];
     }
-
+    const pin = (size, ring) => ({ url: 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="#001526" stroke="' + ring + '" stroke-width="1.5"/><circle cx="10" cy="10" r="3.5" fill="#BFA06A"/></svg>'), scaledSize: new g.Size(size, size), anchor: new g.Point(size / 2, size / 2) });
+    const info = new g.InfoWindow();
     Object.keys(byNbr).forEach((nbrId) => {
       const c = NBR[nbrId];
-      const list = byNbr[nbrId];
-      list.forEach((h, i) => {
-        const [dLat, dLng] = ringOffset(i, list.length, 0.022);
-        const icon = L.divIcon({
-          className: '',
-          html: '<div class="where-pin" aria-hidden="true"></div>',
-          iconSize: [18, 18],
-          iconAnchor: [9, 9],
-        });
+      byNbr[nbrId].forEach((h, i) => {
+        const [dLat, dLng] = ringOffset(i, byNbr[nbrId].length, 0.022);
         const href = 'project.html?slug=' + h.slug;
-        const popupHtml =
-          '<a class="pin-pop-link" href="' + href + '">' +
-            '<div class="pin-pop-name">' + h.name + '</div>' +
-            '<div class="pin-pop-meta">' + h.loc + '</div>' +
-            '<div class="pin-pop-cta">View project <span aria-hidden="true">&rarr;</span></div>' +
-          '</a>';
-        const marker = L.marker([c.lat + dLat, c.lng + dLng], {
-          icon: icon,
-          keyboard: true,
-          title: h.name + ' — ' + h.loc,
-          alt: h.name + ' — ' + h.loc,
-        }).bindPopup(popupHtml, { closeButton: false });
-        // Clicking the pin itself navigates to the project page; the
-        // popup still shows on hover/touch as a preview.
-        marker.on('click', () => { window.location.href = href; });
-        marker.on('mouseover', () => marker.openPopup());
-        marker.addTo(map);
+        const marker = new g.Marker({ map: map, position: { lat: c.lat + dLat, lng: c.lng + dLng }, icon: pin(22, '#EAE5DC'), title: h.name + ' — ' + h.loc, optimized: false });
+        const html = '<a class="pin-pop-link" href="' + href + '"><div class="pin-pop-name">' + h.name + '</div><div class="pin-pop-meta">' + h.loc + '</div><div class="pin-pop-cta">View project <span aria-hidden="true">&rarr;</span></div></a>';
+        marker.addListener('mouseover', () => { info.setContent(html); info.open({ map: map, anchor: marker }); });
+        marker.addListener('click', () => { window.location.href = href; });
       });
     });
-
-    const studioIcon = L.divIcon({
-      className: '',
-      html: '<div class="where-pin studio" aria-hidden="true"></div>',
-      iconSize: [22, 22],
-      iconAnchor: [11, 11],
-    });
-    L.marker([studio.lat, studio.lng], { icon: studioIcon, keyboard: false })
-      .bindPopup('<div class="pin-pop-name">' + studio.name + '</div><div class="pin-pop-meta">' + studio.meta + '</div>', { closeButton: false })
-      .addTo(map);
+    const sm = new g.Marker({ map: map, position: { lat: studio.lat, lng: studio.lng }, icon: pin(28, '#BFA06A'), title: studio.name, optimized: false });
+    const showStudio = () => { info.setContent('<div class="pin-pop-name">' + studio.name + '</div><div class="pin-pop-meta">' + studio.meta + '</div>'); info.open({ map: map, anchor: sm }); };
+    sm.addListener('mouseover', showStudio);
+    sm.addListener('click', showStudio);
   }
-  start();
+  window.elhMapReady = draw;
+  const s = document.createElement('script');
+  s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(ELH_GOOGLE_MAPS_KEY) + '&callback=elhMapReady&loading=async&v=weekly';
+  s.async = true; document.head.appendChild(s);
 })();
 </script>
 </body>
