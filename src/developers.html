@@ -3,13 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ella Lee Homes — Investors &amp; Developers</title>
-<meta name="description" content="Partner with Ella Lee Homes for luxury residential development in Arizona. On-time, on-budget delivery, value engineering, and sustainable construction that maximizes ROI.">
+<title>Developers &amp; Investors: Custom Home Builder | Ella Lee Homes</title>
+<meta name="description" content="Partner with Ella Lee Homes for luxury residential development in Arizona. Clear schedules, clear numbers, and sustainable construction.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ella Lee Homes">
+<meta property="og:title" content="Developers &amp; Investors: Custom Home Builder | Ella Lee Homes">
+<meta property="og:description" content="Partner with Ella Lee Homes for luxury residential development in Arizona. Clear schedules, clear numbers, and sustainable construction.">
+<meta property="og:url" content="https://ellaleehomes.com/developers">
+<meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://ellaleehomes.com/developers">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-reviews.css">
 <link rel="stylesheet" href="assets/site-footer.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -183,7 +191,7 @@ body {
      landing. The body of the card stays paper-colored and opaque so
      the previous card is fully covered. */
   border-top: 1px solid rgba(234,229,220,.14);
-  box-shadow: 0 -1px 0 rgba(234,229,220,.14), 0 -24px 48px -24px rgba(234,229,220,.14);
+  box-shadow: none;
 }
 /* Alternate the card background subtly so consecutive cards read as
    distinct layers when stacked. Odd cards = navy, even cards = a
@@ -259,7 +267,7 @@ body {
 }
 .stats-intro .eyebrow {
   font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(234,229,220,0.45); margin-bottom: 16px;
+  color: rgba(234,229,220,0.66); margin-bottom: 16px;
 }
 .stats-intro h2 { font-family: var(--disp);
   font-size: clamp(28px, 3.4vw, 44px); font-weight: 400;
@@ -271,7 +279,7 @@ body {
   font-family: var(--serif); font-weight: 400;
 }
 .stats-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 0;
   border-top: 1px solid rgba(234,229,220,0.12);
 }
@@ -280,6 +288,7 @@ body {
   border-right: 1px solid rgba(234,229,220,0.10);
 }
 .stat:last-child { border-right: none; padding-right: 0; }
+.stat + .stat { padding-left: 40px; }
 .stat-num {
   font-family: var(--serif); font-style: normal; font-weight: 400;
   font-size: clamp(48px, 6vw, 84px);
@@ -293,6 +302,7 @@ body {
   font-weight: 400;
 }
 .stat-label strong { color: var(--paper); font-weight: 500; }
+
 
 /* ── INVENTORY ── */
 #inventory {
@@ -376,10 +386,10 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 6px 12px; color: var(--paper); font-weight: 500;
+  padding: 6px 12px; color: var(--navy); font-weight: 500;
   z-index: 1;
 }
-.inv-card-status.investment { background: rgba(201, 169, 110, 0.92); color: var(--paper); }
+.inv-card-status.investment { background: rgba(201, 169, 110, 0.92); color: var(--navy); }
 
 .inv-foot {
   margin-top: 56px; padding-top: 32px;
@@ -507,7 +517,8 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   .pillar:nth-child(odd of .pillar) .pillar-media,
   .pillar.flip .pillar-media { order: 0; }
   .pillar-body { padding: clamp(18px, 2.4vw, 40px) 40px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat + .stat { padding-left: 20px; }
   .stat { padding: 32px 24px 8px 0; }
   .stat:nth-child(2n) { border-right: none; padding-right: 0; }
   .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid rgba(234,229,220,0.10); padding-bottom: 32px; }
@@ -567,7 +578,7 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
   text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
-.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; white-space: nowrap; }
 #hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
 @media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
 
@@ -593,18 +604,36 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   "@type": "HomeAndConstructionBusiness",
   "@id": "https://ellaleehomes.com/#business",
   "name": "Ella Lee Homes",
-  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
-  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "legalName": "Ella Lee Homes LLC",
+  "description": "Custom home builder building luxury residences across Paradise Valley, Scottsdale, Arcadia, and Phoenix, Arizona.",
   "url": "https://ellaleehomes.com/",
-  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
-  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "logo": "https://ellaleehomes.com/uploads/Monogram_Navy.png",
+  "image": "https://ellaleehomes.com/assets/og-share.jpg",
   "telephone": "+1-480-340-8700",
   "email": "hello@ellaleehomes.com",
-  "priceRange": "$$",
-  "foundingLocation": "Phoenix, Arizona",
+  "foundingDate": "2021",
+  "founder": {
+    "@type": "Person",
+    "name": "Shay Segev",
+    "jobTitle": "Founder and Principal"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Arizona ROC License",
+    "value": "KB2-333410"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License KB2-333410",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Arizona Registrar of Contractors"
+    }
+  },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "4408 N 12th St",
+    "streetAddress": "4408 N 12th St, Ste 200",
     "addressLocality": "Phoenix",
     "addressRegion": "AZ",
     "postalCode": "85014",
@@ -615,17 +644,17 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
     "latitude": 33.5004403,
     "longitude": -112.0567192
   },
-  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "hasMap": "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r",
   "areaServed": [
-    {
-      "@type": "City",
-      "name": "Scottsdale",
-      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
-    },
     {
       "@type": "City",
       "name": "Paradise Valley",
       "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
     },
     {
       "@type": "Place",
@@ -635,37 +664,17 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
       "@type": "City",
       "name": "Phoenix",
       "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    },
+    {
+      "@type": "State",
+      "name": "Arizona"
     }
   ],
   "knowsAbout": [
     "Custom home building",
     "Luxury home construction",
-    "Home design",
-    "Residential development"
-  ],
-  "sameAs": [
-    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
-  ],
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "08:00",
-      "closes": "17:00"
-    }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "12",
-    "bestRating": "5"
-  }
+    "Teardown and rebuild"
+  ]
 }
 </script>
 </head>
@@ -687,12 +696,12 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
       <div class="eyebrow">Ella Lee Homes</div>
       <h1 class="hero-title">Build as <em>investment.</em></h1>
     </div>
-    <div class="hero-head-meta">On time. On budget.<br>A repeat-client track record<br><strong>across 40+ builds.</strong></div>
+    <div class="hero-head-meta">A repeat-client track record.</div>
   </div>
 
   <div class="hero-caption">
     <div class="eyebrow">Built for repeat partners</div>
-    <h2>Large-scale builds, delivered <em>on time and on budget.</em></h2>
+    <h2>Serious builds, <em>clearly managed.</em></h2>
   </div>
 </section>
 
@@ -703,8 +712,8 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
     <h2 class="lede-title">Developers who build with us <em>come back.</em></h2>
   </div>
   <div class="lede-body">
-    <p>Repeat partners are the core of our developer business &mdash; because we deliver <strong>high-quality construction on time and on budget,</strong> and we understand the pressure to hit deadlines and maximize ROI.</p>
-    <p>Our team is committed to seamless communication, innovative solutions, and sustainable practices — ensuring projects not only meet industry standards but exceed expectations. Partner with us, and you gain a trusted ally who prioritizes <strong>efficiency, quality, and cost-effectiveness</strong> from start to finish.</p>
+    <p>Repeat partners are the core of our developer business &mdash; because we deliver <strong>high-quality construction with clear schedules and clear numbers,</strong> and we understand the pressure to hit deadlines.</p>
+    <p>Our team is committed to seamless communication, innovative solutions, and sustainable practices. Partner with us, and you gain a trusted ally who prioritizes <strong>efficiency, quality, and cost-effectiveness</strong> from start to finish.</p>
   </div>
 </section>
 
@@ -718,7 +727,7 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
     <div class="pillar-body">
       <div class="pillar-num"><em>01</em>Large-Scale Expertise</div>
       <h3 class="pillar-title">Expertise in <em>large-scale</em> projects.</h3>
-      <p class="pillar-text">Our team brings years of experience managing complex, high-value developments — ensuring smooth execution from groundbreaking through close-out. From multi-unit infill to luxury enclaves, we operate at the scale serious capital requires.</p>
+      <p class="pillar-text">Our team manages complex, high-value builds from groundbreaking through close-out.</p>
       <div class="pillar-tag">Complex builds, smooth execution</div>
     </div>
   </div>
@@ -730,8 +739,8 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
     <div class="pillar-body">
       <div class="pillar-num"><em>02</em>Efficient, Streamlined Process</div>
       <h3 class="pillar-title">Speed without <em>sacrificing</em> quality.</h3>
-      <p class="pillar-text">We prioritize velocity without compromise — delivering your projects on time and within budget. Same-team continuity, real-time transparency through our client portal, and disciplined scheduling keep every phase moving.</p>
-      <div class="pillar-tag">Transparent. On schedule. In budget.</div>
+      <p class="pillar-text">We prioritize velocity without compromise — keeping your project moving. Same-team continuity, real-time transparency through our client portal, and disciplined scheduling keep every phase moving.</p>
+      <div class="pillar-tag">Transparent. Scheduled. Managed.</div>
     </div>
   </div>
 
@@ -740,10 +749,10 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
       <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/14-1.jpg" alt="Cost-engineered Ella Lee interior craftsmanship">
     </div>
     <div class="pillar-body">
-      <div class="pillar-num"><em>03</em>Cost Savings That Maximize ROI</div>
-      <h3 class="pillar-title">Value engineering that <em>protects</em> your bottom line.</h3>
-      <p class="pillar-text">Through careful planning, value engineering, and long-standing vendor relationships, we offer cost-effective solutions that boost your bottom line. Volume purchasing and crew consistency translate into measurable savings — passed directly to you.</p>
-      <div class="pillar-tag">Better margins, project after project</div>
+      <div class="pillar-num"><em>03</em>Cost-Plus Building</div>
+      <h3 class="pillar-title">Pricing, stated <em>plainly</em>.</h3>
+      <p class="pillar-text">We build on a cost-plus basis: you pay the actual cost of the work plus an agreed builder&rsquo;s fee.</p>
+      <div class="pillar-tag">Cost-plus pricing</div>
     </div>
   </div>
 
@@ -769,23 +778,15 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   </div>
   <div class="stats-grid reveal">
     <div class="stat">
-      <div class="stat-num">$200M+</div>
-      <div class="stat-label">Luxury value <strong>delivered</strong> across Arizona</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">10+</div>
-      <div class="stat-label">Years building <strong>investor-grade</strong> homes</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label"><strong>Transparency</strong> through the client portal</div>
-    </div>
+<div class="stat-num">2021</div>
+<div class="stat-label">Year <strong>founded</strong></div>
+</div>
     <div class="stat">
       <div class="stat-num">40+</div>
-      <div class="stat-label">Custom homes <strong>delivered</strong> across the Valley</div>
+      <div class="stat-label">Custom homes <strong>built and in progress</strong> across Arizona</div>
     </div>
   </div>
-  <p class="stats-note reveal" style="margin-top:36px; font-size:14px; color:rgba(234,229,220,0.55); max-width:62ch;">Beyond the numbers: Ella Lee Homes donates a minimum of 10% of annual profits to nonprofit organizations, locally and globally.</p>
+  <p class="stats-note reveal" style="margin-top:36px; font-size:14px; color:rgba(234,229,220,0.55); max-width:62ch;">Beyond the numbers: Ella Lee Homes donates 10% of its profits to nonprofit organizations, locally and globally.</p>
 </section>
 
 <!-- INVENTORY -->
@@ -861,24 +862,60 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   </div>
 </section>
 
+<!-- TESTIMONIALS (same cards as the front page) -->
+<section id="testimonials" class="reveal">
+  <div class="rv-head reveal">
+    <div class="wu-eyebrow">Reviews</div>
+    <h2>What homeowners <em>say about us.</em></h2>
+  </div>
+  <div class="rv-grid reveal">
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>Ella Lee Homes built our home in 2023, and we couldn’t be happier! The project was completed on time, within budget, and exceeded our expectations.</blockquote>
+        <figcaption><span class="rv-av">M</span><span class="rv-who"><span class="rv-name">Mike M</span><span class="rv-meta">Google review &middot; a year ago</span></span></figcaption>
+      </figure></a>
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>As an investor, I’ve entrusted Ella Lee Homes to build 9 custom homes. I could not be more pleased by the outcome.</blockquote>
+        <figcaption><span class="rv-av">M</span><span class="rv-who"><span class="rv-name">Michael Wiss</span><span class="rv-meta">Google review &middot; 3 years ago</span></span></figcaption>
+      </figure></a>
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>Shay &amp; team have been so meticulous about all warranty and repair work, which is something most builders completely disregard.</blockquote>
+        <figcaption><span class="rv-av">A</span><span class="rv-who"><span class="rv-name">Anastasia Foster</span><span class="rv-meta">Google review &middot; 2 years ago</span></span></figcaption>
+      </figure></a>
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>Attention to detail, quality construction, responsiveness of the warranty team &mdash; owning an Ella Lee home is truly enjoyable.</blockquote>
+        <figcaption><span class="rv-av">H</span><span class="rv-who"><span class="rv-name">Heather Wilson</span><span class="rv-meta">Google review &middot; 8 months ago</span></span></figcaption>
+      </figure></a>
+      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+        <span class="rv-stars" aria-hidden="true">★★★★★</span>
+        <blockquote>From the very beginning, communication was easy and stress-free. What stood out most was his honesty and sincerity.</blockquote>
+        <figcaption><span class="rv-av">G</span><span class="rv-who"><span class="rv-name">Gordon Yonel</span><span class="rv-meta">Google review &middot; 8 months ago</span></span></figcaption>
+      </figure></a>
+  </div>
+  <p class="rv-more"><a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener">Read all of our reviews on Google</a></p>
+</section>
+
 <!-- FAQ -->
 <section id="faq">
   <div class="faq-head reveal">
     <div class="eyebrow">Frequently Asked</div>
     <h2>The questions <em>investors</em> ask us most.</h2>
-    <p class="faq-note">Direct answers, taken from fifteen years of conversations with developers, capital partners, and repeat investor clients.</p>
+    <p class="faq-note">Direct answers for developers, capital partners, and repeat investor clients.</p>
   </div>
 
   <div class="faq-list">
     <details class="faq-item reveal">
       <summary>
         <span class="faq-num">01</span>
-        <span class="faq-q">How can Ella Lee Homes save you money?</span>
+        <span class="faq-q">How does pricing work on an Ella Lee home?</span>
         <span class="faq-toggle">+</span>
       </summary>
       <div class="faq-a">
-        <p>We've built a system that makes us <strong>more cost-effective than other builders.</strong> Long-standing vendor relationships and volume purchasing across every project secure premium materials at lower prices — savings we pass directly to you.</p>
-        <p>The result: a superior product with exceptional craftsmanship, at a lower price.</p>
+        <p>We build on a cost-plus basis: you pay the actual cost of the work plus an agreed builder&rsquo;s fee, and you can follow costs in your Buildertrend client portal.</p>
+        
       </div>
     </details>
 
@@ -890,8 +927,8 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
       </summary>
       <div class="faq-a">
         <p><strong>Trust.</strong> Knowing that a home might be one of the largest investments you will ever make, we go the extra length to make sure you feel comfortable and secure with that investment.</p>
-        <p>Our system is designed to be <strong>completely transparent</strong> with our clients. You can see the schedule, every invoice and bill from our subs &amp; vendors, photos and videos, and much more — all from the comfort of your home. <em>Ideal for out-of-state clients.</em></p>
-        <p>We believe in ease of mind and ease of process. Many of our clients are investors with <strong>repeat projects.</strong> The reason: the comfort of knowing they always have access to any project file they may need, any time, from anywhere.</p>
+        <p>Our Buildertrend client portal lets you see the schedule, photos and videos, and much more — all from the comfort of your home. <em>Ideal for out-of-state clients.</em></p>
+        <p>We believe in ease of mind and ease of process. Many of our clients are investors with <strong>repeat projects.</strong> The reason: the comfort of having access to their project files from anywhere.</p>
         <p>We worked hard to earn their trust. We will work hard to earn yours.</p>
       </div>
     </details>
@@ -903,9 +940,7 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
         <span class="faq-toggle">+</span>
       </summary>
       <div class="faq-a">
-        <p>Ella Lee Homes is a <strong>design &amp; build</strong> construction company. To give clients the easiest streamline for their project, we deliver a full interior finishes design package — choosing materials, finishes, and layouts together.</p>
-        <p>Our complete design package specifies all the selections and their costs so you'll know exactly what you are getting. We can also engineer the design to meet your budget while honoring your vision of colors, materials, and practicality — all with <em>3D renderings</em> so you can visualize spaces before giving the green light.</p>
-        <p>From there, we bring the project to life — turning rendering into reality. We can build new houses or remodel existing ones, add additions to your current structure, or work on commercial buildings. Keeping the whole process in-house gives us more control, making the project go faster and smoother.</p>
+        <p>Ella Lee Homes is a <strong>custom home builder</strong>. We build custom homes in Arizona, including teardown and rebuild projects and new construction on an existing lot.</p>
       </div>
     </details>
 
@@ -916,9 +951,8 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
         <span class="faq-toggle">+</span>
       </summary>
       <div class="faq-a">
-        <p>Typically, the first step is to collaborate with an architect or designer, depending on the scope. Obtaining detailed construction documents is crucial for securing permits and ensuring the project's success.</p>
-        <p>It's also highly beneficial to <strong>involve your builder during planning and development.</strong> With our expertise and field experience, we can offer valuable insights to both architect and client — informing design decisions and material selections before plans are finalized.</p>
-        <p>By engaging us early, we can identify potential gaps or inefficiencies and recommend specific framing methods or materials that reduce costs and improve timelines. Architects and draftsmen are highly skilled, but they don't always have the hands-on field experience that can significantly impact a project's practical outcome.</p>
+        <p>The first step is a conversation. Tell us about your lot and what you want to build, and we'll walk you through how a project runs.</p>
+<p>It's highly beneficial to <strong>involve your builder early.</strong> We can work with your architect, and with our field experience we can flag gaps and inefficiencies and recommend framing methods or materials that reduce costs and improve timelines before plans are finalized.</p>
       </div>
     </details>
 
@@ -929,9 +963,9 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
         <span class="faq-toggle">+</span>
       </summary>
       <div class="faq-a">
-        <p>We are available to chat at your convenience — morning, noon, or night. Call or email us to schedule a time that works best for you.</p>
-        <p>Phone: <strong>(480) 340-8700</strong><br>Email: <strong>hello@ellaleehomes.com</strong><br>Studio: 4408 N 12th St, Phoenix, AZ 85014</p>
-        <p><em>Ella Lee Homes is dedicated to donating a minimum of 10% of our annual profits to support non-profit organizations both locally and globally.</em></p>
+        <p>Call or email us to schedule a time that works best for you.</p>
+        <p>Phone: <strong>(480) 340-8700</strong><br>Email: <strong>hello@ellaleehomes.com</strong><br>Studio: 4408 N 12th St, Ste 200, Phoenix, AZ 85014</p>
+        <p><em>Ella Lee Homes is dedicated to donating 10% of our profits to support non-profit organizations both locally and globally.</em></p>
       </div>
     </details>
   </div>
@@ -943,7 +977,7 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
     <div style="display: flex; flex-direction: column; gap: 22px">
       <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Build Your Home</span>
       <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -.015em">Start your build</h2>
-      <p style="margin: 0; max-width: 46ch; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.7; color: rgba(234,229,220,.88)">Tell us about your project and we'll come back to you within one business day. If you'd rather talk it through, call <a href="tel:+14803408700" style="color: #EAE5DC; border-bottom: 1px solid rgba(191,160,106,.7)">(480) 340-8700</a>.</p>
+      <p style="margin: 0; max-width: 46ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.7; color: rgba(234,229,220,.88); font-weight: 300">Tell us about your project. Every inquiry is read personally. If you'd rather talk it through, call <a href="tel:+14803408700" style="color: #EAE5DC; border-bottom: 1px solid rgba(191,160,106,.7)">(480) 340-8700</a>.</p>
       <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px; font-size: 14px; line-height: 1.6; color: #A5A09D">
         <span>4408 N 12th St, Ste 200, Phoenix, AZ 85014</span>
         <a href="mailto:hello@ellaleehomes.com" style="color: #A5A09D">hello@ellaleehomes.com</a>
@@ -965,22 +999,11 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
         </label>
       </div>
       <label style="display: flex; flex-direction: column; gap: 9px">
-        <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Target budget range</span>
-        <select name="budget" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; font-family: inherit">
-          <option value="" style="color: #001526">Select a range</option>
-          <option value="1-2m" style="color: #001526">$1M &ndash; $2M</option>
-          <option value="2-3m" style="color: #001526">$2M &ndash; $3M</option>
-          <option value="3-5m" style="color: #001526">$3M &ndash; $5M</option>
-          <option value="5m+" style="color: #001526">$5M+</option>
-          <option value="unsure" style="color: #001526">Not sure yet</option>
-        </select>
-      </label>
-      <label style="display: flex; flex-direction: column; gap: 9px">
         <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Tell us about your project</span>
         <textarea name="project" rows="4" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; line-height: 1.6; resize: vertical; font-family: inherit"></textarea>
       </label>
       <button type="submit" style="align-self: flex-start; margin-top: 8px; padding: 17px 40px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #001526; background: #EAE5DC; border: 0; cursor: pointer; font-family: inherit; transition: background .3s ease">Send Inquiry</button>
-      <p data-msg="1" style="display: none; margin: 0; font-size: 14px; color: #BFA06A">Thank you &mdash; we'll be in touch within one business day.</p>
+      <p data-msg="1" style="display: none; margin: 0; font-size: 14px; color: #BFA06A">Thank you &mdash; we’ll be in touch.</p>
     </form>
   </div>
 </section>

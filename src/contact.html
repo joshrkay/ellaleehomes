@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us | Build Your Custom Home — Ella Lee Homes</title>
-<meta name="description" content="Get in touch with Ella Lee Homes, Arizona's premier luxury custom home builder. Call (480) 340-8700 or send us a message to begin building your dream home.">
+<title>Contact a Custom Home Builder | Ella Lee Homes</title>
+<meta name="description" content="Get in touch with Ella Lee Homes, a custom home builder in Arizona. Call (480) 340-8700 or send us a message to begin building your home.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://ellaleehomes.com/contact">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ellaleehomes.com/contact/">
-<meta property="og:title" content="Contact Us — Ella Lee Homes">
-<meta property="og:description" content="Get in touch with Ella Lee Homes, Arizona's premier luxury custom home builder. Call (480) 340-8700 or send us a message to begin building your dream home.">
+<meta property="og:title" content="Contact a Custom Home Builder | Ella Lee Homes">
+<meta property="og:description" content="Get in touch with Ella Lee Homes, a custom home builder in Arizona. Call (480) 340-8700 or send us a message to begin building your home.">
 <meta property="og:image" content="https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png">
 <meta property="og:site_name" content="Ella Lee Homes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -217,7 +218,7 @@ a.info-value:hover { color: var(--gold); }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .contact-form { padding: 28px; }
   .form-row { grid-template-columns: 1fr; }
-  .form-row .field { border-right: none; padding-right: 0; padding-left: 0; }
+    .form-row .field, .form-row .field:last-child { border-right: none; padding-right: 0; padding-left: 0; }
   .form-actions { flex-direction: column; align-items: flex-start; gap: 18px; }
 }
 
@@ -260,7 +261,7 @@ a.info-value:hover { color: var(--gold); }
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
   text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
-.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; white-space: nowrap; }
 #hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
 @media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
 
@@ -278,6 +279,8 @@ a.info-value:hover { color: var(--gold); }
 /* hairline spans the measure, like the homepage's */
 #hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
 #hero-banner .hero-title { width: 100%; }
+/* caption keeps the same narrow measure as every other hero */
+#hero-banner > .hero-head > p.hero-meta { width: auto; max-width: 36ch; }
 </style>
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
@@ -286,18 +289,36 @@ a.info-value:hover { color: var(--gold); }
   "@type": "HomeAndConstructionBusiness",
   "@id": "https://ellaleehomes.com/#business",
   "name": "Ella Lee Homes",
-  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
-  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "legalName": "Ella Lee Homes LLC",
+  "description": "Custom home builder building luxury residences across Paradise Valley, Scottsdale, Arcadia, and Phoenix, Arizona.",
   "url": "https://ellaleehomes.com/",
-  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
-  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "logo": "https://ellaleehomes.com/uploads/Monogram_Navy.png",
+  "image": "https://ellaleehomes.com/assets/og-share.jpg",
   "telephone": "+1-480-340-8700",
   "email": "hello@ellaleehomes.com",
-  "priceRange": "$$",
-  "foundingLocation": "Phoenix, Arizona",
+  "foundingDate": "2021",
+  "founder": {
+    "@type": "Person",
+    "name": "Shay Segev",
+    "jobTitle": "Founder and Principal"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Arizona ROC License",
+    "value": "KB2-333410"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License KB2-333410",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Arizona Registrar of Contractors"
+    }
+  },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "4408 N 12th St",
+    "streetAddress": "4408 N 12th St, Ste 200",
     "addressLocality": "Phoenix",
     "addressRegion": "AZ",
     "postalCode": "85014",
@@ -308,17 +329,17 @@ a.info-value:hover { color: var(--gold); }
     "latitude": 33.5004403,
     "longitude": -112.0567192
   },
-  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "hasMap": "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r",
   "areaServed": [
-    {
-      "@type": "City",
-      "name": "Scottsdale",
-      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
-    },
     {
       "@type": "City",
       "name": "Paradise Valley",
       "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
     },
     {
       "@type": "Place",
@@ -328,37 +349,17 @@ a.info-value:hover { color: var(--gold); }
       "@type": "City",
       "name": "Phoenix",
       "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    },
+    {
+      "@type": "State",
+      "name": "Arizona"
     }
   ],
   "knowsAbout": [
     "Custom home building",
     "Luxury home construction",
-    "Home design",
-    "Residential development"
-  ],
-  "sameAs": [
-    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
-  ],
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "08:00",
-      "closes": "17:00"
-    }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "12",
-    "bestRating": "5"
-  }
+    "Teardown and rebuild"
+  ]
 }
 </script>
 </head>
@@ -373,8 +374,7 @@ a.info-value:hover { color: var(--gold); }
 <!-- HERO -->
 <section id="hero-banner">
   <img
-    src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg"
-    alt="Ella Lee Homes luxury custom home exterior"
+    src="uploads/IMG_0429.jpg" alt="A kitchen in an Ella Lee custom home"
     loading="eager">
   <div class="hero-head">
     <div>
@@ -382,7 +382,7 @@ a.info-value:hover { color: var(--gold); }
       <h1 class="hero-title">Let's build<br>something <em>lasting.</em></h1>
     </div>
     <p class="hero-meta">
-      Whether you're building from the ground up, selling a custom home, or simply exploring what's possible, we'd love to hear from you.
+      Whether you're building from the ground up, selling a home or lot, or simply exploring what's possible, we'd love to hear from you.
     </p>
   </div>
 </section>
@@ -393,7 +393,7 @@ a.info-value:hover { color: var(--gold); }
   <div class="reveal">
     <div class="section-label">Begin the Conversation</div>
     <h2 class="section-heading">Tell us about <em>your vision.</em></h2>
-    <p class="section-body">Reach out by phone, email, or the form below. We respond personally within one business day and look forward to learning about your project.</p>
+    <p class="section-body">Reach out by phone, email, or the form below. We read every message personally and look forward to learning about your project.</p>
   </div>
 
   <div class="contact-grid">
@@ -410,7 +410,7 @@ a.info-value:hover { color: var(--gold); }
       </div>
       <div class="info-row">
         <div class="info-label">Studio</div>
-        <span class="info-value">4408 N 12th St</span>
+        <span class="info-value">4408 N 12th St, Ste 200</span>
         <span class="info-value small">Phoenix, AZ 85014</span>
         <a class="info-directions" href="https://maps.google.com/?q=4408+N+12th+St+Phoenix+AZ+85014" target="_blank" rel="noopener" style="display:inline-block; margin-top:8px; font-size:13px; color: var(--gold); font-weight:500;">Get directions &rarr;</a>
       </div>
@@ -423,8 +423,6 @@ a.info-value:hover { color: var(--gold); }
       <div class="info-row">
         <div class="info-label">Reviews</div>
         <a class="greview-badge" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r" target="_blank" rel="noopener">
-          <span class="greview-score">5.0</span>
-          <span class="greview-stars" aria-hidden="true">★★★★★</span>
           <span class="greview-meta">See what our clients say</span>
         </a>
       </div>
@@ -454,9 +452,9 @@ a.info-value:hover { color: var(--gold); }
       </div>
       <div class="field">
         <label>I'm interested in</label>
-        <select>
+        <select aria-label="I'm interested in">
           <option>Building a custom home</option>
-          <option>Selling my custom home</option>
+          <option>Selling my home or lot</option>
           <option>Developer partnership</option>
           <option>General inquiry</option>
         </select>
@@ -466,7 +464,7 @@ a.info-value:hover { color: var(--gold); }
         <textarea placeholder="Lot location, square footage, timeline, anything you'd like us to know..."></textarea>
       </div>
       <div class="form-actions">
-        <p class="form-note">We read every message personally and respond within one business day.</p>
+        <p class="form-note">We read every message personally.</p>
         <button type="submit" class="form-submit">
           Send Message
           <svg viewBox="0 0 16 8" fill="none" aria-hidden="true"><path d="M0 4h14M11 1l3 3-3 3" stroke="currentColor" stroke-width="1.4"/></svg>

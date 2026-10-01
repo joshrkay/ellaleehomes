@@ -14,6 +14,10 @@ const partialPath = path.join(root, 'partials', 'nav.html');
 const footerPath = path.join(root, 'partials', 'footer.html');
 const dropdownPath = path.join(root, 'partials', 'nav-dropdown.html');
 
+const FAVICON_TAGS = `<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+`;
 const PLACEHOLDER = '<!-- NAV_PARTIAL -->';
 const FOOTER_PLACEHOLDER = '<!-- FOOTER_PARTIAL -->';
 const DROPDOWN_PLACEHOLDER = '<!-- NAV_DROPDOWN_PARTIAL -->';
@@ -62,8 +66,6 @@ const PAGES = [
   { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { process: true } },
   { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
   { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { about: true } },
-  // Print variant of Our Story — same content, so it stays out of the index.
-  { file: 'our-story-print.html', url: null, cta: CTA_HOME, active: { about: true } },
   { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', cta: CTA_HOME },
   { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
   { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7', cta: CTA_HOME },
@@ -262,6 +264,14 @@ for (const page of PAGES) {
   }
   content = content.split(DROPDOWN_PLACEHOLDER).join(dropdownTemplate);
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(page.file === 'index.html'));
+  // Brand favicon on every page (monogram on navy, per the style guide).
+  if (!content.includes('rel="icon"')) {
+    content = content.replace('</head>', FAVICON_TAGS + '</head>');
+  }
+  // One body-copy standard on every page; loaded last so it wins over each page's own styles.
+  if (!content.includes('site-body.css')) {
+    content = content.replace('</head>', '<link rel="stylesheet" href="assets/site-body.css">\n</head>');
+  }
   fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
   console.log('Wrote', path.join('dist', page.file));
 }

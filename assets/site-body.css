@@ -1,0 +1,40 @@
+/*
+ * One body-copy standard across the site (Fact Sheet §6 Type: "Body font matched in style and size across all pages").
+ * The home page is the reference: Inter Light, 17px on desktop, never under 16px (readable for older visitors).
+ * Display text (heroes, ledes, pull quotes, captions, small notes) keeps its own style; running paragraphs and lists use this.
+ */
+:root { --elh-body-size: clamp(16px, 1.2vw, 17px); --elh-body-lh: 1.72; }
+
+/* Why Us */
+.rc-text > p, .founding-r > p, .wu-strip-r > p, .reasons-hd-r > p,
+/* Developers */
+.pillar-text, .lede-body > p, .inv-head-r p, .inv-foot > p, .faq-note,
+/* Our Story */
+.story-body, .story-body > p, .where-sub, .conv-inner > p.sub,
+/* Build */
+.ts-lede, .ts-body-text,
+/* FAQ, Warranty, Homeowner Resources, Code of Conduct, legal pages */
+.faq-a > p, .faq-intro > p, .legal-prose > p, .legal-prose li, .faq-hero-sub,
+/* Sell */
+.sec-body > p, .why-item p, .step > p, .sec-lede, .areas-note, .cta-sub,
+/* Stories, closing strips */
+.post-card > p, .feat-excerpt, .grain > p,
+/* Contact, Client Portal, Project, articles */
+.section-body, .help-text-body, .description, .inquiry-sub, .article-wrap > p, .article-wrap li {
+  font-family: Inter, system-ui, sans-serif !important;
+  font-size: var(--elh-body-size) !important;
+  font-weight: 300 !important;
+  line-height: var(--elh-body-lh) !important;
+}
+
+/* A phone number is one unit: never break "(480) 340-" / "8700" across lines. */
+a[href^="tel:"] { white-space: nowrap; }
+
+/* avoid a single word stranded on the last line of a paragraph */
+.rc-text > p, .founding-r > p, .wu-strip-r > p, .reasons-hd-r > p, .pillar-text, .lede-body > p, .inv-head-r p, .inv-foot > p, .faq-note, .story-body, .story-body > p, .where-sub, .conv-inner > p.sub, .ts-lede, .ts-body-text, .faq-a > p, .faq-intro > p, .legal-prose > p, .legal-prose li, .faq-hero-sub, .sec-body > p, .why-item p, .step > p, .sec-lede, .areas-note, .cta-sub, .post-card > p, .feat-excerpt, .grain > p, .section-body, .help-text-body, .description, .inquiry-sub, .article-wrap > p, .article-wrap li { text-wrap: pretty; }
+
+/* Keyboard focus is always visible: gold ring on the dark pages; navy on the light article pages (article.css). */
+:focus-visible { outline: 2px solid #BFA06A !important; outline-offset: 3px !important; }
+
+/* headings break into even lines (no lone word such as "at" or "lot?" on the last line) */
+h2, h3 { text-wrap: balance; }

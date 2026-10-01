@@ -1,0 +1,116 @@
+/* Shared hero standard: full-bleed photo, white text above the line, copy bottom-left on the homepage baseline.
+   Taken from the home page; each page supplies its own photo. No stat badges, no video (home page only). */
+:root { --nav-h: 88px; --navy: #001526; --paper: #EAE5DC; --gold: #BFA06A; --disp: 'DM Serif Display', Georgia, serif; --sans: 'Inter', Helvetica, sans-serif; }
+/* ── HERO BANNER (full-bleed image, title overlaid — matches site) ── */
+#hero-banner {
+  position: relative; width: 100%;
+  height: 100vh; min-height: 560px;
+  overflow: hidden; background: var(--navy);
+}
+#hero-banner img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.95) brightness(0.78);
+}
+#hero-banner::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(0,21,38,0) 87%, rgba(0,21,38,.45) 93.7%, #001526 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.68) 0%, rgba(0,0,0,.44) 19%, rgba(0,0,0,0) 48%),
+    linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.58) 34%, rgba(0,0,0,.42) 62%, rgba(0,0,0,.2) 100%);
+}
+.hero-head {
+  position: absolute; z-index: 2;
+  top: calc(var(--nav-h) + 56px); left: 56px; right: 56px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 48px; color: var(--paper);
+}
+.hero-head .eyebrow {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(234,229,220,0.7); margin-bottom: 14px;
+}
+.hero-title {
+  font-family: var(--disp); font-size: clamp(46px, 6.6vw, 100px);
+  font-weight: 400; letter-spacing: -0.02em; line-height: 1.04; color: var(--paper);
+}
+.hero-title em { font-style: normal; color: var(--gold); font-family: var(--disp); font-weight: 400; }
+.hero-head-meta {
+  font-size: 12px; line-height: 1.7; color: rgba(234,229,220,0.72);
+  text-align: right; max-width: 280px; font-weight: 300; padding-top: 12px;
+}
+.hero-head-meta strong { color: var(--paper); font-weight: 500; }
+/* Bottom-left chip row: No Hassle · No Repairs · No Waiting */
+.hero-caption {
+  position: absolute; left: 56px; right: 56px; bottom: calc(13vh + 40px); z-index: 3; color: #fff;
+}
+.hero-caption .eyebrow {
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.75); margin-bottom: 16px;
+}
+.hero-chips { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-chip {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+  color: var(--paper); padding: 9px 18px; border-radius: 100px;
+  background: rgba(234,229,220,0.12); backdrop-filter: blur(12px);
+  border: 1px solid rgba(234,229,220,0.25);
+}
+
+/* ── HERO TYPE — matches the homepage h1: display serif, hairline rule, small lede ── */
+.hero-title, #faq-hero h1, .hero-name {
+  font-family: var(--disp); font-weight: 400;
+  font-size: clamp(29px, 5.1vw, 98px); line-height: 1.04; letter-spacing: -.01em;
+  color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5);
+}
+.hero-title::after, #faq-hero h1::after, .hero-name::after {
+  content: ''; display: block; height: 1px;
+  margin-top: clamp(14px, 1.6vw, 22px);
+  background: rgba(234,229,220,.42);
+}
+.hero-title em, .hero-name em, #faq-hero h1 em { font-family: var(--disp); font-weight: 400; font-style: normal; color: var(--gold); }
+.hero-head-meta, .hero-caption h2, .hero-caption p, #faq-hero .faq-hero-sub {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
+}
+
+/* ── HERO COPY PLACEMENT — one bottom-left stack, on the homepage's baseline ── */
+#hero-banner {
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 20px;
+  padding: 0 clamp(18px, 2.4vw, 40px) calc(18vh + clamp(40px, 5vw, 72px));
+}
+#hero-banner > img, #hero-banner > picture { position: absolute; inset: 0; }
+#hero-banner > .hero-head, #hero-banner > .hero-caption,
+#hero-banner > .hero-chips, #hero-banner > .hero-copy, #hero-banner > .hero-actions {
+  position: relative; inset: auto; left: auto; right: auto; top: auto; bottom: auto;
+  z-index: 3; margin: 0; padding: 0; width: 100%; max-width: none;
+}
+#hero-banner > .hero-head {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
+}
+#hero-banner .eyebrow, #hero-banner .hero-eyebrow, #hero-banner .hero-scroll-hint { display: none; }
+.hero-title { line-height: 1.02; }
+.hero-title::after { margin-top: 6px; }
+.hero-head-meta, .hero-caption h2, .hero-caption p, .hero-meta, .hero-lede {
+  font-family: var(--sans); font-size: clamp(14px, 1.1vw, 17px); font-weight: 300;
+  line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
+  text-align: left; max-width: 32ch; margin: 0; padding: 0;
+}
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+#hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
+@media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
+
+/* hero copy runs all white */
+#hero-banner .hero-title, #hero-banner .hero-title em,
+#hero-banner .hero-head-meta, #hero-banner .hero-head-meta strong,
+#hero-banner .hero-caption h2, #hero-banner .hero-caption h2 em,
+#hero-banner .hero-caption p, #hero-banner .hero-meta, #hero-banner .hero-meta strong,
+#hero-banner .hero-lede, #hero-banner .hero-lede strong, #hero-banner #result-count { color: #fff; }
+
+/* hero height matches the homepage's 118vh so the copy lands on its baseline */
+#hero-banner { height: auto; min-height: 118vh; }
+@media (max-width: 760px) { #hero-banner { min-height: 112vh; } }
+
+/* hairline spans the measure, like the homepage's */
+#hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
+#hero-banner .hero-title { width: 100%; }
+
+/* avoid a single word stranded on the last line of a caption */
+.hero-head-meta, .hero-caption h2, .hero-caption p, .hero-lede, #faq-hero .faq-hero-sub { text-wrap: pretty; }

@@ -36,7 +36,7 @@
   color: rgba(234,229,220,0.95); line-height: 1.08; margin-bottom: 16px;
 }
 .nav-dd-intro-sub {
-  font-size: 15px; line-height: 1.65; color: rgba(234,229,220,0.45); font-weight: 300;
+  font-size: 15px; line-height: 1.65; color: rgba(234,229,220,0.66); font-weight: 300;
 }
 
 .nav-dd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; align-content: start; }

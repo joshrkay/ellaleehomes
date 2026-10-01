@@ -186,7 +186,7 @@
       var tick = function () {
         if (!track.isConnected) { track.__elhRaf = null; return; }
         if (!s.step || s.step < 60) measure();
-        if (!s.paused && !s.dragging) s.target += 0.17;
+        if (!s.paused && !s.dragging) s.target += 0.26;
         s.x += (s.target - s.x) * 0.07;
         if (s.span > 0) {
           while (s.x >= s.span) { s.x -= s.span; s.target -= s.span; }
@@ -231,7 +231,7 @@
       el.style.borderColor = i <= idx ? '#BFA06A' : 'rgba(234,229,220,.42)';
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-elh-tl-label]'), function (el, i) {
-      el.style.color = i === idx ? '#EAE5DC' : 'rgba(234,229,220,.44)';
+      el.style.color = i === idx ? '#EAE5DC' : 'rgba(234,229,220,.62)';
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-elh-tl-img]'), function (el, i) {
       el.style.opacity = i === idx ? '1' : '0';

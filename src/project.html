@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ella Lee Homes — Project</title>
+<title>Custom Home Project in Arizona | Ella Lee Homes</title>
+<meta name="description" content="A custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ella Lee Homes">
+<meta property="og:title" content="Custom Home Project in Arizona | Ella Lee Homes">
+<meta property="og:description" content="A custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.">
+<meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -13,6 +20,7 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
+  --gutter: clamp(18px, 2.4vw, 40px);
   --serif: 'DM Serif Display', Georgia, serif;
   --disp: 'DM Serif Display', Georgia, serif;
   --ink: #001526;
@@ -47,7 +55,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 }
 /* Floating glass back link over the image, tucked under the nav */
 .hero-back {
-  position: absolute; top: 104px; left: 48px; z-index: 30;
+  position: absolute; top: 104px; left: var(--gutter); z-index: 30;
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--paper); text-decoration: none;
@@ -65,17 +73,19 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 #hero:hover .hero-img { transform: scale(1.02); }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 40%, rgba(0,21,38,0.7) 100%);
+    background:
+    linear-gradient(to bottom, rgba(0,21,38,0.55) 0%, rgba(0,21,38,0.25) 14%, transparent 30%),
+    linear-gradient(to bottom, transparent 40%, rgba(0,21,38,0.7) 100%);
 }
 .hero-tag {
-  position: absolute; top: 104px; right: 48px;
+  position: absolute; top: 104px; right: var(--gutter);
   background: rgba(234,229,220,0.15); backdrop-filter: blur(12px);
   border: 1px solid rgba(234,229,220,0.25);
   font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--paper); padding: 8px 16px; border-radius: 100px;
 }
 .hero-title {
-  position: absolute; bottom: 48px; left: 48px; right: 48px;
+  position: absolute; bottom: 48px; left: var(--gutter); right: var(--gutter);
 }
 .hero-location {
   font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
@@ -86,7 +96,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   line-height: 1.1; letter-spacing: -0.02em; color: var(--paper);
 }
 .hero-status {
-  position: absolute; bottom: 48px; right: 48px;
+  position: absolute; bottom: 48px; right: var(--gutter);
   font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--gold); border-bottom: 1px solid rgba(201,169,110,0.4);
   padding-bottom: 4px;
@@ -121,7 +131,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   color: var(--nickel); margin-bottom: 16px;
 }
 .section-title {
-  font-size: clamp(24px, 3vw, 36px); font-weight: 300; letter-spacing: -0.02em;
+  font-family: var(--disp); font-size: clamp(26px, 3.2vw, 40px); font-weight: 400; letter-spacing: -0.015em;
   margin-bottom: 32px; line-height: 1.1;
 }
 .section-title em { font-style: normal; color: var(--gold); }
@@ -142,7 +152,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   background: var(--navy);
 }
 #photos-col {
-  padding: 64px 48px;
+  padding: 64px var(--gutter);
   background: rgba(234,229,220,.14);
 }
 .amenities-list { display: flex; flex-direction: column; gap: 0; }
@@ -246,16 +256,16 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   border-bottom: 1px solid rgba(234,229,220,.24);
   background: var(--navy);
 }
-.story-inner { max-width: 1100px; padding: 72px 64px; }
+.story-inner { max-width: 1100px; padding: 72px var(--gutter); }
 .story-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 8px; }
 
 /* ── INQUIRY CTA ── */
 #inquiry-cta {
-  padding: 80px 64px;
+  padding: 80px var(--gutter);
   background: var(--navy); color: var(--paper);
   display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: center;
 }
-.inquiry-eyebrow { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(234,229,220,0.5); margin-bottom: 20px; }
+.inquiry-eyebrow { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(234,229,220,0.66); margin-bottom: 20px; }
 .inquiry-title { font-family: var(--disp); font-size: clamp(28px, 3.5vw, 44px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
 .inquiry-title em { font-style: normal; color: var(--gold); }
 .inquiry-sub { margin-top: 20px; font-size: 14px; line-height: 1.8; color: rgba(234,229,220,0.7); max-width: 480px; }
@@ -264,17 +274,19 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   display: inline-flex; align-items: center; gap: 12px;
   font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
   padding: 16px 32px; text-decoration: none;
-  background: var(--gold); color: var(--paper); border: none;
+  background: var(--gold); color: var(--navy); border: none;
   transition: background 0.25s, color 0.25s;
 }
-.inquiry-btn:hover { background: var(--gold); color: var(--navy); }
+.inquiry-btn:hover { background: var(--paper); color: var(--navy); }
 .inquiry-btn::after { content: '→'; transition: transform 0.2s; }
 .inquiry-btn:hover::after { transform: translateX(4px); }
-.inquiry-meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(234,229,220,0.5); }
+.inquiry-meta .nw { white-space: nowrap; }
+@media (max-width: 520px) { .inquiry-meta .sep { display: none; } .inquiry-meta .nw { display: block; } }
+.inquiry-meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(234,229,220,0.66); }
 
 /* ── RELATED ── */
 #related {
-  padding: 72px 64px;
+  padding: 72px var(--gutter);
   border-top: 1px solid rgba(234,229,220,.24);
   background: var(--navy);
 }
@@ -301,13 +313,12 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   .stat-box:nth-child(1), .stat-box:nth-child(2) { border-bottom: 1px solid rgba(234,229,220,.24); }
   #content { grid-template-columns: 1fr; }
   #amenities-col { border-right: none; border-bottom: 1px solid rgba(234,229,220,.24); }
-  #inquiry-cta { grid-template-columns: 1fr; gap: 32px; padding: clamp(18px, 2.4vw, 40px) 32px; }
+  #inquiry-cta { grid-template-columns: 1fr; gap: 32px; padding: 56px var(--gutter); }
   .related-grid { grid-template-columns: 1fr; }
-  .story-cols { grid-template-columns: 1fr; }
+    .story-cols { grid-template-columns: 1fr; gap: 20px; }
 }
 
 @media (max-width: 640px) {
-  body { padding-top: 80px; }
   #nav { padding: 12px 20px; }
   #back-strip { padding: 14px 20px; }
   #hero { height: 100vh; min-height: 460px; }
@@ -365,18 +376,36 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   "@type": "HomeAndConstructionBusiness",
   "@id": "https://ellaleehomes.com/#business",
   "name": "Ella Lee Homes",
-  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
-  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "legalName": "Ella Lee Homes LLC",
+  "description": "Custom home builder building luxury residences across Paradise Valley, Scottsdale, Arcadia, and Phoenix, Arizona.",
   "url": "https://ellaleehomes.com/",
-  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
-  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "logo": "https://ellaleehomes.com/uploads/Monogram_Navy.png",
+  "image": "https://ellaleehomes.com/assets/og-share.jpg",
   "telephone": "+1-480-340-8700",
   "email": "hello@ellaleehomes.com",
-  "priceRange": "$$",
-  "foundingLocation": "Phoenix, Arizona",
+  "foundingDate": "2021",
+  "founder": {
+    "@type": "Person",
+    "name": "Shay Segev",
+    "jobTitle": "Founder and Principal"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Arizona ROC License",
+    "value": "KB2-333410"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License KB2-333410",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Arizona Registrar of Contractors"
+    }
+  },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "4408 N 12th St",
+    "streetAddress": "4408 N 12th St, Ste 200",
     "addressLocality": "Phoenix",
     "addressRegion": "AZ",
     "postalCode": "85014",
@@ -387,17 +416,17 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
     "latitude": 33.5004403,
     "longitude": -112.0567192
   },
-  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "hasMap": "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r",
   "areaServed": [
-    {
-      "@type": "City",
-      "name": "Scottsdale",
-      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
-    },
     {
       "@type": "City",
       "name": "Paradise Valley",
       "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
     },
     {
       "@type": "Place",
@@ -407,37 +436,17 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
       "@type": "City",
       "name": "Phoenix",
       "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    },
+    {
+      "@type": "State",
+      "name": "Arizona"
     }
   ],
   "knowsAbout": [
     "Custom home building",
     "Luxury home construction",
-    "Home design",
-    "Residential development"
-  ],
-  "sameAs": [
-    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
-  ],
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "08:00",
-      "closes": "17:00"
-    }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "12",
-    "bestRating": "5"
-  }
+    "Teardown and rebuild"
+  ]
 }
 </script>
 </head>
@@ -451,11 +460,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 
 
 <!-- NOT FOUND (shown if slug doesn't match) -->
-<div id="not-found">
-  <h1>Project not found</h1>
-  <p>The project you're looking for doesn't exist.</p>
-  <a href="previous-projects.html" class="nav-back">← View All Projects</a>
-</div>
+<div id="not-found"></div>
 
 <!-- PROJECT CONTENT (populated by JS based on ?slug=) -->
 <div id="project-content" style="display:none;">
@@ -468,7 +473,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
     <div class="hero-tag" id="hero-tag">Completed</div>
     <div class="hero-title">
       <div class="hero-location" id="hero-location"></div>
-      <div class="hero-name" id="hero-name"></div>
+      <h1 class="hero-name" id="hero-name"></h1>
     </div>
     <div class="hero-status" id="hero-status">Sold</div>
   </section>
@@ -525,8 +530,8 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
       <p class="inquiry-sub">Every Ella Lee home begins with a conversation. Tell us about your vision and we'll help you bring it to life.</p>
     </div>
     <div class="inquiry-actions">
-      <a href="index.html#inquiry" class="inquiry-btn">Begin the Conversation</a>
-      <div class="inquiry-meta">(480) 340-8700 · hello@ellaleehomes.com</div>
+      <a href="index.html#inquiry" class="inquiry-btn">Start Your Build</a>
+      <div class="inquiry-meta"><span class="nw">(480) 340-8700</span> <span class="sep">·</span> <span class="nw">hello@ellaleehomes.com</span></div>
     </div>
   </section>
 
@@ -605,8 +610,7 @@ const PROJECTS = {
       ["5.2 Bathrooms", "Designer fixtures and finishes"],
       ["4833 sq ft", "Total area per published plan"],
       ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -698,8 +702,7 @@ const PROJECTS = {
       ["5.5 Bathrooms", "Designer fixtures and finishes"],
       ["5214 sq ft", "Total area per published plan"],
       ["Paradise Valley", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -797,8 +800,7 @@ const PROJECTS = {
       ["7.5 Bathrooms", "Designer fixtures and finishes"],
       ["5874 sq ft", "Total area per published plan"],
       ["Arcadia", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -904,8 +906,7 @@ const PROJECTS = {
       ["6.5 Bathrooms", "Designer fixtures and finishes"],
       ["6222 sq ft", "Total area per published plan"],
       ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -1027,8 +1028,7 @@ const PROJECTS = {
       ["6.5 Bathrooms", "Designer fixtures and finishes"],
       ["5197 sq ft", "Total area per published plan"],
       ["Paradise Valley", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -1129,8 +1129,7 @@ const PROJECTS = {
       ["7.5 Bathrooms", "Designer fixtures and finishes"],
       ["5547 sq ft", "Total area per published plan"],
       ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -1192,8 +1191,7 @@ const PROJECTS = {
       ["3.5 Bathrooms", "Designer fixtures and finishes"],
       ["3957 sq ft", "Total area per published plan"],
       ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -1357,8 +1355,7 @@ const PROJECTS = {
       ["5.5 Bathrooms", "Designer fixtures and finishes"],
       ["5578 sq ft", "Total area per published plan"],
       ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -1570,8 +1567,7 @@ const PROJECTS = {
       ["3.5 Bathrooms", "Designer fixtures and finishes"],
       ["4606 sq ft", "Total area per published plan"],
       ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -1723,8 +1719,7 @@ const PROJECTS = {
       ["5.5 Bathrooms", "Designer fixtures and finishes"],
       ["5578 sq ft", "Total area per published plan"],
       ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -1875,8 +1870,7 @@ const PROJECTS = {
       ["3.5 Bathrooms", "Designer fixtures and finishes"],
       ["5578 sq ft", "Total area per published plan"],
       ["Scottsdale", "Arizona custom build"],
-      ["Indoor–outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor–outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -1952,8 +1946,7 @@ const PROJECTS = {
       ["6 Bathrooms", "Designer fixtures and finishes"],
       ["3,689 sq ft", "Total living area"],
       ["Arcadia, Phoenix", "Arizona custom build"],
-      ["Indoor\u2013outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor\u2013outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -1980,8 +1973,7 @@ const PROJECTS = {
       ["4 Bathrooms", "Designer fixtures and finishes"],
       ["3,480 sq ft", "Total living area"],
       ["Southwest Village, Scottsdale", "Arizona custom build"],
-      ["Indoor\u2013outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor\u2013outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -2008,8 +2000,7 @@ const PROJECTS = {
       ["7 Bathrooms", "Designer fixtures and finishes"],
       ["4,258 sq ft", "Total living area"],
       ["Camelback East, Phoenix", "Arizona custom build"],
-      ["Indoor\u2013outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor\u2013outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -2036,8 +2027,7 @@ const PROJECTS = {
       ["8 Bathrooms", "Designer fixtures and finishes"],
       ["5,644 sq ft", "Total living area"],
       ["Scottsdale, Arizona", "Arizona custom build"],
-      ["Indoor\u2013outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor\u2013outdoor living", "Connected main living spaces"]
     ]
   },
 
@@ -2132,7 +2122,7 @@ const PROJECTS = {
     ],
     storyTitle: "Estate Living on <em>Camino Sin Nombre.</em>",
     storyParas: [
-      "Camino Sin Nombre is our most ambitious Paradise Valley estate \u2014 8,002 sq ft of curated luxury, six bedrooms, eight baths, and unmatched craftsmanship throughout.",
+      "Camino Sin Nombre is our most ambitious Paradise Valley estate \u2014 8,002 sq ft of curated luxury, six bedrooms, eight baths, and careful craftsmanship throughout.",
       "Sold 2024 for $10,000,000."
     ],
     amenities: [
@@ -2140,8 +2130,7 @@ const PROJECTS = {
       ["8 Bathrooms", "Designer fixtures and finishes"],
       ["8,002 sq ft", "Total living area"],
       ["Paradise Valley, Arizona", "Arizona custom build"],
-      ["Indoor\u2013outdoor living", "Connected main living spaces"],
-      ["Ella Lee Homes build", "See live site for full amenity list"]
+      ["Indoor\u2013outdoor living", "Connected main living spaces"]
     ]
   }
 };
@@ -2170,15 +2159,15 @@ const SLUG_ALIASES = {
 };
 
 const AMENITY_ICONS = [
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
 ];
 
 function renderProject() {
@@ -2188,12 +2177,28 @@ function renderProject() {
   const project = PROJECTS[slug];
 
   if (!project) {
-    document.getElementById('not-found').style.display = 'block';
+        const nf = document.getElementById('not-found');
+    nf.innerHTML = '<h1>Project not found</h1><p>The project you\'re looking for doesn\'t exist.</p><a href="previous-projects.html" class="nav-back">← View All Projects</a>';
+    nf.style.display = 'block';
     return;
   }
 
   document.getElementById('project-content').style.display = 'block';
-  document.title = `Ella Lee Homes — ${project.name.replace(/&amp;/g, '&')}`;
+  const plainName = project.name.replace(/&amp;/g, '&');
+  const pageTitle = `${plainName}: Custom Home in Arizona | Ella Lee Homes`;
+  const pageDesc = `${plainName}, a custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.`;
+  const pageUrl = `https://ellaleehomes.com/project?slug=${encodeURIComponent(slug)}`;
+  document.title = pageTitle;
+  // Each project gets its own title, description and share tags (the shell ships generic ones).
+  const setMeta = (sel, val, attrs) => {
+    let el = document.querySelector(sel);
+    if (!el && attrs) { el = document.createElement('meta'); Object.keys(attrs).forEach((k) => el.setAttribute(k, attrs[k])); document.head.appendChild(el); }
+    if (el) el.setAttribute('content', val);
+  };
+  setMeta('meta[name="description"]', pageDesc);
+  setMeta('meta[property="og:title"]', pageTitle);
+  setMeta('meta[property="og:description"]', pageDesc);
+  setMeta('meta[property="og:url"]', pageUrl, { property: 'og:url' });
 
   // Every project renders from this one shell, and the aliases above plus the
   // no-slug default mean several URLs show the same home. Point each variant
@@ -2205,7 +2210,7 @@ function renderProject() {
     canonical.rel = 'canonical';
     document.head.appendChild(canonical);
   }
-  canonical.href = `https://ellaleehomes.com/project?slug=${encodeURIComponent(slug)}`;
+  canonical.href = pageUrl;
 
   // Hero
   const heroImg = document.getElementById('hero-img');
@@ -2277,7 +2282,15 @@ function renderProject() {
     .join('');
 
   // Related: pick 3 other projects
-  const relatedSlugs = Object.keys(PROJECTS).filter(s => s !== slug).slice(0, 3);
+    // Similar = closest by price and size, with a small nudge for the same area.
+  const num = v => { const n = parseFloat(String(v).replace(/[^0-9.]/g, '')); return n > 0 ? n : null; };
+  const gap = (a, b) => (a && b) ? Math.abs(Math.log(a / b)) : 0.6;
+  const city = p => String(p.location || '').split(',')[0].trim();
+  const similarity = s => {
+    const p = PROJECTS[s];
+    return gap(num(p.price), num(project.price)) + gap(num(p.sqft), num(project.sqft)) + (city(p) === city(project) ? 0 : 0.25);
+  };
+  const relatedSlugs = Object.keys(PROJECTS).filter(s => s !== slug).sort((a, b) => similarity(a) - similarity(b)).slice(0, 3);
   const grid = document.getElementById('related-grid');
   grid.innerHTML = relatedSlugs.map(s => {
     const p = PROJECTS[s];

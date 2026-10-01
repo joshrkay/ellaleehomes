@@ -38,8 +38,8 @@ Sell is not a top-level entry — it is the last item in Learn.
 | [`src/project.html`](../src/project.html) | Project detail shell; content driven by `?slug=` + embedded `PROJECTS` data |
 | [`src/build-your-home.html`](../src/build-your-home.html) | Build phases (scroll-scrubbed timeline) |
 | [`src/sell-your-home.html`](../src/sell-your-home.html) | Selling a home through Ella Lee |
-| [`src/our-story.html`](../src/our-story.html) | About / founders |
-| [`src/our-story-print.html`](../src/our-story-print.html) | Print-oriented deck version of Our Story |
+| [`src/our-story.html`](../src/our-story.html) | About / founder |
+| [`docs/archive/our-story-print.html`](archive/our-story-print.html) | **Archived, not published.** Old print version of Our Story. It carried copy the Fact Sheet rules out (invented client quotes, "9 neighborhoods", "premier"), so it was taken out of the build. Re-sync it from `src/our-story.html` before using it again. |
 | [`src/why-us.html`](../src/why-us.html) | Differentiators |
 | [`src/developers.html`](../src/developers.html) | Developer / investor offering |
 | [`src/stories.html`](../src/stories.html) | Article index |

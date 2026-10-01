@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ella Lee Homes — Sell Your Home</title>
+<title>Sell Your Home or Lot in Arizona | Ella Lee Homes</title>
+<meta name="description" content="Sell your home or lot in Paradise Valley, Scottsdale, Arcadia, or Phoenix to Ella Lee Homes, a custom home builder. A clean, private sale. Tell us about your property.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ella Lee Homes">
+<meta property="og:title" content="Sell Your Home or Lot in Arizona | Ella Lee Homes">
+<meta property="og:description" content="Sell your home or lot in Paradise Valley, Scottsdale, Arcadia, or Phoenix to Ella Lee Homes, a custom home builder. A clean, private sale. Tell us about your property.">
+<meta property="og:url" content="https://ellaleehomes.com/sell-your-home">
+<meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://ellaleehomes.com/sell-your-home">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -158,7 +166,8 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 /* ── COMPARISON TABLE ── */
 #compare { background: #E3DACA; color: #2B2B2B; border-bottom: none; }
 #compare .sec-title { color: #001526; }
-#compare .eyebrow-line { color: #8A6E3C; }
+#compare .eyebrow-line { color: #6F5628; }
+#compare .sec-title em { color: #8A6E3C; }
 #compare .sec-lede, #compare .sec-body { color: #2B2B2B; }
 .cmp {
   margin-top: 56px; width: 100%;
@@ -181,6 +190,8 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 .cmp td.col-trad { color: rgba(0,21,38,0.62); width: 37%; }
 .cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: none; }
 .cmp .tick { color: var(--gold); font-weight: 600; margin-right: 8px; }
+/* Mobile comparison cards: hidden here, shown by the 760px query below (this rule must come BEFORE that query) */
+.cmp-cards { display: none; }
 
 /* ── AREAS ── */
 #areas { background: var(--ink); color: var(--paper); border-bottom: none; }
@@ -198,6 +209,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   font-size: clamp(28px, 3vw, 40px); color: var(--paper);
   display: flex; align-items: baseline; gap: 16px;
 }
+@media (max-width: 900px) { .area { flex-basis: 45%; } }
 .area span { font-family: var(--sans); font-style: normal; font-size: 12px; color: var(--gold); letter-spacing: 0.1em; }
 
 /* ── FAQ ── */
@@ -236,6 +248,7 @@ details.faq .faq-a {
 .cta-field + .cta-field { padding-top: 18px; }
 .cta-form-row .cta-field { border-right: 1px solid rgba(234,229,220,.16); padding-right: 18px; }
 .cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
+.cta-form-row .cta-field + .cta-field { padding-top: 14px; }
 .cta-field label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(234,229,220,.6); margin-bottom: 8px; }
 .cta-field input, .cta-field select, .cta-field textarea {
   font-family: var(--sans); font-size: 15px; color: var(--paper); background: transparent;
@@ -283,11 +296,16 @@ details.faq .faq-a {
   .step, .step:not(:first-child) { padding: 0; border-right: none; }
   .cmp, .cmp thead { display: none; }
   .cmp-cards { display: block; }
-  .cta-form-row { grid-template-columns: 1fr; }
-  .cta-form-row .cta-field { border-right: none; padding-right: 0; padding-left: 0; }
+    .cta-form-row { grid-template-columns: 1fr; }
+  .cta-form-row .cta-field, .cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 0; }
+  .cta-form-actions { flex-direction: column; align-items: stretch; gap: 16px; }
+  .cta-form-actions .cta-submit { justify-content: center; }
 }
+/* Lot / teardown strip under the hero: two columns on desktop, one on tablet and phone */
+.lot-strip { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+@media (max-width: 900px) { .lot-strip { grid-template-columns: 1fr; gap: 28px; } }
 /* Mobile comparison cards (hidden on desktop) */
-.cmp-cards { display: none; margin-top: 40px; }
+.cmp-cards { margin-top: 40px; }
 .cmp-card { border: 1px solid rgba(0,21,38,0.14); background: rgba(255,255,255,0.35); padding: 22px 24px; margin-bottom: 14px; }
 .cmp-card h4 { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); margin-bottom: 14px; }
 .cmp-card .cc-row { display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-top: 1px solid rgba(0,21,38,0.1); }
@@ -295,7 +313,7 @@ details.faq .faq-a {
 .cmp-card .cc-ella { color: var(--navy); font-weight: 500; font-size: 14px; }
 .cmp-card .cc-trad { color: rgba(0,21,38,0.6); font-size: 14px; }
 .cmp-card .cc-lab.ella { color: var(--navy); }
-.cmp-card .cc-lab.trad { color: var(--nickel); }
+.cmp-card .cc-lab.trad { color: #605C58; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; }
@@ -341,7 +359,7 @@ details.faq .faq-a {
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
   text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
-.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; white-space: nowrap; }
 #hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
 @media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
 
@@ -367,18 +385,36 @@ details.faq .faq-a {
   "@type": "HomeAndConstructionBusiness",
   "@id": "https://ellaleehomes.com/#business",
   "name": "Ella Lee Homes",
-  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
-  "description": "Arizona's premier luxury custom home builder, designing and building bespoke residences across Scottsdale, Paradise Valley, and Arcadia.",
+  "legalName": "Ella Lee Homes LLC",
+  "description": "Custom home builder building luxury residences across Paradise Valley, Scottsdale, Arcadia, and Phoenix, Arizona.",
   "url": "https://ellaleehomes.com/",
-  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
-  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "logo": "https://ellaleehomes.com/uploads/Monogram_Navy.png",
+  "image": "https://ellaleehomes.com/assets/og-share.jpg",
   "telephone": "+1-480-340-8700",
   "email": "hello@ellaleehomes.com",
-  "priceRange": "$$",
-  "foundingLocation": "Phoenix, Arizona",
+  "foundingDate": "2021",
+  "founder": {
+    "@type": "Person",
+    "name": "Shay Segev",
+    "jobTitle": "Founder and Principal"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Arizona ROC License",
+    "value": "KB2-333410"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License KB2-333410",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Arizona Registrar of Contractors"
+    }
+  },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "4408 N 12th St",
+    "streetAddress": "4408 N 12th St, Ste 200",
     "addressLocality": "Phoenix",
     "addressRegion": "AZ",
     "postalCode": "85014",
@@ -389,17 +425,17 @@ details.faq .faq-a {
     "latitude": 33.5004403,
     "longitude": -112.0567192
   },
-  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "hasMap": "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r",
   "areaServed": [
-    {
-      "@type": "City",
-      "name": "Scottsdale",
-      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
-    },
     {
       "@type": "City",
       "name": "Paradise Valley",
       "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
     },
     {
       "@type": "Place",
@@ -409,37 +445,17 @@ details.faq .faq-a {
       "@type": "City",
       "name": "Phoenix",
       "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    },
+    {
+      "@type": "State",
+      "name": "Arizona"
     }
   ],
   "knowsAbout": [
     "Custom home building",
     "Luxury home construction",
-    "Home design",
-    "Residential development"
-  ],
-  "sameAs": [
-    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
-  ],
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "08:00",
-      "closes": "17:00"
-    }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "12",
-    "bestRating": "5"
-  }
+    "Teardown and rebuild"
+  ]
 }
 </script>
 </head>
@@ -459,33 +475,25 @@ details.faq .faq-a {
   <div class="hero-head">
     <div class="hero-head-l">
       <div class="eyebrow">Sell Your Home</div>
-      <h1 class="hero-title">Sell to a trusted<br><em>local buyer.</em></h1>
+      <h1 class="hero-title">Give your home or lot<br><em>a second life.</em></h1>
     </div>
     <div class="hero-head-meta">
-      A simpler, private way to sell &mdash;<br>direct to Arizona's<br><strong>luxury home builder.</strong>
+      With another family<br>to grow in &mdash;<br><strong>a clean, private sale.</strong>
     </div>
   </div>
-
-  <div class="hero-caption">
-    <div class="eyebrow">The Ella Lee Difference</div>
-    <div class="hero-chips">
-      <span class="hero-chip">No Hassle</span>
-      <span class="hero-chip">No Repairs</span>
-      <span class="hero-chip">No Waiting</span>
-    </div>
-  </div>
-</section>
+  </section>
 
 <!-- TEARDOWN / LOT SELLER STRIP -->
 <section style="background:var(--navy); border-top:1px solid rgba(234,229,220,.12); padding: 80px clamp(18px, 2.4vw, 40px);">
-  <div style="max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
+  <div class="lot-strip">
     <div>
-      <div style="font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;">Arcadia &middot; Scottsdale &middot; Paradise Valley</div>
+      <div style="font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;">Paradise Valley &middot; Scottsdale &middot; Arcadia &middot; Phoenix</div>
       <h2 style="font-family:var(--disp); font-weight:400; font-size:clamp(30px,4vw,52px); letter-spacing:-0.015em; line-height:1.1; color:var(--paper);">Own a lot or<br>older home?</h2>
     </div>
     <div>
-      <p style="font-size:18px; line-height:1.8; color:rgba(234,229,220,.86); margin-bottom:28px;">As a custom builder actively building in Arcadia, Scottsdale, and Paradise Valley, Ella Lee Homes often acquires teardown properties and infill lots directly from owners. No agents, no listings, no open houses &mdash; just a direct conversation.</p>
+      <p style="font-size: clamp(16px, 1.2vw, 17px); line-height:1.8; color:rgba(234,229,220,.86); margin-bottom:28px; font-weight: 300">As a custom builder actively building in Paradise Valley, Scottsdale, Arcadia, and Phoenix, Ella Lee Homes often acquires teardown properties and infill lots directly from owners. No agents, no listings, no open houses &mdash; just a direct conversation.</p>
       <a href="contact.html" style="display:inline-block; background:var(--gold); color:var(--navy); text-decoration:none; padding:16px 36px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; font-weight:500;">Start the Conversation</a>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:28px;"><span style="padding:9px 18px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper); border:1px solid rgba(234,229,220,.35); border-radius:100px;">No Hassle</span><span style="padding:9px 18px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper); border:1px solid rgba(234,229,220,.35); border-radius:100px;">No Repairs</span><span style="padding:9px 18px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper); border:1px solid rgba(234,229,220,.35); border-radius:100px;">No Waiting</span></div>
     </div>
   </div>
 </section>
@@ -495,16 +503,16 @@ details.faq .faq-a {
   <div class="section-inner">
     <div class="intro-grid">
       <div>
-        <div class="eyebrow-line reveal">Cash Home Buyer in Arizona</div>
-        <h2 class="sec-title reveal reveal-d1">Sell your home in Phoenix, Scottsdale &amp; <em>surrounding areas.</em></h2>
+        <div class="eyebrow-line reveal">Lots &amp; Teardowns</div>
+        <h2 class="sec-title reveal reveal-d1">Sell your home or lot in Paradise Valley, Scottsdale, Arcadia &amp; <em>Phoenix.</em></h2>
         <div class="sec-body reveal reveal-d2" style="margin-top: 28px;">
-          <p>Selling a home can feel overwhelming. From costly repairs and endless showings to long waits for the right buyer, the process often drains both time and energy. Ella Lee Homes isn't just a luxury home builder — we also make selling your home as simple as possible.</p>
-          <p>As a trusted cash home buyer in Arizona, we purchase homes <strong>as-is</strong> — no stress, no repairs, and no waiting around for offers. Whether you're relocating, navigating financial challenges, or simply ready to move forward, our team provides a fair, no-obligation cash offer and manages every step of the process.</p>
+          <p>Selling a property in a neighborhood you love is personal. Ella Lee Homes is a custom home builder working in Paradise Valley, Scottsdale, Arcadia, and Phoenix, and we buy homes and lots directly from owners.</p>
+          <p>You get a <strong>clean, private sale</strong> with no listings, no open houses, and no showings. Tell us about your property and we will be in touch.</p>
         </div>
       </div>
       <div class="intro-media reveal reveal-d2">
         <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_4633-1.jpg" alt="Interior of an Ella Lee home">
-        <div class="intro-media-tag">Sold as-is · Closed on your timeline</div>
+        <div class="intro-media-tag">A clean, private sale</div>
       </div>
     </div>
   </div>
@@ -514,48 +522,48 @@ details.faq .faq-a {
 <section id="why" class="section">
   <div class="section-inner">
     <div class="eyebrow-line reveal">Ella Lee Homes</div>
-    <h2 class="sec-title reveal reveal-d1">Why choose Ella Lee to <em>sell your home?</em></h2>
+    <h2 class="sec-title reveal reveal-d1">Why choose Ella Lee to <em>sell your home or lot?</em></h2>
     <div class="why-grid">
       <div class="why-item reveal">
         <div class="why-num">01</div>
         <div>
-          <h3>Cash offers within 24 hours</h3>
-          <p>Share a few details, and we'll provide a fair, no-pressure offer within one business day.</p>
+          <h3>A direct conversation</h3>
+          <p>Tell us about your property. Every inquiry is read personally.</p>
         </div>
       </div>
       <div class="why-item reveal reveal-d1">
         <div class="why-num">02</div>
         <div>
-          <h3>No repairs required</h3>
-          <p>Sell your home exactly as it is. Skip expensive upgrades, inspections, or staging.</p>
+          <h3>Sold as it stands</h3>
+          <p>Sell exactly as it is, without repairs, inspections, or staging.</p>
         </div>
       </div>
       <div class="why-item reveal">
         <div class="why-num">03</div>
         <div>
-          <h3>Close on your timeline</h3>
-          <p>Need to move quickly? Prefer a few weeks to prepare? We close when it works for you.</p>
+          <h3>A timeline that works</h3>
+          <p>Tell us what timing suits you and we will talk through what is possible.</p>
         </div>
       </div>
       <div class="why-item reveal reveal-d1">
         <div class="why-num">04</div>
         <div>
-          <h3>A hassle-free process</h3>
-          <p>From paperwork to closing, our team handles every detail so you can focus on what's next.</p>
+          <h3>A private sale</h3>
+          <p>No listings, no open houses, and no strangers walking through your home.</p>
         </div>
       </div>
       <div class="why-item reveal">
         <div class="why-num">05</div>
         <div>
-          <h3>Trusted by Arizona homeowners</h3>
-          <p>Dozens of Valley families have sold to us directly &mdash; a straightforward, discreet alternative to listing on the open market.</p>
+          <h3>A builder who knows the area</h3>
+          <p>We build in these neighborhoods, so we understand these lots and what they can become.</p>
         </div>
       </div>
       <div class="why-item reveal reveal-d1">
         <div class="why-num">06</div>
         <div>
-          <h3>Luxury home expertise</h3>
-          <p>Our background as a custom builder means we see the full picture of your home's value.</p>
+          <h3>A builder's eye</h3>
+          <p>Our background as a custom home builder means we see the full picture of your property.</p>
         </div>
       </div>
     </div>
@@ -566,8 +574,8 @@ details.faq .faq-a {
 <section id="how" class="section">
   <div class="section-inner">
     <div class="eyebrow-line reveal">How It Works</div>
-    <h2 class="sec-title reveal reveal-d1">Sell your house in a few <em>easy steps.</em></h2>
-    <p class="sec-lede reveal reveal-d2">Selling your home to us is simple and straightforward — here's how it works.</p>
+    <h2 class="sec-title reveal reveal-d1">Sell your home or lot in a few <em>easy steps.</em></h2>
+    <p class="sec-lede reveal reveal-d2">Selling your home or lot to us is simple and straightforward — here's how it works.</p>
     <div class="steps-grid">
       <div class="step reveal">
         <div class="step-num">1</div>
@@ -576,18 +584,18 @@ details.faq .faq-a {
       </div>
       <div class="step reveal reveal-d1">
         <div class="step-num">2</div>
-        <h3>Get a Fair Cash Offer</h3>
-        <p>We review your home ourselves &mdash; as the actual buyer, not a middleman &mdash; and send a no-obligation offer within 24 hours.</p>
+        <h3>Receive an Offer</h3>
+        <p>We review your property ourselves &mdash; as the actual buyer, not a middleman &mdash; and follow up with a no-obligation offer.</p>
       </div>
       <div class="step reveal reveal-d2">
         <div class="step-num">3</div>
-        <h3>Close on Your Timeline</h3>
-        <p>If you accept, we handle all the paperwork and close on the date that works best for you — no delays, no surprises.</p>
+        <h3>Close on a Timeline That Works</h3>
+        <p>If you accept, we handle the paperwork and close on a date that works for both sides.</p>
       </div>
       <div class="step reveal reveal-d3">
         <div class="step-num">4</div>
         <h3>Get Paid</h3>
-        <p>Funds are wired to you promptly after closing &mdash; no waiting on a buyer's financing. It's that simple.</p>
+        <p>Funds are wired to you after closing, with no waiting on a buyer's financing.</p>
       </div>
     </div>
   </div>
@@ -597,13 +605,13 @@ details.faq .faq-a {
 <section id="compare" class="section">
   <div class="section-inner">
     <div class="eyebrow-line reveal">The Smarter Way to Sell</div>
-    <h2 class="sec-title reveal reveal-d1">A cash sale vs. the <em>traditional route.</em></h2>
+    <h2 class="sec-title reveal reveal-d1">A direct sale vs. the <em>traditional route.</em></h2>
 
     <table class="cmp reveal reveal-d2">
       <thead>
         <tr>
           <th>Category</th>
-          <th class="col-ella">Ella Lee Homes — Your Cash Buyer</th>
+          <th class="col-ella">Ella Lee Homes</th>
           <th>Traditional Real Estate Sale</th>
         </tr>
       </thead>
@@ -611,16 +619,16 @@ details.faq .faq-a {
         <tr>
           <th class="row-cat">Fees &amp; Commissions</th>
           <td class="col-ella"><span class="tick">✓</span><strong>None</strong> — no agent commissions</td>
-          <td class="col-trad">3%–6% agent commissions</td>
+          <td class="col-trad">Agent commissions</td>
         </tr>
         <tr>
           <th class="row-cat">Closing Costs</th>
           <td class="col-ella"><span class="tick">✓</span>Reduced — no listing-side fees</td>
-          <td class="col-trad">Usually 1–2% paid by seller</td>
+          <td class="col-trad">Paid by the seller</td>
         </tr>
         <tr>
           <th class="row-cat">Financing Risk</th>
-          <td class="col-ella"><span class="tick">✓</span>No financing needed — guaranteed cash</td>
+          <td class="col-ella"><span class="tick">✓</span>No financing contingency</td>
           <td class="col-trad">Sales can fall through due to loan issues</td>
         </tr>
         <tr>
@@ -635,12 +643,12 @@ details.faq .faq-a {
         </tr>
         <tr>
           <th class="row-cat">Closing Timeline</th>
-          <td class="col-ella"><span class="tick">✓</span>You choose the closing date</td>
-          <td class="col-trad">45–60+ days on average</td>
+          <td class="col-ella"><span class="tick">✓</span>A date that works for both sides</td>
+          <td class="col-trad">Tied to the buyer's financing and appraisal</td>
         </tr>
         <tr>
           <th class="row-cat">Repairs Needed</th>
-          <td class="col-ella"><span class="tick">✓</span>No repairs — we buy your home as-is</td>
+          <td class="col-ella"><span class="tick">✓</span>No repairs needed</td>
           <td class="col-trad">Most buyers require repairs</td>
         </tr>
       </tbody>
@@ -651,16 +659,16 @@ details.faq .faq-a {
       <div class="cmp-card">
         <h4>Fees &amp; Commissions</h4>
         <div class="cc-row"><span class="cc-lab ella">Ella Lee</span><span class="cc-ella">None — no agent commissions</span></div>
-        <div class="cc-row"><span class="cc-lab trad">Traditional</span><span class="cc-trad">3%–6% agent commissions</span></div>
+        <div class="cc-row"><span class="cc-lab trad">Traditional</span><span class="cc-trad">Agent commissions</span></div>
       </div>
       <div class="cmp-card">
         <h4>Closing Costs</h4>
         <div class="cc-row"><span class="cc-lab ella">Ella Lee</span><span class="cc-ella">Reduced — no listing-side fees</span></div>
-        <div class="cc-row"><span class="cc-lab trad">Traditional</span><span class="cc-trad">Usually 1–2% paid by seller</span></div>
+        <div class="cc-row"><span class="cc-lab trad">Traditional</span><span class="cc-trad">Paid by the seller</span></div>
       </div>
       <div class="cmp-card">
         <h4>Financing Risk</h4>
-        <div class="cc-row"><span class="cc-lab ella">Ella Lee</span><span class="cc-ella">No financing needed — guaranteed cash</span></div>
+        <div class="cc-row"><span class="cc-lab ella">Ella Lee</span><span class="cc-ella">No financing contingency</span></div>
         <div class="cc-row"><span class="cc-lab trad">Traditional</span><span class="cc-trad">Sales can fall through due to loan issues</span></div>
       </div>
       <div class="cmp-card">
@@ -675,12 +683,12 @@ details.faq .faq-a {
       </div>
       <div class="cmp-card">
         <h4>Closing Timeline</h4>
-        <div class="cc-row"><span class="cc-lab ella">Ella Lee</span><span class="cc-ella">You choose the closing date</span></div>
-        <div class="cc-row"><span class="cc-lab trad">Traditional</span><span class="cc-trad">45–60+ days on average</span></div>
+        <div class="cc-row"><span class="cc-lab ella">Ella Lee</span><span class="cc-ella">A date that works for both sides</span></div>
+        <div class="cc-row"><span class="cc-lab trad">Traditional</span><span class="cc-trad">Tied to the buyer's financing and appraisal</span></div>
       </div>
       <div class="cmp-card">
         <h4>Repairs Needed</h4>
-        <div class="cc-row"><span class="cc-lab ella">Ella Lee</span><span class="cc-ella">No repairs — we buy as-is</span></div>
+        <div class="cc-row"><span class="cc-lab ella">Ella Lee</span><span class="cc-ella">No repairs needed</span></div>
         <div class="cc-row"><span class="cc-lab trad">Traditional</span><span class="cc-trad">Most buyers require repairs</span></div>
       </div>
     </div>
@@ -690,11 +698,11 @@ details.faq .faq-a {
 <!-- FRESH START -->
 <section id="freshstart" class="section">
   <div class="section-inner">
-    <div class="eyebrow-line reveal">A Path to Your Fresh Start</div>
+    <div class="eyebrow-line reveal">The Next Chapter</div>
     <h2 class="sec-title reveal reveal-d1">Why selling to Ella Lee <em>makes sense.</em></h2>
     <div class="sec-body reveal reveal-d2" style="margin-top: 32px; max-width: 72ch;">
-      <p>Selling your home for cash isn't just about convenience — it's about peace of mind. By removing the uncertainty of the traditional market, you can move forward confidently without financial stress, delays, or hidden surprises.</p>
-      <p>Many homeowners who work with us are also planning their next big step: building a custom home. Because Ella Lee Homes isn't just a home buyer — we're also South Arizona's preferred luxury home builder, helping families build the homes they've always dreamed of. Selling a property isn't just a transaction; it's the gateway to your next chapter.</p>
+      <p>A direct sale is about clarity. With no listing, no financing contingency, and no showings, you can move forward with a clear picture of what happens next.</p>
+      <p>Ella Lee Homes builds custom homes in Arizona, and we are glad to buy a home or lot directly and give it a thoughtful next chapter. Selling a property isn't just a transaction; it is a handoff, and we treat it that way.</p>
     </div>
   </div>
 </section>
@@ -703,14 +711,12 @@ details.faq .faq-a {
 <section id="areas" class="section">
   <div class="section-inner">
     <div class="eyebrow-line reveal">Where We Buy</div>
-    <h2 class="sec-title reveal reveal-d1">Serving communities <em>across the Valley.</em></h2>
+    <h2 class="sec-title reveal reveal-d1">Serving communities <em>across Arizona.</em></h2>
     <div class="areas-list">
-      <div class="area reveal">Paradise Valley</div>
-      <div class="area reveal reveal-d1">Arcadia</div>
-      <div class="area reveal reveal-d2">Scottsdale</div>
+      <div class="area reveal">Paradise Valley</div> <div class="area reveal reveal-d1">Scottsdale</div> <div class="area reveal reveal-d2">Arcadia</div>
       <div class="area reveal reveal-d3">Phoenix</div>
     </div>
-    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size:16px; color:rgba(0,21,38,0.62); max-width:60ch;">&mdash; and additional communities throughout the Phoenix Valley. <a href="contact.html" style="color:var(--navy); font-weight:500;">Contact us</a> to confirm your area.</p>
+    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size: clamp(16px, 1.2vw, 17px); color:rgba(234,229,220,0.72); max-width:60ch; font-weight: 300">&mdash; and additional communities throughout Arizona. <a href="contact.html" style="color:var(--gold); font-weight:500; text-decoration:underline; text-underline-offset:3px;">Contact us</a> to confirm your area.</p>
   </div>
 </section>
 
@@ -721,32 +727,24 @@ details.faq .faq-a {
     <h2 class="sec-title reveal reveal-d1">Answers, before <em>you ask.</em></h2>
     <div class="faq-list reveal reveal-d2">
       <details class="faq">
-        <summary>What does it mean to sell my house "as-is"?</summary>
-        <div class="faq-a">When you sell your house as-is, you don't need to make any repairs, upgrades, or renovations before closing. As a cash home buyer in Arizona, Ella Lee Homes purchases properties in their current condition — saving you time, money, and stress.</div>
+        <summary>What does it mean to sell my property "as-is"?</summary>
+        <div class="faq-a">When you sell as-is, you don't need to make repairs or upgrades before closing. Ella Lee Homes buys properties in their current condition.</div>
       </details>
       <details class="faq">
-        <summary>How quickly can I get a cash offer?</summary>
-        <div class="faq-a">You'll receive a fair, no-obligation cash offer within 24 hours of contacting us. Our streamlined process ensures you don't have to wait weeks or months for buyers or negotiations.</div>
-      </details>
-      <details class="faq">
-        <summary>Do I have to pay fees or commissions?</summary>
-        <div class="faq-a">No. Unlike traditional real estate transactions, we don't charge commissions or hidden fees. The offer you receive is the amount you'll walk away with at closing.</div>
+        <summary>How does the process work?</summary>
+        <div class="faq-a">Tell us about your property by form or phone. We review it ourselves and follow up with a no-obligation offer. If you accept, we handle the paperwork and close on a date that works for both sides.</div>
       </details>
       <details class="faq">
         <summary>Can I choose my own closing date?</summary>
-        <div class="faq-a">Yes. We close on your timeline — in as little as 5 days, or up to 60 if you need more time to prepare.</div>
+        <div class="faq-a">Tell us what timing works for you and we will talk through what is possible.</div>
       </details>
       <details class="faq">
-        <summary>Why sell for cash instead of listing with an agent?</summary>
-        <div class="faq-a">Selling for cash removes the uncertainty of appraisals, financing delays, inspections, and endless showings. With Ella Lee Homes, you skip the hassle and receive your payment quickly — allowing you to focus on your next chapter.</div>
+        <summary>Why sell directly instead of listing with an agent?</summary>
+        <div class="faq-a">A direct sale removes the uncertainty of appraisals, financing delays, inspections, and endless showings. It is a private, straightforward alternative to the open market.</div>
       </details>
       <details class="faq">
-        <summary>Does Ella Lee Homes only buy distressed properties?</summary>
-        <div class="faq-a">No. We buy homes of all types and conditions — from fixer-uppers to move-in ready properties. We also purchase homes with tenants, vacant homes, homes with financial challenges or pending foreclosure, and even homes currently listed with an agent.</div>
-      </details>
-      <details class="faq">
-        <summary>Can I sell to you and still build my next home with Ella Lee?</summary>
-        <div class="faq-a">Absolutely. Many homeowners sell their property to us as their first step toward building their dream home. Because Ella Lee Homes is both a trusted cash home buyer and a leading luxury home builder in Arizona, we can help you transition seamlessly.</div>
+        <summary>What kinds of properties do you buy?</summary>
+        <div class="faq-a">We buy homes and lots in Paradise Valley, Scottsdale, Arcadia, and Phoenix. Contact us to confirm your area.</div>
       </details>
     </div>
   </div>
@@ -755,17 +753,17 @@ details.faq .faq-a {
 <!-- CTA -->
 <section id="cta" class="grain">
   <div class="cta-left">
-    <div class="cta-eyebrow">Request a Cash Offer</div>
-    <div class="cta-text">Sell your house <em>as-is, today.</em></div>
-    <p class="cta-sub">Skip the stress, skip the waiting. Tell us about your property and we'll provide a fair, no-obligation cash offer within one business day. Your fresh start is just one step away.</p>
+    <div class="cta-eyebrow">Tell Us About Your Property</div>
+    <div class="cta-text">Start a private <em>conversation.</em></div>
+    <p class="cta-sub">Tell us about your property. Every inquiry is read personally.</p>
     <div class="cta-meta">
       <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
       <div class="cta-meta-row"><span class="cta-meta-label">Email</span><span class="cta-meta-val">hello@ellaleehomes.com</span></div>
-      <div class="cta-meta-row"><span class="cta-meta-label">Studio</span><span class="cta-meta-val">4408 N 12th St, Phoenix, AZ 85014</span></div>
+      <div class="cta-meta-row"><span class="cta-meta-label">Studio</span><span class="cta-meta-val">4408 N 12th St, Ste 200, Phoenix, AZ 85014</span></div>
     </div>
   </div>
 
-  <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We&rsquo;ll be in touch within one business day.';">
+  <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We&rsquo;ll be in touch.';">
     <div class="cta-form-row">
       <div class="cta-field">
         <label>First Name</label>
@@ -793,7 +791,7 @@ details.faq .faq-a {
     <div class="cta-form-row">
       <div class="cta-field">
         <label>Timeline to Sell</label>
-        <select>
+        <select aria-label="Timeline to sell">
           <option>As soon as possible</option>
           <option>Within 30 days</option>
           <option>1 – 3 months</option>
@@ -802,9 +800,10 @@ details.faq .faq-a {
       </div>
       <div class="cta-field">
         <label>Property Type</label>
-        <select>
+        <select aria-label="Property type">
           <option>Single-family home</option>
           <option>Luxury / custom home</option>
+          <option>Lot</option>
           <option>Condo / townhome</option>
           <option>Other</option>
         </select>
@@ -812,12 +811,12 @@ details.faq .faq-a {
     </div>
     <div class="cta-field">
       <label>Anything we should know?</label>
-      <textarea placeholder="Condition, tenants, timing, or any details you'd like to share..."></textarea>
+      <textarea placeholder="Condition, timing, or any details you'd like to share..."></textarea>
     </div>
     <div class="cta-form-actions">
-      <p class="cta-form-note">No obligation. We respond personally within one business day.</p>
+      <p class="cta-form-note">No obligation. Every inquiry is read personally.</p>
       <button type="submit" class="cta-submit">
-        Get My Cash Offer
+        Send
         <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"></path></svg>
       </button>
     </div>
