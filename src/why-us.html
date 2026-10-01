@@ -404,7 +404,10 @@ body {
     min-height: 0;
     margin-bottom: 24px;
   }
-  .rc-inner { grid-template-columns: 1fr; }
+    .rc-inner, .reason-card:nth-child(even) .rc-inner { grid-template-columns: 1fr; }
+  /* even cards put the photo on the right on desktop; stack them photo-first like the odd cards */
+  .reason-card:nth-child(even) .rc-visual { grid-column: 1; grid-row: 1; }
+  .reason-card:nth-child(even) .rc-text { grid-column: 1; grid-row: 2; }
   .rc-visual { aspect-ratio: 16/10; }
   .rc-counter { top: 28px; left: 28px; right: 28px; }
   .rc-counter-num { font-family: var(--disp); font-size: clamp(72px, 16vw, 110px); }
@@ -572,7 +575,7 @@ body {
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
   text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
-.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; }
 #hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
 @media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
 

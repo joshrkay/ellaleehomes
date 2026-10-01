@@ -267,7 +267,7 @@ body {
 }
 .stats-intro .eyebrow {
   font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(234,229,220,0.45); margin-bottom: 16px;
+  color: rgba(234,229,220,0.66); margin-bottom: 16px;
 }
 .stats-intro h2 { font-family: var(--disp);
   font-size: clamp(28px, 3.4vw, 44px); font-weight: 400;
@@ -279,7 +279,7 @@ body {
   font-family: var(--serif); font-weight: 400;
 }
 .stats-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 0;
   border-top: 1px solid rgba(234,229,220,0.12);
 }
@@ -288,6 +288,7 @@ body {
   border-right: 1px solid rgba(234,229,220,0.10);
 }
 .stat:last-child { border-right: none; padding-right: 0; }
+.stat + .stat { padding-left: 40px; }
 .stat-num {
   font-family: var(--serif); font-style: normal; font-weight: 400;
   font-size: clamp(48px, 6vw, 84px);
@@ -301,6 +302,7 @@ body {
   font-weight: 400;
 }
 .stat-label strong { color: var(--paper); font-weight: 500; }
+
 
 /* ── INVENTORY ── */
 #inventory {
@@ -384,10 +386,10 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 6px 12px; color: var(--paper); font-weight: 500;
+  padding: 6px 12px; color: var(--navy); font-weight: 500;
   z-index: 1;
 }
-.inv-card-status.investment { background: rgba(201, 169, 110, 0.92); color: var(--paper); }
+.inv-card-status.investment { background: rgba(201, 169, 110, 0.92); color: var(--navy); }
 
 .inv-foot {
   margin-top: 56px; padding-top: 32px;
@@ -515,7 +517,8 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   .pillar:nth-child(odd of .pillar) .pillar-media,
   .pillar.flip .pillar-media { order: 0; }
   .pillar-body { padding: clamp(18px, 2.4vw, 40px) 40px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat + .stat { padding-left: 20px; }
   .stat { padding: 32px 24px 8px 0; }
   .stat:nth-child(2n) { border-right: none; padding-right: 0; }
   .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid rgba(234,229,220,0.10); padding-bottom: 32px; }
@@ -575,7 +578,7 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
   text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
-.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; }
 #hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
 @media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
 
@@ -776,7 +779,7 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   <div class="stats-grid reveal">
     <div class="stat">
 <div class="stat-num">2021</div>
-<div class="stat-label">Building <strong>luxury custom homes</strong> since</div>
+<div class="stat-label"><strong>Year founded</strong></div>
 </div>
     <div class="stat">
       <div class="stat-num">40+</div>

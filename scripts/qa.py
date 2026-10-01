@@ -389,8 +389,8 @@ def static_checks():
     none_found('31', 'Stories: "Ready to stop reading and start building?" replaced', r'ready to stop reading', ALL)
     st = text_of(PAGES['stories'])
     reg('32', 'Stories hero wording below the line adjusted (no design-trends line)',
-        'PASS' if 'Notes on building a' in st and 'design trends' not in ' '.join(all_strings('stories')) else 'FAIL',
-        'hero reads "Notes on building a custom home." / "Notes on building, lessons from the field…"; "design trends" gone from text, description and og')
+        'PASS' if ('For anyone planning a custom home in Arizona' in st and 'Notes on building, lessons from the field' in st and 'design trends' not in ' '.join(all_strings('stories'))) else 'FAIL',
+        'hero reads "Notes on building, lessons from the field, and stories from our Arizona team." / "For anyone planning a custom home in Arizona."; "design trends" gone from text, description and og')
     reg('33', '"See the craft yourself" rewritten and home swapped', 'BLOCKED', 'waiting for Shay\'s notes (punch list: "See Shay\'s notes")')
     reg('34', '"In practice" label changed (Josh to choose)', 'PASS' if re.search(r'>Recent Homes<', PAGES['why-us']) and 'In Practice' not in PAGES['why-us'] else 'FAIL',
         'label now "Recent Homes" (Josh\'s pick; change if you prefer another)')
@@ -532,7 +532,8 @@ def data_audit():
                 x = re.search(r'%s:\s*"([^"]*)"' % k, body)
                 return x.group(1) if x else None
             gy = re.search(r'year:\s*(\d+)', body)
-            projects[pm.group(1)] = {'name': g('name'), 'price': g('price'), 'sqft': g('sqft'), 'beds': g('beds'), 'baths': g('baths')}
+            projects[pm.group(1)] = {'name': g('name'), 'price': g('price'), 'sqft': g('sqft'), 'beds': g('beds'), 'baths': g('baths'),
+                                     'location': g('location'), 'year': gy.group(1) if gy else '', 'status': g('status')}
     rows = list(projects.items())
     issues = []
     bathbad = [(k, v['baths']) for k, v in rows if v['baths'] and not re.fullmatch(r'\d+(\.5)?', v['baths'].strip())]
@@ -549,6 +550,23 @@ def data_audit():
     reg('12', 'Homepage project cards show real per-home specs from corrected data', 'BLOCKED',
         'strip cards now read: %s. The identical placeholder specs (5 Bed / 5.5 Bath / 5,214 Sqft on Charter Oak, Via Estrella and 68th) were taken off because they repeat and contradict the Portfolio; each card shows its location from the Portfolio data instead (cards still showing specs: %d). Real specs go back once Rebecca supplies the records. "Stanford" has no project page and is marked Coming soon.'
         % (cards, len(with_specs)))
+        # hand-off sheet for whoever holds the real records: what the site says today, what looks wrong, and blank columns to fill in
+    import csv
+    dp = {p: ks for p, ks in dupprice}
+    ds = {s: ks for s, ks in dupsq}
+    with open(os.path.join(ROOT, 'docs/portfolio-data-for-rebecca.csv'), 'w', newline='', encoding='utf8') as f:
+        w = csv.writer(f)
+        w.writerow(['slug', 'name', 'location_on_site', 'year_on_site', 'status_on_site', 'price_on_site', 'beds_on_site', 'baths_on_site', 'sqft_on_site',
+                    'what_looks_wrong', 'CONFIRMED_price', 'CONFIRMED_beds', 'CONFIRMED_baths', 'CONFIRMED_sqft', 'CONFIRMED_year', 'CONFIRMED_status'])
+        for k, v in rows:
+            flags = []
+            if v['baths'] and not re.fullmatch(r'\d+(\.5)?', v['baths'].strip()):
+                flags.append('baths "%s" is not a whole or half number' % v['baths'])
+            if v['price'] in dp:
+                flags.append('same price as %s' % ', '.join(x for x in dp[v['price']] if x != k))
+            if v['sqft'] in ds:
+                flags.append('same sq ft as %s' % ', '.join(x for x in ds[v['sqft']] if x != k))
+            w.writerow([k, v['name'], v['location'], v['year'], v['status'], v['price'], v['beds'], v['baths'], v['sqft'], '; '.join(flags), '', '', '', '', '', ''])
     cp_ = [k for k, v in rows if v['price'] == '$7,035,000']
     reg('13', 'Charter Oak and 68th & Camelback sale prices confirmed', 'BLOCKED', 'both still listed at $7,035,000: %s. Needs the real sale prices.' % cp_)
     return projects
@@ -899,8 +917,10 @@ def asset_inventory():
     urls = defaultdict(set)
     files = [(n, h) for n, h in PAGES.items()] + [(os.path.basename(f), rd(f)) for f in glob.glob(os.path.join(ROOT, 'assets/*.js')) + glob.glob(os.path.join(ROOT, 'assets/*.css'))]
     rx = re.compile(r'https?://[^\s"\'<>)\\]+\.(?:jpe?g|png|webp|gif|svg|mp4|m4v|mov|webm)(?:\?[^\s"\'<>)\\]*)?', re.I)
+        # Google Drive / Photos links have no file extension (lh3.googleusercontent.com/d/<id>), so match them by host as well
+    rx_drive = re.compile(r'https?://(?:lh\d+\.googleusercontent\.com|drive\.google\.com|docs\.google\.com)/[^\s"\'<>)\\]+', re.I)
     for n, h in files:
-        for u in rx.findall(h):
+        for u in rx.findall(h) + rx_drive.findall(h):
             host = re.match(r'https?://([^/]+)', u).group(1)
             urls[host].add(u)
     rows = {h: len(v) for h, v in urls.items()}
@@ -926,6 +946,64 @@ def start_server():
     t = threading.Thread(target=srv.serve_forever, daemon=True)
     t.start()
     return srv, srv.server_address[1]
+
+
+FONTS_DIR = os.environ.get('QA_FONTS_DIR', '')
+
+
+def font_css():
+    """Google Fonts is not reachable from the QA sandbox, so pages would render in fallback fonts and every
+    width-dependent check (line wraps, cramped columns) would be measured against the wrong glyphs. If QA_FONTS_DIR
+    holds the @fontsource woff2 files (inter-latin-{300,400,500}-normal, dm-serif-display-latin-400-{normal,italic}),
+    serve them under the Google Fonts URLs the pages already use."""
+    faces = [('Inter', 300, 'normal', 'inter-latin-300-normal.woff2'), ('Inter', 400, 'normal', 'inter-latin-400-normal.woff2'),
+             ('Inter', 500, 'normal', 'inter-latin-500-normal.woff2'), ('DM Serif Display', 400, 'normal', 'dm-serif-display-latin-400-normal.woff2'),
+             ('DM Serif Display', 400, 'italic', 'dm-serif-display-latin-400-italic.woff2')]
+    return '\n'.join("@font-face{font-family:'%s';font-style:%s;font-weight:%d;font-display:swap;src:url(https://fonts.gstatic.com/qa/%s) format('woff2')}" % (f, st, w, fn)
+                      for f, w, st, fn in faces if os.path.exists(os.path.join(FONTS_DIR, fn)))
+
+
+def font_response(u):
+    """Playwright route helper: a fulfil() kwargs dict for a Google Fonts URL, or None if QA_FONTS_DIR is not set."""
+    if not FONTS_DIR:
+        return None
+    if 'fonts.googleapis.com' in u:
+        return dict(status=200, content_type='text/css', body=font_css())
+    m = re.search(r'fonts\.gstatic\.com/qa/([\w.\-]+)$', u)
+    if m and os.path.exists(os.path.join(FONTS_DIR, m.group(1))):
+        return dict(status=200, content_type='font/woff2', body=open(os.path.join(FONTS_DIR, m.group(1)), 'rb').read())
+    return None
+
+
+PHONE_JS = """() => { const out = []; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); while (w.nextNode()) { const t = w.currentNode; const i = t.nodeValue.indexOf('(480) 340-8700'); if (i < 0) continue; const el = t.parentElement; if (el.closest('script, style, noscript, [hidden]')) continue; const r = document.createRange(); r.setStart(t, i); r.setEnd(t, i + 14); const rects = [...r.getClientRects()].filter(x => x.width > 0); if (!rects.length) continue; if (new Set(rects.map(x => Math.round(x.top))).size > 1) out.push(t.nodeValue.trim().slice(0, 40)); } return out }"""
+
+
+
+EMPTY_JS = """(final) => { const M = (window.__qaSec = window.__qaSec || new Map()); if (final) return [...M.values()].filter(v => !v.ok).map(v => v.label); const vis = e => { for (let x = e; x; x = x.parentElement) { const c = getComputedStyle(x); if (c.display === 'none' || c.visibility === 'hidden' || parseFloat(c.opacity) < 0.05) return false } return e.getClientRects().length > 0 }; for (const s of document.querySelectorAll('section')) { if (!vis(s) || s.closest('footer, header, nav')) continue; const heads = [...s.querySelectorAll('h1, h2, h3, h4')].filter(vis); if (!heads.length) continue; const media = [...s.querySelectorAll('img, picture, iframe, video, canvas, form, input, button, a')].filter(e => !e.closest('h1, h2, h3, h4') && vis(e)).length; let chars = 0; const w = document.createTreeWalker(s, NodeFilter.SHOW_TEXT); while (w.nextNode()) { const pe = w.currentNode.parentElement; const tx = (w.currentNode.nodeValue || '').trim(); if (!pe || tx.length < 2 || pe.closest('h1, h2, h3, h4, script, style, noscript')) continue; if (vis(pe)) chars += tx.length } const prev = M.get(s); M.set(s, {ok: (prev && prev.ok) || media > 0 || chars >= 60, label: (s.id ? '#' + s.id : s.className.toString().slice(0, 30)) + ' "' + heads[0].textContent.trim().slice(0, 40) + '"'}) } return null }"""
+
+ALIGN_JS = """() => { const out = []; for (const f of document.querySelectorAll('form')) { if (!f.getClientRects().length) continue; const L = [...f.querySelectorAll('label')].filter(l => l.getClientRects().length > 0).map(l => { const r = l.getBoundingClientRect(); return {t: r.top + scrollY, l: r.left, r: r.right, x: (l.textContent || '').trim().slice(0, 14)} }); for (let i = 0; i < L.length; i++) for (let j = i + 1; j < L.length; j++) { const a = L[i], b = L[j]; const apart = a.r <= b.l + 1 || b.r <= a.l + 1; const dy = Math.abs(a.t - b.t); if (apart && dy > 0.6 && dy < 12) out.push(a.x + ' / ' + b.x + ' differ by ' + dy.toFixed(1) + 'px') } } return out }"""
+
+REVEAL_CSS = '[class*=reveal]{opacity:1!important;transform:none!important}'
+
+
+CONTRAST_FIXTURE = """<html><body style="margin:0;background:#001526;color:#EAE5DC;font:16px Inter,sans-serif">
+<p id=ok style="color:#EAE5DC">Readable cream text on navy</p>
+<p id=bad1 style="color:rgba(0,21,38,.62)">Navy on navy, invisible</p>
+<p id=bad2 style="color:#A5A09D;background:#EAE5DC;padding:6px">Nickel on linen small</p>
+<h2 id=big style="font-size:32px;color:#BFA06A;background:#EAE5DC;margin:0">Gold on linen large</h2>
+<div style="width:40px;height:40px;background:rgba(234,229,220,.14)"><svg viewBox="0 0 24 24" width=24 height=24 fill="none" stroke="#001526" stroke-width="1.5"><circle cx=12 cy=12 r=9 /></svg></div>
+<div style="width:40px;height:40px"><svg viewBox="0 0 24 24" width=24 height=24 fill="none" stroke="#BFA06A" stroke-width="1.5"><circle cx=12 cy=12 r=9 /></svg></div>
+</body></html>"""
+
+
+FOCUS_JS = """() => { const e = document.activeElement; if (!e || e === document.body) return null; const c = getComputedStyle(e); const r = e.getBoundingClientRect(); if (!(r.width > 0 && r.height > 0)) return null; const on = c.outlineStyle !== 'none' && parseFloat(c.outlineWidth) > 0 && c.outlineColor !== 'rgba(0, 0, 0, 0)'; return {on: on || c.boxShadow !== 'none', label: e.tagName + ' ' + ((e.innerText || e.getAttribute('aria-label') || e.getAttribute('href') || e.name || '').trim().replace(/\\s+/g, ' ').slice(0, 24))} }"""
+
+
+EMPTY_FIXTURE = """<html><body>
+<section id=shell><div>THE SMARTER WAY TO SELL</div><h2>A direct sale vs. the route</h2><div style="display:none"><span>hidden card text that is long enough to count if it were visible</span></div></section>
+<section id=cards><h2>With cards</h2><div><h4>Fees</h4><span>None, no agent commissions at all in a direct sale like this one</span><span>Agent commissions apply to a traditional sale</span></div></section>
+<section id=media><h2>With photo</h2><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width=20 height=20></section>
+</body></html>"""
 
 
 def find_chromium():
@@ -960,6 +1038,9 @@ def browser_checks(projects):
                 u = r.request.url
                 if u.startswith(base):
                     return r.continue_()
+                fr = font_response(u)
+                if fr:
+                    return r.fulfill(**fr)
                 if re.search(r'\.(jpe?g|png|webp|gif)(\?|$)', u, re.I) and ('ellaleehomes.com' in u or 'googleusercontent' in u or 'zillow' in u):
                     return r.fulfill(status=200, content_type='image/jpeg', body=placeholder)
                 return r.abort()
@@ -1234,6 +1315,9 @@ def browser_checks2(projects):
                 u = r.request.url
                 if u.startswith(base):
                     return r.continue_()
+                fr = font_response(u)
+                if fr:
+                    return r.fulfill(**fr)
                 if (r.request.resource_type == 'image' or re.search(r'\.(jpe?g|png|webp|gif)(\?|$)', u, re.I)) and ('ellaleehomes.com' in u or 'googleusercontent' in u or 'zillow' in u):
                     return r.fulfill(status=200, content_type='image/jpeg', body=placeholder)
                 return r.abort()
@@ -1346,7 +1430,125 @@ def browser_checks2(projects):
         okmap = all(want[i][0].lower() in got[i]['label'].lower() and want[i][1].lower() in got[i]['head'].lower() and got[i]['op'] > 0.9 for i in range(4))
         reg('X4j', 'Home "experience" timeline: each label opens the panel with the matching heading (labels match their panels)', 'PASS' if okmap else 'FAIL', '; '.join('%s -> "%s" (shown %.1f)' % (g['label'], g['head'], g['op']) for g in got))
         pg.context.close()
+        # ---- responsive layout at phone and tablet widths
+        stack_bad, align_bad, cramped, phone_bad, empty_bad, label_bad = [], [], [], [], [], []
+
+        ALLOW = ('TRANSPARENT PROCESS', '#sqft-tabs', 'founding-sig')
+        for w in (390, 768):
+            for n in PAGES:
+                pgr, _ = newpage(w, 900)
+                pgr.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
+                pgr.wait_for_timeout(3300 if n == 'index' else 600)
+                pgr.add_style_tag(content='.elh-intro{display:none!important}')
+                phone_bad += ['%s@%d: "%s"' % (n, w, x) for x in pgr.evaluate(PHONE_JS)]
+                label_bad += ['%s@%d: %s' % (n, w, x) for x in pgr.evaluate(ALIGN_JS)]
+                if n == 'why-us':
+                    r = pgr.evaluate("""() => [...document.querySelectorAll('.rc-inner')].map(e => ({cols: getComputedStyle(e).gridTemplateColumns.split(' ').length, tw: e.querySelector('.rc-text').getBoundingClientRect().width / e.getBoundingClientRect().width}))""")
+                    bad = [i + 1 for i, x in enumerate(r) if x['cols'] != 1 or x['tw'] < 0.8]
+                    if bad:
+                        stack_bad.append('why-us@%d: reason cards %s are not stacked' % (w, bad))
+                lefts = pgr.evaluate("""() => [...document.querySelectorAll('form')].filter(f => f.getClientRects().length > 0).map(f => { const L = [...f.querySelectorAll('input, select, textarea')].filter(e => !['hidden', 'submit', 'button'].includes(e.type) && e.getClientRects().length > 0).map(e => Math.round(e.getBoundingClientRect().left)); return L.length ? Math.max(...L) - Math.min(...L) : 0 })""")
+                if w == 390 and any(d > 2 for d in lefts):
+                    align_bad.append('%s@%d: form field edges differ by %s px' % (n, w, [d for d in lefts if d > 2]))
+                if w == 390:
+                    found = pgr.evaluate("""() => { const out = []; const seen = new Set(); for (const el of document.querySelectorAll('div, section, article, ul, form')) { if (el.closest('header, footer, aside, nav, .elh-intro, [data-elh-track], .rv-grid, svg')) continue; if (!el.getClientRects().length) continue; const kids = [...el.children].filter(k => k.getClientRects().length && (k.innerText || '').trim().length >= 12 && !['absolute', 'fixed'].includes(getComputedStyle(k).position)); if (kids.length < 2) continue; const rects = kids.map(k => k.getBoundingClientRect()); let side = false; for (let i = 0; i < rects.length; i++) for (let j = i + 1; j < rects.length; j++) { const a = rects[i], b = rects[j]; const v = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top); const h = Math.min(a.right, b.right) - Math.max(a.left, b.left); if (v > 20 && h <= 2 && a.width > 40 && b.width > 40) side = true } if (!side) continue; const minw = Math.min(...rects.map(r => r.width)); if (minw < 165) { const key = (el.className || el.tagName) + '|' + Math.round(minw); if (seen.has(key)) continue; seen.add(key); out.push(Math.round(minw) + 'px ' + (el.id ? '#' + el.id + ' ' : '') + (el.className || '').toString().slice(0, 24) + ' | ' + (el.innerText || '').trim().replace(/\s+/g, ' ').slice(0, 40)) } } return out }""")
+                    for f in found:
+                        if not any(a in f for a in ALLOW):
+                            cramped.append('%s: %s' % (n, f))
+                pgr.context.close()
+        reg('X5a', 'Why Us reason cards stack photo-then-text on phone and tablet (the even cards used to stay two-column)', 'FAIL' if stack_bad else 'PASS', '; '.join(stack_bad) or 'all 7 cards are one column at 390 and 768 with the text at 80%+ of card width')
+        reg('X5b', 'Form fields line up on the left edge on phones (no indented second column)', 'FAIL' if align_bad else 'PASS', '; '.join(align_bad) or 'every form: all fields share one left edge at 390px')
+        reg('X5c', 'No cramped side-by-side text columns on phones (any text column under 165px wide at 390px; the timeline labels, size tabs and founder signature are intended)', 'FAIL' if cramped else 'PASS', '; '.join(cramped[:6]) or 'no page has side-by-side text columns narrower than 165px at 390px')
+        # ---- the cream logo and links need a dark bar behind them at the top of every page
+
+
+        import io
+        from PIL import Image
+        light = []
+        for w in (1440, 390):
+            for n in PAGES:
+                pgn, _ = newpage(w, 900 if w > 500 else 800)
+                pgn.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
+                pgn.wait_for_timeout(3300 if n == 'index' else 600)
+                pgn.add_style_tag(content='.elh-intro{display:none!important}')
+                png = pgn.screenshot(clip={'x': 0, 'y': 0, 'width': w, 'height': 90})
+                im = Image.open(io.BytesIO(png)).convert('L')
+                px = sorted(im.getdata())
+                med = px[len(px) // 2]
+                if med > 115:       # median luminance of the strip behind the header
+                    light.append('%s@%d (median %d/255)' % (n, w, med))
+                pgn.context.close()
+        reg('X5d', 'The header sits on a dark background at the top of every page, so the cream logo, links and menu button are readable (remote photos are stood in by a placeholder here)', 'FAIL' if light else 'PASS',
+            '; '.join(light[:6]) or 'median brightness behind the header is dark on %d pages at 1440 and 390' % len(PAGES))
+        # ---- self-test: the contrast scanner must flag known-bad fixtures and pass known-good ones, or X5e means nothing
+        pgs, _ = newpage(800, 600)
+        pgs.set_content(CONTRAST_FIXTURE)
+        cjs0 = open(os.path.join(ROOT, 'scripts/qa-contrast.js'), encoding='utf8').read()
+        pgs.evaluate(cjs0, False)
+        fx = pgs.evaluate(cjs0, True)
+        flagged = sorted(r['text'] for r in fx if r['ratio'] < (3.0 if r['large'] else 4.5))
+        want_bad = sorted(['Navy on navy, invisible', 'Nickel on linen small', 'Gold on linen large', '(icon)'])
+        ok_text = [r for r in fx if r['text'] == 'Readable cream text on navy' and r['ratio'] >= 4.5]
+        reg('X5e0', 'Self-test: the contrast scanner flags navy-on-navy, nickel-on-linen, gold-on-linen headline and a navy icon on a dark circle, and passes cream-on-navy and a gold icon',
+            'PASS' if (flagged == want_bad and ok_text) else 'FAIL', 'flagged: %s (expected %s); good text passed: %s' % (flagged, want_bad, bool(ok_text)))
+        pgs.set_content(EMPTY_FIXTURE)
+        pgs.evaluate(EMPTY_JS, False)
+        empties = pgs.evaluate(EMPTY_JS, True)
+        reg('X5g0', 'Self-test: the empty-section check flags a heading with only a short label and hidden content, and passes sections with text or a photo',
+            'PASS' if (len(empties) == 1 and empties[0].startswith('#shell')) else 'FAIL', 'flagged: %s (expected only #shell)' % empties)
+        pgs.context.close()
+        # ---- text contrast: WCAG AA (4.5:1 for normal text, 3:1 for 24px+ text), measured on every page
+
+        cjs = open(os.path.join(ROOT, 'scripts/qa-contrast.js'), encoding='utf8').read()
+        low, nimg, ntext = defaultdict(list), 0, 0
+        focus_bad = []
+
+        for w in (1440, 390):
+            vh = 900 if w > 500 else 800
+            for n in PAGES:
+                pgc, _ = newpage(w, vh)
+                pgc.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
+                pgc.wait_for_timeout(3300 if n == 'index' else 600)
+                pgc.add_style_tag(content='.elh-intro{display:none!important} *,*::before,*::after{transition:none!important}')
+                if w == 1440:
+                    phone_bad += ['%s@%d: "%s"' % (n, w, x) for x in pgc.evaluate(PHONE_JS)]
+                    label_bad += ['%s@%d: %s' % (n, w, x) for x in pgc.evaluate(ALIGN_JS)]
+                    for _ in range(45):       # keyboard: every element reached by Tab must show a focus ring
+                        pgc.keyboard.press('Tab')
+                        fr_ = pgc.evaluate(FOCUS_JS)
+                        if fr_ and not fr_['on']:
+                            focus_bad.append('%s: %s' % (n, fr_['label']))
+                    pgc.evaluate('window.scrollTo({top: 0, behavior: "instant"})')
+                full = pgc.evaluate('document.documentElement.scrollHeight')
+                y = 0
+                while True:        # scroll in steps so text that is dimmed until it enters view is measured when visible
+                    pgc.evaluate("(y) => window.scrollTo({top: y, left: 0, behavior: 'instant'})", y)
+                    pgc.wait_for_timeout(110)
+                    pgc.evaluate(cjs, False)
+                    pgc.evaluate(EMPTY_JS, False)
+                    if y + vh >= full:
+                        break
+                    y += vh // 2
+                empty_bad += ['%s@%d: %s' % (n, w, x) for x in pgc.evaluate(EMPTY_JS, True)]
+                for r in pgc.evaluate(cjs, True):
+                    ntext += 1
+                    if r['image']:
+                        nimg += 1
+                        continue
+                    if r['ratio'] < (3.0 if r['large'] else 4.5):
+                        low[(r['sel'], r['fg'], r['bg'], r['size'])].append((n, w, r['ratio'], r['text']))
+                pgc.context.close()
+        worst = sorted(low.items(), key=lambda kv: min(h[2] for h in kv[1]))
+        reg('X5e', 'Text and icon contrast meets WCAG AA on every page at desktop and phone width: text at least 4.5:1 (3:1 for text 24px and larger), icons at least 3:1 (anything sitting directly on a photo is excluded here and judged by eye)',
+            'FAIL' if worst else 'PASS',
+            '; '.join('%.2f %s %s on %s %spx [%s] "%s"' % (min(h[2] for h in hs), k[0], k[1], k[2], k[3], ','.join(sorted({h[0] for h in hs}))[:50], hs[0][3][:24]) for k, hs in worst[:6]) + (' ... +%d more' % (len(worst) - 6) if len(worst) > 6 else '')
+            or '%d text elements measured across %d pages x 2 widths; none below the threshold (%d elements on photo backgrounds not measured)' % (ntext - nimg, len(PAGES), nimg))
+        reg('X5f', 'The phone number (480) 340-8700 never splits across two lines, at 1440, 768 and 390px', 'FAIL' if phone_bad else 'PASS', '; '.join(phone_bad[:6]) or 'every occurrence on every page stays on one line at all three widths')
+        reg('X5g', 'No section is an empty shell: every section with a heading shows something under it (text, image, form or link) at some scroll position, at 1440 and 390px (the Sell comparison used to vanish on phones)', 'FAIL' if empty_bad else 'PASS', '; '.join(empty_bad[:6]) or 'checked every visible section with a heading on every page at 1440 and 390px')
+        reg('X5i', 'Keyboard focus is visible: tabbing through the first 45 focusable elements on every page always shows a focus ring', 'FAIL' if focus_bad else 'PASS', '; '.join(sorted(set(focus_bad))[:6]) + (' ... %d in total' % len(set(focus_bad)) if len(set(focus_bad)) > 6 else '') or 'every element reached by Tab shows an outline or shadow on %d pages' % len(PAGES))
+        reg('X5h', 'Side-by-side form labels sit on the same line (no field 4px lower than its neighbour)', 'FAIL' if label_bad else 'PASS', '; '.join(label_bad[:6]) or 'all side-by-side labels in every form share one baseline at 1440 and 768')
         # forms: what happens on submit (evidence for item 1)
+
         evid = []
         for n in ('index', 'build-your-home', 'why-us', 'developers', 'contact', 'sell-your-home'):
             pg, st = newpage()
@@ -1371,7 +1573,8 @@ def write_report(inv, urls):
     counts = Counter(r['status'] for r in RESULTS)
     rev = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], capture_output=True, text=True, cwd=ROOT).stdout.strip()
     lines = ['# QA report', '',
-             'Generated by `python3 scripts/qa.py` against the built site (`dist/`) at commit `%s`. Every row is the result of a check that ran; the evidence column is what it measured.' % rev, '',
+             'Generated by `python3 scripts/qa.py` against the built site (`dist/`) at commit `%s`. Every row is the result of a check that ran; the evidence column is what it measured.' % rev,
+             'Rendered checks used %s.' % ('the real Inter and DM Serif Display fonts (QA_FONTS_DIR)' if FONTS_DIR else 'fallback fonts, because Google Fonts is unreachable here; set QA_FONTS_DIR for exact line wraps'), '',
              '**%d checks: %d PASS · %d FAIL · %d BLOCKED (needs input from Ella Lee Homes) · %d MANUAL (needs a human look)**' % (len(RESULTS), counts['PASS'], counts['FAIL'], counts['BLOCKED'], counts['MANUAL']), '']
     byid = {r['id']: r for r in RESULTS}
     for title, ids in SECTIONS:

@@ -161,11 +161,11 @@ body {
 }
 .login-card-label {
   font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--nickel);
+  color: #605C58;
 }
 .login-card-logo {
   font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--nickel);
+  text-transform: uppercase; color: #605C58;
 }
 .login-card iframe {
   width: 100%; height: auto; aspect-ratio: 16/9; border: none; display: block;
@@ -215,9 +215,10 @@ body {
   margin-top: 2px;
 }
 .help-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+@media (max-width: 600px) { .help-strip { padding: 22px 18px; gap: 14px; } }
 .help-text-label {
   font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(234,229,220,0.4); margin-bottom: 5px;
+  color: rgba(234,229,220,0.62); margin-bottom: 5px;
 }
 .help-text-body {
   font-size: 13px; font-weight: 300; line-height: 1.7;
@@ -299,7 +300,7 @@ body {
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
   text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
-.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; }
 #hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
 @media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
 
@@ -317,6 +318,8 @@ body {
 /* hairline spans the measure, like the homepage's */
 #hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
 #hero-banner .hero-title { width: 100%; }
+/* caption keeps the same narrow measure as every other hero */
+#hero-banner > .hero-head > p.hero-meta { width: auto; max-width: 36ch; }
 </style>
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">
@@ -450,7 +453,7 @@ body {
         loading="lazy"
         sandbox="allow-scripts allow-forms allow-same-origin allow-popups">
       </iframe>
-      <p class="login-fallback" style="padding:14px 18px; font-size:13px; color:var(--nickel); border-top:1px solid rgba(234,229,220,.24);">Having trouble logging in? <a href="https://buildertrend.net" target="_blank" rel="noopener" style="color: var(--gold); font-weight:500;">Visit buildertrend.net directly.</a></p>
+      <p class="login-fallback" style="padding:14px 18px; font-size:13px; color:#605C58; border-top:1px solid rgba(0,21,38,.14);">Having trouble logging in? <a href="https://buildertrend.net" target="_blank" rel="noopener" style="color: #6F5628; font-weight:500; text-decoration:underline; text-underline-offset:3px;">Visit buildertrend.net directly.</a></p>
     </div>
 
     <!-- Video + Help -->

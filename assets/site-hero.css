@@ -111,3 +111,6 @@
 /* hairline spans the measure, like the homepage's */
 #hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
 #hero-banner .hero-title { width: 100%; }
+
+/* avoid a single word stranded on the last line of a caption */
+.hero-head-meta, .hero-caption h2, .hero-caption p, .hero-lede, #faq-hero .faq-hero-sub { text-wrap: pretty; }

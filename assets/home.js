@@ -231,7 +231,7 @@
       el.style.borderColor = i <= idx ? '#BFA06A' : 'rgba(234,229,220,.42)';
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-elh-tl-label]'), function (el, i) {
-      el.style.color = i === idx ? '#EAE5DC' : 'rgba(234,229,220,.44)';
+      el.style.color = i === idx ? '#EAE5DC' : 'rgba(234,229,220,.62)';
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-elh-tl-img]'), function (el, i) {
       el.style.opacity = i === idx ? '1' : '0';

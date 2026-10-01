@@ -166,7 +166,8 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 /* ── COMPARISON TABLE ── */
 #compare { background: #E3DACA; color: #2B2B2B; border-bottom: none; }
 #compare .sec-title { color: #001526; }
-#compare .eyebrow-line { color: #8A6E3C; }
+#compare .eyebrow-line { color: #6F5628; }
+#compare .sec-title em { color: #8A6E3C; }
 #compare .sec-lede, #compare .sec-body { color: #2B2B2B; }
 .cmp {
   margin-top: 56px; width: 100%;
@@ -189,6 +190,8 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 .cmp td.col-trad { color: rgba(0,21,38,0.62); width: 37%; }
 .cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: none; }
 .cmp .tick { color: var(--gold); font-weight: 600; margin-right: 8px; }
+/* Mobile comparison cards: hidden here, shown by the 760px query below (this rule must come BEFORE that query) */
+.cmp-cards { display: none; }
 
 /* ── AREAS ── */
 #areas { background: var(--ink); color: var(--paper); border-bottom: none; }
@@ -244,6 +247,7 @@ details.faq .faq-a {
 .cta-field + .cta-field { padding-top: 18px; }
 .cta-form-row .cta-field { border-right: 1px solid rgba(234,229,220,.16); padding-right: 18px; }
 .cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
+.cta-form-row .cta-field + .cta-field { padding-top: 14px; }
 .cta-field label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(234,229,220,.6); margin-bottom: 8px; }
 .cta-field input, .cta-field select, .cta-field textarea {
   font-family: var(--sans); font-size: 15px; color: var(--paper); background: transparent;
@@ -291,11 +295,16 @@ details.faq .faq-a {
   .step, .step:not(:first-child) { padding: 0; border-right: none; }
   .cmp, .cmp thead { display: none; }
   .cmp-cards { display: block; }
-  .cta-form-row { grid-template-columns: 1fr; }
-  .cta-form-row .cta-field { border-right: none; padding-right: 0; padding-left: 0; }
+    .cta-form-row { grid-template-columns: 1fr; }
+  .cta-form-row .cta-field, .cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 0; }
+  .cta-form-actions { flex-direction: column; align-items: stretch; gap: 16px; }
+  .cta-form-actions .cta-submit { justify-content: center; }
 }
+/* Lot / teardown strip under the hero: two columns on desktop, one on tablet and phone */
+.lot-strip { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+@media (max-width: 900px) { .lot-strip { grid-template-columns: 1fr; gap: 28px; } }
 /* Mobile comparison cards (hidden on desktop) */
-.cmp-cards { display: none; margin-top: 40px; }
+.cmp-cards { margin-top: 40px; }
 .cmp-card { border: 1px solid rgba(0,21,38,0.14); background: rgba(255,255,255,0.35); padding: 22px 24px; margin-bottom: 14px; }
 .cmp-card h4 { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); margin-bottom: 14px; }
 .cmp-card .cc-row { display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-top: 1px solid rgba(0,21,38,0.1); }
@@ -303,7 +312,7 @@ details.faq .faq-a {
 .cmp-card .cc-ella { color: var(--navy); font-weight: 500; font-size: 14px; }
 .cmp-card .cc-trad { color: rgba(0,21,38,0.6); font-size: 14px; }
 .cmp-card .cc-lab.ella { color: var(--navy); }
-.cmp-card .cc-lab.trad { color: var(--nickel); }
+.cmp-card .cc-lab.trad { color: #605C58; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; }
@@ -349,7 +358,7 @@ details.faq .faq-a {
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
   text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
-.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; }
 #hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
 @media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
 
@@ -475,7 +484,7 @@ details.faq .faq-a {
 
 <!-- TEARDOWN / LOT SELLER STRIP -->
 <section style="background:var(--navy); border-top:1px solid rgba(234,229,220,.12); padding: 80px clamp(18px, 2.4vw, 40px);">
-  <div style="max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
+  <div class="lot-strip">
     <div>
       <div style="font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;">Paradise Valley &middot; Scottsdale &middot; Arcadia &middot; Phoenix</div>
       <h2 style="font-family:var(--disp); font-weight:400; font-size:clamp(30px,4vw,52px); letter-spacing:-0.015em; line-height:1.1; color:var(--paper);">Own a lot or<br>older home?</h2>
@@ -706,7 +715,7 @@ details.faq .faq-a {
       <div class="area reveal">Paradise Valley</div> <div class="area reveal reveal-d1">Scottsdale</div> <div class="area reveal reveal-d2">Arcadia</div>
       <div class="area reveal reveal-d3">Phoenix</div>
     </div>
-    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size: clamp(16px, 1.2vw, 17px); color:rgba(0,21,38,0.62); max-width:60ch; font-weight: 300">&mdash; and additional communities throughout Arizona. <a href="contact.html" style="color:var(--navy); font-weight:500;">Contact us</a> to confirm your area.</p>
+    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size: clamp(16px, 1.2vw, 17px); color:rgba(234,229,220,0.72); max-width:60ch; font-weight: 300">&mdash; and additional communities throughout Arizona. <a href="contact.html" style="color:var(--gold); font-weight:500; text-decoration:underline; text-underline-offset:3px;">Contact us</a> to confirm your area.</p>
   </div>
 </section>
 

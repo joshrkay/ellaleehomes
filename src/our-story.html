@@ -67,7 +67,7 @@ body.theme-our-story[data-active-section="dark"] {
 }
 /* Text & chrome overrides for the dark theme. Kept explicit (rather than
    via CSS variables) so each rule can be transitioned smoothly. */
-body[data-active-section="dark"] .story-kicker { color: rgba(234,229,220,0.48); }
+body[data-active-section="dark"] .story-kicker { color: rgba(234,229,220,0.66); }
 body[data-active-section="dark"] .story-display { color: rgba(234,229,220,0.94); }
 body[data-active-section="dark"] .story-display em { color: #BFA06A; }
 body[data-active-section="dark"] .story-h2-sub { color: #EAE5DC; }
@@ -204,7 +204,7 @@ details.story-faq.reveal {
   font-size: 9px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--nickel);
+  color: #605C58;
   margin-bottom: 16px;
 }
 /* Micro / mega: one display line between kicker and body */
@@ -720,7 +720,7 @@ details.story-faq .faq-a p + p {
         }
 
         .where-legend {
-          display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+          display: grid; grid-template-columns: 1fr; gap: 0;
           margin-top: 32px; border-top: 1px solid rgba(0,21,38,0.08);
         }
         .where-legend-item {
@@ -745,10 +745,8 @@ details.story-faq .faq-a p + p {
           .where-wrap { padding: 0 24px; }
           .where-map-wrap { padding: 20px; }
           .where-pin-label-name { font-size: 14px; }
-          .where-legend { grid-template-columns: 1fr 1fr; }
-          .where-legend-item { border-right: none; border-bottom: 1px solid rgba(0,21,38,0.08); }
-          .where-legend-item:nth-child(odd) { border-right: 1px solid rgba(0,21,38,0.08); }
-          .where-legend-item:nth-last-child(-n+2) { border-bottom: none; }
+                    .where-legend-item { border-right: none; }
+
         }
         @media (max-width: 600px) {
           .where-map text.where-pin-label-name { font-size: 18px; }
@@ -788,7 +786,7 @@ details.story-faq .faq-a p + p {
 
 /* ── LIGHT THEME = the homepage's Giving Back beige, used as the page's one accent ── */
 body.theme-our-story[data-active-section="light"] { background: #E3DACA; color: #2B2B2B; }
-body[data-active-section="light"] .story-kicker { color: #8A6E3C; }
+body[data-active-section="light"] .story-kicker { color: #6F5628; }
 body[data-active-section="light"] .story-display { color: #001526; }
 body[data-active-section="light"] .story-display em { color: #8A6E3C; }
 body[data-active-section="light"] .story-h2-sub,
@@ -877,7 +875,7 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
           </figure></a>
         </div>
         <p class="rv-more reveal reveal-delay-5"><a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener">Read all of our reviews on Google</a></p>
-        <p class="sub reveal reveal-delay-6" style="margin-top:40px">Tell us about your vision. Reach us at <strong>(480) 340-8700</strong> or <strong>hello@ellaleehomes.com</strong>, or visit our studio at <strong>4408 N 12th St, Ste 200, Phoenix, AZ 85014</strong>.</p>
+        <p class="sub reveal reveal-delay-6" style="margin-top:40px">Tell us about your vision. Reach us at <strong style="white-space:nowrap">(480) 340-8700</strong> or <strong>hello@ellaleehomes.com</strong>, or visit our studio at <strong>4408 N 12th St, Ste 200, Phoenix, AZ 85014</strong>.</p>
       </div>
     </section>
   </article>

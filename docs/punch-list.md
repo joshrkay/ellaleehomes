@@ -4,6 +4,8 @@ Source of truth: the typed **Merged Punch List** and **Website Fact Sheet** (bot
 
 **Status:** ✅ done in PR #26 · ⛔ blocked on an input only Ella Lee Homes can supply · 🟡 partly done · ➖ closed in the PDF
 
+**Evidence and open questions:** `docs/qa-report.md` has the measured result for every item and every Fact Sheet rule. `docs/needs-confirmation.md` lists exactly what is still needed, which wording on the site is not on the Fact Sheet, and the judgment calls made during QA. `docs/portfolio-data-for-rebecca.csv` is the hand-off sheet for items 11 to 13.
+
 Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned wording returns (design language, open books, fixed price, budget ranges, response promises, "dozens", 5.0 badge, remodel/commercial, design/permitting phases, "Ste 200" missing, warranty@ outside Warranty and Homeowner Resources, and more).
 
 ## A. Blockers
@@ -12,7 +14,7 @@ Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned 
 |---|---|---|---|
 | 1 | Forms send nowhere (6 forms) | ⛔ | Budget dropdown removed from every form ✅. **Needs:** the destination inbox or Buildertrend lead endpoint, then wire and test each form. |
 | 2 | Buildertrend login not working | ⛔ | **Needs:** the login embed code. Ella Lee Homes requests it from Buildertrend (1-877-309-0368); Josh installs it. |
-| 3 | Review links open Google, not the review | ⛔ | Cards link to the Google profile for now. **Needs:** each review's direct URL. |
+| 3 | Review links open Google, not the review | ⛔ | All 20 review cards link to the business's Google Maps listing (one URL). The Fact Sheet allows "the full review profile", so this may already be acceptable. **Needs:** each review's direct URL if you want them; the link could not be opened from the build environment, so it is unverified. |
 | 4 | Placeholder text on legal pages | ⛔ | Untouched on purpose. **Needs:** counsel's final language, then remove the note. |
 | 5 | Designer note in Our Story | ✅ | Note removed. Shay's real copy is tracked in item 50. |
 | 6 | Stray "\n" on Client Portal | ✅ | Removed. |
@@ -26,7 +28,7 @@ Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned 
 | 9 | Three different timelines | ✅ | 11–18 months, construction only. Design and permitting phases removed from the Build page; "Planning and permitting" wording removed from Home, FAQ, Steps article. |
 | 10 | FAQ implies fixed price | ✅ | "How does pricing work on an Ella Lee home?" states cost-plus plainly. No "open books", no fixed-price comparison. Cost-plus also stated on Build, Home, Code of Conduct. |
 | 11 | Portfolio data copy-pasted | ⛔ | **Needs:** Rebecca's real records. |
-| 12 | Homepage cards identical specs | ⛔ | Depends on 11. |
+| 12 | Homepage cards identical specs | ⛔ | The identical placeholder specs (5 Bed / 5.5 Bath / 5,214 Sqft) were taken off; each card now shows its location. Real specs return with item 11. Stanford has no project page and is marked Coming soon. |
 | 13 | Charter Oak / 68th same price | ⛔ | **Needs:** the real sale prices. |
 | 14 | "Mark, Paradise Valley, 2024" testimonial | ✅ | Removed. |
 | 15 | Claims needing backup | ✅ | Removed: $200M+, 9 neighborhoods, 5.0 badge (footer, home, contact, schema), "On time. On budget. Always.", "100% transparency". "Dozens" replaced by "40+ homes". Kept: 10% of profits. Real Google reviews kept. |
@@ -69,7 +71,7 @@ Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned 
 
 | # | Item | Status | Notes |
 |---|---|---|---|
-| 40 | Hero standard | ✅ | `assets/site-hero.css`. Applied to FAQ, Warranty, Homeowner Resources, Code of Conduct (new); Client Portal on local photo; Portfolio, Build, Stories already on it. Each page has its own photo; video on Home only. **Note:** several hero photos still load from the old WordPress host until the Drive upload (item 62). |
+| 40 | Hero standard | ✅ | `assets/site-hero.css`. Applied to FAQ, Warranty, Homeowner Resources, Code of Conduct, Privacy, Terms and Disclaimer (all new); Client Portal on local photo; Portfolio, Build, Stories already on it. Each page has its own photo; video on Home only. **Note:** several hero photos still load from the old WordPress host until the Drive upload (item 62). |
 | 41 | New hero video | ⛔ | Shay is working on it. |
 | 42 | Photo of Shay | ✅ | `uploads/home/shay.jpg` placed in the "what began as a dream" section on Home and beside "A Note From Our Founder" on Our Story, captioned Founder and Principal. The photo is 1024px wide; swap in the full-size original when the Drive export arrives. |
 | 43 | Project strip speed | ✅ | Slightly faster. |
@@ -91,7 +93,7 @@ Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned 
 | 59 | Similar Projects not similar | ✅ | Matched by price, size and area. |
 | 60 | Keyhole intro delay | ✅ | 3.1s → 1.9s, plus a Skip button. |
 | 61 | Footer stat badges | ✅ | 50+, 200K+, 5.0 removed; ROC license kept. |
-| 62 | Photos load from old sites | ⛔ | Planned. **Needs:** the Google Drive export. Then confirm nothing loads from the old WordPress site, Drive or Zillow. |
+| 62 | Photos load from old sites | ⛔ | Planned. Counted in the built site: 856 images and videos from the old WordPress site, 166 from Google Drive (project pages) and 3 from Zillow; the list is `docs/asset-migration.md`. **Needs:** the Google Drive export. Then confirm nothing loads from the old WordPress site, Drive or Zillow. |
 
 ## F. SEO and AI search
 

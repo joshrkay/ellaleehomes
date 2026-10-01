@@ -20,6 +20,7 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
+  --gutter: clamp(18px, 2.4vw, 40px);
   --serif: 'DM Serif Display', Georgia, serif;
   --disp: 'DM Serif Display', Georgia, serif;
   --ink: #001526;
@@ -54,7 +55,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 }
 /* Floating glass back link over the image, tucked under the nav */
 .hero-back {
-  position: absolute; top: 104px; left: 48px; z-index: 30;
+  position: absolute; top: 104px; left: var(--gutter); z-index: 30;
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--paper); text-decoration: none;
@@ -77,14 +78,14 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
     linear-gradient(to bottom, transparent 40%, rgba(0,21,38,0.7) 100%);
 }
 .hero-tag {
-  position: absolute; top: 104px; right: 48px;
+  position: absolute; top: 104px; right: var(--gutter);
   background: rgba(234,229,220,0.15); backdrop-filter: blur(12px);
   border: 1px solid rgba(234,229,220,0.25);
   font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--paper); padding: 8px 16px; border-radius: 100px;
 }
 .hero-title {
-  position: absolute; bottom: 48px; left: 48px; right: 48px;
+  position: absolute; bottom: 48px; left: var(--gutter); right: var(--gutter);
 }
 .hero-location {
   font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
@@ -95,7 +96,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   line-height: 1.1; letter-spacing: -0.02em; color: var(--paper);
 }
 .hero-status {
-  position: absolute; bottom: 48px; right: 48px;
+  position: absolute; bottom: 48px; right: var(--gutter);
   font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--gold); border-bottom: 1px solid rgba(201,169,110,0.4);
   padding-bottom: 4px;
@@ -130,7 +131,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   color: var(--nickel); margin-bottom: 16px;
 }
 .section-title {
-  font-size: clamp(24px, 3vw, 36px); font-weight: 300; letter-spacing: -0.02em;
+  font-family: var(--disp); font-size: clamp(26px, 3.2vw, 40px); font-weight: 400; letter-spacing: -0.015em;
   margin-bottom: 32px; line-height: 1.1;
 }
 .section-title em { font-style: normal; color: var(--gold); }
@@ -151,7 +152,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   background: var(--navy);
 }
 #photos-col {
-  padding: 64px 48px;
+  padding: 64px var(--gutter);
   background: rgba(234,229,220,.14);
 }
 .amenities-list { display: flex; flex-direction: column; gap: 0; }
@@ -255,16 +256,16 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   border-bottom: 1px solid rgba(234,229,220,.24);
   background: var(--navy);
 }
-.story-inner { max-width: 1100px; padding: 72px 64px; }
+.story-inner { max-width: 1100px; padding: 72px var(--gutter); }
 .story-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 8px; }
 
 /* ── INQUIRY CTA ── */
 #inquiry-cta {
-  padding: 80px 64px;
+  padding: 80px var(--gutter);
   background: var(--navy); color: var(--paper);
   display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: center;
 }
-.inquiry-eyebrow { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(234,229,220,0.5); margin-bottom: 20px; }
+.inquiry-eyebrow { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(234,229,220,0.66); margin-bottom: 20px; }
 .inquiry-title { font-family: var(--disp); font-size: clamp(28px, 3.5vw, 44px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
 .inquiry-title em { font-style: normal; color: var(--gold); }
 .inquiry-sub { margin-top: 20px; font-size: 14px; line-height: 1.8; color: rgba(234,229,220,0.7); max-width: 480px; }
@@ -273,17 +274,17 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   display: inline-flex; align-items: center; gap: 12px;
   font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
   padding: 16px 32px; text-decoration: none;
-  background: var(--gold); color: var(--paper); border: none;
+  background: var(--gold); color: var(--navy); border: none;
   transition: background 0.25s, color 0.25s;
 }
-.inquiry-btn:hover { background: var(--gold); color: var(--navy); }
+.inquiry-btn:hover { background: var(--paper); color: var(--navy); }
 .inquiry-btn::after { content: '→'; transition: transform 0.2s; }
 .inquiry-btn:hover::after { transform: translateX(4px); }
-.inquiry-meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(234,229,220,0.5); }
+.inquiry-meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(234,229,220,0.66); }
 
 /* ── RELATED ── */
 #related {
-  padding: 72px 64px;
+  padding: 72px var(--gutter);
   border-top: 1px solid rgba(234,229,220,.24);
   background: var(--navy);
 }
@@ -316,7 +317,6 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 }
 
 @media (max-width: 640px) {
-  body { padding-top: 80px; }
   #nav { padding: 12px 20px; }
   #back-strip { padding: 14px 20px; }
   #hero { height: 100vh; min-height: 460px; }
@@ -2157,15 +2157,15 @@ const SLUG_ALIASES = {
 };
 
 const AMENITY_ICONS = [
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-  '<svg viewBox="0 0 24 24" fill="none" stroke="#001526" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
 ];
 
 function renderProject() {

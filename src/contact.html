@@ -218,7 +218,7 @@ a.info-value:hover { color: var(--gold); }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .contact-form { padding: 28px; }
   .form-row { grid-template-columns: 1fr; }
-  .form-row .field { border-right: none; padding-right: 0; padding-left: 0; }
+    .form-row .field, .form-row .field:last-child { border-right: none; padding-right: 0; padding-left: 0; }
   .form-actions { flex-direction: column; align-items: flex-start; gap: 18px; }
 }
 
@@ -261,7 +261,7 @@ a.info-value:hover { color: var(--gold); }
   line-height: 1.5; color: rgba(234,229,220,.9); letter-spacing: 0;
   text-align: left; max-width: 32ch; margin: 0; padding: 0;
 }
-.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { color: var(--paper); font-weight: 500; }
+.hero-head-meta strong, .hero-meta strong, .hero-caption h2 em, .hero-lede strong { font-family: var(--sans); font-style: normal; color: var(--paper); font-weight: 500; }
 #hero-banner #result-count { color: var(--gold); font-weight: 400; font-size: inherit; display: inline; margin: 0; }
 @media (max-width: 760px) { #hero-banner { padding: 0 20px calc(13vh + 32px); } }
 
@@ -279,6 +279,8 @@ a.info-value:hover { color: var(--gold); }
 /* hairline spans the measure, like the homepage's */
 #hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
 #hero-banner .hero-title { width: 100%; }
+/* caption keeps the same narrow measure as every other hero */
+#hero-banner > .hero-head > p.hero-meta { width: auto; max-width: 36ch; }
 </style>
 <!-- @localbusiness-schema -->
 <script type="application/ld+json">

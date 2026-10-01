@@ -73,6 +73,15 @@
     [data-elh-testi] { padding-top: 34px !important; }
     [data-elh-testi] > div { gap: 28px !important; }
   }
+      /* tablet: two columns would leave an empty cell beside the founder photo, so the photo takes the full row */
+  @media (min-width: 600px) and (max-width: 1099px) {
+    [data-elh-storyphoto] { grid-column: 1 / -1; min-height: 0 !important; height: 340px; }
+  }
+  /* tablet: the desktop "Keep scrolling" cue would run into the fourth stage label, so use the in-flow cue */
+  @media (min-width: 768px) and (max-width: 1180px) {
+    [data-elh-tl-cue] { display: none !important; }
+    [data-elh-tl-cue-m] { display: flex !important; }
+  }
   @keyframes elhRise {
     from { opacity: 0; transform: translateY(18px); }
     to { opacity: 1; transform: none; }
@@ -282,7 +291,7 @@
           <span style="flex: 0 0 auto; width: 9px; height: 9px; margin-top: 9px; border-radius: 50%; background: #BFA06A"></span>
           <p style="margin: 0; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.72; color: rgba(234,229,220,.88); font-weight: 300">Every home we build carries that same devotion — a foundation of love, care, and legacy, designed to nurture life's most meaningful moments for the family who lives in it.</p>
         </div>
-        <div style="position: relative; min-height: 260px">
+        <div data-elh-storyphoto="1" style="position: relative; min-height: 260px">
           <img class="elh-img" id="elh-story-photo" src="uploads/home/shay.jpg" alt="Shay Segev, Founder and Principal of Ella Lee Homes" loading="lazy" decoding="async" style="object-position: 58% 22%">
         </div>
       </div>
@@ -327,14 +336,14 @@
             </button>
             <button class="elh-h3" type="button" data-elh-tl-marker="1" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit">
               <span data-elh-tl-node="1" style="width: 11px; height: 11px; border-radius: 50%; background: #001526; border: 1px solid rgba(234,229,220,.42); transition: background .45s ease, border-color .45s ease"></span>
-              <span data-elh-tl-label="1" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.44); white-space: nowrap; transition: color .45s ease">Personal Service</span>
+              <span data-elh-tl-label="1" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.62); white-space: nowrap; transition: color .45s ease">Personal Service</span>
             </button>
             <button class="elh-h3" type="button" data-elh-tl-marker="2" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit">
               <span data-elh-tl-node="2" style="width: 11px; height: 11px; border-radius: 50%; background: #001526; border: 1px solid rgba(234,229,220,.42); transition: background .45s ease, border-color .45s ease"></span>
-              <span data-elh-tl-label="2" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.44); white-space: nowrap; transition: color .45s ease">Warranty</span>
+              <span data-elh-tl-label="2" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.62); white-space: nowrap; transition: color .45s ease">Warranty</span>
             </button><button class="elh-h3" type="button" data-elh-tl-marker="3" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1 1 0; padding: 0; text-align: left; background: none; border: 0; cursor: pointer; font: inherit; color: inherit; width: 238px; height: 39px">
               <span data-elh-tl-node="3" style="width: 11px; height: 11px; border-radius: 50%; background: #001526; border: 1px solid rgba(234,229,220,.42); transition: background .45s ease, border-color .45s ease"></span>
-              <span data-elh-tl-label="3" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.44); white-space: nowrap; transition: color .45s ease">Craftsmanship</span>
+              <span data-elh-tl-label="3" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(234,229,220,.62); white-space: nowrap; transition: color .45s ease">Craftsmanship</span>
             </button>
             
               </div>
@@ -547,7 +556,7 @@
   <section id="giving" data-screen-label="Giving Back" style="padding: clamp(80px, 11vw, 160px) clamp(20px, 4vw, 64px); background: #E3DACA">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(32px, 5vw, 80px); align-items: center; max-width: 1500px; margin: 0 auto">
       <div style="display: flex; flex-direction: column; gap: 22px">
-        <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #8A6E3C">Giving Back</span>
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #6F5628">Giving Back</span>
         <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(28px, 3.6vw, 54px); font-weight: 400; line-height: 1.1; letter-spacing: -.01em; text-wrap: pretty; color: #001526">Ten percent of our profit goes back out</h2>
         <p style="margin: 0; max-width: 52ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.7; color: #2B2B2B; font-weight: 300">Ella Lee Homes is dedicated to donating 10% of our profits to support non-profit organizations both locally and globally.</p>
       </div>
