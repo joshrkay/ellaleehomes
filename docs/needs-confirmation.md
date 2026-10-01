@@ -33,7 +33,7 @@ These came across from the earlier site. The Fact Sheet says "if something is ne
 | Sell | "No obligation. Every inquiry is read personally." under the form | "Every inquiry is read personally" is from the Fact Sheet; "No obligation" is not. |
 | Portfolio | "Prices shown reflect home sale values, not construction costs." | A disclosure that depends on the real price data (item 11). |
 | Project pages | Status and year on every project ("Sold 2024", "Sold October 2023", and "For Sale" on Glenrosa and Desert Cove), plus "Completed · 2024" in the hero | From the portfolio data (item 11). The two "For Sale" labels go stale if either home sells. |
-| Project pages | Full street addresses on three homes: 3643 E Hazelwood St (hazelwood-2), 6542 E 5th St (5th-st), 6126 E Larkspur Dr (larkspur) | These are private homes. Recommend removing unless the owners agreed. |
+| Project pages | ~~Full street addresses on three homes~~ **Removed.** hazelwood-2, 5th-st and larkspur now show an area only ("Arcadia, Phoenix", "Southwest Village, Scottsdale", "North Scottsdale"). | Private homes. Add a street back only if the owners agree. |
 | Project page: Earll | "built by Milco Development" | Names another company. Confirm it is right to publish. |
 | Portfolio cards | A year pill and a "Sold" pill exist in the page code but the photo covers them (checked: the photo is the top element at the pill's position), so nobody sees them today. Screen readers and search engines still read them. | They would show unverified years and sale status if the layering is ever fixed. |
 | Home | The strip lists Stanford as "Coming soon" with no link; no project page exists for it | Confirm Stanford belongs in the strip. |
