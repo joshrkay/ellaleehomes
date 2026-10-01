@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ella Lee Homes — Project</title>
+<title>Project | Ella Lee Homes</title>
+<meta name="description" content="A custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ella Lee Homes">
+<meta property="og:title" content="Project | Ella Lee Homes">
+<meta property="og:description" content="A custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.">
+<meta property="og:url" content="https://ellaleehomes.com/">
+<meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -65,7 +73,9 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 #hero:hover .hero-img { transform: scale(1.02); }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 40%, rgba(0,21,38,0.7) 100%);
+    background:
+    linear-gradient(to bottom, rgba(0,21,38,0.55) 0%, rgba(0,21,38,0.25) 14%, transparent 30%),
+    linear-gradient(to bottom, transparent 40%, rgba(0,21,38,0.7) 100%);
 }
 .hero-tag {
   position: absolute; top: 104px; right: 48px;
@@ -365,18 +375,36 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   "@type": "HomeAndConstructionBusiness",
   "@id": "https://ellaleehomes.com/#business",
   "name": "Ella Lee Homes",
-  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
+  "legalName": "Ella Lee Homes LLC",
   "description": "Custom home builder building luxury residences across Paradise Valley, Scottsdale, Arcadia, and Phoenix, Arizona.",
   "url": "https://ellaleehomes.com/",
-  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
-  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "logo": "https://ellaleehomes.com/uploads/Monogram_Navy.png",
+  "image": "https://ellaleehomes.com/assets/og-share.jpg",
   "telephone": "+1-480-340-8700",
   "email": "hello@ellaleehomes.com",
-  "priceRange": "$$",
-  "foundingLocation": "Phoenix, Arizona",
+  "foundingDate": "2021",
+  "founder": {
+    "@type": "Person",
+    "name": "Shay Segev",
+    "jobTitle": "Founder and Principal"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Arizona ROC License",
+    "value": "KB2-333410"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License KB2-333410",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Arizona Registrar of Contractors"
+    }
+  },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "4408 N 12th St",
+    "streetAddress": "4408 N 12th St, Ste 200",
     "addressLocality": "Phoenix",
     "addressRegion": "AZ",
     "postalCode": "85014",
@@ -391,13 +419,13 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   "areaServed": [
     {
       "@type": "City",
-      "name": "Scottsdale",
-      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
     },
     {
       "@type": "City",
-      "name": "Paradise Valley",
-      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
     },
     {
       "@type": "Place",
@@ -407,15 +435,16 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
       "@type": "City",
       "name": "Phoenix",
       "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    },
+    {
+      "@type": "State",
+      "name": "Arizona"
     }
   ],
   "knowsAbout": [
     "Custom home building",
     "Luxury home construction",
-    "Residential development"
-  ],
-  "sameAs": [
-    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
+    "Teardown and rebuild"
   ],
   "openingHoursSpecification": [
     {
@@ -444,11 +473,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 
 
 <!-- NOT FOUND (shown if slug doesn't match) -->
-<div id="not-found">
-  <h1>Project not found</h1>
-  <p>The project you're looking for doesn't exist.</p>
-  <a href="previous-projects.html" class="nav-back">← View All Projects</a>
-</div>
+<div id="not-found"></div>
 
 <!-- PROJECT CONTENT (populated by JS based on ?slug=) -->
 <div id="project-content" style="display:none;">
@@ -2181,12 +2206,14 @@ function renderProject() {
   const project = PROJECTS[slug];
 
   if (!project) {
-    document.getElementById('not-found').style.display = 'block';
+        const nf = document.getElementById('not-found');
+    nf.innerHTML = '<h1>Project not found</h1><p>The project you\'re looking for doesn\'t exist.</p><a href="previous-projects.html" class="nav-back">← View All Projects</a>';
+    nf.style.display = 'block';
     return;
   }
 
   document.getElementById('project-content').style.display = 'block';
-  document.title = `Ella Lee Homes — ${project.name.replace(/&amp;/g, '&')}`;
+  document.title = `${project.name.replace(/&amp;/g, '&')} | Ella Lee Homes`;
 
   // Every project renders from this one shell, and the aliases above plus the
   // no-slug default mean several URLs show the same home. Point each variant
@@ -2270,7 +2297,15 @@ function renderProject() {
     .join('');
 
   // Related: pick 3 other projects
-  const relatedSlugs = Object.keys(PROJECTS).filter(s => s !== slug).slice(0, 3);
+    // Similar = closest by price and size, with a small nudge for the same area.
+  const num = v => { const n = parseFloat(String(v).replace(/[^0-9.]/g, '')); return n > 0 ? n : null; };
+  const gap = (a, b) => (a && b) ? Math.abs(Math.log(a / b)) : 0.6;
+  const city = p => String(p.location || '').split(',')[0].trim();
+  const similarity = s => {
+    const p = PROJECTS[s];
+    return gap(num(p.price), num(project.price)) + gap(num(p.sqft), num(project.sqft)) + (city(p) === city(project) ? 0 : 0.25);
+  };
+  const relatedSlugs = Object.keys(PROJECTS).filter(s => s !== slug).sort((a, b) => similarity(a) - similarity(b)).slice(0, 3);
   const grid = document.getElementById('related-grid');
   grid.innerHTML = relatedSlugs.map(s => {
     const p = PROJECTS[s];

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Story | Arizona Custom Home Builder — Ella Lee Homes</title>
-<meta name="description" content="Arizona's premier luxury custom home builder. Ella Lee Homes was born from a promise to build homes that stand the test of time — serving Scottsdale, Paradise Valley, Arcadia &amp; the Phoenix Valley.">
+<title>Our Story | Ella Lee Homes</title>
+<meta name="description" content="Arizona's premier luxury custom home builder. Ella Lee Homes was born from a promise to build homes that stand the test of time — serving Scottsdale, Paradise Valley, Arcadia &amp; Arizona.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <link rel="canonical" href="https://ellaleehomes.com/our-story">
 <meta name="google-site-verification" content="mF9sNLbq4MCCSwdlXaE1uobKY4gv_GkxVSgU2_MxGmU">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ellaleehomes.com/our-story/">
 <meta property="og:title" content="Our Story | Arizona Custom Home Builder — Ella Lee Homes">
-<meta property="og:description" content="Arizona's premier luxury custom home builder. Born from a promise to build homes that stand the test of time — serving Scottsdale, Paradise Valley, Arcadia &amp; the Phoenix Valley.">
+<meta property="og:description" content="Arizona's premier luxury custom home builder. Born from a promise to build homes that stand the test of time — serving Scottsdale, Paradise Valley, Arcadia &amp; Arizona.">
 <meta property="og:image" content="https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -416,19 +416,55 @@ details.story-faq .faq-a p + p {
   }
   .story-pull.reveal { border-left-color: var(--gold) !important; }
 }
+.rv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px; margin-top: 40px; }
+.rv-card { display: block; text-decoration: none; color: inherit; }
+.rv-card figure { margin: 0; height: 100%; display: flex; flex-direction: column; gap: 16px; padding: 28px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12); }
+.rv-stars { color: #BFA06A; letter-spacing: .15em; font-size: 14px; }
+.rv-card blockquote { margin: 0; font-size: 16px; font-weight: 300; line-height: 1.65; color: #EAE5DC; }
+.rv-card figcaption { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.rv-av { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(191,160,106,.2); color: #BFA06A; font-size: 14px; }
+.rv-who { display: flex; flex-direction: column; font-size: 13px; }
+.rv-name { color: #EAE5DC; font-weight: 500; }
+.rv-meta { color: rgba(234,229,220,.55); }
+.rv-more { margin-top: 28px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+.rv-more a { color: #BFA06A; text-decoration: none; border-bottom: 1px solid rgba(191,160,106,.5); padding-bottom: 3px; }
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
+  "@id": "https://ellaleehomes.com/#business",
   "name": "Ella Lee Homes",
-  "description": "Arizona's premier luxury custom home builder serving Scottsdale, Paradise Valley, Arcadia, and the greater Phoenix Valley.",
-  "url": "https://ellaleehomes.com",
+  "legalName": "Ella Lee Homes LLC",
+  "description": "Custom home builder building luxury residences across Paradise Valley, Scottsdale, Arcadia, and Phoenix, Arizona.",
+  "url": "https://ellaleehomes.com/",
+  "logo": "https://ellaleehomes.com/uploads/Monogram_Navy.png",
+  "image": "https://ellaleehomes.com/assets/og-share.jpg",
   "telephone": "+1-480-340-8700",
   "email": "hello@ellaleehomes.com",
+  "foundingDate": "2021",
+  "founder": {
+    "@type": "Person",
+    "name": "Shay Segev",
+    "jobTitle": "Founder and Principal"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Arizona ROC License",
+    "value": "KB2-333410"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License KB2-333410",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Arizona Registrar of Contractors"
+    }
+  },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "4408 N 12th St",
+    "streetAddress": "4408 N 12th St, Ste 200",
     "addressLocality": "Phoenix",
     "addressRegion": "AZ",
     "postalCode": "85014",
@@ -436,21 +472,53 @@ details.story-faq .faq-a p + p {
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 33.504,
-    "longitude": -112.058
+    "latitude": 33.5004403,
+    "longitude": -112.0567192
   },
+  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
   "areaServed": [
-    { "@type": "City", "name": "Scottsdale" },
-    { "@type": "City", "name": "Paradise Valley" },
-    { "@type": "Place", "name": "Arcadia, Phoenix" },
-    { "@type": "City", "name": "Phoenix" }
+    {
+      "@type": "City",
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+    },
+    {
+      "@type": "Place",
+      "name": "Arcadia, Phoenix"
+    },
+    {
+      "@type": "City",
+      "name": "Phoenix",
+      "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    },
+    {
+      "@type": "State",
+      "name": "Arizona"
+    }
   ],
-  "knowsAbout": ["Custom Home Building", "Luxury Homes", "Arizona Real Estate", "Home Construction"],
-  "hasCredential": "ROC License KB2-333410",
-  "sameAs": [
-    "https://www.facebook.com/1EllaLeeHomes",
-    "https://www.instagram.com/ellaleehomes/",
-    "https://www.youtube.com/@ellaleehomes1888"
+  "knowsAbout": [
+    "Custom home building",
+    "Luxury home construction",
+    "Teardown and rebuild"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    }
   ]
 }
 </script>
@@ -554,7 +622,7 @@ details.story-faq .faq-a p + p {
       <div class="story-wrap">
         <p class="story-kicker reveal reveal-delay-1">Our Story</p>
         <p class="story-display reveal reveal-delay-2" id="h-journey">You dream it,<br><em>we build it.</em></p>
-        <h2 class="story-h2-sub reveal reveal-delay-3">A custom home builder in the Phoenix Valley.</h2>
+        <h2 class="story-h2-sub reveal reveal-delay-3">A custom home builder in Arizona.</h2>
         <p class="story-lede reveal reveal-delay-4">Ella Lee Homes was born from a simple, heartfelt promise&mdash;to build something that would stand the test of time for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others. Every home we build carries that same devotion: a foundation of love, care, and legacy designed to nurture life&rsquo;s most meaningful moments.</p>
         <div class="story-body">
 <p class="story-body reveal" style="font-size:17px;line-height:1.85;margin-top:24px;">Today, Ella Lee Homes builds luxury custom homes across Paradise Valley, Scottsdale, Arcadia, and Phoenix. We’ve refined our system for a client-focused experience where every project runs in the open, and every client has real-time access to their build through our dedicated Buildertrend client portal &mdash; where they can see photos, updates, timelines, and costs all in one place.</p>
@@ -570,7 +638,7 @@ details.story-faq .faq-a p + p {
         <p class="story-display reveal reveal-delay-2" id="h-vision">A custom <em>home builder.</em></p>
         <h2 class="story-h2-sub reveal reveal-delay-3">Welcome to Ella Lee Homes&mdash;where craftsmanship meets careful project management to bring your dream home to life.</h2>
         <div class="story-body">
-          <p class="reveal reveal-delay-4">We are a custom home builder in the Phoenix Valley, and we take pride in building homes tailored to the way our clients live. Let us be your trusted partner throughout your new home construction journey.</p>
+          <p class="reveal reveal-delay-4">We are a custom home builder in Arizona, and we take pride in building homes tailored to the way our clients live. Let us be your trusted partner throughout your new home construction journey.</p>
           <p class="reveal reveal-delay-5">Embarking on a project with Ella Lee Homes guarantees an unparalleled experience, where you will <strong>collaborate</strong> with our team of skilled builders; <strong>experience seamless communication</strong> and transparency throughout the entire build; <strong>incorporate</strong> the latest construction techniques, sustainable materials, and energy-efficient solutions; and <strong>enjoy peace of mind</strong> with regular updates&mdash;including photos and videos of your project&mdash;knowing your home is in the hands of experienced professionals who uphold the highest safety and quality standards.</p>
         </div>
       </div>
@@ -851,18 +919,18 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
         <div class="where-hd">
           <p class="story-kicker reveal reveal-delay-1">Across Arizona</p>
           <p class="story-display reveal reveal-delay-2" id="h-where">Where we <em>build.</em></p>
-          <p class="where-sub reveal reveal-delay-3">A portfolio rooted in the Phoenix Valley — from the foothills of Camelback Mountain to the heart of Old Town Scottsdale.</p>
+          <p class="where-sub reveal reveal-delay-3">A portfolio rooted in Arizona — from the foothills of Camelback Mountain to the heart of Old Town Scottsdale.</p>
         </div>
 
         <div class="where-map-wrap reveal reveal-delay-4">
-          <div id="where-leaflet" role="img" aria-label="Map of Ella Lee Homes locations across the Phoenix Valley"></div>
+          <div id="where-leaflet" role="img" aria-label="Map of Ella Lee Homes locations across Arizona"></div>
         </div>
 
         <div class="where-legend reveal reveal-delay-5">
           <div class="where-legend-item">
             <div class="where-legend-num">40+</div>
             <div class="where-legend-place">Homes Built</div>
-            <div class="where-legend-note">Completed and in progress across the Phoenix Valley</div>
+            <div class="where-legend-note">Completed and in progress across Arizona</div>
           </div>
         </div>
       </div>
@@ -872,33 +940,36 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
       <div class="conv-inner">
         <p class="story-kicker reveal reveal-delay-1">Client Stories</p>
         <p class="story-display reveal reveal-delay-2" id="h-conv">What they <em>say.</em></p>
-        <p class="sub reveal reveal-delay-3">Real questions from homeowners across Arizona. Ask us anything; whether you&rsquo;re building from the ground up or exploring what&rsquo;s possible, we&rsquo;d love to hear from you.</p>
-
-        <details class="story-faq reveal reveal-delay-4" open>
-          <summary>Where does the Ella Lee Homes story start?</summary>
-          <div class="faq-a">
-            <p>With a simple promise: to build something that would stand the test of time for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others—every build still carries that devotion.</p>
-          </div>
-        </details>
-        <details class="story-faq reveal reveal-delay-5">
-          <summary>What do clients say about craftsmanship and follow-through?</summary>
-          <div class="faq-a">
-            <p>&ldquo;Real experts in luxury homes. Their follow-up and attention to detail after close was second to none.&rdquo; <span class="faq-attrib">Mark &middot; Paradise Valley, AZ &middot; 2024</span></p>
-            <p>&ldquo;Blown away by the quality. Shay &amp; team have been so meticulous—something most builders completely disregard.&rdquo; <span class="faq-attrib">Anastasia &middot; Arcadia, AZ &middot; 2024</span></p>
-          </div>
-        </details>
-        <details class="story-faq reveal reveal-delay-6">
-          <summary>How does your process stay transparent?</summary>
-          <div class="faq-a">
-            <p>Transparent process. Uncompromising craft. You get a collaborative journey from the first sketch to the final walkthrough—with steady communication and realistic schedules so you always know where things stand.</p>
-          </div>
-        </details>
-        <details class="story-faq reveal reveal-delay-7">
-          <summary>How can we begin the conversation?</summary>
-          <div class="faq-a">
-            <p>Tell us about your vision. Reach us at <strong>(480) 340-8700</strong>, <strong>hello@ellaleehomes.com</strong>, or visit our studio at <strong>4408 N 12th St, Ste 200, Phoenix, AZ 85014</strong>—the same contact points featured across ellaleehomes.com.</p>
-          </div>
-        </details>
+        <p class="sub reveal reveal-delay-3">Real reviews from homeowners across Arizona.</p>
+        <div class="rv-grid">
+          <a class="rv-card reveal reveal-delay-4" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+            <span class="rv-stars" aria-hidden="true">★★★★★</span>
+            <blockquote>Ella Lee Homes built our home in 2023, and we couldn’t be happier! The project was completed on time, within budget, and exceeded our expectations.</blockquote>
+            <figcaption><span class="rv-av">M</span><span class="rv-who"><span class="rv-name">Mike M</span><span class="rv-meta">Google review &middot; a year ago</span></span></figcaption>
+          </figure></a>
+          <a class="rv-card reveal reveal-delay-4" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+            <span class="rv-stars" aria-hidden="true">★★★★★</span>
+            <blockquote>As an investor, I’ve entrusted Ella Lee Homes to build 9 custom homes. I could not be more pleased by the outcome.</blockquote>
+            <figcaption><span class="rv-av">M</span><span class="rv-who"><span class="rv-name">Michael Wiss</span><span class="rv-meta">Google review &middot; 3 years ago</span></span></figcaption>
+          </figure></a>
+          <a class="rv-card reveal reveal-delay-4" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+            <span class="rv-stars" aria-hidden="true">★★★★★</span>
+            <blockquote>Shay &amp; team have been so meticulous about all warranty and repair work, which is something most builders completely disregard.</blockquote>
+            <figcaption><span class="rv-av">A</span><span class="rv-who"><span class="rv-name">Anastasia Foster</span><span class="rv-meta">Google review &middot; 2 years ago</span></span></figcaption>
+          </figure></a>
+          <a class="rv-card reveal reveal-delay-4" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+            <span class="rv-stars" aria-hidden="true">★★★★★</span>
+            <blockquote>Attention to detail, quality construction, responsiveness of the warranty team &mdash; owning an Ella Lee home is truly enjoyable.</blockquote>
+            <figcaption><span class="rv-av">H</span><span class="rv-who"><span class="rv-name">Heather Wilson</span><span class="rv-meta">Google review &middot; 8 months ago</span></span></figcaption>
+          </figure></a>
+          <a class="rv-card reveal reveal-delay-4" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
+            <span class="rv-stars" aria-hidden="true">★★★★★</span>
+            <blockquote>From the very beginning, communication was easy and stress-free. What stood out most was his honesty and sincerity.</blockquote>
+            <figcaption><span class="rv-av">G</span><span class="rv-who"><span class="rv-name">Gordon Yonel</span><span class="rv-meta">Google review &middot; 8 months ago</span></span></figcaption>
+          </figure></a>
+        </div>
+        <p class="rv-more reveal reveal-delay-5"><a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener">Read all of our reviews on Google</a></p>
+        <p class="sub reveal reveal-delay-6" style="margin-top:40px">Tell us about your vision. Reach us at <strong>(480) 340-8700</strong> or <strong>hello@ellaleehomes.com</strong>, or visit our studio at <strong>4408 N 12th St, Ste 200, Phoenix, AZ 85014</strong>.</p>
       </div>
     </section>
   </article>
@@ -984,7 +1055,7 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
   function start() {
     if (!window.L) { setTimeout(start, 80); return; }
     const L = window.L;
-    // Centered on the Phoenix Valley, fixed zoom — no zoom or scroll-wheel.
+    // Centered on Arizona, fixed zoom — no zoom or scroll-wheel.
     const center = [33.520, -111.93];
     const map = L.map(el, {
       center: center,
@@ -1012,7 +1083,7 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
       maxZoom: 19,
     }).addTo(map);
 
-    // 22 home points across the Phoenix Valley — one pin per portfolio
+    // 22 home points across Arizona — one pin per portfolio
     // home. Each pin links to its project detail page so visitors can
     // tie a location on the map back to a specific home in the portfolio.
     // Positions = neighborhood centroid + deterministic ring offset so

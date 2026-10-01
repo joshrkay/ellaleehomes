@@ -3,8 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio — Luxury Custom Homes in Scottsdale, Paradise Valley &amp; Arcadia | Ella Lee Homes</title>
+<title>Portfolio: Custom Homes in Paradise Valley &amp; Scottsdale | Ella Lee Homes</title>
 <meta name="description" content="Explore Ella Lee Homes' portfolio of luxury custom homes across Scottsdale, Paradise Valley, Arcadia and greater Phoenix, Arizona — with neighborhood, size, and price for each build.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ella Lee Homes">
+<meta property="og:title" content="Portfolio: Custom Homes in Paradise Valley &amp; Scottsdale | Ella Lee Homes">
+<meta property="og:description" content="Explore Ella Lee Homes' portfolio of luxury custom homes across Scottsdale, Paradise Valley, Arcadia and greater Phoenix, Arizona — with neighborhood, size, and price for each build.">
+<meta property="og:url" content="https://ellaleehomes.com/previous-projects">
+<meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://ellaleehomes.com/previous-projects">
 <meta name="robots" content="index,follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -139,8 +146,11 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 /* ── PROJECT GRID ── */
 .projects-grid {
   padding: 28px clamp(18px, 2.4vw, 40px) 72px;
-  display: grid; grid-template-columns: repeat(3, calc((100% - 48px) * .8 / 3)); justify-content: space-between;
+  display: grid; grid-template-columns: repeat(4, calc((100% - 72px) * .88 / 4)); justify-content: space-between;
   gap: 24px;
+}
+@media(max-width:1280px){
+  .projects-grid { grid-template-columns: repeat(3, calc((100% - 48px) * .88 / 3)); }
 }
 
 .proj-card {
@@ -164,10 +174,10 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 .proj-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease); filter: saturate(0.85); }
 .proj-card:hover .proj-card-img img { transform: scale(1.05); filter: saturate(1); }
 
-.proj-card-body { padding: 24px 28px 28px; }
+.proj-card-body { padding: 20px 22px 24px; }
 .proj-card-location { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nickel); margin-bottom: 6px; }
 .proj-card-style { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 8px; display: block; }
-.proj-card-name { font-size: 22px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 16px; line-height: 1.1; }
+.proj-card-name { font-size: 20px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 16px; line-height: 1.1; }
 .proj-card-specs {
   display: flex; gap: 16px; flex-wrap: wrap;
   padding-top: 14px; border-top: 1px solid rgba(234,229,220,.24);
@@ -226,18 +236,36 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   "@type": "HomeAndConstructionBusiness",
   "@id": "https://ellaleehomes.com/#business",
   "name": "Ella Lee Homes",
-  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
+  "legalName": "Ella Lee Homes LLC",
   "description": "Custom home builder building luxury residences across Paradise Valley, Scottsdale, Arcadia, and Phoenix, Arizona.",
   "url": "https://ellaleehomes.com/",
-  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
-  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "logo": "https://ellaleehomes.com/uploads/Monogram_Navy.png",
+  "image": "https://ellaleehomes.com/assets/og-share.jpg",
   "telephone": "+1-480-340-8700",
   "email": "hello@ellaleehomes.com",
-  "priceRange": "$$",
-  "foundingLocation": "Phoenix, Arizona",
+  "foundingDate": "2021",
+  "founder": {
+    "@type": "Person",
+    "name": "Shay Segev",
+    "jobTitle": "Founder and Principal"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Arizona ROC License",
+    "value": "KB2-333410"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License KB2-333410",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Arizona Registrar of Contractors"
+    }
+  },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "4408 N 12th St",
+    "streetAddress": "4408 N 12th St, Ste 200",
     "addressLocality": "Phoenix",
     "addressRegion": "AZ",
     "postalCode": "85014",
@@ -252,13 +280,13 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   "areaServed": [
     {
       "@type": "City",
-      "name": "Scottsdale",
-      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
     },
     {
       "@type": "City",
-      "name": "Paradise Valley",
-      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
     },
     {
       "@type": "Place",
@@ -268,15 +296,16 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
       "@type": "City",
       "name": "Phoenix",
       "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    },
+    {
+      "@type": "State",
+      "name": "Arizona"
     }
   ],
   "knowsAbout": [
     "Custom home building",
     "Luxury home construction",
-    "Residential development"
-  ],
-  "sameAs": [
-    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
+    "Teardown and rebuild"
   ],
   "openingHoursSpecification": [
     {
@@ -828,7 +857,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 
   <div class="hero-copy">
     <h1 class="hero-title">Our Portfolio.</h1>
-    <p class="hero-lede">A sample of our custom homes across the Valley.<br><span id="result-count">22</span> featured projects, <strong>40+ homes</strong> built and underway across the Phoenix Valley.</p>
+    <p class="hero-lede">A sample of our custom homes across the Valley.<br><span id="result-count">22</span> featured projects, <strong>40+ homes</strong> built and underway across Arizona.</p>
   </div>
 </section>
 

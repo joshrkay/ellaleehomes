@@ -20,9 +20,15 @@ const RULES = [
   [/\bFounders\b/, 'Singular "Founder"'],
   [/on time,? on budget|on budget\. always|100% transparency/i, 'No absolute promises'],
   [/target budget range|\$\d+M\+?\s*(?:to|–|-|&ndash;|&mdash;)\s*\$\d+M/i, 'No budget ranges'],
-  [/\b12 to 18|12(?:–|-|&ndash;)18 months|14(?:–|-|&ndash;)24/i, 'One timeline: construction 11–18 months'],
+  [/\b12 to 18|12\s*(?:–|-|&ndash;)\s*18 months|14(?:–|-|&ndash;)24/i, 'One timeline: construction 11–18 months'],
   [/4408 N 12th St(?!, Ste 200)(?!["'])/, 'Always include "Ste 200"'],
-  [/cost-plus|fixed-price/i, 'Say nothing about contract type'],
+  [/first sketch|4 phases|four (?:clear )?phases/i, 'Construction only: no design/permitting phases'],
+  [/open[- ]books?/i, 'Cost-plus is stated plainly; never "open books"'],
+  [/fixed[- ]price|choice of contract/i, 'Never imply fixed price or a choice of contract structures'],
+  [/remodel|renovation|new homes only|commercial (?:work|building|projects)/i, 'Custom homes only; do not mention what we do not do'],
+  [/design(?:ing)? phase|permitting phase|planning and permitting|planning phase/i, 'Timeline is construction only: no design or permitting phases'],
+  [/>5\.0<|rated 5\.0|5\.0 (?:rating|across)/i, 'No 5.0 rating badge'],
+  [/the phoenix valley|greater phoenix valley/i, 'Statewide phrasing is "Arizona"'],
   [/\bcash (?:home )?buyer|cash offer/i, 'Sell page: brand voice, not a cash-buyer ad'],
 ];
 
@@ -32,9 +38,14 @@ const files = [
 ];
 
 let bad = 0;
+const WARRANTY_OK = new Set([path.join('src', 'warranty.html'), path.join('src', 'homeowner-resources.html')]);
 for (const rel of files) {
   const lines = fs.readFileSync(path.join(root, rel), 'utf8').split('\n');
   lines.forEach((line, i) => {
+    if (/warranty@ellaleehomes\.com/.test(line) && !WARRANTY_OK.has(rel)) {
+      bad++;
+      console.error(`${rel}:${i + 1}: "warranty@" — only on the Warranty and Homeowner Resources pages`);
+    }
     for (const [rx, why] of RULES) {
       const m = line.match(rx);
       if (m) {

@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Custom Home Builder in Arizona | Ella Lee Homes</title>
 <meta name="description" content="Ella Lee Homes is an Arizona custom home builder serving Paradise Valley, Scottsdale, and Arcadia. Honest communication and craftsmanship that lasts.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ella Lee Homes">
+<meta property="og:title" content="Custom Home Builder in Arizona | Ella Lee Homes">
+<meta property="og:description" content="Ella Lee Homes is an Arizona custom home builder serving Paradise Valley, Scottsdale, and Arcadia. Honest communication and craftsmanship that lasts.">
+<meta property="og:url" content="https://ellaleehomes.com/">
+<meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://ellaleehomes.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -92,7 +99,7 @@
             mask-size: auto 0, cover;
     -webkit-mask-composite: xor;
             mask-composite: exclude;
-    animation: elhBore 3.1s cubic-bezier(.74, 0, .26, 1) forwards;
+    animation: elhBore 1.9s cubic-bezier(.74, 0, .26, 1) forwards;
   }
   .elh-intro-copy {
     position: absolute;
@@ -105,7 +112,7 @@
     gap: clamp(20px, 2.6vw, 32px);
     padding: 0 24px;
     text-align: center;
-    animation: elhIntroText 3.1s ease forwards;
+    animation: elhIntroText 1.9s ease forwards;
   }
   .elh-intro-copy p {
     margin: 0;
@@ -125,6 +132,9 @@
     background: linear-gradient(to right, rgba(191,160,106,0), #BFA06A, rgba(191,160,106,0));
   }
   .elh-intro-copy img { width: clamp(44px, 5vw, 66px); height: auto; }
+  .elh-intro-skip { position: absolute; right: clamp(18px, 3vw, 40px); bottom: clamp(18px, 3vw, 36px); pointer-events: auto; padding: 8px 4px; font: 400 11px Inter, system-ui, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: rgba(234,229,220,.75); background: none; border: 0; border-bottom: 1px solid rgba(191,160,106,.6); cursor: pointer; }
+  .elh-intro-skip:hover { color: #EAE5DC; }
+
 
   /* The project strip is dragged by pointer; don't select its text en route. */
   [data-elh-track] { user-select: none; -webkit-user-select: none; }
@@ -144,11 +154,105 @@
 // first-arrival moment. Reloads and fresh visits still get it.
 (function(){try{if(sessionStorage.getItem('elhSkipIntro')){document.documentElement.className+=' elh-no-intro';sessionStorage.removeItem('elhSkipIntro')}}catch(e){}})();
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "@id": "https://ellaleehomes.com/#business",
+  "name": "Ella Lee Homes",
+  "legalName": "Ella Lee Homes LLC",
+  "description": "Custom home builder building luxury residences across Paradise Valley, Scottsdale, Arcadia, and Phoenix, Arizona.",
+  "url": "https://ellaleehomes.com/",
+  "logo": "https://ellaleehomes.com/uploads/Monogram_Navy.png",
+  "image": "https://ellaleehomes.com/assets/og-share.jpg",
+  "telephone": "+1-480-340-8700",
+  "email": "hello@ellaleehomes.com",
+  "foundingDate": "2021",
+  "founder": {
+    "@type": "Person",
+    "name": "Shay Segev",
+    "jobTitle": "Founder and Principal"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Arizona ROC License",
+    "value": "KB2-333410"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License KB2-333410",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Arizona Registrar of Contractors"
+    }
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4408 N 12th St, Ste 200",
+    "addressLocality": "Phoenix",
+    "addressRegion": "AZ",
+    "postalCode": "85014",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 33.5004403,
+    "longitude": -112.0567192
+  },
+  "hasMap": "https://www.google.com/maps?cid=10685235482620838945",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+    },
+    {
+      "@type": "City",
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+    },
+    {
+      "@type": "Place",
+      "name": "Arcadia, Phoenix"
+    },
+    {
+      "@type": "City",
+      "name": "Phoenix",
+      "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    },
+    {
+      "@type": "State",
+      "name": "Arizona"
+    }
+  ],
+  "knowsAbout": [
+    "Custom home building",
+    "Luxury home construction",
+    "Teardown and rebuild"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div style="--disp: 'DM Serif Display', Georgia, serif; font-family: Inter, system-ui, sans-serif; font-weight: 300; color: #001526; background: #EAE5DC; overflow-x: clip">
 
-  <div class="elh-intro" aria-hidden="true" data-elh-intro="1">
+  <div class="elh-intro" data-elh-intro="1">
+    <button type="button" class="elh-intro-skip" onclick="document.documentElement.classList.add('elh-no-intro')">Skip</button>
     <div class="elh-intro-copy">
       <p>Unlock the true potential<br><span>of your dream home</span></p>
       <div class="elh-intro-rule"></div>
@@ -186,7 +290,7 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(28px, 4vw, 72px)">
         <div style="display: flex; gap: 18px">
           <span style="flex: 0 0 auto; width: 9px; height: 9px; margin-top: 9px; border-radius: 50%; background: #BFA06A"></span>
-          <p style="margin: 0; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.72; color: rgba(234,229,220,.88)">What began as a dream for our own family grew into a mission to create lasting homes for others. Founder <strong style="font-weight: 500; color: rgb(234, 229, 220);">Shay Segev</strong> has led every build since the company founded.</p>
+          <p style="margin: 0; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.72; color: rgba(234,229,220,.88)">What began as a dream for our own family grew into a mission to create lasting homes for others. Founder <strong style="font-weight: 500; color: rgb(234, 229, 220);">Shay Segev</strong> has led every build since the company was founded.</p>
         </div>
         <div style="display: flex; gap: 18px">
           <span style="flex: 0 0 auto; width: 9px; height: 9px; margin-top: 9px; border-radius: 50%; background: #BFA06A"></span>
@@ -274,11 +378,11 @@
               <div style="display: grid">
               <div data-elh-tl-copy="0" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 1; transform: translateY(0); transition: opacity .55s ease, transform .55s ease; pointer-events: auto">
                 <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Transparent, Turnkey Process</h3>
-                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">From permitting to move-in you always know exactly where your project stands, with photos, updates, and timelines in your Buildertrend client portal.</p>
+                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">From the first day of construction to move-in you always know exactly where your project stands, with photos, updates, and timelines in your Buildertrend client portal. We build on a cost-plus basis.</p>
               </div>
               <div data-elh-tl-copy="1" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none">
                 <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Personalized Service</h3>
-                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">Every Ella Lee home is a one-on-one process built around your lifestyle, your lot, and your vision — never a template. You work directly with the people making the decisions, from first sketch to final walkthrough.</p>
+                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">Every Ella Lee home is a one-on-one process built around your lifestyle, your lot, and your vision — never a template. You work directly with the people making the decisions, from the first conversation to the final walkthrough.</p>
               </div>
               <div data-elh-tl-copy="2" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none">
                 <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Comprehensive Warranty</h3>
@@ -286,7 +390,7 @@
               </div>
               <div data-elh-tl-copy="3" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none">
                 <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Proven Craftsmanship</h3>
-                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">40+ custom homes built and underway across Arcadia, Paradise Valley and Scottsdale since 2021 — homes that live as beautifully as they look, rated 5.0 by the families who live in them.</p>
+                <p style="max-width: 46ch; margin: 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">40+ custom homes built and underway across Paradise Valley, Scottsdale, Arcadia and Phoenix since 2021 — homes that live as beautifully as they look.</p>
               </div>
               </div>
 
@@ -312,7 +416,7 @@
         <a href="project.html?slug=charter-oak" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
-              <img class="elh-img" id="elh-proj-1" src="uploads/home/project-charter-oak.jpg" alt="Charter Oak custom home" loading="lazy" decoding="async">
+              <img class="elh-img" id="elh-proj-1" src="uploads/home/project-charter-oak.jpg" alt="Charter Oak custom home" loading="eager" decoding="async">
             </div>
           </div>
           <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
@@ -327,7 +431,7 @@
         <a href="project.html?slug=via-estrella" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
-              <img class="elh-img" id="elh-proj-2" src="uploads/home/project-via-estrella.jpg" alt="Via Estrella custom home" loading="lazy" decoding="async">
+              <img class="elh-img" id="elh-proj-2" src="uploads/home/project-via-estrella.jpg" alt="Via Estrella custom home" loading="eager" decoding="async">
             </div>
           </div>
           <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
@@ -342,7 +446,7 @@
         <a href="project.html?slug=68th" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
-              <img class="elh-img" id="elh-proj-3" src="uploads/home/project-68th.jpg" alt="68th Street custom home" loading="lazy" decoding="async">
+              <img class="elh-img" id="elh-proj-3" src="uploads/home/project-68th.jpg" alt="68th Street custom home" loading="eager" decoding="async">
             </div>
           </div>
           <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
@@ -357,7 +461,7 @@
         <a href="#" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
-              <img class="elh-img" id="elh-proj-4" src="uploads/home/project-4.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
+              <img class="elh-img" id="elh-proj-4" src="uploads/home/project-4.jpg" alt="Ella Lee Homes custom home" loading="eager" decoding="async">
             </div>
           </div>
           <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
@@ -370,7 +474,7 @@
         <a href="project.html?slug=camino-sin-nombre" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
-              <img class="elh-img" id="elh-proj-5" src="uploads/home/project-5.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
+              <img class="elh-img" id="elh-proj-5" src="uploads/home/project-5.jpg" alt="Ella Lee Homes custom home" loading="eager" decoding="async">
             </div>
           </div>
           <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
@@ -383,7 +487,7 @@
         <a href="project.html?slug=glenrosa" draggable="false" style="flex: 0 0 clamp(262px, 25vw, 510px); display: flex; flex-direction: column; gap: 0; color: #EAE5DC">
           <div data-elh-frame="1" style="position: relative; aspect-ratio: 3 / 2; overflow: hidden; will-change: transform">
             <div data-elh-parallax="1" style="position: absolute; inset: -12% 0">
-              <img class="elh-img" id="elh-proj-6" src="uploads/home/project-6.jpg" alt="Ella Lee Homes custom home" loading="lazy" decoding="async">
+              <img class="elh-img" id="elh-proj-6" src="uploads/home/project-6.jpg" alt="Ella Lee Homes custom home" loading="eager" decoding="async">
             </div>
           </div>
           <div data-elh-panel="1" style="display: flex; flex-direction: column; gap: 6px; min-height: 108px; margin-top: -28px; padding: 32px 18px 32px; background: rgba(234,229,220,.06); border: 1px solid rgba(234,229,220,.12); border-top: 0; will-change: transform">
@@ -412,10 +516,6 @@
           <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4.1vw, 60px); font-weight: 400; line-height: 1.08">What homeowners say about us</h2>
         </div>
         <div style="display: flex; flex-direction: column; gap: 10px">
-          <div style="display: flex; align-items: baseline; gap: 12px">
-            <span style="font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(34px, 3.4vw, 48px); line-height: 1; color: #EAE5DC">5.0</span>
-            <span aria-hidden="true" style="display: inline-flex; gap: 3px; font-size: 13px; color: #BFA06A; letter-spacing: 2px">★★★★★</span>
-          </div>
           <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="font-size: 12px; letter-spacing: .08em; color: rgba(234,229,220,.72)">18 reviews on Google</a>
         </div>
       </div>
@@ -527,10 +627,19 @@
             <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
           </button>
           <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
-            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">Construction of an Ella Lee home typically takes 11 to 18 months. Planning and permitting come first, and the timing varies with scope, design, and municipal review. We give you a written schedule before we break ground and update it at every milestone.</p>
+            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">Construction of an Ella Lee home typically takes 11 to 18 months, depending on scope and finish selections. We give you a written schedule before we break ground and update it at every milestone.</p>
           </div>
         </div>
         
+        <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
+          <button type="button" data-elh-click="toggleFaq" aria-expanded="false" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 24px 26px; text-align: left; background: none; border: 0; cursor: pointer">
+            <h3 style="margin: 0; font-size: clamp(15px, 1.25vw, 18px); font-weight: 500; line-height: 1.4; color: #EAE5DC">What does cost-plus mean in home building?</h3>
+            <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
+          </button>
+          <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
+            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">Cost-plus means you pay the actual cost of the work plus one agreed builder's fee. It is how we build every one of our homes, and you can follow every cost in your Buildertrend client portal.</p>
+          </div>
+        </div>
         <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
           <button type="button" data-elh-click="toggleFaq" aria-expanded="false" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 24px 26px; text-align: left; background: none; border: 0; cursor: pointer">
             <h3 style="margin: 0; font-size: clamp(15px, 1.25vw, 18px); font-weight: 500; line-height: 1.4; color: #EAE5DC">How much does it cost to build a custom home in Paradise Valley?</h3>
@@ -555,7 +664,7 @@
             <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
           </button>
           <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
-            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">We build custom new homes only — no remodels, additions or commercial work. That focus is deliberate: it keeps our team, our subcontractors and our schedule built entirely around ground-up residential construction. Ella Lee Homes is licensed in Arizona under ROC KB2-333410.</p>
+            <p style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.75; color: rgba(234,229,220,.84)">We build custom homes, including teardown and rebuild projects and new construction on an existing lot. Ella Lee Homes is licensed in Arizona under ROC KB2-333410.</p>
           </div>
         </div>
         <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">

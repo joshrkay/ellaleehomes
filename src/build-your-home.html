@@ -3,8 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Build Process &mdash; Custom Home Timeline &amp; Cost in Arizona | Ella Lee Homes</title>
-<meta name="description" content="How Ella Lee Homes builds a luxury custom home in Arizona — planning, permitting, construction, and move-in. Build on your own lot in the Phoenix Valley.">
+<title>Our Build Process: Custom Home Builder in Arizona | Ella Lee Homes</title>
+<meta name="description" content="How Ella Lee Homes builds a luxury custom home in Arizona — construction and move-in. Build on your own lot in Arizona.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ella Lee Homes">
+<meta property="og:title" content="Our Build Process: Custom Home Builder in Arizona | Ella Lee Homes">
+<meta property="og:description" content="How Ella Lee Homes builds a luxury custom home in Arizona — construction and move-in. Build on your own lot in Arizona.">
+<meta property="og:url" content="https://ellaleehomes.com/build-your-home">
+<meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://ellaleehomes.com/build-your-home">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -144,7 +151,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 .ts-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(4, auto);
+  grid-template-rows: repeat(2, auto);
   gap: 14px 0;
 }
 .ts-bar {
@@ -158,10 +165,8 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   cursor: pointer;
   transition: opacity 0.3s var(--ease);
 }
-.ts-bar[data-step="0"] { grid-column: 1 / 3;  grid-row: 1; }
-.ts-bar[data-step="1"] { grid-column: 3 / 5;  grid-row: 2; }
-.ts-bar[data-step="2"] { grid-column: 5 / 11; grid-row: 3; }
-.ts-bar[data-step="3"] { grid-column: 11 / 13; grid-row: 4; }
+.ts-bar[data-step="0"] { grid-column: 1 / 10;  grid-row: 1; }
+.ts-bar[data-step="1"] { grid-column: 10 / 13;  grid-row: 2; }
 
 .ts-bar-label { display: flex; align-items: baseline; gap: 12px; }
 .ts-bar-num { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; color: var(--nickel); font-variant-numeric: tabular-nums; }
@@ -303,18 +308,36 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   "@type": "HomeAndConstructionBusiness",
   "@id": "https://ellaleehomes.com/#business",
   "name": "Ella Lee Homes",
-  "alternateName": "Ella Lee Homes — Arizona Custom Home Builder",
+  "legalName": "Ella Lee Homes LLC",
   "description": "Custom home builder building luxury residences across Paradise Valley, Scottsdale, Arcadia, and Phoenix, Arizona.",
   "url": "https://ellaleehomes.com/",
-  "logo": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
-  "image": "https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png",
+  "logo": "https://ellaleehomes.com/uploads/Monogram_Navy.png",
+  "image": "https://ellaleehomes.com/assets/og-share.jpg",
   "telephone": "+1-480-340-8700",
   "email": "hello@ellaleehomes.com",
-  "priceRange": "$$",
-  "foundingLocation": "Phoenix, Arizona",
+  "foundingDate": "2021",
+  "founder": {
+    "@type": "Person",
+    "name": "Shay Segev",
+    "jobTitle": "Founder and Principal"
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Arizona ROC License",
+    "value": "KB2-333410"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License KB2-333410",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Arizona Registrar of Contractors"
+    }
+  },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "4408 N 12th St",
+    "streetAddress": "4408 N 12th St, Ste 200",
     "addressLocality": "Phoenix",
     "addressRegion": "AZ",
     "postalCode": "85014",
@@ -329,13 +352,13 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   "areaServed": [
     {
       "@type": "City",
-      "name": "Scottsdale",
-      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
+      "name": "Paradise Valley",
+      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
     },
     {
       "@type": "City",
-      "name": "Paradise Valley",
-      "sameAs": "https://en.wikipedia.org/wiki/Paradise_Valley,_Arizona"
+      "name": "Scottsdale",
+      "sameAs": "https://en.wikipedia.org/wiki/Scottsdale,_Arizona"
     },
     {
       "@type": "Place",
@@ -345,15 +368,16 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
       "@type": "City",
       "name": "Phoenix",
       "sameAs": "https://en.wikipedia.org/wiki/Phoenix,_Arizona"
+    },
+    {
+      "@type": "State",
+      "name": "Arizona"
     }
   ],
   "knowsAbout": [
     "Custom home building",
     "Luxury home construction",
-    "Residential development"
-  ],
-  "sameAs": [
-    "https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r"
+    "Teardown and rebuild"
   ],
   "openingHoursSpecification": [
     {
@@ -391,13 +415,13 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
       <h1 class="hero-title">Our <em>Process.</em></h1>
     </div>
     <div class="hero-head-meta">
-      4 phases<br>end to end
+      Construction,<br>start to finish
     </div>
   </div>
 
   <div class="hero-caption">
     <div class="eyebrow">The Finished Home</div>
-    <h2>From first sketch to <em>final key.</em></h2>
+    <h2>From the first day of construction to <em>final key.</em></h2>
   </div>
 </section>
 
@@ -406,70 +430,38 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   <div class="ts-intro">
     <div class="ts-eyebrow">Our Process</div>
     <h2 class="ts-title">Timeline</h2>
-    <p class="ts-lede">Construction of a custom home typically takes 11–18 months. Planning and permitting come first, and the timing varies with scope, design, and municipal review. We break the journey into four clear phases, so you always know where your project stands and what comes next, and we build on your lot across Paradise Valley, Scottsdale, Arcadia, and the greater Phoenix Valley.</p>
+    <p class="ts-lede">Construction of a custom home typically takes 11–18 months, depending on scope. We break the build into clear phases, so you always know where your project stands and what comes next, and we build on your lot across Paradise Valley, Scottsdale, Arcadia, and Phoenix.</p>
   </div>
 
   <div id="timeline-scroll-zone">
     <div id="timeline-sticky">
       <div class="ts-grid" id="tsGrid">
-        <button class="ts-bar" data-step="0" type="button" aria-label="Jump to Design phase">
-          <div class="ts-bar-label"><span class="ts-bar-num">01</span><span class="ts-bar-name">Design</span><span class="ts-bar-duration">3 – 5 months</span></div>
+        <button class="ts-bar" data-step="0" type="button" aria-label="Jump to Construction phase">
+          <div class="ts-bar-label"><span class="ts-bar-num">01</span><span class="ts-bar-name">Construction</span><span class="ts-bar-duration">11 – 18 months</span></div>
           <div class="ts-bar-track"><div class="ts-bar-fill"></div></div>
         </button>
-        <button class="ts-bar" data-step="1" type="button" aria-label="Jump to Permitting phase">
-          <div class="ts-bar-label"><span class="ts-bar-num">02</span><span class="ts-bar-name">Permitting</span><span class="ts-bar-duration">3 – 4 months</span></div>
-          <div class="ts-bar-track"><div class="ts-bar-fill"></div></div>
-        </button>
-        <button class="ts-bar" data-step="2" type="button" aria-label="Jump to Construction phase">
-          <div class="ts-bar-label"><span class="ts-bar-num">03</span><span class="ts-bar-name">Construction</span><span class="ts-bar-duration">11 – 18 months</span></div>
-          <div class="ts-bar-track"><div class="ts-bar-fill"></div></div>
-        </button>
-        <button class="ts-bar" data-step="3" type="button" aria-label="Jump to Move In phase">
-          <div class="ts-bar-label"><span class="ts-bar-num">04</span><span class="ts-bar-name">Move In</span><span class="ts-bar-duration">1 – 2 months</span></div>
+        <button class="ts-bar" data-step="1" type="button" aria-label="Jump to Move In phase">
+          <div class="ts-bar-label"><span class="ts-bar-num">02</span><span class="ts-bar-name">Move In</span><span class="ts-bar-duration"></span></div>
           <div class="ts-bar-track"><div class="ts-bar-fill"></div></div>
         </button>
       </div>
       <div class="ts-active-area">
         <div class="ts-body active" data-step="0">
           <div class="ts-body-meta">
-            <div class="ts-body-phase-name">Planning Phase</div>
-            <div class="ts-body-phase-time">3 – 5 months</div>
-          </div>
-          <h3 class="ts-body-title">It starts with your vision.</h3>
-          <p class="ts-body-text">Everything starts with your vision. We work alongside you to understand your goals, your lot, and the way you live, so the plan is ready to build before a single shovel breaks ground.</p>
-          <div class="ts-body-deliverables">
-            <div class="ts-body-deliverables-label">Deliverables</div>
-            <ul class="ts-body-list"><li>Project scope and selections</li><li>Structural &amp; MEP coordination</li><li>Preliminary project budget</li></ul>
-          </div>
-        </div>
-        <div class="ts-body" data-step="1">
-          <div class="ts-body-meta">
-            <div class="ts-body-phase-name">Permitting Phase</div>
-            <div class="ts-body-phase-time">3 – 4 months</div>
-          </div>
-          <h3 class="ts-body-title">We take care of the headache.</h3>
-          <p class="ts-body-text">We handle every city and county submission, coordinate directly with engineers, and navigate HOA approvals on your behalf — so you never have to manage the red tape.</p>
-          <div class="ts-body-deliverables">
-            <div class="ts-body-deliverables-label">Deliverables</div>
-            <ul class="ts-body-list"><li>City permit submission</li><li>Engineering sign-off</li><li>HOA approval coordination</li><li>Final permit issuance</li></ul>
-          </div>
-        </div>
-        <div class="ts-body" data-step="2">
-          <div class="ts-body-meta">
             <div class="ts-body-phase-name">Construction Phase</div>
-            <div class="ts-body-phase-time">12 – 18 months</div>
+            <div class="ts-body-phase-time">11 – 18 months</div>
           </div>
           <h3 class="ts-body-title">Let's break ground.</h3>
-          <p class="ts-body-text">Our crews break ground once permits are in hand. You work directly with the Ella Lee team throughout — no hand-offs, no intermediaries. Timeline depends on scope and finish selections; we set your specific schedule at contract signing.</p>
+          <p class="ts-body-text">Our crews break ground and you work directly with the Ella Lee team throughout &mdash; no hand-offs, no intermediaries. Construction typically takes 11&ndash;18 months, depending on scope and finish selections.</p>
           <div class="ts-body-deliverables">
             <div class="ts-body-deliverables-label">Deliverables</div>
             <ul class="ts-body-list"><li>Site preparation &amp; foundation</li><li>Framing &amp; MEP rough-in</li><li>Interior &amp; exterior finishes</li><li>Weekly progress updates</li></ul>
           </div>
         </div>
-        <div class="ts-body" data-step="3">
+        <div class="ts-body" data-step="1">
           <div class="ts-body-meta">
             <div class="ts-body-phase-name">Move-In Phase</div>
-            <div class="ts-body-phase-time">1 – 2 months</div>
+            <div class="ts-body-phase-time"></div>
           </div>
           <h3 class="ts-body-title">Welcome home.</h3>
           <p class="ts-body-text">We walk every inch of the home with you before keys change hands. Our punch list process is thorough, and our warranty coverage means you're supported long after move-in day.</p>
@@ -558,11 +550,11 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 })();
 </script>
 
-<!-- AIO Block A: transparency (visible body text for AI search) -->
+<!-- AIO Block A: cost-plus (visible body text for AI search) -->
 <section style="background:#E3DACA; padding: 96px clamp(18px, 2.4vw, 40px);">
   <div style="max-width:900px; margin:0 auto;">
-    <div style="font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:#8A6E3C; margin-bottom:20px;">Clear at Every Step</div>
-    <p style="font-size:20px; line-height:1.75; color:#2B2B2B;">At Ella Lee Homes, you can see where your build stands at every step. Our clients follow photos, updates, timelines, and costs through their dedicated Buildertrend client portal, from the first day of planning to the final punch-list close-out.</p>
+    <div style="font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:#8A6E3C; margin-bottom:20px;">Cost-Plus</div>
+    <p style="font-size:20px; line-height:1.75; color:#2B2B2B;">Ella Lee Homes builds on a cost-plus basis: you pay the actual cost of the work plus an agreed builder&rsquo;s fee. Our clients follow photos, updates, timelines, and costs through their dedicated Buildertrend client portal, from the first day of construction to the final punch-list close-out.</p>
   </div>
 </section>
 

@@ -186,7 +186,7 @@
       var tick = function () {
         if (!track.isConnected) { track.__elhRaf = null; return; }
         if (!s.step || s.step < 60) measure();
-        if (!s.paused && !s.dragging) s.target += 0.17;
+        if (!s.paused && !s.dragging) s.target += 0.26;
         s.x += (s.target - s.x) * 0.07;
         if (s.span > 0) {
           while (s.x >= s.span) { s.x -= s.span; s.target -= s.span; }
