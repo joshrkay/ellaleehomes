@@ -50,7 +50,7 @@ ${yr}      <div class="proj-card-sold">Sold</div>
       <div class="proj-card-body">
         <div class="proj-card-location">${c.loc}</div>
         <div class="proj-card-name">${c.name.replace(/&/g, '&amp;')}</div>
-        <div class="proj-card-price">${c.priceStr}</div>
+        <div class="proj-card-price">Home appraised at ${c.priceStr}</div>
         <div class="proj-card-specs">
           <span>${c.beds} BD</span><span>${c.baths} BA</span><span>${sq} sqft</span>
         </div>
