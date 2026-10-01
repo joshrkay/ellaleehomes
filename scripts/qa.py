@@ -568,7 +568,7 @@ def data_audit():
                 flags.append('same sq ft as %s' % ', '.join(x for x in ds[v['sqft']] if x != k))
             w.writerow([k, v['name'], v['location'], v['year'], v['status'], v['price'], v['beds'], v['baths'], v['sqft'], '; '.join(flags), '', '', '', '', '', ''])
     cp_ = [k for k, v in rows if v['price'] == '$7,035,000']
-    reg('13', 'Charter Oak and 68th & Camelback sale prices confirmed', 'BLOCKED', 'both still listed at $7,035,000: %s. Needs the real sale prices.' % cp_)
+    reg('13', 'Charter Oak and 68th St sale prices confirmed', 'BLOCKED', 'both still listed at $7,035,000: %s. Needs the real sale prices.' % cp_)
     return projects
 
 
