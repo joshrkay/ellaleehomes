@@ -71,7 +71,7 @@ Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned 
 |---|---|---|---|
 | 40 | Hero standard | ✅ | `assets/site-hero.css`. Applied to FAQ, Warranty, Homeowner Resources, Code of Conduct (new); Client Portal on local photo; Portfolio, Build, Stories already on it. Each page has its own photo; video on Home only. **Note:** several hero photos still load from the old WordPress host until the Drive upload (item 62). |
 | 41 | New hero video | ⛔ | Shay is working on it. |
-| 42 | Photo of Shay | ⛔ | The photo was sent in chat but did not arrive as a file. **Needs:** the image file added to the repo (e.g. `uploads/shay.jpg`); then it goes in the "what began as a dream" section on Home and on Our Story. |
+| 42 | Photo of Shay | ✅ | `uploads/home/shay.jpg` placed in the "what began as a dream" section on Home and beside "A Note From Our Founder" on Our Story, captioned Founder and Principal. The photo is 1024px wide; swap in the full-size original when the Drive export arrives. |
 | 43 | Project strip speed | ✅ | Slightly faster. |
 | 44 | Blank 68th card | ✅ | Strip images load eagerly (they were lazy-loaded inside a scrolling strip). |
 | 45 | More Google testimonials | ⛔ | Five real reviews now on Home, Why Us, Developers, Our Story. **Needs:** more real homeowner/client reviews if wanted. |
@@ -118,4 +118,4 @@ Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned 
 
 ## Still needed from Ella Lee Homes
 
-Form destination · Buildertrend login embed code · direct review URLs and any additional reviews · counsel's legal text · Rebecca's per-home records and sale prices · Shay's notes for "See the craft" and Our Story copy · the new hero video · **Shay's photo as a file** · a screenshot of the old Warranty and Homeowner Resources pages · the Google Drive photo/video export.
+Form destination · Buildertrend login embed code · direct review URLs and any additional reviews · counsel's legal text · Rebecca's per-home records and sale prices · Shay's notes for "See the craft" and Our Story copy · the new hero video · a screenshot of the old Warranty and Homeowner Resources pages · the Google Drive photo/video export.

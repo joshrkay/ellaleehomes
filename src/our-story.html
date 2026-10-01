@@ -417,6 +417,10 @@ details.story-faq .faq-a p + p {
   }
   .story-pull.reveal { border-left-color: var(--gold) !important; }
 }
+.founder-wrap { display: grid; grid-template-columns: minmax(240px, 380px) 1fr; gap: clamp(32px, 5vw, 80px); align-items: start; margin-top: 10px; }
+.founder-photo { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid rgba(234,229,220,.14); }
+.founder-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 20%; display: block; }
+@media (max-width: 860px) { .founder-wrap { grid-template-columns: 1fr; } .founder-photo { max-width: 420px; } }
 </style>
 <script type="application/ld+json">
 {
@@ -637,12 +641,15 @@ details.story-faq .faq-a p + p {
       <div class="pillar-inner">
         <p class="story-kicker reveal reveal-delay-1">A Note From Our Founder</p>
         <p class="story-display reveal reveal-delay-2" id="h-different">Why we <em>do this.</em></p>
-        <div class="founder-note reveal reveal-delay-3" style="max-width:760px; margin-top:10px;">
+        <div class="founder-wrap reveal reveal-delay-3">
+        <figure class="founder-photo"><img src="uploads/home/shay.jpg" alt="Shay Segev, Founder and Principal of Ella Lee Homes" loading="lazy" decoding="async"></figure>
+        <div class="founder-note" style="max-width:760px; margin-top:10px;">
           <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:22px;">Ella Lee Homes started with my daughter, Ella. When we set out to build her home, I realized the standard I wanted held was higher than most builders were willing to meet. So we built it ourselves &mdash; and then we kept building.</p>
           <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:22px;">Every home we take on gets that same standard. I'm on the sites. I know our trades by name. And when a client calls a year after move-in, they reach our team, not a call center. That isn't a policy &mdash; it's simply how I'd want to be treated.</p>
           <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:34px;">If you're trusting us with the most important home you'll ever build, you deserve to know who stands behind it.</p>
           <div style="font-family:'DM Serif Display', Georgia,serif; font-style:italic; font-size:30px; line-height:1; color:var(--gold,#BFA06A);">Shay Segev</div>
-          <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(244,241,234,0.5); margin-top:8px;">Founder, Ella Lee Homes</div>
+          <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(244,241,234,0.5); margin-top:8px;">Founder and Principal, Ella Lee Homes</div>
+        </div>
         </div>
       </div>
     </section>
