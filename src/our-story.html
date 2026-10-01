@@ -589,6 +589,26 @@ details.story-faq .faq-a p + p {
           aspect-ratio: 8 / 5;
           background: rgba(0,21,38, 0.03);
         }
+        #where-leaflet.is-sample { position: relative; overflow: hidden; }
+        #where-leaflet.is-sample svg { display: block; }
+        .sm-area { font-size: 11px; letter-spacing: .22em; fill: #8B8578; font-weight: 500; }
+        .sm-town { font-size: 10px; letter-spacing: .08em; fill: #6B665D; }
+        .sm-park { font-size: 9px; font-style: italic; fill: #6F7A5C; }
+        .sm-st { font-size: 8px; fill: #8B8578; }
+        .sm-pin { position: absolute; width: 18px; height: 18px; margin: -9px 0 0 -9px; padding: 0; border-radius: 50%; background: #001526; border: 2px solid #EAE5DC; box-shadow: 0 1px 4px rgba(0,21,38,.35); cursor: pointer; display: block; }
+        .sm-pin::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: #BFA06A; }
+        .sm-pin.sm-studio { width: 24px; height: 24px; margin: -12px 0 0 -12px; border-color: #BFA06A; z-index: 2; }
+        .sm-pin:hover, .sm-pin:focus-visible { z-index: 5; outline: none; box-shadow: 0 0 0 3px rgba(191,160,106,.55); }
+        .sm-tip { display: none; position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap; background: #EAE5DC; color: #001526; padding: 8px 12px; text-align: left; box-shadow: 0 2px 10px rgba(0,21,38,.25); pointer-events: none; }
+        .sm-tip b { display: block; font-weight: 500; font-size: 14px; }
+        .sm-tip i { display: block; font-style: normal; font-size: 12px; color: #605C58; }
+        .sm-tip em { display: block; font-style: normal; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #6F5628; margin-top: 4px; }
+        .sm-pin:hover .sm-tip, .sm-pin:focus-visible .sm-tip { display: block; }
+        .sm-note, .sm-open { position: absolute; bottom: 8px; font-size: 11px; letter-spacing: .06em; background: rgba(239,233,221,.9); padding: 3px 8px; color: #605C58; }
+        .sm-note { left: 8px; }
+        @media (max-width: 600px) { .sm-pin { width: 12px; height: 12px; margin: -6px 0 0 -6px; border-width: 1.5px; } .sm-pin::after { inset: 2px; } .sm-pin.sm-studio { width: 16px; height: 16px; margin: -8px 0 0 -8px; } .sm-note { display: none; } }
+        .sm-open { right: 8px; text-decoration: none; color: #001526; }
+        .sm-open:hover { color: #6F5628; }
         .where-fallback { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; color: #001526; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(0,21,38,.14); }
         .where-fallback:hover { color: #6F5628; }
         /* Custom brand pin marker — uniform style for every home */
@@ -952,16 +972,115 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
 
 /* ── Google Maps init for #where-leaflet ──
    Needs a Google Maps JavaScript API key (Maps JavaScript API enabled, key restricted to this site's domain).
-   Put it in ELH_GOOGLE_MAPS_KEY below. With no key the map area shows a link to the Google Maps listing instead. */
+   Put it in ELH_GOOGLE_MAPS_KEY below. With no key an illustrative SVG map is drawn instead (neighbourhood-level pins). */
 (function initWhereMap() {
   const ELH_GOOGLE_MAPS_KEY = '';
   const LISTING = 'https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0592941,17z/data=!3m1!4b1!4m6!3m5!1s0x872b13aba040fc9b:0x944a316da291c221!8m2!3d33.5004403!4d-112.0567192!16s%2Fg%2F11nmm_h77r';
   const el = document.getElementById('where-leaflet');
   if (!el) return;
-  if (!ELH_GOOGLE_MAPS_KEY) {
-    el.innerHTML = '<a class="where-fallback" href="' + LISTING + '" target="_blank" rel="noopener">Open Ella Lee Homes on Google Maps <span aria-hidden="true">&rarr;</span></a>';
-    return;
+  const NBR = {
+    'scottsdale':            { lat: 33.500, lng: -111.910 },
+    'old-town-scottsdale':   { lat: 33.494, lng: -111.926 },
+    'arcadia-phx':           { lat: 33.502, lng: -111.978 },
+    'arcadia-lite':          { lat: 33.500, lng: -112.010 },
+    'southwest-village':     { lat: 33.585, lng: -111.920 },
+    'camelback-east':        { lat: 33.516, lng: -112.030 },
+    'north-scottsdale':      { lat: 33.620, lng: -111.890 },
+    'paradise-valley':       { lat: 33.533, lng: -111.943 },
+    'desert-estates':        { lat: 33.580, lng: -111.860 },
+    'kierland':              { lat: 33.620, lng: -111.930 },
+  };
+  const homes = [
+    { slug:'mitchell',          name:'Mitchell',          loc:'Scottsdale, AZ',           nbr:'scottsdale' },
+    { slug:'apache',            name:'Apache',            loc:'Old Town Scottsdale, AZ',  nbr:'old-town-scottsdale' },
+    { slug:'2nd-st',            name:'2nd St',            loc:'Old Town Scottsdale, AZ',  nbr:'old-town-scottsdale' },
+    { slug:'glenrosa',          name:'Glenrosa',          loc:'Arcadia, Phoenix',         nbr:'arcadia-phx' },
+    { slug:'41st',              name:'41st',              loc:'Arcadia Lite, Phoenix',    nbr:'arcadia-lite' },
+    { slug:'5th-st',            name:'5th St',            loc:'Southwest Village, Scottsdale', nbr:'southwest-village' },
+    { slug:'5th-st-2',          name:'5th St II',         loc:'Southwest Village, Scottsdale', nbr:'southwest-village' },
+    { slug:'cudia',             name:'Cudia City',        loc:'Camelback East, Phoenix',  nbr:'camelback-east' },
+    { slug:'desert-cove',       name:'Desert Cove',       loc:'North Scottsdale (85260)', nbr:'north-scottsdale' },
+    { slug:'charter-oak',       name:'Charter Oak',       loc:'Scottsdale, AZ',           nbr:'scottsdale' },
+    { slug:'68th',              name:'68th &amp; Camelback',   loc:'Paradise Valley, AZ', nbr:'paradise-valley' },
+    { slug:'dc2',               name:'DC2',               loc:'Arcadia, AZ',              nbr:'arcadia-phx' },
+    { slug:'68th-2',            name:'68th II',           loc:'Desert Estates, Scottsdale', nbr:'desert-estates' },
+    { slug:'dc1',               name:'DC1',               loc:'Scottsdale, AZ',           nbr:'scottsdale' },
+    { slug:'earll',             name:'Earll',             loc:'Arcadia, Phoenix',         nbr:'arcadia-phx' },
+    { slug:'hazelwood-1',       name:'Hazelwood I',       loc:'Scottsdale, AZ',           nbr:'scottsdale' },
+    { slug:'hazelwood-2',       name:'Hazelwood II',      loc:'Arcadia, Phoenix',         nbr:'arcadia-phx' },
+    { slug:'4th-st',            name:'4th St',            loc:'Scottsdale, AZ',           nbr:'scottsdale' },
+    { slug:'larkspur',          name:'Larkspur',          loc:'North Scottsdale (85254)', nbr:'kierland' },
+    { slug:'coolidge',          name:'Coolidge',          loc:'Arcadia Lite, Phoenix',    nbr:'arcadia-lite' },
+    { slug:'camino-sin-nombre', name:'Camino Sin Nombre', loc:'Paradise Valley, AZ',      nbr:'paradise-valley' },
+    { slug:'via-estrella',      name:'Via Estrella',      loc:'Scottsdale, AZ',           nbr:'scottsdale' },
+  ];
+  const studio = { name: 'Our Studio', meta: '4408 N 12th St, Ste 200, Phoenix', lat: 33.504, lng: -112.058 };
+  const byNbr = {};
+  homes.forEach((h) => { (byNbr[h.nbr] = byNbr[h.nbr] || []).push(h); });
+  function ringOffset(i, total, baseRadius) {
+    if (total <= 1) return [0, 0];
+    const r = baseRadius * (0.7 + total * 0.06);
+    const angle = (i / total) * Math.PI * 2 + total * 0.37;
+    return [Math.cos(angle) * r, Math.sin(angle) * r];
   }
+  // Keyless illustrative map: hand-drawn SVG of the Valley (parks, canal, main roads, freeways) with the same pins.
+  // Positions are neighbourhood-level, not addresses.
+  function drawSample() {
+    const B = { s: 33.32, w: -112.30, n: 33.78, e: -111.58 }, W = 800, H = 500;
+    const X = (lng) => ((lng - B.w) / (B.e - B.w) * W).toFixed(1);
+    const Y = (lat) => ((B.n - lat) / (B.n - B.s) * H).toFixed(1);
+    const P = (pts) => pts.map((p, k) => (k ? 'L' : 'M') + X(p[1]) + ' ' + Y(p[0])).join(' ');
+    const hRoad = (lat, w) => '<path d="M0 ' + Y(lat) + ' H' + W + '" stroke="#fff" stroke-width="' + w + '"/>';
+    const vRoad = (lng, w) => '<path d="M' + X(lng) + ' 0 V' + H + '" stroke="#fff" stroke-width="' + w + '"/>';
+    const blob = (lat, lng, rx, ry, rot, fill) => '<ellipse cx="' + X(lng) + '" cy="' + Y(lat) + '" rx="' + rx + '" ry="' + ry + '" transform="rotate(' + rot + ' ' + X(lng) + ' ' + Y(lat) + ')" fill="' + fill + '"/>';
+    const lbl = (lat, lng, t, cls) => '<text x="' + X(lng) + '" y="' + Y(lat) + '" class="sm-' + (cls || 'st') + '" text-anchor="middle">' + t + '</text>';
+    let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">';
+    s += '<rect width="' + W + '" height="' + H + '" fill="#EFE9DD"/>';
+    // parks and preserves
+    s += blob(33.515, -111.965, 34, 16, -20, '#D6DDC4') + blob(33.540, -111.990, 22, 12, 25, '#D6DDC4') + blob(33.545, -112.020, 24, 14, -10, '#D6DDC4') + blob(33.455, -111.950, 22, 14, 10, '#D6DDC4') + blob(33.700, -111.880, 60, 30, 15, '#DCE1CB');
+    // light street grid
+    s += '<g stroke="#F8F5EE" stroke-width="1">';
+    for (let la = 33.34; la < 33.78; la += 0.02) s += '<path d="M0 ' + Y(la) + ' H' + W + '"/>';
+    for (let lo = -112.28; lo < -111.58; lo += 0.025) s += '<path d="M' + X(lo) + ' 0 V' + H + '"/>';
+    s += '</g>';
+    // arterial roads
+    s += '<g fill="none" stroke-linecap="round">';
+    [[33.5095, 3], [33.4947, 3], [33.480, 3], [33.4663, 3], [33.580, 3], [33.640, 3]].forEach((r) => { s += hRoad(r[0], r[1]); });
+    [[-112.074, 3], [-112.030, 3], [-111.985, 3], [-111.926, 3.5], [-111.890, 3]].forEach((r) => { s += vRoad(r[0], r[1]); });
+    // canal, freeways
+    s += '<path d="' + P([[33.43, -112.30], [33.47, -112.10], [33.515, -111.97], [33.545, -111.86], [33.58, -111.70]]) + '" stroke="#C9D6DA" stroke-width="4"/>';
+    s += '<path d="' + P([[33.32, -112.16], [33.45, -112.07], [33.50, -112.04], [33.545, -112.02], [33.64, -112.01], [33.78, -112.01]]) + '" stroke="#E7C98F" stroke-width="5"/>';
+    s += '<path d="' + P([[33.32, -111.90], [33.50, -111.89], [33.62, -111.90], [33.78, -111.90]]) + '" stroke="#E7C98F" stroke-width="5"/>';
+    s += '<path d="' + P([[33.45, -112.30], [33.46, -112.10], [33.45, -111.93], [33.40, -111.80], [33.32, -111.60]]) + '" stroke="#E7C98F" stroke-width="5"/>';
+    s += '</g>';
+    // labels
+    s += '<g>' + lbl(33.566, -112.005, 'PARADISE VALLEY', 'area') + lbl(33.660, -111.95, 'SCOTTSDALE', 'area') + lbl(33.470, -112.14, 'PHOENIX', 'area') + lbl(33.468, -112.005, 'ARCADIA', 'area') +
+         lbl(33.455, -111.905, 'Old Town', 'town') + lbl(33.538, -111.955, 'Camelback Mtn', 'park') + lbl(33.458, -111.950, 'Papago Park', 'park') + lbl(33.547, -112.035, 'Piestewa Peak', 'park') +
+         lbl(33.5115, -112.15, 'Camelback Rd', 'st') + lbl(33.4965, -112.15, 'Indian School Rd', 'st') + lbl(33.5815, -112.15, 'Shea Blvd', 'st') + lbl(33.641, -112.15, 'Bell Rd', 'st') + '</g>';
+    s += '</svg>';
+    // pins
+    let pins = '';
+    const mk = (lat, lng, cls, name, meta, href) => {
+      const x = (lng - B.w) / (B.e - B.w) * 100, y = (B.n - lat) / (B.n - B.s) * 100;
+      const tag = href ? 'a href="' + href + '"' : 'button type="button"';
+      const end = href ? 'a' : 'button';
+      return '<' + tag + ' class="sm-pin ' + cls + '" style="left:' + x.toFixed(2) + '%;top:' + y.toFixed(2) + '%" aria-label="' + name + ', ' + meta + '"><span class="sm-tip"><b>' + name + '</b><i>' + meta + '</i>' + (href ? '<em>View project &rarr;</em>' : '') + '</span></' + end + '>';
+    };
+    Object.keys(byNbr).forEach((nbrId) => {
+      const c = NBR[nbrId];
+      byNbr[nbrId].forEach((h, i) => {
+        const o = ringOffset(i, byNbr[nbrId].length, 0.022);
+        pins += mk(c.lat + o[0], c.lng + o[1], 'sm-home', h.name, h.loc, 'project.html?slug=' + h.slug);
+      });
+    });
+    pins += mk(studio.lat, studio.lng, 'sm-studio', studio.name, studio.meta, '');
+    el.classList.add('is-sample');
+    el.removeAttribute('role'); el.removeAttribute('aria-label');
+    el.innerHTML = s + pins +
+      '<span class="sm-note">Illustrative map &middot; pins show neighborhoods, not addresses</span>' +
+      '<a class="sm-open" href="' + LISTING + '" target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">&rarr;</span></a>';
+  }
+  if (!ELH_GOOGLE_MAPS_KEY) { drawSample(); return; }
   function draw() {
     const g = google.maps;
     const bounds = { south: 33.32, west: -112.30, north: 33.78, east: -111.58 };
@@ -973,51 +1092,6 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
       styles: [{ stylers: [{ saturation: -85 }, { lightness: 8 }] }, { featureType: 'poi', stylers: [{ visibility: 'off' }] }, { featureType: 'transit', stylers: [{ visibility: 'off' }] }],
     });
     // 22 home points: one pin per portfolio home, spread around its neighbourhood centre so none overlap.
-    const NBR = {
-      'scottsdale':            { lat: 33.500, lng: -111.910 },
-      'old-town-scottsdale':   { lat: 33.494, lng: -111.926 },
-      'arcadia-phx':           { lat: 33.502, lng: -111.978 },
-      'arcadia-lite':          { lat: 33.500, lng: -112.010 },
-      'southwest-village':     { lat: 33.585, lng: -111.920 },
-      'camelback-east':        { lat: 33.516, lng: -112.030 },
-      'north-scottsdale':      { lat: 33.620, lng: -111.890 },
-      'paradise-valley':       { lat: 33.533, lng: -111.943 },
-      'desert-estates':        { lat: 33.580, lng: -111.860 },
-      'kierland':              { lat: 33.620, lng: -111.930 },
-    };
-    const homes = [
-      { slug:'mitchell',          name:'Mitchell',          loc:'Scottsdale, AZ',           nbr:'scottsdale' },
-      { slug:'apache',            name:'Apache',            loc:'Old Town Scottsdale, AZ',  nbr:'old-town-scottsdale' },
-      { slug:'2nd-st',            name:'2nd St',            loc:'Old Town Scottsdale, AZ',  nbr:'old-town-scottsdale' },
-      { slug:'glenrosa',          name:'Glenrosa',          loc:'Arcadia, Phoenix',         nbr:'arcadia-phx' },
-      { slug:'41st',              name:'41st',              loc:'Arcadia Lite, Phoenix',    nbr:'arcadia-lite' },
-      { slug:'5th-st',            name:'5th St',            loc:'Southwest Village, Scottsdale', nbr:'southwest-village' },
-      { slug:'5th-st-2',          name:'5th St II',         loc:'Southwest Village, Scottsdale', nbr:'southwest-village' },
-      { slug:'cudia',             name:'Cudia City',        loc:'Camelback East, Phoenix',  nbr:'camelback-east' },
-      { slug:'desert-cove',       name:'Desert Cove',       loc:'North Scottsdale (85260)', nbr:'north-scottsdale' },
-      { slug:'charter-oak',       name:'Charter Oak',       loc:'Scottsdale, AZ',           nbr:'scottsdale' },
-      { slug:'68th',              name:'68th &amp; Camelback',   loc:'Paradise Valley, AZ', nbr:'paradise-valley' },
-      { slug:'dc2',               name:'DC2',               loc:'Arcadia, AZ',              nbr:'arcadia-phx' },
-      { slug:'68th-2',            name:'68th II',           loc:'Desert Estates, Scottsdale', nbr:'desert-estates' },
-      { slug:'dc1',               name:'DC1',               loc:'Scottsdale, AZ',           nbr:'scottsdale' },
-      { slug:'earll',             name:'Earll',             loc:'Arcadia, Phoenix',         nbr:'arcadia-phx' },
-      { slug:'hazelwood-1',       name:'Hazelwood I',       loc:'Scottsdale, AZ',           nbr:'scottsdale' },
-      { slug:'hazelwood-2',       name:'Hazelwood II',      loc:'Arcadia, Phoenix',         nbr:'arcadia-phx' },
-      { slug:'4th-st',            name:'4th St',            loc:'Scottsdale, AZ',           nbr:'scottsdale' },
-      { slug:'larkspur',          name:'Larkspur',          loc:'North Scottsdale (85254)', nbr:'kierland' },
-      { slug:'coolidge',          name:'Coolidge',          loc:'Arcadia Lite, Phoenix',    nbr:'arcadia-lite' },
-      { slug:'camino-sin-nombre', name:'Camino Sin Nombre', loc:'Paradise Valley, AZ',      nbr:'paradise-valley' },
-      { slug:'via-estrella',      name:'Via Estrella',      loc:'Scottsdale, AZ',           nbr:'scottsdale' },
-    ];
-    const studio = { name: 'Our Studio', meta: '4408 N 12th St, Ste 200, Phoenix', lat: 33.504, lng: -112.058 };
-    const byNbr = {};
-    homes.forEach((h) => { (byNbr[h.nbr] = byNbr[h.nbr] || []).push(h); });
-    function ringOffset(i, total, baseRadius) {
-      if (total <= 1) return [0, 0];
-      const r = baseRadius * (0.7 + total * 0.06);
-      const angle = (i / total) * Math.PI * 2 + total * 0.37;
-      return [Math.cos(angle) * r, Math.sin(angle) * r];
-    }
     const pin = (size, ring) => ({ url: 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="#001526" stroke="' + ring + '" stroke-width="1.5"/><circle cx="10" cy="10" r="3.5" fill="#BFA06A"/></svg>'), scaledSize: new g.Size(size, size), anchor: new g.Point(size / 2, size / 2) });
     const info = new g.InfoWindow();
     Object.keys(byNbr).forEach((nbrId) => {
