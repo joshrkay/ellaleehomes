@@ -1,7 +1,7 @@
 /* Google review cards: the same strip on the home page's pattern, used on Why Us, Developers and Our Story. */
 :root { --navy: #001526; --paper: #EAE5DC; --gold: #BFA06A; --disp: 'DM Serif Display', Georgia, serif; }
 .wu-eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
-#testimonials { background: var(--navy); color: var(--paper); padding: clamp(72px, 9vw, 128px) clamp(18px, 2.4vw, 40px); border-top: 1px solid rgba(234,229,220,.12); }
+#testimonials { background: var(--navy); color: var(--paper); padding: clamp(72px, 9vw, 128px) clamp(18px, 2.4vw, 40px); }
 .rv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; margin-top: 40px; }
 .rv-card { display: block; text-decoration: none; color: inherit; }
 .rv-card figure { margin: 0; height: 100%; display: flex; flex-direction: column; gap: 16px; padding: 28px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12); transition: background .2s, border-color .2s; }
