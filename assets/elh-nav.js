@@ -31,11 +31,13 @@
     // Pages that open on a light background (the Stories articles) keep the bar solid navy so the
     // cream logo, links and menu button stay readable from the first pixel.
     var solid = document.body.hasAttribute('data-elh-nav-solid');
+    // The homepage keeps the bar see-through all the way down — no navy fill, blur or hairline on scroll.
+    var clear = document.body.hasAttribute('data-elh-nav-clear');
     if (isPhone) {
       nav.style.transform = 'translateY(0)';
       // transparent over the hero photo; solid navy once the page scrolls under it, so the logo and menu
       // button never sit on top of body copy
-      var pastPhone = solid || y > 80;
+      var pastPhone = !clear && (solid || y > 80);
       nav.style.background = pastPhone ? 'rgba(0,21,38,.94)' : 'transparent';
       nav.style.backdropFilter = pastPhone ? 'blur(10px)' : 'none';
       nav.style.borderBottomColor = pastPhone ? 'rgba(234,229,220,.14)' : 'rgba(234,229,220,0)';
@@ -46,11 +48,12 @@
     else if (goingDown) nav.style.transform = 'translateY(-105%)';
     else if (goingUp) nav.style.transform = 'translateY(0)';
     var past = solid || y > 80;
-    nav.style.background = past ? 'rgba(0,21,38,.94)' : 'transparent';
-    nav.style.backdropFilter = past ? 'blur(10px)' : 'none';
+    var fill = past && !clear;
+    nav.style.background = fill ? 'rgba(0,21,38,.94)' : 'transparent';
+    nav.style.backdropFilter = fill ? 'blur(10px)' : 'none';
     nav.style.paddingTop = past ? '13px' : '20px';
     nav.style.paddingBottom = past ? '13px' : '20px';
-    nav.style.borderBottomColor = past ? 'rgba(234,229,220,.14)' : 'rgba(234,229,220,0)';
+    nav.style.borderBottomColor = fill ? 'rgba(234,229,220,.14)' : 'rgba(234,229,220,0)';
   }
 
   function setDrawer(open) {
