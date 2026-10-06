@@ -74,10 +74,19 @@ const RULES = [
   // The client portal is a button to Buildertrend's own login page, never an embedded login (N6, N7).
   [/NewLoginFrame/, 'No embedded Buildertrend login: link to the login page instead'],
   [/938-4113/, 'That phone number is not ours: the site phone is (480) 340-8700'],
+  // One contact form for the whole site: Buildertrend's, on the Contact page (N15). Every other
+  // "Start your build" section is a button to that page.
+  [/<form\b/i, 'No native forms: the one form is the Buildertrend form on the Contact page'],
+  [/\bonsubmit=|data-elh-submit/, 'No form handlers: nothing on the site submits a form'],
+  [/href="[^"]*#inquiry/, 'The #inquiry form is gone: "Start your build" links to contact.html'],
+  [/<iframe\b/i, 'The only embed is the Buildertrend form on the Contact page', { except: ['src/contact.html'] }],
 ];
 
 /** Rules that read only visible text (see the header). Each lands with the fix that clears it. */
 const TEXT_RULES = [
+  [/Get Started/, 'The primary call to action is "Start your build"'],
+  [/Start Your Build/, 'Write the call to action as "Start your build"'],
+  [/Start the [Cc]onversation/, 'Only the Sell page says "Start the Conversation"', { except: ['src/sell-your-home.html'] }],
   [/\bdaily (?:photos|updates|progress|reports)\b/i, 'Client updates are "photos and weekly updates", never "daily"'],
 ];
 
@@ -158,6 +167,24 @@ for (const rel of files) {
     }
   });
 }
+// The Contact page must carry exactly one Buildertrend embed, as supplied: script first, then iframe#btIframe.
+{
+  const contact = fs.readFileSync(path.join(root, 'src', 'contact.html'), 'utf8');
+  const count = (needle) => contact.split(needle).length - 1;
+  const SCRIPT = 'https://buildertrend.net/contact-form/btClientContactForm.js';
+  const problems = [];
+  if (count(SCRIPT) !== 1) problems.push(`the Buildertrend script appears ${count(SCRIPT)} times (need 1)`);
+  if (count('id="btIframe"') !== 1) problems.push(`iframe#btIframe appears ${count('id="btIframe"')} times (need 1)`);
+  if (!/<iframe[^>]*src="https:\/\/buildertrend\.net\/contact-form\/\?builderID=[\w.-]+"/.test(contact)) problems.push('the iframe src is not the Buildertrend contact-form URL with a builderID');
+  if (!/<iframe[^>]*\btitle="[^"]+"/.test(contact)) problems.push('the iframe needs a title attribute');
+  if (/<iframe[^>]*\b(?:loading|sandbox)=/.test(contact)) problems.push('no lazy loading or sandbox on the Buildertrend iframe (it must run as supplied)');
+  if (contact.indexOf(SCRIPT) > contact.indexOf('id="btIframe"')) problems.push('the Buildertrend script must come before the iframe');
+  for (const why of problems) {
+    bad++;
+    console.error(`src/contact.html: ${why}`);
+  }
+}
+
 const pendingTotal = pending.reduce((n, hits) => n + hits.length, 0);
 if (process.argv.includes('--pending')) {
   PENDING_TEXT_RULES.forEach(([, why], i) => {

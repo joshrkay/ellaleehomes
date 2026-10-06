@@ -225,25 +225,27 @@ def static_checks():
         reg('1a', 'Budget dropdown removed from every form', 'FAIL', 'still present on: ' + ', '.join(dropdown))
     else:
         reg('1a', 'Budget dropdown removed from every form', 'PASS', 'no name="budget" / "Target budget range" on any of %d pages' % len(PAGES))
-    if len(forms) == 6 and not deliver and not js_fetch:
-        reg('1', 'Every form delivers to a live inbox or Buildertrend (test each)', 'BLOCKED',
-            '%d forms found (%s); none has an action URL, endpoint, or fetch(). Needs the destination (inbox or Buildertrend lead endpoint).'
-            % (len(forms), ', '.join(sorted({n for n, _ in forms}))))
-    elif deliver or js_fetch:
-        reg('1', 'Every form delivers to a live inbox or Buildertrend (test each)', 'MANUAL',
-            'delivery wiring present (%s%s) but a real test submission is required' % (deliver[:3], js_fetch))
+    cf = PAGES['contact']
+    bt_script = cf.count('https://buildertrend.net/contact-form/btClientContactForm.js')
+    bt_iframe = len(re.findall(r'<iframe[^>]+id="btIframe"', cf))
+    stray = [n for n in PAGES if n != 'contact' and re.search(r'<iframe\b', PAGES[n])]
+    title1 = 'The one contact form is the Buildertrend embed on Contact, no other form on the site (send a real test lead)'
+    if forms or stray or bt_script != 1 or bt_iframe != 1:
+        reg('1', title1, 'FAIL', 'native forms: %d; Buildertrend script x%d, iframe#btIframe x%d; embeds elsewhere: %s' % (len(forms), bt_script, bt_iframe, stray))
     else:
-        reg('1', 'Every form delivers to a live inbox or Buildertrend (test each)', 'FAIL', 'unexpected form count %d' % len(forms))
+        reg('1', title1, 'MANUAL', 'no native form on any page; Contact carries the Buildertrend script once and iframe#btIframe once. Send one test lead and confirm it reaches Buildertrend lead management with every field (open questions B1 to B4).')
     # A2 portal
     cp = PAGES['client-portal']
-    frame = re.search(r'<iframe[^>]+src="(https://buildertrend\.net/[^"]+)"', cp)
-    if frame and 'NewLoginFrame.aspx' in frame.group(1):
-        reg('2', 'Buildertrend login embed installed with the official code (login must be tested)', 'BLOCKED',
-            'page still uses the original frame %s (the one reported as not working); a fallback link to buildertrend.net and the support phone are present. Needs the official embed code from Buildertrend support.' % frame.group(1))
-    elif frame:
-        reg('2', 'Buildertrend login embed installed with the official code (login must be tested)', 'MANUAL', 'embed %s present; test a real login' % frame.group(1))
+    login_url = json.load(open(os.path.join(ROOT, 'site-facts.json'), encoding='utf8')).get('buildertrendLoginUrl')
+    title2 = 'Client Portal is a button to the Buildertrend login page, with no embedded login'
+    if re.search(r'<iframe\b|NewLoginFrame', cp):
+        reg('2', title2, 'FAIL', 'the portal page still embeds a Buildertrend or video frame')
+    elif not login_url:
+        reg('2', title2, 'BLOCKED', 'the embedded login is gone; the button stays out until buildertrendLoginUrl is set in site-facts.json (open questions S2, B3)')
+    elif 'href="%s"' % html.escape(login_url) in cp:
+        reg('2', title2, 'MANUAL', 'the button links to %s; click it once to confirm it is the login page' % login_url)
     else:
-        reg('2', 'Buildertrend login embed installed with the official code (login must be tested)', 'FAIL', 'no Buildertrend iframe on client-portal')
+        reg('2', title2, 'FAIL', 'buildertrendLoginUrl is set but the button is missing from the built page')
     # A3 review links
     links = Counter()
     for n in ('index', 'why-us', 'developers', 'our-story'):
@@ -416,11 +418,11 @@ def static_checks():
     ok_f = re.search(r'since the company was founded', text_of(PAGES['index']))
     reg('38', 'Founder line: "since the company was founded"; singular "Founder"', 'PASS' if (ok_f and not bad) else 'FAIL',
         '"has led every build since the company was founded" on index; no "Founders"' if (ok_f and not bad) else (fmt_hits(bad) or 'index sentence not found'))
-    voice = find_all(r'financial challenges|\bhassle-free\b|\bguarantee[sd]?\b|\bunparalleled\b|\bpremier\b|award[- ]winning|best[- ]in|world[- ]class|second to none', CORE + list(LEGAL))
-    # allowed: client review quotes are the client's words
+    voice = find_all(r'financial challenges|\bhassle-free\b|\bguarantee[sd]?\b|\bunparalleled\b|\bpremier\b|award[- ]winning|best[- ]in|world[- ]class|second to none', CORE)
+    # the legal pages are the client's approved text and are not part of this check; client review quotes are the client's words
     voice = [(n, s) for n, s in voice if 'second to none' not in s]
     reg('39', 'Sitewide voice: none of the banned filler/promise words (guarantee, unparalleled, premier, award-winning, …)', 'FAIL' if voice else 'PASS',
-        fmt_hits(voice) if voice else 'no banned voice words on %d pages. (Tone itself is a human judgement; sampled in the claim audit.)' % (len(CORE) + len(LEGAL)))
+        fmt_hits(voice) if voice else 'no banned voice words on %d pages (the approved legal text is excluded). (Tone itself is a human judgement; sampled in the claim audit.)' % len(CORE))
 
     # ----------------------------------------------------------------- E (static parts)
     section('E. Design and layout (static parts; layout/behaviour checks are in the browser run)')
@@ -707,7 +709,7 @@ def factsheet_checks():
         'PASS' if (set(yrs) == {'2021'} and fd and fd.group(1) == '2021') else 'FAIL', 'years found: %s; schema foundingDate: %s' % (dict(yrs), fd.group(1) if fd else None))
     # ------------------------------------------------ 3. What we do
     none_found('FS3a', 'Never draws attention to what Ella Lee Homes does not do ("we do not offer…", "no remodels")',
-               r"we (?:do not|don't) (?:offer|do|provide|handle|build)|\bno (?:remodels?|renovations?)\b|not (?:a|an) (?:remodel|renovation|design)", ALL)
+               r"we (?:do not|don't) (?:offer|do|provide|handle|build)|\bno (?:remodels?|renovations?)\b|not (?:a|an) (?:remodel|renovation|design)", [n for n in ALL if n not in LEGAL])
     none_found('FS3b', 'No services beyond custom homes (landscaping, interior design, brokerage, mortgages, property management, solar, flipping)',
                r'\b(?:landscap\w+ (?:services|design)|interior design (?:services|package)|property management|real estate (?:agent|brokerage) services|mortgage (?:services|broker)|solar (?:installation|panels)|house[- ]flipping)\b', ALL)
     none_found('FS3c', 'Contract wording: cost-plus only (no fixed price, no choice of structures, no "open books" in substance)',
@@ -726,11 +728,12 @@ def factsheet_checks():
         fmt_hits(list(dict.fromkeys(ch))) or '10% of profits on home, developers and FAQ; no other giving figure')
     none_found('FS4b', 'No urgency or hard-sell tactics', r"\b(?:act now|limited time|hurry|don't miss|last chance|only \d+ (?:spots|lots|homes) left|before it's too late|today only|call now|don't wait|book now)\b", ALL)
     # testimonials: every quote must exist verbatim in the original home page (the five real Google reviews)
-    orig = norm_ws(git_show('src/index.html'))
+    undash = lambda s: re.sub(r'\s*\u2014\s*', ', ', s)  # the client bans em dashes, so a dash inside a quote became a comma
+    orig = undash(norm_ws(git_show('src/index.html')))
     quotes = {}
     for n, h in PAGES.items():
         for m in re.finditer(r'<blockquote\b[^>]*>(.*?)</blockquote>', h, re.S):
-            quotes.setdefault(norm_ws(m.group(1)), set()).add(n)
+            quotes.setdefault(undash(norm_ws(m.group(1))), set()).add(n)
     invented = [q[:70] for q in quotes if q not in orig]
     names = Counter()
     for n, h in PAGES.items():
@@ -778,10 +781,10 @@ def factsheet_checks():
         for m in re.finditer(r'<a\b[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*href="(?:contact\.html|index\.html#inquiry)[^"]*"[^>]*>(.*?)</a>|<a\b[^>]*href="(?:contact\.html|index\.html#inquiry)[^"]*"[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*>(.*?)</a>', h, re.S):
             labs.append(norm_ws(m.group(1) or m.group(2)))
         for lab in labs:
-            if lab and lab != 'Start Your Build':
+            if lab and lab != 'Start your build':
                 other.append('%s: "%s"' % (n, lab))
-    reg('FS7b', 'Primary call to action is "Start Your Build" on every button that leads to the inquiry (nav and page-closing buttons)', 'FAIL' if other else 'PASS',
-        '; '.join(other[:8]) or 'all inquiry buttons (outside the Sell page) read "Start Your Build"')
+    reg('FS7b', 'Primary call to action is "Start your build" on every button that leads to the Contact page (nav and page-closing buttons)', 'FAIL' if other else 'PASS',
+        '; '.join(other[:8]) or 'all inquiry buttons (outside the Sell page) read "Start your build"')
     # ------------------------------------------------ 6. Brand
     old = [f for f in glob.glob(os.path.join(ROOT, 'assets', '*.css')) + glob.glob(os.path.join(ROOT, 'assets', '*.js')) + glob.glob(os.path.join(ROOT, 'src', '*.html')) + glob.glob(os.path.join(ROOT, 'partials', '*.html'))
            if re.search(r'#0D2D4E|#002855', rd(f), re.I)]
@@ -911,7 +914,10 @@ def structure_checks2():
     cp = PAGES['client-portal']
     bt = re.findall(r'<a\b[^>]*href="https://buildertrend\.net[^"]*"[^>]*>', cp)
     okbt = bt and all('target="_blank"' in a and 'noopener' in a for a in bt)
-    reg('J4', 'Buildertrend links on the Client Portal open in a new tab with rel="noopener"', 'PASS' if okbt else 'FAIL', '%d Buildertrend link(s): %s' % (len(bt), 'all target=_blank rel=noopener' if okbt else bt))
+    if not bt and not json.load(open(os.path.join(ROOT, 'site-facts.json'), encoding='utf8')).get('buildertrendLoginUrl'):
+        reg('J4', 'Buildertrend links on the Client Portal open in a new tab with rel="noopener"', 'BLOCKED', 'no login button until buildertrendLoginUrl is set in site-facts.json')
+    else:
+        reg('J4', 'Buildertrend links on the Client Portal open in a new tab with rel="noopener"', 'PASS' if okbt else 'FAIL', '%d Buildertrend link(s): %s' % (len(bt), 'all target=_blank rel=noopener' if okbt else bt))
 
 
 # ======================================================================= ASSET INVENTORY (item 62)
