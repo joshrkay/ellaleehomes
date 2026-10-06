@@ -90,6 +90,9 @@ const TEXT_RULES = [
   [/Start Your Build/, 'Write the call to action as "Start your build"'],
   [/Start the [Cc]onversation/, 'Only the Sell page says "Start the Conversation"', { except: ['src/sell-your-home.html'] }],
   [/\bdaily (?:photos|updates|progress|reports)\b/i, 'Client updates are "photos and weekly updates", never "daily"'],
+  [/—|&mdash;|&#8212;|&#x2014;|\\u2014/i, 'No em dashes in site copy, titles or meta'],
+  [/cutting[- ]edge|sustainable (?:practices|construction|solutions)|innovative,? sustainable|future[- ]proof/i, 'No "cutting-edge" or "sustainable practices"'],
+  [/appraised at/i, 'Project values use the short label "Completed home value"'],
 ];
 
 /**
@@ -97,11 +100,7 @@ const TEXT_RULES = [
  * `node scripts/check-copy.mjs --pending` for every hit. When a rule reaches zero hits,
  * move it up to TEXT_RULES in the same commit so it can never come back.
  */
-const PENDING_TEXT_RULES = [
-  [/—|&mdash;|&#8212;|&#x2014;|\\u2014/i, 'No em dashes in site copy, titles or meta'],
-  [/cutting[- ]edge|sustainable (?:practices|construction|solutions)|innovative,? sustainable|future[- ]proof/i, 'No "cutting-edge" or "sustainable practices"'],
-  [/appraised at/i, 'Project values use the short label "Completed home value"'],
-];
+const PENDING_TEXT_RULES = [];
 
 const files = [
   ...fs.readdirSync(path.join(root, 'src')).filter((f) => f.endsWith('.html')).map((f) => path.join('src', f)),

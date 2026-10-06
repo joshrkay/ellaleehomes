@@ -433,9 +433,10 @@ def static_checks():
     reg('42', 'Photo of Shay on the home "what began as a dream" section (and Our Story)', 'PASS' if ok else 'FAIL',
         'uploads/home/shay.jpg exists and is referenced by index and our-story' if ok else 'missing')
     hj = rd(os.path.join(ROOT, 'assets/home.js'))
-    sp = re.search(r's\.target \+= ([0-9.]+)', hj)
-    reg('43', 'Project strip slightly faster', 'PASS' if sp and float(sp.group(1)) > 0.17 else 'FAIL',
-        'strip speed constant is %s px/frame (was 0.17)' % (sp.group(1) if sp else '?'))
+    # The strip's speed is a per-second constant (the same on any refresh rate). The original was 0.17 px per frame, which is 10.2 px/s at 60 Hz.
+    sp = re.search(r'STRIP_PX_PER_SEC\s*=\s*([0-9.]+)', hj)
+    reg('43', 'Project strip slightly faster', 'PASS' if sp and float(sp.group(1)) > 10.2 else 'FAIL',
+        'strip speed constant is %s px/s (was 10.2, the old 0.17 px per frame at 60 Hz)' % (sp.group(1) if sp else '?'))
     lazy = re.findall(r'id="elh-proj-\d"[^>]*loading="lazy"', PAGES['index'])
     reg('44-static', '68th card image: strip images are not lazy-loaded', 'FAIL' if lazy else 'PASS', 'lazy strip images: %d' % len(lazy))
     nrev = Counter()

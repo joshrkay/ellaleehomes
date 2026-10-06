@@ -92,7 +92,7 @@
   }
 
   /** Auto-scroll speed of the project strip, in pixels per second: the same on a 60 Hz and a 120 Hz screen. */
-  var STRIP_PX_PER_SEC = 18;
+  var STRIP_PX_PER_SEC = 15.6;
   /** Longest frame time the strip counts, so a tab that sat in the background does not make it jump on return. */
   var STRIP_MAX_DT = 0.1;
   /** How long the strip waits for its photos to decode before it starts anyway. */
