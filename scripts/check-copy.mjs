@@ -84,6 +84,8 @@ const RULES = [
 
 /** Rules that read only visible text (see the header). Each lands with the fix that clears it. */
 const TEXT_RULES = [
+  [/\bStudio\b/, 'The office is the "Office", never the "Studio"'],
+  [/energy[- ]efficien|smart[- ]home|home automation/i, 'Energy and smart-home claims: say once, in the approved sentence', { except: ['src/developers.html', 'src/project.html'] }],
   [/Get Started/, 'The primary call to action is "Start your build"'],
   [/Start Your Build/, 'Write the call to action as "Start your build"'],
   [/Start the [Cc]onversation/, 'Only the Sell page says "Start the Conversation"', { except: ['src/sell-your-home.html'] }],
@@ -96,10 +98,8 @@ const TEXT_RULES = [
  * move it up to TEXT_RULES in the same commit so it can never come back.
  */
 const PENDING_TEXT_RULES = [
-  [/—|&mdash;|&#8212;|&#x2014;/, 'No em dashes in site copy, titles or meta'],
-  [/\bStudio\b/, 'The office is the "Office", never the "Studio"'],
+  [/—|&mdash;|&#8212;|&#x2014;|\\u2014/i, 'No em dashes in site copy, titles or meta'],
   [/cutting[- ]edge|sustainable (?:practices|construction|solutions)|innovative,? sustainable|future[- ]proof/i, 'No "cutting-edge" or "sustainable practices"'],
-  [/energy[- ]efficien|smart[- ]home|home automation/i, 'Energy and smart-home claims: say once, in the approved sentence', { except: ['src/developers.html', 'src/project.html'] }],
   [/appraised at/i, 'Project values use the short label "Completed home value"'],
 ];
 

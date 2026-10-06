@@ -38,3 +38,9 @@ a[href^="tel:"] { white-space: nowrap; }
 
 /* headings break into even lines (no lone word such as "at" or "lot?" on the last line) */
 h2, h3 { text-wrap: balance; }
+
+/* Sticky components sit below the nav while it is visible and move up when it hides, so they never slide
+   under the returning bar and never leave an empty strip. elh-nav.js sets data-elh-nav-state on <html>
+   (top | shown | hidden | open) and --elh-nav-h to the measured header height. Use: top: var(--sticky-top). */
+:root { --sticky-top: calc(var(--elh-nav-h, 88px) + 12px); }
+html[data-elh-nav-state="hidden"] { --sticky-top: 24px; }
