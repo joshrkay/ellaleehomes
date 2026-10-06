@@ -1,6 +1,6 @@
 <!-- Canonical site nav — the homepage header, shared by every page.
      Injected by the build; __HREF_*__ / __ARIA_*__ resolve per page. -->
-<header data-elh-nav="1" style="position: fixed; top: 0; left: 0; right: 0; z-index: 300; padding: 20px clamp(18px, 2.4vw, 40px); transition: background .4s ease, padding .4s ease, border-color .4s ease, transform .45s cubic-bezier(.4,0,.2,1); border-bottom: 1px solid rgba(234,229,220,0)">
+<header data-elh-nav="1">
   <a href="__HREF_HOME__" data-elh-logo="1" aria-label="Ella Lee Homes home" style="display: block; line-height: 0">
     <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: clamp(42px, 3.6vw, 56px); height: auto">
   </a>
@@ -10,8 +10,8 @@
     <a href="build-your-home.html"__ARIA_PROCESS__ style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Build</a>
     <a href="our-story.html"__ARIA_ABOUT__ style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Our Story</a>
     <div data-elh-more="1" style="position: relative; display: flex; align-items: center">
-      <button type="button" data-elh-click="toggleMore" aria-expanded="false" aria-haspopup="true" style="display: flex; align-items: center; gap: 7px; padding: 0; font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC; background: none; border: 0; cursor: pointer">Learn
-        <span data-elh-more-caret="1" style="display: block; width: 6px; height: 6px; border-right: 1px solid #BFA06A; border-bottom: 1px solid #BFA06A; transform: rotate(45deg) translateY(-2px); transition: transform .3s ease"></span>
+      <button type="button" data-elh-click="toggleMore" aria-expanded="false" aria-controls="elh-learn-panel" style="display: flex; align-items: center; gap: 7px; padding: 0; font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC; background: none; border: 0; cursor: pointer">Learn
+        <span data-elh-more-caret="1" style="display: block; width: 6px; height: 6px; border-right: 1px solid #BFA06A; border-bottom: 1px solid #BFA06A"></span>
       </button>
     </div>
   </nav>
@@ -25,8 +25,8 @@
 
 <!-- NAV_DROPDOWN_PARTIAL -->
 
-<div data-elh-scrim="1" data-elh-click="closeDrawer" style="position: fixed; inset: 0; z-index: 310; display: none; background: rgba(0,13,25,.6); opacity: 0; pointer-events: none; transition: opacity .4s ease; backdrop-filter: blur(2px)"></div>
-<aside data-elh-drawer="1" style="position: fixed; top: 0; bottom: 0; left: 0; z-index: 320; display: none; flex-direction: column; gap: 28px; width: min(84vw, 340px); padding: 26px 28px 40px; background: #001526; border-right: 1px solid rgba(191,160,106,.3); transform: translateX(-100%); transition: transform .45s cubic-bezier(.4,0,.2,1); overflow-y: auto">
+<div data-elh-scrim="1" data-elh-click="closeDrawer"></div>
+<aside data-elh-drawer="1" id="elh-drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
     <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: 44px; height: auto">
     <button type="button" aria-label="Close menu" data-elh-click="closeDrawer" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; font-size: 22px; line-height: 1; color: #EAE5DC; background: none; border: 1px solid rgba(234,229,220,.22); border-radius: 100px; cursor: pointer">×</button>
