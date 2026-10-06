@@ -193,6 +193,7 @@ Done when: the scanner reports zero external media in strict mode and the video 
 Scaffold now; fill when inputs arrive.
 
 - **45 Reviews.** Build one reviews partial in `build-html.mjs` (one source for four pages). Per review: exact Google display name, verbatim text, stars, link to the review (or OK to link the profile), confirmation the reviewer is a client or homeowner. Drop relative dates. No 5.0 badge. Add the new reviews (S5).
+  - Shared source done: `data/reviews.json` now feeds all four pages through `scripts/lib/reviews.mjs` (how to add one: `data/README.md`). The new reviews, dates and review links still wait on S5.
 - **41 Hero video.** Swap `index.html:274` to `uploads/video/home-hero.mp4` plus a 2000px poster (today's poster is 1024px on a 118vh hero). H.264 with faststart, no audio, 10 to 20 seconds, about 3 Mbps (4 to 8 MB). If you use `<source>` children, fix the `getAttribute('src')` guard at `home.js:374` or the video stays invisible. Poster only for reduced motion, Save-Data and phones.
 - **50 Our Story.** CSS part (M, unblocked): cap the map (about 880px, 16:9), rename "Our Studio", real H2s at the home spec, body selectors, Inter. "Dress it up like the original front page" needs Shay's copy and photos (L).
 - **33 Why Us.** "See the craft for yourself" (`why-us.html:951-1002`, split by an `<em>` at `:955`, so plain grep misses it). Needs the new line and which home; the current tile is 68th St at the same price as Charter Oak.

@@ -39,6 +39,7 @@ The build also prints a launch report (`scripts/check-launch.mjs`). It only repo
 | `partials/nav-dropdown.html` | The "Learn" mega-panel, injected into the nav |
 | `partials/footer.html` | Site-wide footer (`__HOME__` resolves per page at build) |
 | `site-facts.json` | Facts not supplied yet; see above |
+| `data/reviews.json` | The Google reviews: one source for Home, Why Us, Developers and Our Story, filled in and checked by `scripts/lib/reviews.mjs`. How to add one: `data/README.md` |
 | `assets/elh-nav.js` | All nav behaviour: scroll states, `--elh-nav-h`, Learn panel, mobile drawer |
 | `assets/site-nav.css` | Shared nav / header styles |
 | `assets/site-footer.css` | Shared footer styles, plus the `.grain` page texture |
