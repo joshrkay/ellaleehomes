@@ -5,6 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { applyReviews } from './lib/reviews.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
@@ -293,6 +294,7 @@ for (const page of PAGES) {
   content = content.split(DROPDOWN_PLACEHOLDER).join(dropdownTemplate);
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(page.file === 'index.html'));
   content = applyFacts(content);
+  content = applyReviews(content, page.file); // review cards from data/reviews.json; also the one place they are validated
   // Brand favicon on every page (monogram on navy, per the style guide).
   if (!content.includes('rel="icon"')) {
     content = content.replace('</head>', FAVICON_TAGS + '</head>');
