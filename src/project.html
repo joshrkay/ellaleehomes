@@ -296,13 +296,6 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 .related-card-name { font-size: 18px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 4px; }
 .related-card-price { font-size: 13px; color: var(--gold); font-weight: 400; }
 
-/* ── NOT FOUND ── */
-#not-found {
-  display: none; padding: 120px 48px; text-align: center;
-}
-#not-found h1 { font-size: 36px; font-weight: 300; margin-bottom: 16px; }
-#not-found p { color: var(--nickel); margin-bottom: 32px; }
-
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   #stats { grid-template-columns: repeat(2, 1fr); }
@@ -456,10 +449,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 
 
 
-<!-- NOT FOUND (shown if slug doesn't match) -->
-<div id="not-found"></div>
-
-<!-- PROJECT CONTENT (populated by JS based on ?slug=) -->
+<!-- PROJECT CONTENT (populated by JS from ?slug=; a missing or unknown slug redirects to the portfolio) -->
 <div id="project-content" style="display:none;">
 
   <!-- HERO -->
@@ -2638,18 +2628,22 @@ const AMENITY_ICONS = [
   '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
 ];
 
-function renderProject() {
-  const params = new URLSearchParams(window.location.search);
-  const rawSlug = params.get('slug') || '68th';
-  const slug = SLUG_ALIASES[rawSlug] || rawSlug;
-  const project = PROJECTS[slug];
+// The project named in the address (?slug=), after the aliases above. Null when there is no slug or it is unknown.
+function resolveSlug() {
+  const own = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
+  const raw = new URLSearchParams(window.location.search).get('slug') || '';
+  const slug = own(SLUG_ALIASES, raw) ? SLUG_ALIASES[raw] : raw;
+  return own(PROJECTS, slug) ? slug : null;
+}
 
-  if (!project) {
-        const nf = document.getElementById('not-found');
-    nf.innerHTML = '<h1>Project not found</h1><p>The project you\'re looking for doesn\'t exist.</p><a href="previous-projects.html" class="nav-back">← View All Projects</a>';
-    nf.style.display = 'block';
+function renderProject() {
+  const slug = resolveSlug();
+  if (!slug) {
+    // Nothing to show: go to the portfolio before anything renders.
+    location.replace('previous-projects.html');
     return;
   }
+  const project = PROJECTS[slug];
 
   document.getElementById('project-content').style.display = 'block';
   const plainName = project.name.replace(/&amp;/g, '&');
@@ -2668,10 +2662,10 @@ function renderProject() {
   setMeta('meta[property="og:description"]', pageDesc);
   setMeta('meta[property="og:url"]', pageUrl, { property: 'og:url' });
 
-  // Every project renders from this one shell, and the aliases above plus the
-  // no-slug default mean several URLs show the same home. Point each variant
-  // at the resolved slug — the URL the sitemap lists — so crawlers collapse
-  // them instead of indexing the template many times over.
+  // Every project renders from this one shell, and the aliases above mean
+  // several URLs show the same home. Point each variant at the resolved slug
+  // (the URL the sitemap lists) so crawlers collapse them instead of
+  // indexing the template many times over.
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) {
     canonical = document.createElement('link');
@@ -2793,6 +2787,7 @@ renderProject();
 
 // ── LIGHTBOX ──
 (function(){
+  if (!resolveSlug()) return; // leaving for the portfolio: no gallery to open
   const lb = document.createElement('div');
   lb.id = 'lightbox';
   lb.innerHTML = `
@@ -2855,10 +2850,7 @@ renderProject();
       const tile = e.target.closest('.gallery-img, .gallery-more');
       if (!tile) return;
       // Find current project gallery from URL
-      const params = new URLSearchParams(window.location.search);
-      const rawSlug = params.get('slug') || '68th';
-      const realSlug = (typeof SLUG_ALIASES !== 'undefined' && SLUG_ALIASES[rawSlug]) || rawSlug;
-      const proj = PROJECTS[realSlug];
+      const proj = PROJECTS[resolveSlug()];
       if (!proj || !proj.gallery) return;
       // Determine start index by tile position
       const allTiles = Array.from(gridEl.querySelectorAll('.gallery-img, .gallery-more'));

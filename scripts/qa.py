@@ -462,9 +462,12 @@ def static_checks():
     reg('61', 'Footer badges: use "40+ homes", no 5.0 badge, no dollar figure', 'PASS' if all('40+' in text_of(footer_html(h)) and not re.search(r'5\.0|\$\s?\d', text_of(footer_html(h))) for h in PAGES.values()) else 'FAIL',
         'checked footer of %d pages' % len(PAGES))
     pr = PAGES['project']
-    reg('58', 'Hidden "Project not found" text not in the page markup (rendered only when a project is missing)',
-        'PASS' if 'Project not found' not in re.sub(r'<script.*?</script>', '', pr, flags=re.S) else 'FAIL',
-        '"Project not found" is not in the static HTML; it is created by script only for an unknown slug (browser check confirms)')
+    nf_hits = re.findall(r'project not found|#not-found|id=["\']not-found', pr, flags=re.I)
+    redirects = "location.replace('previous-projects.html')" in pr
+    reg('58', 'No hidden "Project not found" text, #not-found element or CSS anywhere in the project page source (scripts and styles included); a missing or unknown slug redirects to the portfolio',
+        'PASS' if (not nf_hits and redirects) else 'FAIL',
+        ('no "Project not found" or #not-found in the source; the script sends a missing or unknown slug to the portfolio with location.replace (browser check 58b confirms)'
+         if (not nf_hits and redirects) else 'found %s; redirect to previous-projects.html present: %s' % (nf_hits[:3], redirects)))
 
     # ----------------------------------------------------------------- F. SEO
     section('F. SEO and AI search')
@@ -1128,7 +1131,7 @@ def browser_checks(projects):
         for n in PAGES:
             for w in (390, 768, 1440):
                 pgx, ex = newpage(w, 900 if w > 500 else 800)
-                pgx.goto('%s/%s.html' % (base, n), wait_until='load')
+                pgx.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
                 pgx.wait_for_timeout(1200 if n != 'index' else 3300)
                 if w in (390, 1440):
                     pgx.evaluate("""async () => { const H = document.documentElement.scrollHeight; for (let y = 0; y < H; y += 400) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } window.scrollTo(0, H); await new Promise(r => setTimeout(r, 2000)); }""")
@@ -1213,15 +1216,26 @@ def browser_checks(projects):
             'phases %s; active body at scroll 0/50/95%%: %s; scroll zone %dpx tall (viewport %d)' % (phase_names, act, info['zoneH'], info['vh']))
         # ---------------- Project pages
         pgp, ep = newpage()
-        go(pgp, 'project', 600)
-        pgp.goto('%s/project.html?slug=does-not-exist' % base, wait_until='load')
-        pgp.wait_for_timeout(500)
-        nf = pgp.evaluate("() => { const e = document.querySelector('#not-found'); return {disp: getComputedStyle(e).display, text: e.innerText.trim().slice(0, 60)} }")
-        pgp.goto('%s/project.html?slug=68th' % base, wait_until='load')
-        pgp.wait_for_timeout(500)
-        nf2 = pgp.evaluate("() => document.querySelector('#not-found').innerText.trim()")
-        reg('58b', '"Project not found" renders only for an unknown slug', 'PASS' if (nf['disp'] == 'block' and 'not found' in nf['text'].lower() and nf2 == '') else 'FAIL',
-            'unknown slug shows "%s"; a real project has empty #not-found: %s' % (nf['text'], nf2 == ''))
+        # A missing or unknown slug leaves for the portfolio before anything renders; a real slug or an alias stays and renders.
+        landed = {}
+        for label, q in (('no slug', ''), ('unknown slug', '?slug=does-not-exist'), ('prototype key', '?slug=constructor'),
+                         ('real slug', '?slug=68th'), ('alias', '?slug=desert-oasis')):
+            try:
+                pgp.goto('%s/project.html%s' % (base, q), wait_until='load')
+            except Exception:
+                pass  # the page navigates itself; the page it lands on is read below
+            try:
+                pgp.wait_for_function("() => /previous-projects\\.html$/.test(location.pathname) || (document.querySelector('#project-content') || {style: {}}).style.display === 'block'", timeout=5000)
+            except Exception:
+                pass  # neither happened: the evidence below says where it landed
+            pgp.wait_for_load_state('load')
+            pgp.wait_for_timeout(300)
+            landed[label] = pgp.evaluate("() => ({page: location.pathname.split('/').pop(), shown: (document.querySelector('#project-content') || {style: {}}).style.display === 'block'})")
+        went = [k for k in ('no slug', 'unknown slug', 'prototype key') if landed[k]['page'] == 'previous-projects.html']
+        stayed = [k for k in ('real slug', 'alias') if landed[k]['page'] == 'project.html' and landed[k]['shown']]
+        reg('58b', 'A missing or unknown project slug redirects to the portfolio (there is no "not found" page); a real slug and an alias still render the project',
+            'PASS' if (len(went) == 3 and len(stayed) == 2) else 'FAIL',
+            'redirected to previous-projects.html: %s; rendered the project: %s; landed on: %s' % (went, stayed, {k: v['page'] for k, v in landed.items()}))
         # similar projects for every project
         keys = list(projects) if projects else []
         sim, simbad = {}, []
@@ -1343,7 +1357,7 @@ def browser_checks2(projects):
         body_styles, mobile_small, tap = {}, {}, {}
         for n in PAGES:
             pg, st = newpage()
-            pg.goto('%s/%s.html' % (base, n), wait_until='load')
+            pg.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
             pg.wait_for_timeout(3300 if n == 'index' else 1000)
             pg.add_style_tag(content='.elh-intro{display:none!important}')
             settle_scroll(pg)
@@ -1389,12 +1403,12 @@ def browser_checks2(projects):
             pg.goto('%s/project.html?slug=%s' % (base, k), wait_until='load')
             pg.wait_for_timeout(350)
             info = pg.evaluate("""() => ({title: document.title, canon: (document.querySelector('link[rel=canonical]') || {}).href || '', desc: (document.querySelector('meta[name=description]') || {}).content || '', ogt: (document.querySelector('meta[property="og:title"]') || {}).content || '', ogu: (document.querySelector('meta[property="og:url"]') || {}).content || '',
-              h1: document.querySelectorAll('h1').length, content: getComputedStyle(document.querySelector('#project-content')).display, nf: (document.querySelector('#not-found') || {innerText: ''}).innerText.trim(),
+              h1: document.querySelectorAll('h1').length, content: getComputedStyle(document.querySelector('#project-content')).display,
               hero: (document.querySelector('#hero-img') || {}).naturalWidth, text: document.body.innerText})""")
             titles.setdefault(info['title'], []).append(k)
             canon.setdefault(info['canon'], []).append(k)
-            if info['content'] != 'block' or info['nf'] or info['h1'] != 1 or not info['hero']:
-                issues.append('%s: content=%s notfound="%s" h1=%d hero=%s' % (k, info['content'], info['nf'][:20], info['h1'], info['hero']))
+            if info['content'] != 'block' or info['h1'] != 1 or not info['hero']:
+                issues.append('%s: content=%s h1=%d hero=%s' % (k, info['content'], info['h1'], info['hero']))
             if re.search(r'See live site|Coming Soon|will be added here|undefined|NaN|\[object', info['text']):
                 issues.append('%s: placeholder or broken text on page' % k)
             if info['ogt'] != info['title'] or not info['ogu'].endswith('slug=' + k):
