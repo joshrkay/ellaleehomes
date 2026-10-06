@@ -17,6 +17,9 @@ npm run check:assets   # media that still loads from the old WordPress site, Goo
 npm run check:projects # the portfolio data: errors and warnings
 npm run projects:csv   # data/projects.csv, the sheet for Rebecca
 npm run projects:import -- returned.csv   # her answers: a diff, saved only with --write
+npm run qa:chrome      # browser checks on the menu, footer and section lines (Playwright with Chromium)
+python3 scripts/qa.py --static   # punch-list checks read from dist/; without --static it also drives a browser (pip install playwright pillow)
+node scripts/migrate-media.mjs   # move every old-site, Drive and Zillow image onto this site (docs/media.md)
 ```
 
 Preview production-like files from **`dist/`** only (paths assume `assets/` and `uploads/` siblings).
