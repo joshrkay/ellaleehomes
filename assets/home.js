@@ -1,7 +1,7 @@
 /**
  * Homepage behaviour: sticky/hiding nav, mobile drawer, "More" menu, the
- * scroll-driven Experience timeline, the dragging project strip, FAQ
- * accordions and the inquiry form.
+ * scroll-driven Experience timeline, the dragging project strip and FAQ
+ * accordions.
  *
  * Ported from the design-canvas export, which drove all of this from a
  * component class; every effect here is plain DOM work, so it runs as a
@@ -332,15 +332,6 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-elh-click]'), function (el) {
       var fn = CLICK[el.getAttribute('data-elh-click')];
       if (fn) el.addEventListener('click', function (e) { fn(e, el); });
-    });
-
-    Array.prototype.forEach.call(document.querySelectorAll('[data-elh-submit]'), function (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var msg = form.querySelector('[data-elh-form-msg]');
-        if (msg) msg.style.display = 'block';
-        form.reset();
-      });
     });
 
     window.addEventListener('scroll', handleScroll, { passive: true });

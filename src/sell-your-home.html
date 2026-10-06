@@ -233,8 +233,7 @@ details.faq .faq-a {
 }
 
 /* ── CTA ── */
-#cta { padding: 120px clamp(18px, 2.4vw, 40px); background: var(--navy); color: var(--paper);
-  display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start; }
+#cta { padding: 120px clamp(18px, 2.4vw, 40px); background: var(--navy); color: var(--paper); }
 .cta-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
 .cta-text { font-family: var(--disp); font-size: clamp(32px,4.6vw,64px); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; color: var(--paper); }
 .cta-text em { font-style: normal; color: var(--gold); font-family: var(--disp); }
@@ -242,37 +241,6 @@ details.faq .faq-a {
 .cta-meta { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; font-size: 13px; color: rgba(234,229,220,.86); }
 .cta-meta-row { display: flex; align-items: center; gap: 14px; }
 .cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(234,229,220,.55); width: 64px; }
-.cta-form { display: flex; flex-direction: column; gap: 0; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.18); padding: 40px; }
-.cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.cta-field { display: flex; flex-direction: column; border-bottom: 1px solid rgba(234,229,220,.16); padding: 14px 0; }
-.cta-field + .cta-field { padding-top: 18px; }
-.cta-form-row .cta-field { border-right: 1px solid rgba(234,229,220,.16); padding-right: 18px; }
-.cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 18px; }
-.cta-form-row .cta-field + .cta-field { padding-top: 14px; }
-.cta-field label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(234,229,220,.6); margin-bottom: 8px; }
-.cta-field input, .cta-field select, .cta-field textarea {
-  font-family: var(--sans); font-size: 15px; color: var(--paper); background: transparent;
-  border: none; outline: none; width: 100%;
-}
-.cta-field textarea { resize: none; min-height: 72px; line-height: 1.5; }
-/* Grid items default to min-width:auto, so an input's intrinsic width would
-   otherwise stop the CTA column shrinking on phones and scroll the page. */
-#cta > * { min-width: 0; }
-.cta-field input, .cta-field select, .cta-field textarea { width: 100%; min-width: 0; }
-.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(234,229,220,.42); }
-.cta-field select { cursor: pointer; -webkit-appearance: none; appearance: none; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23EAE5DC' fill='none' stroke-width='1.2'/></svg>") no-repeat right center; padding-right: 18px; }
-.cta-field select option { background: var(--navy); color: var(--paper); }
-.cta-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
-.cta-form-note { font-size: 11px; color: rgba(234,229,220,.6); line-height: 1.5; }
-.cta-submit {
-  background: var(--gold); color: var(--navy); border: none;
-  font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
-  padding: 18px 36px; cursor: pointer; transition: background .2s, color .2s; white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 14px;
-}
-.cta-submit svg { width: 16px; height: 8px; transition: transform .25s; }
-.cta-submit:hover { background: var(--paper); color: var(--navy); }
-.cta-submit:hover svg { transform: translateX(4px); }
 
 /* ── Responsive ── */
 @media (max-width: 1000px) {
@@ -282,7 +250,6 @@ details.faq .faq-a {
   .step:nth-child(2) { border-right: none; }
   .step:nth-child(3) { padding-left: 0; }
   .step:nth-child(3), .step:nth-child(4) { padding-top: 8px; }
-  #cta { grid-template-columns: 1fr; gap: 48px; }
 }
 @media (max-width: 760px) {
   .section { padding: 80px 24px; }
@@ -296,10 +263,7 @@ details.faq .faq-a {
   .step, .step:not(:first-child) { padding: 0; border-right: none; }
   .cmp, .cmp thead { display: none; }
   .cmp-cards { display: block; }
-    .cta-form-row { grid-template-columns: 1fr; }
-  .cta-form-row .cta-field, .cta-form-row .cta-field:last-child { border-right: none; padding-right: 0; padding-left: 0; }
-  .cta-form-actions { flex-direction: column; align-items: stretch; gap: 16px; }
-  .cta-form-actions .cta-submit { justify-content: center; }
+  .cta-meta-row { flex-direction: column; align-items: flex-start; gap: 4px; }
 }
 /* Lot / teardown strip under the hero: two columns on desktop, one on tablet and phone */
 .lot-strip { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
@@ -752,75 +716,17 @@ details.faq .faq-a {
 
 <!-- CTA -->
 <section id="cta" class="grain">
-  <div class="cta-left">
+  <div class="cta-left section-inner">
     <div class="cta-eyebrow">Tell Us About Your Property</div>
     <div class="cta-text">Start a private <em>conversation.</em></div>
     <p class="cta-sub">Tell us about your property. Every inquiry is read personally.</p>
+    <a class="elh-fh1" href="contact.html" style="display: inline-block; margin-top: 32px; padding: 15px 42px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: #EAE5DC; border: 1px solid rgba(191,160,106,.85); border-radius: 100px; transition: background .3s ease, color .3s ease, border-color .3s ease">Start the Conversation</a>
     <div class="cta-meta">
       <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
       <div class="cta-meta-row"><span class="cta-meta-label">Email</span><span class="cta-meta-val">hello@ellaleehomes.com</span></div>
-      <div class="cta-meta-row"><span class="cta-meta-label">Studio</span><span class="cta-meta-val">4408 N 12th St, Ste 200, Phoenix, AZ 85014</span></div>
+      <div class="cta-meta-row"><span class="cta-meta-label">Office</span><span class="cta-meta-val">4408 N 12th St, Ste 200, Phoenix, AZ 85014</span></div>
     </div>
   </div>
-
-  <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('.cta-submit').innerHTML='Thank you. We&rsquo;ll be in touch.';">
-    <div class="cta-form-row">
-      <div class="cta-field">
-        <label>First Name</label>
-        <input type="text" placeholder="Jane" required="">
-      </div>
-      <div class="cta-field">
-        <label>Last Name</label>
-        <input type="text" placeholder="Doe" required="">
-      </div>
-    </div>
-    <div class="cta-form-row">
-      <div class="cta-field">
-        <label>Email</label>
-        <input type="email" placeholder="jane@email.com" required="">
-      </div>
-      <div class="cta-field">
-        <label>Phone</label>
-        <input type="tel" placeholder="(480) 555-0100">
-      </div>
-    </div>
-    <div class="cta-field">
-      <label>Property Address</label>
-      <input type="text" placeholder="Street, City, AZ" required="">
-    </div>
-    <div class="cta-form-row">
-      <div class="cta-field">
-        <label>Timeline to Sell</label>
-        <select aria-label="Timeline to sell">
-          <option>As soon as possible</option>
-          <option>Within 30 days</option>
-          <option>1 – 3 months</option>
-          <option>Just exploring</option>
-        </select>
-      </div>
-      <div class="cta-field">
-        <label>Property Type</label>
-        <select aria-label="Property type">
-          <option>Single-family home</option>
-          <option>Luxury / custom home</option>
-          <option>Lot</option>
-          <option>Condo / townhome</option>
-          <option>Other</option>
-        </select>
-      </div>
-    </div>
-    <div class="cta-field">
-      <label>Anything we should know?</label>
-      <textarea placeholder="Condition, timing, or any details you'd like to share..."></textarea>
-    </div>
-    <div class="cta-form-actions">
-      <p class="cta-form-note">No obligation. Every inquiry is read personally.</p>
-      <button type="submit" class="cta-submit">
-        Send
-        <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"></path></svg>
-      </button>
-    </div>
-  </form>
 </section>
 
 <!-- FOOTER_PARTIAL -->
