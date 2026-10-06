@@ -1426,8 +1426,10 @@ def browser_checks2(projects):
             canon.setdefault(info['canon'], []).append(k)
             if info['content'] != 'block' or info['h1'] != 1 or not info['hero']:
                 issues.append('%s: content=%s h1=%d hero=%s' % (k, info['content'], info['h1'], info['hero']))
-            if re.search(r'See live site|Coming Soon|will be added here|undefined|NaN|\[object', info['text']):
-                (waiting if k in PHOTO_ONLY and not re.search(r'See live site|will be added here|undefined|NaN|\[object', info['text']) else issues).append('%s: placeholder or broken text on page' % k)
+            if re.search(r'undefined|NaN|\[object', info['text']):
+                issues.append('%s: broken text on page' % k)
+            elif re.search(r'See live site|Coming Soon|will be added here', info['text']):
+                (waiting if k in PHOTO_ONLY else issues).append('%s: placeholder text on page%s' % (k, ' (photos only for now, questions R1 and S14)' if k in PHOTO_ONLY else ''))
             if info['ogt'] != info['title'] or not info['ogu'].endswith('slug=' + k):
                 issues.append('%s: og tags not per-project' % k)
         dupt_all = {t: v for t, v in titles.items() if len(v) > 1}
