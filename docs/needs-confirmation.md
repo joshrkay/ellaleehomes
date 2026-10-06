@@ -80,6 +80,12 @@ Where the plan left a choice, the work used its recommendation, never an invente
 - The Contact page carries the Buildertrend embed on a linen panel with the phone and email above it as a fallback. The five other forms are gone. The portal page shows no button until `buildertrendLoginUrl` is set, and the walkthrough video and blank login embed are removed (S3 asks whether to replace the video).
 - Privacy, Terms and Disclaimer carry the client's draft word for word, with links added and "Last updated" filled from `launchDate` (L1 lists the two bullets that no longer match the site).
 
+**Data files (R1 to R4, S5, S15)**
+- `data/projects.json` was seeded from the pages exactly as they were, with no new fact. A home's farmhouse or contemporary style is filled in only where the card's own label says so (for example "Spanish Contemporary" is contemporary). The nine homes whose label says neither ("Modern", "Transitional", "Desert Estate" and so on) have no style and are listed as launch blockers until Rebecca or Shay chooses (S15). The portfolio's Style filter still reads the card label, so nothing on the page changed.
+- Where a card and a project page disagree, the data keeps today's wording for each. Only one such case exists (Larkspur's location), and it is listed in `data/README.md` under "Disagreements to resolve" with the other conflicts the validator found (repeated values and sizes, "5.2" baths, names that differ between pages).
+- `data/reviews.json` holds the five reviews already on the site, marked `confirmed` because they are the pre-existing Google reviews. A new review is never shown until a person sets `confirmed` (S5). Their review links are empty for now, so each card links to the business's Google page as before.
+- The Developers card for Via Estrella showed Apache's photo; it now uses its own.
+
 **Behaviour (items 43, 44)**
 - The Home project strip scrolls at 15.6 px per second (the speed it had on a 60 Hz screen, which is 53% above the original), and no longer runs faster on a 120 Hz screen. Its photos decode before it starts, which should end the blank card, but the blank card could not be reproduced here. Check on a phone and in Safari (S11).
 
