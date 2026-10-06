@@ -63,15 +63,12 @@ function applyFacts(html) {
   return html;
 }
 
-/** Where the nav's "Get Started" button points. */
-const CTA_HOME = 'index.html#inquiry';
-const CTA_CONTACT = 'contact.html';
-
 /**
  * `active` marks the current top-level nav entry. Every page takes the shared
  * nav — the homepage's own header is what the partial was cut from, so it is
- * no longer a special case. The homepage resolves the logo, "Home" link and
- * CTA to its own in-page anchors; see `renderNav`.
+ * no longer a special case. The homepage resolves the logo and the "Home" link
+ * to its own in-page anchor; see `renderNav`. The "Start your build" buttons in
+ * the nav and footer are fixed links to contact.html, so no page configures one.
  *
  * `url` is the page's path on the live site, which is not the built filename:
  * `vercel.json` serves clean, extension-less URLs, and four pages use a
@@ -85,55 +82,53 @@ const CTA_CONTACT = 'contact.html';
  * and 404 every stylesheet and image on the page.
  *
  * @typedef {'portfolio'|'process'|'about'} NavEntry
- * @typedef {{ file: string; url: string | null; changefreq?: string; priority?: string; cta?: string; active?: Partial<Record<NavEntry, boolean>> }} PageCfg
+ * @typedef {{ file: string; url: string | null; changefreq?: string; priority?: string; active?: Partial<Record<NavEntry, boolean>> }} PageCfg
  */
 
 /** @type {PageCfg[]} */
 const PAGES = [
-  { file: 'index.html', url: '/', changefreq: 'weekly', priority: '1.0', cta: '#inquiry' },
+  { file: 'index.html', url: '/', changefreq: 'weekly', priority: '1.0' },
 
   // Primary pages
-  { file: 'previous-projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', cta: CTA_HOME, active: { portfolio: true } },
+  { file: 'previous-projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', active: { portfolio: true } },
   // The project detail template renders per-slug; those URLs are listed from
   // the portfolio's own structured data instead of this entry.
-  { file: 'project.html', url: null, cta: CTA_HOME, active: { portfolio: true } },
-  { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { process: true } },
-  { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
-  { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { about: true } },
-  { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', cta: CTA_HOME },
-  { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
-  { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7', cta: CTA_HOME },
+  { file: 'project.html', url: null, active: { portfolio: true } },
+  { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', active: { process: true } },
+  { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7' },
+  { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', active: { about: true } },
+  { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8' },
+  { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7' },
+  { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7' },
   // Carries `robots: noindex` and is disallowed in robots.txt.
-  { file: 'client-portal.html', url: null, cta: CTA_HOME },
-  { file: 'contact.html', url: '/contact', changefreq: 'monthly', priority: '0.8', cta: CTA_CONTACT },
+  { file: 'client-portal.html', url: null },
+  { file: 'contact.html', url: '/contact', changefreq: 'monthly', priority: '0.8' },
 
   // Help / legal
-  { file: 'faq.html', url: '/faq', changefreq: 'monthly', priority: '0.7', cta: CTA_CONTACT },
-  { file: 'warranty.html', url: '/warranty', changefreq: 'yearly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'homeowner-resources.html', url: '/homeowner-resources', changefreq: 'yearly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'code-of-conduct.html', url: '/code-of-conduct', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
-  { file: 'privacy.html', url: '/privacy', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
-  { file: 'terms.html', url: '/terms', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
-  { file: 'disclaimer.html', url: '/disclaimer', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
+  { file: 'faq.html', url: '/faq', changefreq: 'monthly', priority: '0.7' },
+  { file: 'warranty.html', url: '/warranty', changefreq: 'yearly', priority: '0.6' },
+  { file: 'homeowner-resources.html', url: '/homeowner-resources', changefreq: 'yearly', priority: '0.6' },
+  { file: 'code-of-conduct.html', url: '/code-of-conduct', changefreq: 'yearly', priority: '0.3' },
+  { file: 'privacy.html', url: '/privacy', changefreq: 'yearly', priority: '0.3' },
+  { file: 'terms.html', url: '/terms', changefreq: 'yearly', priority: '0.3' },
+  { file: 'disclaimer.html', url: '/disclaimer', changefreq: 'yearly', priority: '0.3' },
 
   // Articles
-  { file: 'steps-to-building-a-custom-home.html', url: '/steps-to-building-a-custom-home', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'how-to-find-a-custom-home-builder.html', url: '/how-to-find-a-custom-home-builder', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'is-custom-home-building-a-good-investment.html', url: '/is-custom-home-building-a-good-investment', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'new-luxury-essentials-custom-homes-arizona.html', url: '/new-luxury-essentials-custom-homes-arizona', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
+  { file: 'steps-to-building-a-custom-home.html', url: '/steps-to-building-a-custom-home', changefreq: 'monthly', priority: '0.6' },
+  { file: 'how-to-find-a-custom-home-builder.html', url: '/how-to-find-a-custom-home-builder', changefreq: 'monthly', priority: '0.6' },
+  { file: 'is-custom-home-building-a-good-investment.html', url: '/is-custom-home-building-a-good-investment', changefreq: 'monthly', priority: '0.6' },
+  { file: 'new-luxury-essentials-custom-homes-arizona.html', url: '/new-luxury-essentials-custom-homes-arizona', changefreq: 'monthly', priority: '0.6' },
   {
     file: 'exploring-the-costs-of-building-your-dream-home-a-comprehensive-guide.html',
     url: '/exploring-the-costs-of-building-your-dream-home-a-comprehensive-guide',
     changefreq: 'monthly',
     priority: '0.6',
-    cta: CTA_CONTACT,
   },
   {
     file: 'why-choosing-a-professional-home-builder-matters-for-your-custom-house.html',
     url: '/why-choosing-a-professional-home-builder-matters-for-your-custom-house',
     changefreq: 'monthly',
     priority: '0.6',
-    cta: CTA_CONTACT,
   },
 ];
 
@@ -151,7 +146,6 @@ function renderNav(page) {
     // The logo and the "Home" link share this token — on the homepage they
     // scroll back to the top rather than reloading the page.
     __HREF_HOME__: isHome ? '#top' : 'index.html',
-    __HREF_CTA__: page.cta ?? CTA_HOME,
     __ARIA_HOME__: aria(isHome),
     __ARIA_PORTFOLIO__: aria(active.portfolio),
     __ARIA_PROCESS__: aria(active.process),
