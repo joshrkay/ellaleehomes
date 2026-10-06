@@ -688,6 +688,15 @@ def norm_ws(s):
     return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', s))).strip()
 
 
+def confirmed_reviews():
+    """The reviews in data/reviews.json that a person has confirmed (open question S5): the only ones the site may show beyond the original five."""
+    try:
+        data = json.loads(rd(os.path.join(ROOT, 'data', 'reviews.json')))
+    except (OSError, ValueError):
+        return []
+    return [r for r in data if isinstance(r, dict) and r.get('confirmed') is True]
+
+
 def factsheet_checks():
     ALL = list(PAGES)
     section('S. Fact Sheet rules, section by section')
@@ -735,11 +744,7 @@ def factsheet_checks():
     # has confirmed (question S5) and that carries the date and link the Fact Sheet asks for. Anything else is invented.
     undash = lambda s: re.sub(r'\s*\u2014\s*', ', ', s)  # the client bans em dashes, so a dash inside a quote became a comma
     orig = undash(norm_ws(git_show('src/index.html')))
-    try:
-        data_reviews = json.loads(rd(os.path.join(ROOT, 'data', 'reviews.json')))
-    except (OSError, ValueError):
-        data_reviews = []
-    REVIEWS_CONFIRMED = [r for r in data_reviews if isinstance(r, dict) and r.get('confirmed') is True]
+    REVIEWS_CONFIRMED = confirmed_reviews()
     trusted = {undash(norm_ws(r.get('text', ''))) for r in REVIEWS_CONFIRMED}
     added = [r for r in REVIEWS_CONFIRMED if undash(norm_ws(r.get('text', ''))) not in orig]
     unsourced = [r.get('id', '?') for r in added if not (r.get('date') and r.get('url'))]
@@ -1276,13 +1281,13 @@ def browser_checks(projects):
           reviews: document.querySelectorAll('#testimonials .rv-card').length,
           homeBtn: [...document.querySelectorAll('#proof .proof-hd-r a')].map(a => a.textContent.trim()),
           pull: !!document.querySelector('#pull')})""")
-        reg('51', 'Why Us: first strip redesigned, review strip like the front page, no halo around the card stack', 'PASS' if (wu['halo'] == 0 and wu['strip'] and wu['reviews'] == sum(1 for r in REVIEWS_CONFIRMED if 'why-us' in r.get('pages', [])) and not wu['pull']) else 'FAIL', str(wu))
+        reg('51', 'Why Us: first strip redesigned, review strip like the front page, no halo around the card stack', 'PASS' if (wu['halo'] == 0 and wu['strip'] and wu['reviews'] == sum(1 for r in confirmed_reviews() if 'why-us' in r.get('pages', [])) and not wu['pull']) else 'FAIL', str(wu))
         reg('52', 'Why Us: stray "HOME" button next to "Full Portfolio" removed', 'PASS' if not any(t.strip().lower() == 'home' for t in wu['homeBtn']) else 'FAIL', 'buttons in that header: %s' % wu['homeBtn'])
         pgd, ed = newpage()
         go(pgd, 'developers', 1200)
         dv = pgd.evaluate("""() => ({halo: [...document.querySelectorAll('.pillar-card, .pillar, #pillars > *')].map(e => getComputedStyle(e).boxShadow).filter(s => s !== 'none').length,
                                   reviews: document.querySelectorAll('#testimonials .rv-card').length})""")
-        reg('53', 'Developers: same treatment as Why Us (halo removed, review strip)', 'PASS' if (dv['halo'] == 0 and dv['reviews'] == sum(1 for r in REVIEWS_CONFIRMED if 'developers' in r.get('pages', []))) else 'FAIL', str(dv))
+        reg('53', 'Developers: same treatment as Why Us (halo removed, review strip)', 'PASS' if (dv['halo'] == 0 and dv['reviews'] == sum(1 for r in confirmed_reviews() if 'developers' in r.get('pages', []))) else 'FAIL', str(dv))
         # sell chips below hero
         pgy, ey = newpage()
         go(pgy, 'sell-your-home', 1200)
@@ -1486,7 +1491,7 @@ def browser_checks2(projects):
                 if w == 390 and any(d > 2 for d in lefts):
                     align_bad.append('%s@%d: form field edges differ by %s px' % (n, w, [d for d in lefts if d > 2]))
                 if w == 390:
-                    found = pgr.evaluate("""() => { const out = []; const seen = new Set(); for (const el of document.querySelectorAll('div, section, article, ul, form')) { if (el.closest('header, footer, aside, nav, .elh-intro, [data-elh-track], .rv-grid, svg')) continue; if (!el.getClientRects().length) continue; const kids = [...el.children].filter(k => k.getClientRects().length && (k.innerText || '').trim().length >= 12 && !['absolute', 'fixed'].includes(getComputedStyle(k).position)); if (kids.length < 2) continue; const rects = kids.map(k => k.getBoundingClientRect()); let side = false; for (let i = 0; i < rects.length; i++) for (let j = i + 1; j < rects.length; j++) { const a = rects[i], b = rects[j]; const v = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top); const h = Math.min(a.right, b.right) - Math.max(a.left, b.left); if (v > 20 && h <= 2 && a.width > 40 && b.width > 40) side = true } if (!side) continue; const minw = Math.min(...rects.map(r => r.width)); if (minw < 165) { const key = (el.className || el.tagName) + '|' + Math.round(minw); if (seen.has(key)) continue; seen.add(key); out.push(Math.round(minw) + 'px ' + (el.id ? '#' + el.id + ' ' : '') + (el.className || '').toString().slice(0, 24) + ' | ' + (el.innerText || '').trim().replace(/\s+/g, ' ').slice(0, 40)) } } return out }""")
+                    found = pgr.evaluate("""() => { const out = []; const seen = new Set(); for (const el of document.querySelectorAll('div, section, article, ul, form')) { if (el.closest('header, footer, aside, nav, .elh-intro, [data-elh-track], .rv-grid, svg')) continue; if (!el.getClientRects().length) continue; const kids = [...el.children].filter(k => k.getClientRects().length && (k.innerText || '').trim().length >= 12 && !['absolute', 'fixed'].includes(getComputedStyle(k).position)); if (kids.length < 2) continue; const rects = kids.map(k => k.getBoundingClientRect()); let side = false; for (let i = 0; i < rects.length; i++) for (let j = i + 1; j < rects.length; j++) { const a = rects[i], b = rects[j]; const v = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top); const h = Math.min(a.right, b.right) - Math.max(a.left, b.left); if (v > 20 && h <= 2 && a.width > 40 && b.width > 40) side = true } if (!side) continue; const minw = Math.min(...rects.map(r => r.width)); if (minw < 165) { const key = (el.className || el.tagName) + '|' + Math.round(minw); if (seen.has(key)) continue; seen.add(key); out.push(Math.round(minw) + 'px ' + (el.id ? '#' + el.id + ' ' : '') + (el.className || '').toString().slice(0, 24) + ' | ' + (el.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 40)) } } return out }""")
                     for f in found:
                         if not any(a in f for a in ALLOW):
                             cramped.append('%s: %s' % (n, f))
