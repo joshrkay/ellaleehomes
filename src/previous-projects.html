@@ -80,7 +80,6 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   padding-top: 12px;
 }
 .hero-head-meta strong { color: var(--paper); font-weight: 500; }
-.hero-head-meta #result-count { color: var(--gold); font-size: 28px; font-weight: 300; display: block; margin-bottom: 4px; }
 .hero-caption {
   position: absolute; left: 56px; bottom: calc(13vh + 40px); z-index: 2;
   color: #fff;
@@ -845,7 +844,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 
   <div class="hero-copy">
     <h1 class="hero-title">Our Portfolio.</h1>
-    <p class="hero-lede">Custom homes across Paradise Valley, Scottsdale, Arcadia, and Phoenix.<span id="result-count" hidden>25</span></p>
+    <p class="hero-lede">Custom homes across Paradise Valley, Scottsdale, Arcadia, and Phoenix.</p>
   </div>
 </section>
 
@@ -923,7 +922,6 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   line-height: 1.5; color: rgba(234,229,220,.9); max-width: 32ch; margin: 0;
 }
 .hero-lede strong { color: var(--paper); font-weight: 500; }
-.hero-lede #result-count { color: var(--gold); font-weight: 400; }
 @media (max-width: 760px) {
   #hero-banner > .hero-copy { padding: 0 20px calc(13vh + 32px); }
 }
@@ -933,7 +931,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 #hero-banner .hero-head-meta, #hero-banner .hero-head-meta strong,
 #hero-banner .hero-caption h2, #hero-banner .hero-caption h2 em,
 #hero-banner .hero-caption p, #hero-banner .hero-meta, #hero-banner .hero-meta strong,
-#hero-banner .hero-lede, #hero-banner .hero-lede strong, #hero-banner #result-count { color: #fff; }
+#hero-banner .hero-lede, #hero-banner .hero-lede strong { color: #fff; }
 
 /* hero height matches the homepage's 118vh so the copy lands on its baseline */
 #hero-banner { height: auto; min-height: 118vh; }
@@ -1412,7 +1410,6 @@ function filterTab(btn, filter) {
 
   const visible = filter === 'all' ? allCards.length :
     allCards.filter(c => c.dataset.band === filter).length;
-  document.getElementById('result-count').textContent = visible;
 
   const empty = document.getElementById('empty-state');
   empty.classList.toggle('show', visible === 0);
