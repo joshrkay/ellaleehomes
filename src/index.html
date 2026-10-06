@@ -164,6 +164,14 @@
 #testimonials div::-webkit-scrollbar { height: 0; width: 0; }
 #testimonials a:hover figure { background: rgba(234,229,220,.09); border-color: rgba(191,160,106,.42); }
 #testimonials figure { transition: background .2s, border-color .2s; }
+/* Reviews arrows (assets/home.js): hidden until the strip overflows; aria-disabled marks either end. */
+#testimonials [data-elh-reviews-nav] { display: flex; gap: 12px; }
+#testimonials [data-elh-reviews-nav][hidden] { display: none; }
+/* The strip is a full-width scroller, so its focus ring sits just inside its edge (the padding above and below the cards holds it). */
+#reviews-scroller:focus-visible { outline: 2px solid #BFA06A !important; outline-offset: -3px !important; }
+#testimonials [data-elh-reviews-nav] button:focus-visible { outline: 2px solid #BFA06A !important; outline-offset: 3px !important; }
+#testimonials [data-elh-reviews-nav] button[aria-disabled="true"] { opacity: .35; cursor: default; }
+#testimonials [data-elh-reviews-nav] button[aria-disabled="true"]:hover { background: rgba(0,21,38,.55) !important; border-color: rgba(234,229,220,.5) !important; color: #EAE5DC !important; }
 </style>
 <script>
 // Runs before paint: an internal trip home skips the intro so it stays a
@@ -511,11 +519,20 @@
           <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Reviews</span>
           <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4.1vw, 60px); font-weight: 400; line-height: 1.08">What homeowners say about us</h2>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px">
           <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="font-size: 12px; letter-spacing: .08em; color: rgba(234,229,220,.72)">Read our reviews on Google</a>
+          <!-- Arrows for the reviews strip: hidden until assets/home.js finds the strip overflows. -->
+          <div data-elh-reviews-nav="1" hidden>
+            <button class="elh-h2" type="button" aria-label="Previous reviews" aria-controls="reviews-scroller" data-elh-click="reviewsPrev" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: clamp(44px, 4vw, 58px); height: clamp(44px, 4vw, 58px); color: #EAE5DC; background: rgba(0,21,38,.55); border: 1px solid rgba(234,229,220,.5); border-radius: 50%; cursor: pointer; transition: background .3s ease, border-color .3s ease">
+              <span style="display: block; width: 9px; height: 9px; border-left: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translate(1px, -1px)"></span>
+            </button>
+            <button class="elh-h2" type="button" aria-label="Next reviews" aria-controls="reviews-scroller" data-elh-click="reviewsNext" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: clamp(44px, 4vw, 58px); height: clamp(44px, 4vw, 58px); color: #EAE5DC; background: rgba(0,21,38,.55); border: 1px solid rgba(234,229,220,.5); border-radius: 50%; cursor: pointer; transition: background .3s ease, border-color .3s ease">
+              <span style="display: block; width: 9px; height: 9px; border-right: 1px solid currentColor; border-top: 1px solid currentColor; transform: rotate(45deg) translate(-1px, 1px)"></span>
+            </button>
+          </div>
         </div>
       </div>
-      <div style="display: flex; gap: clamp(18px, 2.2vw, 32px); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: clamp(20px, 4vw, 64px); scroll-padding-right: clamp(20px, 4vw, 64px); scrollbar-width: none; padding-bottom: 4px; margin: 0 calc(-1 * clamp(20px, 4vw, 64px)); padding-left: clamp(20px, 4vw, 64px); padding-right: clamp(20px, 4vw, 64px)">
+      <div id="reviews-scroller" role="region" aria-label="Client reviews" tabindex="0" style="display: flex; gap: clamp(18px, 2.2vw, 32px); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-left: clamp(20px, 4vw, 64px); scroll-padding-right: clamp(20px, 4vw, 64px); scrollbar-width: none; padding-top: 6px; padding-bottom: 10px; margin: -6px calc(-1 * clamp(20px, 4vw, 64px)) -6px; padding-left: clamp(20px, 4vw, 64px); padding-right: clamp(20px, 4vw, 64px)">
         <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="flex: 0 0 auto; width: min(86vw, 380px); scroll-snap-align: start; text-decoration: none; color: inherit"><figure style="display: flex; flex-direction: column; gap: 24px; margin: 0; height: 100%; padding: 36px 32px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
           <span aria-hidden="true" style="display: inline-flex; gap: 3px; font-size: 13px; color: #BFA06A; letter-spacing: 2px">★★★★★</span>
           <blockquote style="margin: 0; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.62; color: #EAE5DC">Ella Lee Homes built our home in 2023, and we couldn’t be happier! The project was completed on time, within budget, and exceeded our expectations.</blockquote>

@@ -312,6 +312,56 @@
     if (t && t.__elhStrip) t.__elhStrip.target += dir * t.__elhStrip.step;
   }
 
+  /** The reviews strip is a native scroller (swipe, wheel and keyboard keep working); the arrows only add a way to move it. */
+  function reviewsParts() {
+    var scroller = document.getElementById('reviews-scroller');
+    if (!scroller) return null;
+    return {
+      scroller: scroller,
+      prev: document.querySelector('[data-elh-click="reviewsPrev"]'),
+      next: document.querySelector('[data-elh-click="reviewsNext"]'),
+      group: document.querySelector('[data-elh-reviews-nav]'),
+    };
+  }
+
+  /** Distance between one card's left edge and the next: card width plus the flex gap. */
+  function reviewsStep(scroller) {
+    var first = scroller.children[0];
+    if (!first) return 0;
+    var gap = parseFloat(getComputedStyle(scroller).columnGap) || 0;
+    return first.getBoundingClientRect().width + gap;
+  }
+
+  /** Hide the arrows when nothing overflows; mark each one aria-disabled at its end of the strip. */
+  function reviewsSync() {
+    var r = reviewsParts();
+    if (!r || !r.prev || !r.next) return;
+    var max = r.scroller.scrollWidth - r.scroller.clientWidth;
+    if (r.group) r.group.hidden = max <= 1;
+    r.prev.setAttribute('aria-disabled', r.scroller.scrollLeft <= 1 ? 'true' : 'false');
+    r.next.setAttribute('aria-disabled', r.scroller.scrollLeft >= max - 1 ? 'true' : 'false');
+  }
+
+  /** One card per press. A card-wide step lands on the next snap point, so scroll-snap stays in charge. */
+  function reviewsGo(dir, btn) {
+    if (btn && btn.getAttribute('aria-disabled') === 'true') return;
+    var r = reviewsParts();
+    if (!r) return;
+    var step = reviewsStep(r.scroller);
+    if (!step) return;
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    r.scroller.scrollBy({ left: dir * step, behavior: calm ? 'auto' : 'smooth' });
+  }
+
+  function initReviews() {
+    var r = reviewsParts();
+    if (!r) return;
+    r.scroller.addEventListener('scroll', reviewsSync, { passive: true });
+    window.addEventListener('resize', reviewsSync);
+    if (window.ResizeObserver) new ResizeObserver(reviewsSync).observe(r.scroller);
+    reviewsSync();
+  }
+
   function toggleFaq(btn) {
     var panel = btn.parentElement.querySelector('[data-elh-faq-panel]');
     var icon = btn.querySelector('[data-elh-faq-icon]');
@@ -325,6 +375,8 @@
   var CLICK = {
     stripPrev: function () { stripNudge(-1); },
     stripNext: function () { stripNudge(1); },
+    reviewsPrev: function (e, el) { reviewsGo(-1, el); },
+    reviewsNext: function (e, el) { reviewsGo(1, el); },
     toggleFaq: function (e, el) { toggleFaq(el); },
   };
 
@@ -360,6 +412,7 @@
 
     requestAnimationFrame(handleScroll);
     initStrip();
+    initReviews();
 
     var hv = document.querySelector('[data-elh-herovid]');
     if (hv && hv.getAttribute('src')) {
