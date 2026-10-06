@@ -54,6 +54,33 @@ The plan behind these is `docs/launch-plan.md`. The IDs (S1, R1, B1, L1) match i
 
 ## Defaults applied while executing the plan
 
-Where the plan left a choice, the work used its recommendation. Each is easy to reverse.
+Where the plan left a choice, the work used its recommendation, never an invented fact. Each one is easy to reverse; the question number says who can overrule it.
 
-(Filled in as the work lands.)
+**Menu and footer (S9, S10, S1)**
+- The menu returns on scroll up as a neutral dark bar (grey, 82% opaque, blurred), not blue. It turns solid navy (`#001526`) only while Learn or the phone menu is open. Over a hero at the top of the page it is transparent; on the light article pages it is the dark bar from the top. All in `assets/site-nav.css`.
+- It hides after 8px of scroll down and returns after 6px of scroll up, on phones as well as desktop, once the page has scrolled by more than the bar's own height.
+- The menu collapses to the burger at 899px (was 767) so the centred links never collide with the logo or button.
+- "Lines" means section-level dividers only. Removed: the Our Story pillar board rule, the Previous Projects size-band lines, the article "related" rule and the "Last updated" rule on the legal pages. Kept: the hero line, the gold footer line, the thin rule above the footer legal bar, and every line inside a card, row, table or form (S10).
+- The footer shows "40+ homes", then "Sq ft built" once `sqftBuilt` is set in `site-facts.json`. Until then there is no cell.
+
+**Wording (S5, S11, S12, S15, S16)**
+- Em dashes were replaced by the punctuation that fits (colon, period, comma, parentheses) with every word kept. That includes Heather Wilson's review, which appears on four pages and now reads "warranty team, owning an Ella Lee home"; if her exact punctuation matters, say so (S5).
+- Energy and smart-home: the one approved sentence ("We can build with energy-efficient systems and smart-home wiring when your plans call for them.") is on Developers, pillar 04. Every other mention was cut: Our Story's "sustainable materials, and energy-efficient solutions", Developers' "sustainable practices", "innovative, sustainable", "cutting-edge", and the energy and smart-home passages in three articles (one list item; market-context sentences, a smart-systems paragraph and four FAQ answers in the investment and luxury-essentials articles, also removed from their FAQ structured data) (S12).
+- "Home appraised at $X" became "Completed home value $X" on Developers and Why Us, with the definition ("The value of the finished home, including the land. Not the construction cost.") once per page in small muted text (S15).
+- Client updates read "photos and weekly updates" everywhere; the old "daily photos" in FAQ answers and their structured data was changed (S11).
+- Every "Start your build" button goes to the Contact page. Sell keeps "Start the Conversation". "Get Started" and "Start Your Build" no longer appear.
+- The construction range reads "11 to 18 months" in one form on Build, FAQ and their structured data.
+- Developers hero is one line, "A repeat-client track record." The other hero line, "Serious builds, clearly managed.", became the heading above the four pillars so no words were lost (S16 asks what "two white lines" meant).
+- Home FAQ uses the FAQ page's subhead (punch items N4 and 27). Its heading is unchanged.
+- The project-page hero draws one line under the project name (N5, S16), and a missing or unknown project slug redirects to the portfolio instead of showing hidden "Project not found" text (58).
+
+**Leads and legal (B1 to B4, S2, S3, L1)**
+- The Contact page carries the Buildertrend embed on a linen panel with the phone and email above it as a fallback. The five other forms are gone. The portal page shows no button until `buildertrendLoginUrl` is set, and the walkthrough video and blank login embed are removed (S3 asks whether to replace the video).
+- Privacy, Terms and Disclaimer carry the client's draft word for word, with links added and "Last updated" filled from `launchDate` (L1 lists the two bullets that no longer match the site).
+
+**Behaviour (items 43, 44)**
+- The Home project strip scrolls at 15.6 px per second (the speed it had on a 60 Hz screen, which is 53% above the original), and no longer runs faster on a 120 Hz screen. Its photos decode before it starts, which should end the blank card, but the blank card could not be reproduced here. Check on a phone and in Safari (S11).
+
+**Not done on purpose**
+- Vercel settings (production branch, domain, DNS) and the stale open pull requests are untouched. `docs/launch-checklist.md` has the cutover order.
+- Nothing was written that is not on the Fact Sheet. Where a page carried a claim the sheet does not cover, it was left as it was and listed in S11.
