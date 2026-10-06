@@ -79,6 +79,20 @@ const RULES = [
 /** Rules that read only visible text (see the header). Each lands with the fix that clears it. */
 const TEXT_RULES = [];
 
+/**
+ * Rules whose fixes are still being made: reported, never enforced. Run
+ * `node scripts/check-copy.mjs --pending` for every hit. When a rule reaches zero hits,
+ * move it up to TEXT_RULES in the same commit so it can never come back.
+ */
+const PENDING_TEXT_RULES = [
+  [/—|&mdash;|&#8212;|&#x2014;/, 'No em dashes in site copy, titles or meta'],
+  [/\bStudio\b/, 'The office is the "Office", never the "Studio"'],
+  [/\bdaily (?:photos|updates|progress|reports)\b/i, 'Client updates are "photos and weekly updates", never "daily"'],
+  [/cutting[- ]edge|sustainable (?:practices|construction|solutions)|innovative,? sustainable|future[- ]proof/i, 'No "cutting-edge" or "sustainable practices"'],
+  [/energy[- ]efficien|smart[- ]home|home automation/i, 'Energy and smart-home claims: say once, in the approved sentence', { except: ['src/developers.html', 'src/project.html'] }],
+  [/appraised at/i, 'Project values use the short label "Completed home value"'],
+];
+
 const files = [
   ...fs.readdirSync(path.join(root, 'src')).filter((f) => f.endsWith('.html')).map((f) => path.join('src', f)),
   ...fs.readdirSync(path.join(root, 'partials')).map((f) => path.join('partials', f)),
@@ -96,11 +110,21 @@ function inScope(rel, scope = {}) {
   return true;
 }
 
+const pending = PENDING_TEXT_RULES.map(() => []);
 for (const rel of files) {
   const source = fs.readFileSync(path.join(root, rel), 'utf8');
   const lines = source.split('\n');
-  if (TEXT_RULES.length) {
+  if (TEXT_RULES.length || PENDING_TEXT_RULES.length) {
     const cls = classifyRegions(source);
+    PENDING_TEXT_RULES.forEach(([rx, why, scope], i) => {
+      if (!inScope(rel, scope)) return;
+      const g = new RegExp(rx.source, rx.flags.includes('g') ? rx.flags : rx.flags + 'g');
+      let m;
+      while ((m = g.exec(source))) {
+        if (m[0].length === 0) g.lastIndex++;
+        else if (SEEN.includes(cls[m.index])) pending[i].push(`${rel}:${lineOf(source, m.index)}: "${m[0]}"`);
+      }
+    });
     for (const [rx, why, scope] of TEXT_RULES) {
       if (!inScope(rel, scope)) continue;
       const g = new RegExp(rx.source, rx.flags.includes('g') ? rx.flags : rx.flags + 'g');
@@ -133,8 +157,15 @@ for (const rel of files) {
     }
   });
 }
+const pendingTotal = pending.reduce((n, hits) => n + hits.length, 0);
+if (process.argv.includes('--pending')) {
+  PENDING_TEXT_RULES.forEach(([, why], i) => {
+    console.log(`\n## ${why}: ${pending[i].length} hit(s)`);
+    pending[i].forEach((h) => console.log('  ' + h));
+  });
+}
 if (bad) {
   console.error(`\ncheck-copy: ${bad} banned phrase(s). See docs/fact-sheet.md.`);
   process.exit(1);
 }
-console.log('check-copy: ok');
+console.log(`check-copy: ok${pendingTotal ? ` (${pendingTotal} hit(s) still pending on ${pending.filter((h) => h.length).length} rule(s); run with --pending)` : ''}`);
