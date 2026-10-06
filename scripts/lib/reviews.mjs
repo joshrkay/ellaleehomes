@@ -57,7 +57,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 const starsOf = (r) => '★'.repeat(r.stars);
 const hrefOf = (r) => esc(r.url || PROFILE_URL);
-const metaOf = (r) => 'Google review' + (r.when ? ` &middot; ${esc(r.when)}` : '');
+const metaOf = (r) => 'Google review' + (r.when && r.when.trim() ? ` &middot; ${esc(r.when.trim())}` : '');
 
 const HOME_STYLE = {
   link: 'flex: 0 0 auto; width: min(86vw, 380px); scroll-snap-align: start; text-decoration: none; color: inherit',
@@ -282,4 +282,13 @@ export function applyReviews(html, file) {
 
 /* ---------------------------------------------------------------- standalone check */
 
-if (process.argv[1] && fs.realpathSync(process.argv[1]) === fs.realpathSync(fileURLToPath(import.meta.url))) prepare();
+/** True when this file is the script being run (not when the build imports it). Never throws. */
+function runAsScript() {
+  try {
+    return fs.realpathSync(process.argv[1]) === fs.realpathSync(fileURLToPath(import.meta.url));
+  } catch {
+    return false;
+  }
+}
+
+if (runAsScript()) prepare();
