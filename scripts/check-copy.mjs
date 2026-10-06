@@ -1,11 +1,23 @@
 #!/usr/bin/env node
 /**
  * Fails the build when wording the Website Fact Sheet rules out comes back.
- * Source of truth: docs/website-plan.md §1. Add a rule here when a decision is made.
+ * Source of truth: docs/fact-sheet.md (the Fact Sheet as updated Oct 2, 2026).
+ *
+ * Add a rule in the same commit that removes the wording it bans: `npm run build`
+ * runs this on Vercel too, so a rule that fails on existing copy blocks the deploy.
+ *
+ * Two kinds of rule:
+ *   RULES       matched against every raw source line of src/*.html and partials/*.
+ *   TEXT_RULES  matched only against text a visitor or search engine can read: body
+ *               text, attribute values, <title> and <meta>, JSON-LD, and inline-script
+ *               data. HTML comments, <style> blocks and script comments are ignored
+ *               (see scripts/lib/regions.mjs). A rule may be scoped to files:
+ *               [regex, reason, { only: ['src/a.html'], except: ['src/b.html'] }].
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { classifyRegions, lineOf, SEEN } from './lib/regions.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -55,7 +67,12 @@ const RULES = [
   [/never in the dark|never feel left in the dark|will always attract|\bunmatched\b/i, 'No absolute promises'],
   [/walk candidate lots|review a lot before you buy|if you are still looking/i, 'Nothing about services beyond custom homes (no lot-finding or lot-vetting service)'],
   [/award[- ]worthy|comprehensive warranty|full builder warranty|long-term peace of mind/i, 'Warranty is described as the Warranty page describes it; no invented distinctions'],
+  // Notes from the client drafts must never ship.
+  [/For Josh|For Shay|Claude is not a lawyer|written by Claude/i, 'Draft note leaked onto the site'],
 ];
+
+/** Rules that read only visible text (see the header). Each lands with the fix that clears it. */
+const TEXT_RULES = [];
 
 const files = [
   ...fs.readdirSync(path.join(root, 'src')).filter((f) => f.endsWith('.html')).map((f) => path.join('src', f)),
@@ -65,8 +82,33 @@ const files = [
 let bad = 0;
 const WARRANTY_OK = new Set([path.join('src', 'warranty.html'), path.join('src', 'homeowner-resources.html')]);
 const NAV_ONLY_OK = new Set([path.join('partials', 'nav.html'), path.join('partials', 'nav-dropdown.html')]);
+
+/** Scope check for TEXT_RULES; paths are compared with forward slashes. */
+function inScope(rel, scope = {}) {
+  const p = rel.split(path.sep).join('/');
+  if (scope.only && !scope.only.includes(p)) return false;
+  if (scope.except && scope.except.includes(p)) return false;
+  return true;
+}
+
 for (const rel of files) {
-  const lines = fs.readFileSync(path.join(root, rel), 'utf8').split('\n');
+  const source = fs.readFileSync(path.join(root, rel), 'utf8');
+  const lines = source.split('\n');
+  if (TEXT_RULES.length) {
+    const cls = classifyRegions(source);
+    for (const [rx, why, scope] of TEXT_RULES) {
+      if (!inScope(rel, scope)) continue;
+      const g = new RegExp(rx.source, rx.flags.includes('g') ? rx.flags : rx.flags + 'g');
+      let m;
+      while ((m = g.exec(source))) {
+        if (m[0].length === 0) g.lastIndex++;
+        else if (SEEN.includes(cls[m.index])) {
+          bad++;
+          console.error(`${rel}:${lineOf(source, m.index)}: "${m[0]}" — ${why}`);
+        }
+      }
+    }
+  }
   lines.forEach((line, i) => {
     if (/warranty@ellaleehomes\.com/.test(line) && !WARRANTY_OK.has(rel)) {
       bad++;
@@ -86,7 +128,7 @@ for (const rel of files) {
   });
 }
 if (bad) {
-  console.error(`\ncheck-copy: ${bad} banned phrase(s). See docs/website-plan.md §1.`);
+  console.error(`\ncheck-copy: ${bad} banned phrase(s). See docs/fact-sheet.md.`);
   process.exit(1);
 }
 console.log('check-copy: ok');

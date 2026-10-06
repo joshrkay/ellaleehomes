@@ -29,6 +29,38 @@ const dropdownTemplate = fs.readFileSync(dropdownPath, 'utf8');
 /** Canonical origin of the live site, used for sitemap URLs. */
 const SITE_ORIGIN = 'https://ellaleehomes.com';
 
+/**
+ * Facts the site cannot invent live in site-facts.json; null means "not supplied yet".
+ *   {{key}}                               filled with the value when it is set
+ *   <!-- fact:key -->...<!-- /fact:key --> kept (with {{key}} filled) when set, dropped when not,
+ *                                          so an unset fact never ships as a placeholder
+ *   [launch date]                         on the legal pages, filled from launchDate
+ * `npm run check:launch` fails until every fact is set.
+ */
+const FACTS = JSON.parse(fs.readFileSync(path.join(root, 'site-facts.json'), 'utf8'));
+const unsetFacts = new Set();
+const isSet = (key) => FACTS[key] != null && FACTS[key] !== '';
+const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+
+/** @param {string} html */
+function applyFacts(html) {
+  html = html.replace(/<!-- fact:(\w+) -->([\s\S]*?)<!-- \/fact:\1 -->/g, (_, key, inner) => {
+    if (isSet(key)) return inner;
+    unsetFacts.add(key);
+    return '';
+  });
+  html = html.replace(/\{\{(\w+)\}\}/g, (token, key) => {
+    if (isSet(key)) return escapeAttr(FACTS[key]);
+    unsetFacts.add(key);
+    return token;
+  });
+  if (html.includes('[launch date]')) {
+    if (isSet('launchDate')) html = html.replaceAll('[launch date]', escapeAttr(FACTS.launchDate));
+    else unsetFacts.add('launchDate');
+  }
+  return html;
+}
+
 /** Where the nav's "Get Started" button points. */
 const CTA_HOME = 'index.html#inquiry';
 const CTA_CONTACT = 'contact.html';
@@ -264,6 +296,7 @@ for (const page of PAGES) {
   }
   content = content.split(DROPDOWN_PLACEHOLDER).join(dropdownTemplate);
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(page.file === 'index.html'));
+  content = applyFacts(content);
   // Brand favicon on every page (monogram on navy, per the style guide).
   if (!content.includes('rel="icon"')) {
     content = content.replace('</head>', FAVICON_TAGS + '</head>');
@@ -277,6 +310,10 @@ for (const page of PAGES) {
 }
 
 writeSitemap();
+
+if (unsetFacts.size) {
+  console.warn(`site-facts.json: not set yet (${[...unsetFacts].join(', ')}). The build leaves the slot out; check:launch fails until it is set.`);
+}
 
 // Root-level files that ship as-is.
 for (const name of ['robots.txt']) {

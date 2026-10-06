@@ -3,7 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/check-copy.mjs && node scripts/build-html.mjs",
+    "build": "node scripts/check-copy.mjs && node scripts/build-html.mjs && node scripts/check-launch.mjs --summary",
+    "check:copy": "node scripts/check-copy.mjs",
+    "check:assets": "node scripts/check-assets.mjs",
+    "launch:report": "node scripts/check-launch.mjs",
+    "check:launch": "node scripts/check-launch.mjs --strict",
     "watch": "node scripts/watch.mjs",
     "dev": "npm run build && concurrently -k \"npm run watch\" \"browser-sync start --server dist --files dist --no-open\""
   },
