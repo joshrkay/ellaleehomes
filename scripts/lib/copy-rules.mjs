@@ -82,7 +82,7 @@ export const RULES = [
 /** Rules that read only visible text (see the header). Each lands with the fix that clears it. */
 export const TEXT_RULES = [
   [/\bStudio\b/, 'The office is the "Office", never the "Studio"'],
-  [/energy[- ]efficien|smart[- ]home|home automation/i, 'Energy and smart-home claims: say once, in the approved sentence', { except: ['src/developers.html', 'src/project.html'] }],
+  [/energy[- ]efficien|smart[- ]home|home automation/i, 'Energy and smart-home claims: say once, in the approved sentence', { except: ['src/developers.html', 'src/project.html', 'data/projects.json'] }],
   [/Get Started/, 'The primary call to action is "Start your build"'],
   [/Start Your Build/, 'Write the call to action as "Start your build"'],
   [/Start the [Cc]onversation/, 'Only the Sell page says "Start the Conversation"', { except: ['src/sell-your-home.html'] }],

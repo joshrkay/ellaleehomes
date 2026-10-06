@@ -10,7 +10,7 @@
  * through src/ (the reviews in data/reviews.json) is held to the same regexes.
  *
  * Two kinds of rule:
- *   RULES       matched against every raw source line of src/*.html and partials/*.
+ *   RULES       matched against every raw source line of src/*.html, partials/* and data/projects.json.
  *   TEXT_RULES  matched only against text a visitor or search engine can read: body
  *               text, attribute values, <title> and <meta>, JSON-LD, and inline-script
  *               data. HTML comments, <style> blocks and script comments are ignored
@@ -29,6 +29,8 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const files = [
   ...fs.readdirSync(path.join(root, 'src')).filter((f) => f.endsWith('.html')).map((f) => path.join('src', f)),
   ...fs.readdirSync(path.join(root, 'partials')).map((f) => path.join('partials', f)),
+  // The portfolio's copy (names, labels, story text, amenities) lives in the data file, not in a page.
+  ...(fs.existsSync(path.join(root, 'data', 'projects.json')) ? [path.join('data', 'projects.json')] : []),
 ];
 
 let bad = 0;
