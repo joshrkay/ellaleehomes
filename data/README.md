@@ -14,7 +14,7 @@ Files the build reads. Edit the data here, not the pages: the pages only carry m
 4. Run `npm run build`. It prints a `reviews (report)` line and one `[V...]` line for each problem or gap. To check only this file, run `node scripts/lib/reviews.mjs`; add `--strict` for the launch rules.
 5. If the build says a review is not shown, the line says why. Fix it and build again.
 
-The first confirmed review beyond the original five also needs `scripts/qa.py` to change. It expects exactly those five: the static check `FS4c`, and checks 51 and 53 in the browser run, report a FAIL for a sixth.
+`scripts/qa.py` reads this file. Its testimonial check (`FS4c`) accepts the five original reviews plus any review you have set `"confirmed": true`, and it fails a confirmed review that is not in the original five unless it has a `date` and a `url` (the Fact Sheet's rule for added reviews). Checks 51 and 53 expect as many cards as the file says.
 
 ### Fields
 

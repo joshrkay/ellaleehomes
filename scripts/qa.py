@@ -731,28 +731,36 @@ def factsheet_checks():
     reg('FS4a', 'Charitable giving is stated only as "10% of profits" (no "minimum", no "annual")', 'FAIL' if ch else 'PASS',
         fmt_hits(list(dict.fromkeys(ch))) or '10% of profits on home, developers and FAQ; no other giving figure')
     none_found('FS4b', 'No urgency or hard-sell tactics', r"\b(?:act now|limited time|hurry|don't miss|last chance|only \d+ (?:spots|lots|homes) left|before it's too late|today only|call now|don't wait|book now)\b", ALL)
-    # testimonials: every quote must exist verbatim in the original home page (the five real Google reviews)
+    # testimonials: a quote is one of the five in the original home page, or a review in data/reviews.json that a person
+    # has confirmed (question S5) and that carries the date and link the Fact Sheet asks for. Anything else is invented.
     undash = lambda s: re.sub(r'\s*\u2014\s*', ', ', s)  # the client bans em dashes, so a dash inside a quote became a comma
     orig = undash(norm_ws(git_show('src/index.html')))
+    try:
+        data_reviews = json.loads(rd(os.path.join(ROOT, 'data', 'reviews.json')))
+    except (OSError, ValueError):
+        data_reviews = []
+    REVIEWS_CONFIRMED = [r for r in data_reviews if isinstance(r, dict) and r.get('confirmed') is True]
+    trusted = {undash(norm_ws(r.get('text', ''))) for r in REVIEWS_CONFIRMED}
+    added = [r for r in REVIEWS_CONFIRMED if undash(norm_ws(r.get('text', ''))) not in orig]
+    unsourced = [r.get('id', '?') for r in added if not (r.get('date') and r.get('url'))]
     quotes = {}
     for n, h in PAGES.items():
         for m in re.finditer(r'<blockquote\b[^>]*>(.*?)</blockquote>', h, re.S):
             quotes.setdefault(undash(norm_ws(m.group(1))), set()).add(n)
-    invented = [q[:70] for q in quotes if q not in orig]
-    names = Counter()
-    for n, h in PAGES.items():
-        for m in re.finditer(r'class="rv-card[^"]*".*?</figure>|class="rv-card[^"]*".*?</a>', h, re.S):
-            pass
+    invented = [q[:70] for q in quotes if q not in orig and q not in trusted]
     reviewers = set()
     for n in ('index', 'why-us', 'developers', 'our-story'):
         for m in re.finditer(r'<figcaption[^>]*>(.*?)</figcaption>', PAGES[n], re.S):
             reviewers.add(norm_ws(m.group(1)).split(' Google review')[0].strip())
     okset = {'M Mike M', 'M Michael Wiss', 'A Anastasia Foster', 'H Heather Wilson', 'G Gordon Yonel'}
+    okset |= {'%s %s' % (r.get('initial', ''), r.get('name', '')) for r in REVIEWS_CONFIRMED}
     odd = [r for r in reviewers if r not in okset]
-    reg('FS4c', 'Testimonials: only the five real Google reviews; every quote is verbatim in the original home page; reviewer names as on Google; none invented',
-        'FAIL' if (invented or odd or len(quotes) != 5) else 'PASS',
-        'quotes on site: %d (expected 5); not in original home page: %s; unexpected reviewer labels: %s' % (len(quotes), invented, odd) if (invented or odd or len(quotes) != 5)
-        else '5 distinct quotes, all verbatim in the original home page, shown on %s; reviewers: Mike M, Michael Wiss, Anastasia Foster, Heather Wilson, Gordon Yonel' % sorted({p for v in quotes.values() for p in v}))
+    n_shown = len(quotes)
+    bad = bool(invented or odd or unsourced or n_shown != len(trusted))
+    reg('FS4c', 'Testimonials: only real Google reviews (the five in the original home page, plus any confirmed in data/reviews.json with a date and link); every quote verbatim; reviewer names as on Google; none invented',
+        'FAIL' if bad else 'PASS',
+        ('quotes on site: %d (data/reviews.json confirms %d); not in the original page or the confirmed data: %s; added without a date or link: %s; unexpected reviewer labels: %s' % (n_shown, len(trusted), invented, unsourced, odd)) if bad
+        else '%d distinct quotes (%d from the original home page, %d added and confirmed in data/reviews.json), shown on %s; reviewers: %s' % (n_shown, n_shown - len(added), len(added), sorted({p for v in quotes.values() for p in v}), ', '.join(sorted(r.split(' ', 1)[1] for r in reviewers))))
     # ------------------------------------------------ 5. Voice (measured, human judges)
     stats = []
     for n in ('index', 'why-us', 'our-story', 'build-your-home', 'faq', 'sell-your-home', 'developers', 'contact', 'warranty'):
@@ -1268,13 +1276,13 @@ def browser_checks(projects):
           reviews: document.querySelectorAll('#testimonials .rv-card').length,
           homeBtn: [...document.querySelectorAll('#proof .proof-hd-r a')].map(a => a.textContent.trim()),
           pull: !!document.querySelector('#pull')})""")
-        reg('51', 'Why Us: first strip redesigned, review strip like the front page, no halo around the card stack', 'PASS' if (wu['halo'] == 0 and wu['strip'] and wu['reviews'] == 5 and not wu['pull']) else 'FAIL', str(wu))
+        reg('51', 'Why Us: first strip redesigned, review strip like the front page, no halo around the card stack', 'PASS' if (wu['halo'] == 0 and wu['strip'] and wu['reviews'] == sum(1 for r in REVIEWS_CONFIRMED if 'why-us' in r.get('pages', [])) and not wu['pull']) else 'FAIL', str(wu))
         reg('52', 'Why Us: stray "HOME" button next to "Full Portfolio" removed', 'PASS' if not any(t.strip().lower() == 'home' for t in wu['homeBtn']) else 'FAIL', 'buttons in that header: %s' % wu['homeBtn'])
         pgd, ed = newpage()
         go(pgd, 'developers', 1200)
         dv = pgd.evaluate("""() => ({halo: [...document.querySelectorAll('.pillar-card, .pillar, #pillars > *')].map(e => getComputedStyle(e).boxShadow).filter(s => s !== 'none').length,
                                   reviews: document.querySelectorAll('#testimonials .rv-card').length})""")
-        reg('53', 'Developers: same treatment as Why Us (halo removed, review strip)', 'PASS' if (dv['halo'] == 0 and dv['reviews'] == 5) else 'FAIL', str(dv))
+        reg('53', 'Developers: same treatment as Why Us (halo removed, review strip)', 'PASS' if (dv['halo'] == 0 and dv['reviews'] == sum(1 for r in REVIEWS_CONFIRMED if 'developers' in r.get('pages', []))) else 'FAIL', str(dv))
         # sell chips below hero
         pgy, ey = newpage()
         go(pgy, 'sell-your-home', 1200)
