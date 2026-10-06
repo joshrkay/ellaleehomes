@@ -2638,6 +2638,22 @@ const AMENITY_ICONS = [
   '<svg viewBox="0 0 24 24" fill="none" stroke="#BFA06A" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>'
 ];
 
+// A gallery strip needs a small copy of each photo. An optimised photo (a .webp in the w or d folder under
+// uploads) has a "-480" copy beside it: name.webp and name-480.webp. Any other URL, such as the remote
+// photos this page uses today, comes back unchanged. Full-size views, heroes and cards keep the original.
+function thumbSrc(url) {
+  const m = /^(.*uploads\/[wd]\/[^?#]+)\.webp([?#].*)?$/.exec(url);
+  return m && !/-480$/.test(m[1]) ? m[1] + '-480.webp' + (m[2] || '') : url;
+}
+
+// Alt text for every gallery image: "<project name>, photo N of M".
+function photoAlt(project, n) {
+  return project.name.replace(/&amp;/g, '&') + ', photo ' + n + ' of ' + project.gallery.length;
+}
+
+// For a value written inside a double-quoted HTML attribute.
+const escAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+
 // The project named in the address (?slug=), after the aliases above. Null when there is no slug or it is unknown.
 function resolveSlug() {
   const own = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
@@ -2738,21 +2754,23 @@ function renderProject() {
     `;
   }
 
-  // Gallery
+  // Gallery. Every photo's alt reads "<project>, photo N of M". The lead tile is the hero photo and loads
+  // at once; the other two are lazy. They keep the original URL: they are card-sized, not strip-sized.
   const gallery = document.getElementById('gallery-grid');
   const g = project.gallery;
+  const lazy = ' loading="lazy" decoding="async"';
   if (g.length === 1) {
     // Single-image gallery: show just the hero spanning full width
     gallery.innerHTML = `
-      <div class="gallery-img main" style="grid-column: 1 / 3;"><img src="${g[0]}" alt=""></div>
+      <div class="gallery-img main" style="grid-column: 1 / 3;"><img src="${g[0]}" alt="${escAttr(photoAlt(project, 1))}"></div>
     `;
   } else {
     const extra = Math.max(0, g.length - 3);
     gallery.innerHTML = `
-      <div class="gallery-img main"><img src="${g[0]}" alt=""></div>
-      <div class="gallery-img"><img src="${g[1] || g[0]}" alt=""></div>
+      <div class="gallery-img main"><img src="${g[0]}" alt="${escAttr(photoAlt(project, 1))}"></div>
+      <div class="gallery-img"><img src="${g[1] || g[0]}" alt="${escAttr(photoAlt(project, g[1] ? 2 : 1))}"${lazy}></div>
       <div class="gallery-more">
-        <img src="${g[2] || g[0]}" alt="">
+        <img src="${g[2] || g[0]}" alt="${escAttr(photoAlt(project, g[2] ? 3 : 1))}"${lazy}>
         <div class="gallery-more-label">
           ${extra > 0 ? `<span class="gallery-more-num">+${extra}</span>` : ''}
           View All Photos
@@ -2816,20 +2834,24 @@ renderProject();
   const counter = lb.querySelector('#lb-counter');
   const thumbsEl = lb.querySelector('#lb-thumbs');
   let imgs = [];
+  let current = null; // the project whose photos are open (for the alt text)
   let idx = 0;
 
   function show(i){
     if (!imgs.length) return;
     idx = (i + imgs.length) % imgs.length;
     imgEl.src = imgs[idx];
+    imgEl.alt = photoAlt(current, idx + 1);
     counter.textContent = `${idx+1} / ${imgs.length}`;
     Array.from(thumbsEl.children).forEach((t,j) => t.classList.toggle('active', j === idx));
     const active = thumbsEl.children[idx];
     if (active) active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
   }
-  function open(list, start=0){
-    imgs = list;
-    thumbsEl.innerHTML = imgs.map((src,j) => `<div class="lb-thumb" data-i="${j}"><img src="${src}" alt=""></div>`).join('');
+  function open(proj, start=0){
+    current = proj;
+    imgs = proj.gallery;
+    // The strip loads the small copy of each photo, and only as it scrolls into view (the first loads at once).
+    thumbsEl.innerHTML = imgs.map((src,j) => `<div class="lb-thumb" data-i="${j}"><img src="${thumbSrc(src)}" alt="${escAttr(photoAlt(proj, j + 1))}"${j ? ' loading="lazy" decoding="async"' : ''}></div>`).join('');
     thumbsEl.querySelectorAll('.lb-thumb').forEach(el => {
       el.addEventListener('click', () => show(parseInt(el.dataset.i)));
     });
@@ -2865,7 +2887,7 @@ renderProject();
       // Determine start index by tile position
       const allTiles = Array.from(gridEl.querySelectorAll('.gallery-img, .gallery-more'));
       const start = Math.min(allTiles.indexOf(tile), proj.gallery.length - 1);
-      open(proj.gallery, start >= 0 ? start : 0);
+      open(proj, start >= 0 ? start : 0);
     });
     gridEl.style.cursor = 'pointer';
   }
