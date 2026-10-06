@@ -336,7 +336,8 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   font-size: clamp(29px, 5.1vw, 98px); line-height: 1.04; letter-spacing: -.01em;
   color: #EAE5DC; text-shadow: 0 2px 24px rgba(0,0,0,.5);
 }
-.hero-title::after, #faq-hero h1::after, .hero-name::after {
+/* One rule, under the project name. (.hero-title is only the wrapper: it must not draw a second one.) */
+#faq-hero h1::after, .hero-name::after {
   content: ''; display: block; height: 1px;
   margin-top: clamp(14px, 1.6vw, 22px);
   background: rgba(234,229,220,.42);
