@@ -14,6 +14,23 @@ The build is green and `check-copy` passes. Of the 35 open punch-list items, che
 | Waiting on someone else | 10 | N3, N6, N8, N12, 11, 13, 33, 41, 45, 50 |
 | Done, superseded, or not ours | 10 | N2 and N16 (Buildertrend settings), A1 and A2 (superseded), 9, 17, 27, 43, 44, 61 |
 
+**Where the work stands (October 6, first execution pass)**
+
+Everything that needs nothing from anyone else is built, merged to the working branch and checked: `npm run build` (green), `python3 scripts/qa.py --static` (88 pass, 0 fail, 11 blocked on inputs, 6 for a person to judge) and `npm run qa:chrome` (100 pass in Chromium). The live per-item list is `docs/punch-list.md`; every open question is in `docs/needs-confirmation.md`.
+
+| WP | State | What is left, and who holds it |
+|---|---|---|
+| WP0 Foundation | Done | Guards, launch gate, `site-facts.json`, docs, hygiene |
+| WP1 Leads | Done in code | Buildertrend fields and a test lead (B1 to B4); the login URL (S2, B3); attorney review (L1) |
+| WP2 Chrome | Done | Sq ft figure (S1); S9 and S10 answers; Safari and a phone |
+| WP3 Copy and SEO | Done | S11 to S13 answers; title pattern |
+| WP4 Page fixes | Done | S16; look at the strip, hero gradient and Developers on staging |
+| WP5 Portfolio data | Phase A done (one data file, validator, Rebecca's sheet and importer) | Phase B: her records (R1 to R5). Phase C: per-project pages and redirects (J4) |
+| WP6 Build timeline | Waiting | Shay's wording (S4) |
+| WP7 Media | Tooling done and tested in simulation | Run it where the old site and Drive are reachable; Zillow originals (R5); the hero video (S6) |
+| WP8 Shay's content | Reviews source done | Reviews, Our Story copy, "See the craft" line (S5 to S8) |
+| WP9 Launch gate | Gate and checklist done | Cutover: `docs/launch-checklist.md` |
+
 **Critical path to launch**
 
 1. Buildertrend form live on Contact and one test lead received (N15). Top blocker.
