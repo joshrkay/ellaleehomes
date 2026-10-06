@@ -12,7 +12,7 @@ Run `npm run check:assets` for the live count. At the start of the launch work (
 | Google Drive (`lh3.googleusercontent.com/d/<ID>`) | 579 | Project galleries and six portfolio cards |
 | Zillow (`photos.zillowstatic.com`) | 3 | One photo each for 5th St 2, Cudia City and Desert Cove |
 
-92% of them sit in the project data block in `src/project.html`.
+92% of them are the project photographs: the card, hero and gallery of every home, which live in `data/projects.json` (it fills the `PROJECTS` block in `src/project.html` and the cards on the portfolio page when the site is built; see `data/README.md`).
 
 ## The pipeline
 
@@ -31,7 +31,7 @@ With no flag it runs all of them. It can be run again at any point: it skips wha
 
 - **Hosts needed:** `ellaleehomes.com` and `lh3.googleusercontent.com`. This session's environment blocks them (Network access in the environment settings), so run it there once they are allowed, or on a machine with normal internet access and commit the result.
 - **Drive:** the site already hot-links these files, so they are publicly readable and the tool fetches them by ID (up to 2200px). If a file is no longer shared, export it by hand as `uploads/drive/<ID>.<ext>`.
-- **Rewriting** is relative in pages and scripts, and absolute (`https://ellaleehomes.com/...`) inside `<meta>` tags and JSON-LD, where a relative URL is invalid.
+- **Rewriting** is relative in pages and scripts, and absolute (`https://ellaleehomes.com/...`) inside `<meta>` tags and JSON-LD, where a relative URL is invalid. In `data/projects.json` every photograph is a plain JSON string and is always rewritten relative (`uploads/w/...`, `uploads/d/...`); the build turns a card photo into the full address the portfolio's ItemList JSON-LD needs, so run `npm run build` after a rewrite.
 
 ## Layout
 

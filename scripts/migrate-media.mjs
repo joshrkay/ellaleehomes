@@ -27,6 +27,11 @@
  *   --verify    run the asset gate (scripts/check-assets.mjs) in strict mode
  *   (no flag)   all five, in that order
  *
+ * Where references are read and rewritten: src/*.html, partials/*.html and data/projects.json. The project
+ * photographs (card, hero and gallery of every home) live in the data file, not in a page; there they are JSON
+ * string values and always become relative paths (uploads/w/..., uploads/d/...), never absolute. The build turns a
+ * card photo into the full address the ItemList JSON-LD needs.
+ *
  * Rewriting only touches a reference whose optimised file exists, so a partial run cannot leave a
  * page pointing at nothing; run it again to pick up the rest. If a download is blocked where you
  * run this (an egress policy), fetch the files any way you like into the cache folders above and
@@ -70,6 +75,9 @@ const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const abs = (rel) => path.join(root, rel);
 const exists = (rel) => fs.existsSync(abs(rel));
 
+/** The portfolio data: every project's card, hero and gallery photographs (see the header). */
+const DATA_FILE = 'data/projects.json';
+
 /** Files that can carry a media reference. */
 function sourceFiles() {
   const out = [];
@@ -78,6 +86,7 @@ function sourceFiles() {
     if (!fs.existsSync(d)) continue;
     for (const n of fs.readdirSync(d)) if (n.endsWith('.html')) out.push(path.join(dir, n));
   }
+  if (exists(DATA_FILE)) out.push(DATA_FILE);
   return out;
 }
 
@@ -258,11 +267,13 @@ async function optimize({ list }) {
  * Repoint references. Relative in pages and scripts (every page lives at the site root);
  * absolute inside <meta> tags and JSON-LD, where a relative URL is invalid.
  */
+function swapUrls(s, ready, absolute) {
+  for (const [url, local] of ready) if (s.includes(url)) s = s.split(url).join(absolute ? `${ORIGIN}/${local}` : local);
+  return s;
+}
+
 function rewriteText(text, ready) {
-  const swap = (s, absolute) => {
-    for (const [url, local] of ready) if (s.includes(url)) s = s.split(url).join(absolute ? `${ORIGIN}/${local}` : local);
-    return s;
-  };
+  const swap = (s, absolute) => swapUrls(s, ready, absolute);
   const special = /<script\b[^>]*application\/ld\+json[^>]*>[\s\S]*?<\/script>|<meta\b[^>]*>/gi;
   const parts = [];
   let last = 0;
@@ -282,7 +293,8 @@ function rewrite({ list }) {
   let changedRefs = 0;
   for (const rel of sourceFiles()) {
     const before = fs.readFileSync(abs(rel), 'utf8');
-    const after = rewriteText(before, ready);
+    // The data file is plain JSON: every photo is a string value, always relative.
+    const after = rel === DATA_FILE ? swapUrls(before, ready, false) : rewriteText(before, ready);
     if (after !== before) {
       for (const url of ready.keys()) changedRefs += before.split(url).length - 1;
       fs.writeFileSync(abs(rel), after, 'utf8');
