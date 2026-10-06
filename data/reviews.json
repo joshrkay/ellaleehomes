@@ -1,0 +1,62 @@
+[
+  {
+    "id": "mike-m",
+    "name": "Mike M",
+    "initial": "M",
+    "when": "a year ago",
+    "text": "Ella Lee Homes built our home in 2023, and we couldn’t be happier! The project was completed on time, within budget, and exceeded our expectations.",
+    "stars": 5,
+    "date": null,
+    "url": null,
+    "pages": ["home", "why-us", "developers", "our-story"],
+    "confirmed": true
+  },
+  {
+    "id": "michael-wiss",
+    "name": "Michael Wiss",
+    "initial": "M",
+    "when": "3 years ago",
+    "text": "As an investor, I’ve entrusted Ella Lee Homes to build 9 custom homes. I could not be more pleased by the outcome.",
+    "stars": 5,
+    "date": null,
+    "url": null,
+    "pages": ["home", "why-us", "developers", "our-story"],
+    "confirmed": true
+  },
+  {
+    "id": "anastasia-foster",
+    "name": "Anastasia Foster",
+    "initial": "A",
+    "when": "2 years ago",
+    "text": "Shay & team have been so meticulous about all warranty and repair work, which is something most builders completely disregard.",
+    "stars": 5,
+    "date": null,
+    "url": null,
+    "pages": ["home", "why-us", "developers", "our-story"],
+    "confirmed": true
+  },
+  {
+    "id": "heather-wilson",
+    "name": "Heather Wilson",
+    "initial": "H",
+    "when": "8 months ago",
+    "text": "Attention to detail, quality construction, responsiveness of the warranty team, owning an Ella Lee home is truly enjoyable.",
+    "stars": 5,
+    "date": null,
+    "url": null,
+    "pages": ["home", "why-us", "developers", "our-story"],
+    "confirmed": true
+  },
+  {
+    "id": "gordon-yonel",
+    "name": "Gordon Yonel",
+    "initial": "G",
+    "when": "8 months ago",
+    "text": "From the very beginning, communication was easy and stress-free. What stood out most was his honesty and sincerity.",
+    "stars": 5,
+    "date": null,
+    "url": null,
+    "pages": ["home", "why-us", "developers", "our-story"],
+    "confirmed": true
+  }
+]
