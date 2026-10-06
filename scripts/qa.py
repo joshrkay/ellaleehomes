@@ -1411,7 +1411,10 @@ def browser_checks2(projects):
             'FAIL' if off else 'PASS', ('differs: ' + '; '.join(off[:8])) if off else '%d pages at 1440 = Inter 300 17px and %d pages at 390 = Inter 300 16px' % (len([d for d in dom_d.values() if d]), len([d for d in dom_m.values() if d])))
         # --- project pages
         keys = list(projects) if projects else []
-        titles, canon, issues = {}, {}, []
+        # Waiting on Rebecca (R1, R4, S14), not code: the three photo-only homes still say "Coming Soon", and two homes share the name Desert Cove.
+        PHOTO_ONLY = {'arroyo', 'stanford', 'osborn-south'}
+        SAME_NAME = {'dc1', 'desert-cove'}
+        titles, canon, issues, waiting = {}, {}, [], []
         pg, st = newpage()
         for k in keys:
             pg.goto('%s/project.html?slug=%s' % (base, k), wait_until='load')
@@ -1424,14 +1427,19 @@ def browser_checks2(projects):
             if info['content'] != 'block' or info['h1'] != 1 or not info['hero']:
                 issues.append('%s: content=%s h1=%d hero=%s' % (k, info['content'], info['h1'], info['hero']))
             if re.search(r'See live site|Coming Soon|will be added here|undefined|NaN|\[object', info['text']):
-                issues.append('%s: placeholder or broken text on page' % k)
+                (waiting if k in PHOTO_ONLY and not re.search(r'See live site|will be added here|undefined|NaN|\[object', info['text']) else issues).append('%s: placeholder or broken text on page' % k)
             if info['ogt'] != info['title'] or not info['ogu'].endswith('slug=' + k):
                 issues.append('%s: og tags not per-project' % k)
-        dupt = {t: v for t, v in titles.items() if len(v) > 1}
+        dupt_all = {t: v for t, v in titles.items() if len(v) > 1}
+        dupt = {t: v for t, v in dupt_all.items() if not set(v) <= SAME_NAME}
+        for t, v in dupt_all.items():
+            if set(v) <= SAME_NAME:
+                waiting.append('duplicate title "%s" (%s): two homes share a name, question R4' % (t, ', '.join(v)))
         dupc = {t: v for t, v in canon.items() if len(v) > 1}
+        status = 'FAIL' if (issues or dupt or dupc) else ('BLOCKED' if waiting else 'PASS')
         reg('X4g', 'All %d project pages render populated (one h1, hero image, no placeholder text) with their own title, canonical and share tags' % len(keys),
-            'FAIL' if (issues or dupt or dupc) else 'PASS',
-            '; '.join(issues[:4] + ['duplicate titles %s' % list(dupt)[:2]] * bool(dupt) + ['duplicate canonicals'] * bool(dupc)) or '%d projects: unique titles (e.g. "%s"), unique canonicals, og:url per slug' % (len(keys), next(iter(titles))))
+            status,
+            '; '.join(issues[:4] + ['duplicate titles %s' % list(dupt)[:2]] * bool(dupt) + ['duplicate canonicals'] * bool(dupc) + ['waiting on Rebecca: ' + '; '.join(waiting)] * bool(waiting)) or '%d projects: unique titles (e.g. "%s"), unique canonicals, og:url per slug' % (len(keys), next(iter(titles))))
         pg.context.close()
         # portfolio cards: every card opens a real project, no duplicate slugs
         pg, st = newpage()

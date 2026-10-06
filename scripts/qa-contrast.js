@@ -28,6 +28,10 @@
     for (let i = chain.length - 1; i >= 0; i--) { acc *= parseFloat(css[i].opacity); opAbove[i] = acc; }
     if (opAbove[0] < 0.05) return null;                   // fully transparent right now
     let image = false;
+    // The menu bar floats over a hero photo or video while it is at the top of the page: its links have no background
+    // of their own to measure. They are judged in the states where the bar paints one (shown, open), by scripts/qa-chrome.cjs.
+    const bar = el.closest('[data-elh-nav]');
+    if (bar) { const bb = parse(getComputedStyle(bar).backgroundColor); if (!bb || bb[3] < 0.5) image = true; }
     const layers = [];
     for (let i = 0; i < chain.length; i++) {
       const bi = css[i].backgroundImage;
@@ -81,7 +85,8 @@
   }
   // --- icons: the first drawn shape of every visible SVG, judged at the 3:1 graphics threshold
   for (const svg of document.querySelectorAll('svg')) {
-    if (svg.closest('[hidden], defs, symbol') || !inView(svg, 8)) continue;
+    // The illustrative map on Our Story is artwork in soft tones, not an icon; its pins and labels are measured as text.
+    if (svg.closest('[hidden], defs, symbol, .is-sample') || !inView(svg, 8)) continue;
     const cs0 = getComputedStyle(svg);
     if (cs0.visibility === 'hidden' || cs0.display === 'none') continue;
     const shape = svg.querySelector('path, circle, rect, line, polyline, polygon, ellipse, text');
