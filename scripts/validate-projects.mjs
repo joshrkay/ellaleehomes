@@ -49,27 +49,30 @@ try {
   // no sheet yet: nothing to be stale
 }
 
+const line = (f) => {
+  const at = f.where ? `${f.where}: ` : '';
+  return `  [${f.code}] ${at}${f.slug && !f.message.startsWith(f.slug) ? `${f.slug}.${f.field}: ` : ''}${f.message}`;
+};
+const printGroup = (title, list) => {
+  if (!list.length) return;
+  console.log(`\n${title} (${list.length})`);
+  const doneGroups = new Set();
+  for (const f of [...list].sort((a, b) => a.code.localeCompare(b.code))) {
+    if (f.group) {
+      if (doneGroups.has(f.group)) continue;
+      doneGroups.add(f.group);
+      console.log(`  [${f.code}] ${f.groupMessage}`);
+    } else console.log(line(f));
+  }
+};
+
 if (SUMMARY) {
   console.log(`validate-projects (${label}): ${what}: ${tally}${findings.length && !STRICT ? '; run `npm run check:projects` for the list' : ''}`);
+  // A failing go-live build must say what to fix, so the strict summary lists the errors too.
+  if (STRICT) printGroup('Errors: the site cannot use these as they are', errors);
   if (staleSheet) console.log('data/projects.csv is out of date with data/projects.json: run `npm run projects:csv`');
 } else {
   console.log(`validate-projects (${label}): ${what}`);
-  const line = (f) => {
-    const at = f.where ? `${f.where}: ` : '';
-    return `  [${f.code}] ${at}${f.slug && !f.message.startsWith(f.slug) ? `${f.slug}.${f.field}: ` : ''}${f.message}`;
-  };
-  const printGroup = (title, list) => {
-    if (!list.length) return;
-    console.log(`\n${title} (${list.length})`);
-    const doneGroups = new Set();
-    for (const f of [...list].sort((a, b) => a.code.localeCompare(b.code))) {
-      if (f.group) {
-        if (doneGroups.has(f.group)) continue;
-        doneGroups.add(f.group);
-        console.log(`  [${f.code}] ${f.groupMessage}`);
-      } else console.log(line(f));
-    }
-  };
   printGroup('Errors: the site cannot use these as they are', errors);
   printGroup('Warnings: worth a look, none blocks a launch', warnings);
   console.log('');
