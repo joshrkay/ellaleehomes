@@ -104,7 +104,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 
 /* ── STAT BOXES ── */
 #stats {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(var(--stat-cols, 4), 1fr);
 }
 .stat-box {
   padding: 32px 40px;
@@ -123,6 +123,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   line-height: 1;
 }
 .stat-unit { font-size: 12px; font-weight: 400; color: var(--nickel); margin-left: 2px; }
+.stat-def { padding: 0 40px 28px; font-size: 13px; line-height: 1.6; color: var(--nickel); }
 
 /* Section header */
 .section-label {
@@ -476,7 +477,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   <!-- STAT BOXES -->
   <div id="stats">
     <div class="stat-box">
-      <div class="stat-key">Home Appraised At</div>
+      <div class="stat-key">Completed home value</div>
       <div class="stat-val" id="stat-price"></div>
     </div>
     <div class="stat-box">
@@ -492,6 +493,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
       <div class="stat-val" id="stat-beds"></div>
     </div>
   </div>
+  <p class="stat-def" id="stat-def" hidden>The value of the finished home, including the land. Not the construction cost.</p>
 
   <!-- AMENITIES + PHOTOS -->
   <div id="content">
@@ -2367,10 +2369,10 @@ const PROJECTS = {
     location: "Arizona",
     year: 0,
     status: "",
-    price: "—",
-    sqft: "—",
-    beds: "—",
-    baths: "—",
+    price: "",
+    sqft: "",
+    beds: "",
+    baths: "",
     heroImg: "https://lh3.googleusercontent.com/d/1784gP0GggV8zpKYA7Kql9w9IGduXinT_",
     gallery: [
       "https://lh3.googleusercontent.com/d/1784gP0GggV8zpKYA7Kql9w9IGduXinT_",
@@ -2446,10 +2448,10 @@ const PROJECTS = {
     location: "Arizona",
     year: 0,
     status: "",
-    price: "—",
-    sqft: "—",
-    beds: "—",
-    baths: "—",
+    price: "",
+    sqft: "",
+    beds: "",
+    baths: "",
     heroImg: "https://lh3.googleusercontent.com/d/1zqcKIpPs4DJ249PaaMJP4F-wi-1tqHoT",
     gallery: [
       "https://lh3.googleusercontent.com/d/1zqcKIpPs4DJ249PaaMJP4F-wi-1tqHoT",
@@ -2525,10 +2527,10 @@ const PROJECTS = {
     location: "Arizona",
     year: 0,
     status: "",
-    price: "—",
-    sqft: "—",
-    beds: "—",
-    baths: "—",
+    price: "",
+    sqft: "",
+    beds: "",
+    baths: "",
     heroImg: "https://lh3.googleusercontent.com/d/1AqwZUfukfXQbD8dEid5FSLsmhmPM_-GL",
     gallery: [
       "https://lh3.googleusercontent.com/d/1AqwZUfukfXQbD8dEid5FSLsmhmPM_-GL",
@@ -2686,13 +2688,27 @@ function renderProject() {
   document.getElementById('hero-name').innerHTML = project.name;
   document.getElementById('hero-status').textContent = project.status;
 
-  // Stats
-  document.getElementById('stat-price').textContent = project.price;
-  document.getElementById('stat-sqft').innerHTML = project.sqft === '—'
-    ? '—'
-    : `${project.sqft}<span class="stat-unit"> sqft</span>`;
-  document.getElementById('stat-baths').textContent = project.baths;
-  document.getElementById('stat-beds').textContent = project.beds;
+  // Stats: a stat with no value is left out. With none at all the whole block goes, and the
+  // definition line under it shows only while the home value does.
+  const has = v => v != null && String(v).trim() !== '';
+  const showStat = (id, value, unit) => {
+    const el = document.getElementById(id);
+    if (!has(value)) { el.parentElement.remove(); return false; }
+    el.textContent = String(value).trim();
+    if (unit) {
+      const u = document.createElement('span');
+      u.className = 'stat-unit';
+      u.textContent = unit;
+      el.appendChild(u);
+    }
+    return true;
+  };
+  const showPrice = showStat('stat-price', project.price);
+  const statCount = [showPrice, showStat('stat-sqft', project.sqft, ' sqft'), showStat('stat-baths', project.baths), showStat('stat-beds', project.beds)].filter(Boolean).length;
+  const statsEl = document.getElementById('stats');
+  if (statCount) statsEl.style.setProperty('--stat-cols', statCount);
+  else statsEl.remove();
+  document.getElementById('stat-def').hidden = !showPrice;
 
   // Amenities (hide section if none)
   const amList = document.getElementById('amenities-list');
@@ -2759,12 +2775,14 @@ function renderProject() {
   const grid = document.getElementById('related-grid');
   grid.innerHTML = relatedSlugs.map(s => {
     const p = PROJECTS[s];
+    // "Completed home value $X · N sqft". A figure that is missing is left out; with neither there is no line.
+    const meta = [has(p.price) && `Completed home value ${p.price}`, has(p.sqft) && `${p.sqft} sqft`].filter(Boolean).join(' · ');
     return `
       <a class="related-card" href="project.html?slug=${s}">
         <div class="related-card-img"><img src="${p.heroImg}" alt="${p.name.replace(/&amp;/g, '&')}"></div>
         <div class="related-card-loc">${p.location.split(',')[0]}, AZ</div>
         <div class="related-card-name">${p.name}</div>
-        <div class="related-card-price">Appraised at ${p.price} · ${p.sqft} sqft</div>
+        ${meta ? `<div class="related-card-price">${meta}</div>` : ''}
       </a>
     `;
   }).join('');
