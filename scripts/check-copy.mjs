@@ -13,6 +13,7 @@
  *               data. HTML comments, <style> blocks and script comments are ignored
  *               (see scripts/lib/regions.mjs). A rule may be scoped to files:
  *               [regex, reason, { only: ['src/a.html'], except: ['src/b.html'] }].
+ *               RULES accept the same optional scope as a third element.
  */
 import fs from 'fs';
 import path from 'path';
@@ -69,6 +70,10 @@ const RULES = [
   [/award[- ]worthy|comprehensive warranty|full builder warranty|long-term peace of mind/i, 'Warranty is described as the Warranty page describes it; no invented distinctions'],
   // Notes from the client drafts must never ship.
   [/For Josh|For Shay|Claude is not a lawyer|written by Claude/i, 'Draft note leaked onto the site'],
+  [/general template|not legal advice|reviewed by counsel/i, 'Placeholder legal note: the legal pages use the approved draft text'],
+  // The client portal is a button to Buildertrend's own login page, never an embedded login (N6, N7).
+  [/NewLoginFrame/, 'No embedded Buildertrend login: link to the login page instead'],
+  [/938-4113/, 'That phone number is not ours: the site phone is (480) 340-8700'],
 ];
 
 /** Rules that read only visible text (see the header). Each lands with the fix that clears it. */
@@ -118,7 +123,8 @@ for (const rel of files) {
       bad++;
       console.error(`${rel}:${i + 1}: link to the Sell page — Sell Your Home stays in the nav only`);
     }
-    for (const [rx, why] of RULES) {
+    for (const [rx, why, scope] of RULES) {
+      if (!inScope(rel, scope)) continue;
       const m = line.match(rx);
       if (m) {
         bad++;

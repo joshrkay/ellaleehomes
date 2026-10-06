@@ -50,7 +50,7 @@ The plan behind these is `docs/launch-plan.md`. The IDs (S1, R1, B1, L1) match i
 
 ## Attorney (through Shay)
 
-- **L1** Review the three drafts now on the Privacy, Terms and Disclaimer pages. Points the audit raises: the draft drops the Do-Not-Track disclosure; other states' privacy laws; browsewrap acceptance; indemnity, liability limit and venue; "we do not sell" next to Buildertrend; no retention period; the curated-reviews wording. The site changed three lines of the draft's section 3 to match what it loads (see Defaults below). Approve those too.
+- **L1** Review the three drafts now on the Privacy, Terms and Disclaimer pages. They are the client's text word for word (checked by script), with links added to the Privacy and Warranty pages. Points the audit raises: the draft drops the Do-Not-Track disclosure; other states' privacy laws; browsewrap acceptance; indemnity, liability limit and venue; "we do not sell" next to Buildertrend; no retention period; the curated-reviews wording. Two bullets in Privacy section 3 no longer match what the site loads: "videos played through YouTube" (the portal walkthrough is gone) and "maps and map tiles from Google Maps, OpenStreetMap, and CARTO" (the Our Story map is a hand-drawn SVG). They were left as written because the text is approved wording. Decide whether to remove them, and restore the YouTube line if a replacement video is hosted there.
 
 ## Defaults applied while executing the plan
 
