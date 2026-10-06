@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { applyReviews } from './lib/reviews.mjs';
+import { loadProjects, applyProjectRegions, projectUrls as listProjectUrls, ProjectsError } from './lib/projects.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
@@ -31,6 +32,20 @@ const dropdownTemplate = fs.readFileSync(dropdownPath, 'utf8');
 
 /** Canonical origin of the live site, used for sitemap URLs. */
 const SITE_ORIGIN = 'https://ellaleehomes.com';
+
+/**
+ * The portfolio: data/projects.json. It fills the marker regions of previous-projects.html and project.html and
+ * lists the project URLs in the sitemap (scripts/lib/projects.mjs; fields in data/README.md).
+ */
+let PROJECTS_DATA;
+try {
+  PROJECTS_DATA = loadProjects();
+} catch (err) {
+  if (!(err instanceof ProjectsError)) throw err;
+  console.error(err.message);
+  process.exit(1);
+}
+console.log('Read', path.join('data', 'projects.json'), `(${PROJECTS_DATA.length} projects)`);
 
 /**
  * Facts the site cannot invent live in site-facts.json; null means "not supplied yet".
@@ -93,7 +108,7 @@ const PAGES = [
   // Primary pages
   { file: 'previous-projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', active: { portfolio: true } },
   // The project detail template renders per-slug; those URLs are listed from
-  // the portfolio's own structured data instead of this entry.
+  // data/projects.json instead of this entry.
   { file: 'project.html', url: null, active: { portfolio: true } },
   { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', active: { process: true } },
   { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7' },
@@ -170,29 +185,19 @@ function renderFooter(isHome) {
 }
 
 /**
- * Project detail URLs, read from the portfolio's own JSON-LD ItemList so the
- * sitemap cannot drift from the projects actually on the site.
+ * Project detail URLs for the sitemap, from data/projects.json: the same list that makes the portfolio's cards
+ * and ItemList, so the sitemap cannot drift from the projects actually on the site. A photos-only project has
+ * no entry until the data says otherwise.
  *
  * @returns {string[]}
  */
 function projectUrls() {
-  const html = fs.readFileSync(path.join(srcDir, 'previous-projects.html'), 'utf8');
-  const blocks = html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g);
-  for (const [, body] of blocks) {
-    let data;
-    try {
-      data = JSON.parse(body);
-    } catch {
-      continue; // not the block we want
-    }
-    if (data['@type'] !== 'ItemList') continue;
-    const urls = (data.itemListElement ?? [])
-      .map((entry) => entry?.url ?? entry?.item?.url)
-      .filter((u) => typeof u === 'string' && u.startsWith(SITE_ORIGIN));
-    if (urls.length) return urls;
+  const urls = listProjectUrls(PROJECTS_DATA, SITE_ORIGIN);
+  if (!urls.length) {
+    console.error('No project URLs for the sitemap: data/projects.json lists no project beyond the photos-only ones.');
+    process.exit(1);
   }
-  console.error('No project URLs found in the ItemList structured data of previous-projects.html');
-  process.exit(1);
+  return urls;
 }
 
 function xmlEscape(s) {
@@ -277,6 +282,14 @@ for (const page of PAGES) {
     process.exit(1);
   }
   let content = fs.readFileSync(srcFile, 'utf8');
+  // First, so the generated text goes through every step below exactly as hand-written text did.
+  try {
+    content = applyProjectRegions(content, page.file, PROJECTS_DATA, { origin: SITE_ORIGIN });
+  } catch (err) {
+    if (!(err instanceof ProjectsError)) throw err;
+    console.error(err.message);
+    process.exit(1);
+  }
   for (const token of [PLACEHOLDER, FOOTER_PLACEHOLDER]) {
     if (!content.includes(token)) {
       console.error('Missing', token, 'in', page.file);

@@ -251,7 +251,6 @@ export function renderCards(projects) {
       `  <!-- SECTION: ${band.comment} -->`,
       `  <div class="section-band" id="band-${band.key}">`,
       `    <span class="section-band-title">${band.title}</span>`,
-      '    <div class="section-band-line"></div>',
       `    <span class="section-band-count">${homes(cards.length)}</span>`,
       '  </div>',
       `  <div class="projects-grid" id="grid-${band.key}">`,
