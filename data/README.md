@@ -90,7 +90,7 @@ The import is careful on purpose:
 
 ### Checks
 
-`npm run check:projects` prints every error and warning; `npm run build` prints the two-line summary. Add `--strict`, or set `ELH_LAUNCH=1`, to exit 1 while an error remains. `npm run launch:report` lists each error as a `[P]` launch blocker.
+`npm run check:projects` prints every error and warning; `npm run build` prints a one-line summary. Add `--strict`, or set `ELH_LAUNCH=1`, to exit 1 while an error remains. `npm run launch:report` lists each error as a `[P]` launch blocker.
 
 - **Errors:** a required field is empty (for a home that is not photos-only: name, status, year, value, sqft, beds, baths, styleLabel, style, card and hero photo, one gallery photo; for a photos-only home: name, status, the two photos, one gallery photo), a slug that is not lower-case kebab or is used twice, a status, style or band outside its list, baths that are not whole or half, a `valueLabel` that disagrees with `value`, a local photo file that does not exist, a photo address the media migration does not know.
 - **Warnings** (never fail a run): two homes with the same value or sqft; sqft outside 1,000 to 20,000, value outside 300,000 to 30,000,000, value per sqft outside 150 to 3,000, year outside 2015 to 2027, beds outside 1 to 12, baths above beds + 4; a style the card label does not back; a band that does not fit the sqft; and each hand-repeated fact on another page that disagrees, with its file and line.
