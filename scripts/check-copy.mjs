@@ -77,7 +77,9 @@ const RULES = [
 ];
 
 /** Rules that read only visible text (see the header). Each lands with the fix that clears it. */
-const TEXT_RULES = [];
+const TEXT_RULES = [
+  [/\bdaily (?:photos|updates|progress|reports)\b/i, 'Client updates are "photos and weekly updates", never "daily"'],
+];
 
 /**
  * Rules whose fixes are still being made: reported, never enforced. Run
@@ -87,7 +89,6 @@ const TEXT_RULES = [];
 const PENDING_TEXT_RULES = [
   [/—|&mdash;|&#8212;|&#x2014;/, 'No em dashes in site copy, titles or meta'],
   [/\bStudio\b/, 'The office is the "Office", never the "Studio"'],
-  [/\bdaily (?:photos|updates|progress|reports)\b/i, 'Client updates are "photos and weekly updates", never "daily"'],
   [/cutting[- ]edge|sustainable (?:practices|construction|solutions)|innovative,? sustainable|future[- ]proof/i, 'No "cutting-edge" or "sustainable practices"'],
   [/energy[- ]efficien|smart[- ]home|home automation/i, 'Energy and smart-home claims: say once, in the approved sentence', { except: ['src/developers.html', 'src/project.html'] }],
   [/appraised at/i, 'Project values use the short label "Completed home value"'],
