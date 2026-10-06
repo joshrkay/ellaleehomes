@@ -150,7 +150,6 @@ Everything else on the cards (name, value, sqft, beds, baths, year, photo) match
 Phase A reproduces the old pages byte for byte, so a few oddities are kept on purpose. Each is one line to remove in phase B.
 
 - Five projects (`5th-st-2`, `camino-sin-nombre`, `cudia`, `desert-cove`, `glenrosa`) write their en dashes in `PROJECTS` as `–`; the other twenty write the character. `LEGACY_ASCII_ESCAPES` in `scripts/lib/projects.mjs` keeps that. Removing it changes five strings in `dist/project.html` and nothing a visitor sees.
-- `src/previous-projects.html` still carries `<!-- @projectlist-schema -->` above the ItemList, and it still ships. It is an inert comment like the `@localbusiness-schema` ones the copy sweep deletes; deleting it changes `dist/previous-projects.html` by that one line.
 - The "Similar Projects" cards on the project pages print `<first part of the location>, AZ`, so a photos-only home reads "Arizona, AZ" there today, and blanking its `locationLabel` would leave ", AZ". That line is in the project page's script, which phase A does not touch.
 - The portfolio's Style filter still reads the card label, not `style`.
 - The seeding script, `scripts/seed-projects.mjs`, is gone from the tree; it is in the history (commit "Portfolio data: seed data/projects.json from the pages").
