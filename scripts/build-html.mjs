@@ -18,6 +18,8 @@ const FAVICON_TAGS = `<link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 `;
+const INTER_TAG = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+`;
 const PLACEHOLDER = '<!-- NAV_PARTIAL -->';
 const FOOTER_PLACEHOLDER = '<!-- FOOTER_PARTIAL -->';
 const DROPDOWN_PLACEHOLDER = '<!-- NAV_DROPDOWN_PARTIAL -->';
@@ -300,6 +302,11 @@ for (const page of PAGES) {
   // Brand favicon on every page (monogram on navy, per the style guide).
   if (!content.includes('rel="icon"')) {
     content = content.replace('</head>', FAVICON_TAGS + '</head>');
+  }
+  // site-body.css sets Inter on every page, but 12 pages never loaded it and fell back to the system
+  // font. Make sure every page loads it (a page that already does is left alone).
+  if (!/family=Inter/.test(content)) {
+    content = content.replace('</head>', INTER_TAG + '</head>');
   }
   // One body-copy standard on every page; loaded last so it wins over each page's own styles.
   if (!content.includes('site-body.css')) {
