@@ -84,6 +84,7 @@ The import is careful on purpose:
 
 - A blank cell changes nothing. Only a cell that says `CLEAR` empties a field.
 - A slug it does not know, a repeated row, or a cell it cannot read (baths of "five", a status of "completed") stops it with the row, slug and column named. Nothing is written until the sheet is clean.
+- A cell it can read but that leaves a record the site cannot use (`CLEAR` in the name column, baths of 5.3) is refused too: the import lists the new errors and writes nothing, because a normal build only reports data errors and would ship the record. Errors the data already had do not block an import, so they can be cleared one sheet at a time.
 - It reads only the sheet's columns. Galleries, story text, amenities and the card labels are never touched.
 - What follows from a change follows, and is listed as `derived`: the value's label, the size band, the status label. A sheet value that settles a card-versus-page disagreement drops that `card` override, so both show the answer.
 - The diff ends with the validator's totals before and after, and the new problems, if any.
@@ -187,7 +188,7 @@ A draft with `"confirmed": false` still has to be valid. An unknown field is an 
 
 ### What the build says
 
-The build checks the file once and prints it in the style of `npm run launch:report`, under class V. Nothing here fails a normal build except V0. A review with a V1 or V2 problem is left off the pages, so broken or banned wording never ships. On the go-live deploy (`ELH_LAUNCH=1`, or `--strict`) any blocker also fails the build. Warnings are the known gaps and never fail it.
+The build checks the file once and prints it in the style of `npm run launch:report`, under class V; `npm run launch:report` and `npm run check:launch` list the same blockers. Nothing here fails a normal build except V0. A review with a V1 or V2 problem is left off the pages, so broken or banned wording never ships. On the go-live deploy (`ELH_LAUNCH=1`, or `--strict`) any blocker also fails the build. Warnings are the known gaps and never fail it.
 
 | Code | Meaning | Kind |
 |---|---|---|

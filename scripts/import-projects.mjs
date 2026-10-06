@@ -177,6 +177,14 @@ if (problems.length) {
   for (const p of problems) console.log(`  ${p}`);
   process.exit(1);
 }
+// A cell can be well formed and still leave a record the site cannot use (CLEAR in a required column, baths of 5.2).
+// A normal build only reports such errors, so one saved here could be deployed. Refuse errors the sheet creates;
+// the ones the data already had are not the sheet's fault and can be cleared one sheet at a time.
+const newErrors = errorsOf(introduced);
+if (newErrors.length) {
+  console.log(`\nThis sheet would introduce ${newErrors.length} new data error(s), listed above as "new". Nothing was written${WRITE ? '' : ' (and --write would refuse too)'}: fix those cells and run again. Errors the data already had do not block an import.`);
+  process.exit(1);
+}
 if (!changes.length) process.exit(0);
 if (!WRITE) {
   console.log('\nDry run: nothing written. Run again with --write to save data/projects.json.');

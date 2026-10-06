@@ -74,6 +74,14 @@ const RETRIES = 3;
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const abs = (rel) => path.join(root, rel);
 const exists = (rel) => fs.existsSync(abs(rel));
+/** The sibling of an optimised photo at another width: name.webp -> name-960.webp. */
+const variantPath = (rel, w) => rel.replace(/\.webp$/, `-${w}.webp`);
+/**
+ * An image counts as optimised only when all three sizes are on disk. A run that stopped half way (after the
+ * full file, before a smaller one) must be redone, and a page must never be pointed at a set with a gap,
+ * because the project page builds the -960 and -480 names from the full one.
+ */
+const complete = (i) => !!i.derived && [i.derived, variantPath(i.derived, CARD_W), variantPath(i.derived, THUMB_W)].every(exists);
 
 /** The portfolio data: every project's card, hero and gallery photographs (see the header). */
 const DATA_FILE = 'data/projects.json';
@@ -141,7 +149,7 @@ function listState({ list, zillow, videos }) {
   fs.writeFileSync(abs('scripts/drive-media-manifest.txt'), drive.map((i) => i.id).join('\n') + '\n', 'utf8');
   const row = (label, items) => {
     const orig = items.filter((i) => i.original && exists(i.original)).length;
-    const done = items.filter((i) => exists(i.derived)).length;
+    const done = items.filter(complete).length;
     console.log(`  ${label.padEnd(14)} ${String(items.length).padStart(5)} unique | originals cached ${String(orig).padStart(5)} | optimised ${String(done).padStart(5)}`);
   };
   console.log(`media references in ${sourceFiles().length} files:`);
@@ -156,7 +164,7 @@ function listState({ list, zillow, videos }) {
 const DRIVE_EXT = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif' };
 
 async function download({ list }) {
-  const todo = list.filter((i) => !(i.original && exists(i.original)) && !exists(i.derived));
+  const todo = list.filter((i) => !(i.original && exists(i.original)) && !complete(i));
   if (!todo.length) return console.log('download: nothing to fetch');
   const nWp = todo.filter((i) => i.kind === 'wp').length;
   console.log(`download: fetching ${nWp} WordPress and ${todo.length - nWp} Drive original(s) into ${WP_CACHE}/ and ${DRIVE_CACHE}/`);
@@ -217,7 +225,7 @@ async function optimize({ list }) {
     process.exitCode = 1;
     return;
   }
-  const todo = list.filter((i) => i.original && exists(i.original) && !exists(i.derived));
+  const todo = list.filter((i) => i.original && exists(i.original) && !complete(i));
   if (!todo.length) return console.log('optimize: nothing to do');
   console.log(`optimize: ${todo.length} original(s) -> ${WP_OUT}/ and ${DRIVE_OUT}/ (${FULL_W}w, ${CARD_W}w, ${THUMB_W}w)`);
 
@@ -245,9 +253,10 @@ async function optimize({ list }) {
         const thumb = await encode(src, THUMB_W, THUMB_MAX, 70);
         const out = abs(item.derived);
         fs.mkdirSync(path.dirname(out), { recursive: true });
+        // The full file goes last, so it is only ever there when the smaller two are.
+        fs.writeFileSync(variantPath(out, THUMB_W), thumb);
+        fs.writeFileSync(variantPath(out, CARD_W), card);
         fs.writeFileSync(out, full);
-        fs.writeFileSync(out.replace(/\.webp$/, `-${CARD_W}.webp`), card);
-        fs.writeFileSync(out.replace(/\.webp$/, `-${THUMB_W}.webp`), thumb);
         before += fs.statSync(src).size;
         after += full.length + card.length + thumb.length;
         if (full.length > FULL_MAX) over.push(`${item.derived} ${Math.round(full.length / 1024)} KB`);
@@ -287,7 +296,7 @@ function rewriteText(text, ready) {
 }
 
 function rewrite({ list }) {
-  const ready = new Map(list.filter((i) => exists(i.derived)).map((i) => [i.url, i.derived]));
+  const ready = new Map(list.filter(complete).map((i) => [i.url, i.derived]));
   if (!ready.size) return console.log('rewrite: no optimised files yet, leaving references alone');
   let changedFiles = 0;
   let changedRefs = 0;

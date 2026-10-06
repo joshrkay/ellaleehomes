@@ -23,11 +23,11 @@ node scripts/migrate-media.mjs --list       # counts, and the two manifests in s
 node scripts/migrate-media.mjs --download   # originals into uploads/wp/ and uploads/drive/ (gitignored)
 npm i --no-save sharp                       # once; deliberately not a project dependency
 node scripts/migrate-media.mjs --optimize   # -> uploads/w/ and uploads/d/, three widths each
-node scripts/migrate-media.mjs --rewrite    # repoint a reference whenever its optimised file exists
+node scripts/migrate-media.mjs --rewrite    # repoint a reference whenever all three optimised sizes exist
 npm run build && node scripts/migrate-media.mjs --verify   # strict asset gate
 ```
 
-With no flag it runs all of them. It can be run again at any point: it skips what is done and only repoints a reference whose file exists, so a partial run never leaves a page pointing at nothing.
+With no flag it runs all of them. It can be run again at any point: it skips what is done and only repoints a reference whose three sizes all exist (the smaller two are written first and the full file last), so a run that stopped half way is redone and never leaves a page pointing at nothing.
 
 - **Hosts needed:** `ellaleehomes.com` and `lh3.googleusercontent.com`. This session's environment blocks them (Network access in the environment settings), so run it there once they are allowed, or on a machine with normal internet access and commit the result.
 - **Drive:** the site already hot-links these files, so they are publicly readable and the tool fetches them by ID (up to 2200px). If a file is no longer shared, export it by hand as `uploads/drive/<ID>.<ext>`.
@@ -43,7 +43,7 @@ With no flag it runs all of them. It can be run again at any point: it skips wha
 | `uploads/video/` | The home hero video and its poster, from Shay | yes |
 | `uploads/wp/`, `uploads/drive/` | Originals, the cache the tool works from | no |
 
-Only the optimised files are ever referenced from a page. The tool rewrites a reference only when the optimised file exists, and the originals sit in gitignored folders that Vercel never sees, so a page can never point at a file that is not deployed. `npm run check:assets` fails (in the strict launch build) on any reference to a missing local file.
+Only the optimised files are ever referenced from a page. The tool rewrites a reference only when all three optimised sizes exist, and the originals sit in gitignored folders that Vercel never sees, so a page can never point at a file that is not deployed. `npm run check:assets` fails (in the strict launch build) on any reference to a missing local file.
 
 ## Sizes and budgets
 

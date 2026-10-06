@@ -10,7 +10,7 @@ Work through this in order on launch day. Each line says who does it and how to 
 | Nothing loads from the old WordPress site, Google Drive or Zillow | Josh | `npm run check:assets` reports 0; see `docs/media.md` |
 | Share images and canonicals are on the new site | Josh | no S1 or S2 in `npm run launch:report` |
 | Rebecca's records are in and the portfolio data validates: every home has a farmhouse or contemporary style, whole or half baths, and no repeated value or size that she has not confirmed | Josh, with Rebecca | `npm run check:projects` shows no errors (class P in the launch report); read its warnings with her |
-| Every review on the site is one a person has confirmed, with its date and link | Josh, with Shay | the build's `reviews` line shows no V blocker; `data/reviews.json` has `confirmed: true` only for real client or homeowner reviews |
+| Every review on the site is one a person has confirmed, with its date and link | Josh, with Shay | `npm run launch:report` lists no V blocker (the build's `reviews` line shows the same); `data/reviews.json` has `confirmed: true` only for real client or homeowner reviews |
 | The legal pages carry the approved text and the launch date | Josh | no L1 or L2; attorney has reviewed (L1 in the open questions) |
 | `ELH_LAUNCH=1 npm run build` is green | Josh | exit code 0 |
 | A test lead reached Buildertrend from staging with every field, then was deleted | Shay or the office | lead seen in Buildertrend lead management |

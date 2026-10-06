@@ -8,7 +8,8 @@
  *   --summary                                 one line instead of the list (used inside `npm run build`)
  *
  * Blocker classes: F facts not supplied, L legal pages, S share image and indexing, M media on the new site,
- * P portfolio data (the errors scripts/validate-projects.mjs finds in data/projects.json).
+ * P portfolio data (the errors scripts/validate-projects.mjs finds in data/projects.json),
+ * V reviews (the blockers scripts/lib/reviews.mjs finds in data/reviews.json).
  *
  * Until launch the site is allowed to be incomplete, so the build only reports. On go-live day set
  * ELH_LAUNCH=1 (a Vercel environment variable, not VERCEL_ENV: staging is the Production environment)
@@ -20,6 +21,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { loadProjects, ProjectsError } from './lib/projects.mjs';
 import { validateProjects, errorsOf } from './lib/projects-validate.mjs';
+import { validateReviews } from './lib/reviews.mjs';
 
 const args = process.argv.slice(2);
 const STRICT = args.includes('--strict') || process.env.ELH_LAUNCH === '1';
@@ -102,6 +104,16 @@ try {
 } catch (err) {
   if (!(err instanceof ProjectsError)) throw err;
   note('P0', 'data/projects.json is missing or not valid', err.message);
+}
+
+// V: the Google reviews (data/reviews.json). A review with a blocker is left off the pages, so a normal build still
+// ships; the go-live build must not, and neither may this gate. Warnings (not confirmed yet, no date or link) never block.
+try {
+  const list = JSON.parse(fs.readFileSync(path.join(root, 'data', 'reviews.json'), 'utf8'));
+  if (!Array.isArray(list)) throw new Error('it must be a JSON list of review objects');
+  for (const b of validateReviews(list).blockers) note(b.id, b.text);
+} catch (err) {
+  note('V0', 'data/reviews.json is missing or not valid', String(err.message || err));
 }
 
 // Report.
