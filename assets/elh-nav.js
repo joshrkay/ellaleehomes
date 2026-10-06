@@ -10,6 +10,11 @@
 
   var lastY = null, drawerOpen = false, moreOpen = false;
 
+  function burgerShown() {
+    var b = nav.querySelector('[data-elh-burger]');
+    return !!b && window.getComputedStyle(b).display !== 'none';
+  }
+
   function heroBottom() {
     var hero = document.querySelector('[data-elh-hero], #top');
     return hero ? hero.offsetHeight - 80 : 0;
@@ -27,7 +32,8 @@
     var prev = lastY == null ? 0 : lastY;
     var goingDown = y > prev + 4, goingUp = y < prev - 4;
     if (goingDown || goingUp) lastY = y; else if (lastY == null) lastY = y;
-    var isPhone = window.matchMedia('(max-width: 767px)').matches;
+    // "Phone" means the bar has collapsed to the burger; the breakpoint lives in site-nav.css only.
+    var isPhone = burgerShown();
     // Pages that open on a light background (the Stories articles) keep the bar solid navy so the
     // cream logo, links and menu button stay readable from the first pixel.
     var solid = document.body.hasAttribute('data-elh-nav-solid');

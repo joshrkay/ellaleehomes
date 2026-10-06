@@ -1,10 +1,10 @@
 <!-- Canonical site nav — the homepage header, shared by every page.
      Injected by the build; __HREF_*__ / __ARIA_*__ resolve per page. -->
-<header data-elh-nav="1" style="position: fixed; top: 0; left: 0; right: 0; z-index: 300; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px clamp(18px, 2.4vw, 40px); transition: background .4s ease, padding .4s ease, border-color .4s ease, transform .45s cubic-bezier(.4,0,.2,1); border-bottom: 1px solid rgba(234,229,220,0)">
-  <a href="__HREF_HOME__" aria-label="Ella Lee Homes home" style="flex: 0 0 auto; display: block; line-height: 0">
+<header data-elh-nav="1" style="position: fixed; top: 0; left: 0; right: 0; z-index: 300; padding: 20px clamp(18px, 2.4vw, 40px); transition: background .4s ease, padding .4s ease, border-color .4s ease, transform .45s cubic-bezier(.4,0,.2,1); border-bottom: 1px solid rgba(234,229,220,0)">
+  <a href="__HREF_HOME__" data-elh-logo="1" aria-label="Ella Lee Homes home" style="display: block; line-height: 0">
     <img src="assets/elh-monogram.svg" alt="Ella Lee Homes" style="display: block; width: clamp(42px, 3.6vw, 56px); height: auto">
   </a>
-  <nav style="display: flex; flex: 1 1 auto; align-items: center; justify-content: center; gap: clamp(14px, 2.2vw, 34px)">
+  <nav style="display: flex; align-items: center; gap: clamp(14px, 2.2vw, 34px)">
     <a href="__HREF_HOME__"__ARIA_HOME__ style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Home</a>
     <a href="previous-projects.html"__ARIA_PORTFOLIO__ style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Portfolio</a>
     <a href="build-your-home.html"__ARIA_PROCESS__ style="font-size: 13px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; color: #EAE5DC">Build</a>
