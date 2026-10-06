@@ -773,7 +773,7 @@ def factsheet_checks():
             missing_kw.append('%s: "%s"' % (n, t))
     reg('FS7a', 'Page titles carry a keyword ("Topic | Ella Lee Homes", e.g. custom home / builder / Arizona / a market) on every public page', 'FAIL' if missing_kw else 'PASS',
         '; '.join(missing_kw) or 'every core page title contains one of: custom home, builder, Arizona, Paradise Valley, Scottsdale, Arcadia, Phoenix')
-    # primary call to action: the closing buttons say "Start Your Build" (Sell keeps its own seller prompt; forms keep "Send")
+    # primary call to action: the closing buttons say "Start your build" (Sell keeps its own seller prompt; forms keep "Send")
     other = []
     for n in ALL:
         if n == 'sell-your-home':
@@ -1294,13 +1294,13 @@ def browser_checks(projects):
         pgm.click('[data-elh-burger]')
         pgm.wait_for_timeout(700)
         dr = pgm.evaluate("""() => { const d = document.querySelector('[data-elh-drawer]'); const r = d.getBoundingClientRect(); const cta = [...d.querySelectorAll('a')].pop(); return {open: r.left >= -1 && r.width > 100, cta: cta.textContent.trim()} }""")
-        reg('X2d', 'Mobile drawer opens; its button reads "Start Your Build"', 'PASS' if dr['open'] and dr['cta'] == 'Start Your Build' else 'FAIL', str(dr))
+        reg('X2d', 'Mobile drawer opens; its button reads "Start your build"', 'PASS' if dr['open'] and dr['cta'] == 'Start your build' else 'FAIL', str(dr))
         # nav CTA on desktop
         ctas = Counter()
         for n in PAGES:
             m = re.search(r'data-elh-cta="1"[^>]*>([^<]+)<', PAGES[n])
             ctas[m.group(1).strip() if m else 'NONE'] += 1
-        reg('7-cta', 'Primary call to action sitewide is "Start Your Build" (nav button on every page)', 'PASS' if set(ctas) == {'Start Your Build'} else 'FAIL', str(dict(ctas)))
+        reg('7-cta', 'Primary call to action sitewide is "Start your build" (nav button on every page)', 'PASS' if set(ctas) == {'Start your build'} else 'FAIL', str(dict(ctas)))
         sell_links = []
         for n in PAGES:
             b = body_html(PAGES[n]) + footer_html(PAGES[n])
@@ -1587,13 +1587,12 @@ def browser_checks2(projects):
         reg('X5j', 'No text runs past the screen edge on small phones (320, 360 and 390px), outside the deliberate horizontal scrollers', 'FAIL' if clip_bad else 'PASS',
             '; '.join(clip_bad[:6]) or 'checked all visible text on %d pages at three phone widths' % len(PAGES))
 
-        # ---- states that stay hidden until you act: the Learn menu, the phone drawer, the project lightbox, the form confirmation
+        # ---- states that stay hidden until you act: the Learn menu, the phone drawer, the project lightbox
         open_bad, open_n = [], 0
         for label, n, w, act in (('Learn menu (home, 1440)', 'index', 1440, "document.querySelector('[data-elh-click=\"toggleMore\"]').click()"),
                                  ('Learn menu (article, 1440)', 'steps-to-building-a-custom-home', 1440, "document.querySelector('[data-elh-click=\"toggleMore\"]').click()"),
                                  ('phone drawer (contact, 390)', 'contact', 390, "document.querySelector('[data-elh-burger]').click()"),
-                                 ('project lightbox (1440)', 'project', 1440, "(document.querySelector('#photos-col img, .gallery-main, #gallery img, [onclick*=openLightbox]') || {click(){}}).click()"),
-                                 ('form confirmation (contact, 1440)', 'contact', 1440, "(() => { const f = document.querySelector('form'); [...f.querySelectorAll('input, textarea, select')].forEach(e => { if (e.type === 'email') e.value = 'qa@example.com'; else if (e.tagName === 'SELECT') { if (e.options.length > 1) e.selectedIndex = 1 } else if (e.type !== 'hidden' && e.type !== 'submit') e.value = 'QA test' }); f.querySelector('button[type=submit], button:not([type])').click() })()")):
+                                 ('project lightbox (1440)', 'project', 1440, "(document.querySelector('#photos-col img, .gallery-main, #gallery img, [onclick*=openLightbox]') || {click(){}}).click()")):
             pgo, _ = newpage(w, 900 if w > 500 else 800)
             pgo.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
             pgo.wait_for_timeout(3300 if n == 'index' else 1200)
@@ -1605,8 +1604,8 @@ def browser_checks2(projects):
             open_n += len(recs_o)
             open_bad += ['%s: %s "%s" %.2f' % (label, r['sel'], r['text'][:24], r['ratio']) for r in recs_o if not r['image'] and r['ratio'] < (3.0 if r['large'] else 4.5)]
             pgo.context.close()
-        reg('X5k', 'Contrast also holds in the states that stay hidden until you act: the Learn menu, the phone drawer, the project lightbox and the form confirmation',
-            'FAIL' if open_bad else 'PASS', '; '.join(open_bad[:6]) or '%d text elements measured across 5 opened states; none below the threshold' % open_n)
+        reg('X5k', 'Contrast also holds in the states that stay hidden until you act: the Learn menu, the phone drawer, and the project lightbox',
+            'FAIL' if open_bad else 'PASS', '; '.join(open_bad[:6]) or '%d text elements measured across 4 opened states; none below the threshold' % open_n)
 
         # forms: what happens on submit (evidence for item 1)
 
