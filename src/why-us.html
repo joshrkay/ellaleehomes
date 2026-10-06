@@ -257,7 +257,7 @@ body {
    means later ones naturally pile on top of earlier ones. */
 .reason-card {
   position: sticky;
-  top: calc(var(--nav-h) + 24px + var(--i, 0) * 14px);
+  top: calc(var(--sticky-top) + var(--i, 0) * 14px);
   margin-bottom: 32px;
   /* Each card is ~one viewport tall; the surrounding scroll distance
      between sticky-release points is what lets the user pace through
@@ -486,6 +486,12 @@ body {
 .proof-cap-meta {
   font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
   color: rgba(234,229,220,0.75);
+  text-wrap: balance; /* the label is longer now: keep the figure off a line of its own */
+}
+.proof-note {
+  margin-top: 16px;
+  font-size: 14px; line-height: 1.6;
+  color: rgba(234,229,220,.6);
 }
 
 /* ── REVEALS ── */
@@ -693,7 +699,7 @@ body {
   <div class="hero-caption">
     <div class="hero-caption-l">
       <div class="eyebrow">Built for Ella · Built for legacy</div>
-      <h2>A foundation of love, care, and <em>legacy</em> &mdash; built into every home.</h2>
+      <h2>A foundation of love, care, and <em>legacy</em>, built into every home.</h2>
     </div>
     <div class="hero-scroll-hint">Scroll</div>
   </div>
@@ -717,8 +723,8 @@ body {
     <h2>Built for Ella.<em>Built for legacy.</em></h2>
   </div>
   <div class="founding-r">
-    <p>Ella Lee Homes was born from a simple, heartfelt promise &mdash; to build something that would <strong>stand the test of time</strong> for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others.</p>
-    <p>Every home we build carries that same devotion &mdash; a foundation of <strong>love, care, and legacy</strong> designed to nurture life's most meaningful moments. The same standards we set for Ella's home are the ones we set for yours.</p>
+    <p>Ella Lee Homes was born from a simple, heartfelt promise: to build something that would <strong>stand the test of time</strong> for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others.</p>
+    <p>Every home we build carries that same devotion: a foundation of <strong>love, care, and legacy</strong> designed to nurture life's most meaningful moments. The same standards we set for Ella's home are the ones we set for yours.</p>
     <div class="founding-sig">
       <span class="name">Shay &amp; the Ella Lee team</span>
       <span class="role">Founder · Phoenix, AZ</span>
@@ -761,7 +767,7 @@ body {
         <div class="rc-text">
           <div class="rc-eyebrow"><strong>The Standard</strong></div>
           <h3>We build it like it's <em>ours.</em></h3>
-          <p>Every joint, every tile line, every transition is done the way it should be &mdash; not the way that's fastest. <strong>The details most builders hide behind trim, we get right underneath.</strong></p>
+          <p>Every joint, every tile line, every transition is done the way it should be, not the way that's fastest. <strong>The details most builders hide behind trim, we get right underneath.</strong></p>
           <div class="rc-tag">Built by hand, to outlast trends</div>
         </div>
       </div>
@@ -849,7 +855,7 @@ body {
         <div class="rc-text">
           <div class="rc-eyebrow"><strong>Direct Access</strong></div>
           <h3>You'll know us by <em>name.</em></h3>
-          <p>You work directly with the people building your home &mdash; not a call center, not a coordinator three steps removed. <strong>Call, text, or walk the site. We're there.</strong></p>
+          <p>You work directly with the people building your home, not a call center, not a coordinator three steps removed. <strong>Call, text, or walk the site. We're there.</strong></p>
           <div class="rc-tag">Same team. Groundbreaking to keys.</div>
         </div>
       </div>
@@ -871,7 +877,7 @@ body {
         <div class="rc-text">
           <div class="rc-eyebrow"><strong>The Track Record</strong></div>
           <h3>Our clients <em>come back.</em></h3>
-          <p>40+ homes built and underway across Paradise Valley, Scottsdale, Arcadia, and Phoenix &mdash; and clients who come back for the next one.</p>
+          <p>40+ homes built and underway across Paradise Valley, Scottsdale, Arcadia, and Phoenix, and clients who come back for the next one.</p>
           <div class="rc-tag">40+ homes built and underway</div>
         </div>
       </div>
@@ -926,7 +932,7 @@ body {
       </figure></a>
       <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
         <span class="rv-stars" aria-hidden="true">★★★★★</span>
-        <blockquote>Attention to detail, quality construction, responsiveness of the warranty team &mdash; owning an Ella Lee home is truly enjoyable.</blockquote>
+        <blockquote>Attention to detail, quality construction, responsiveness of the warranty team, owning an Ella Lee home is truly enjoyable.</blockquote>
         <figcaption><span class="rv-av">H</span><span class="rv-who"><span class="rv-name">Heather Wilson</span><span class="rv-meta">Google review &middot; 8 months ago</span></span></figcaption>
       </figure></a>
       <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
@@ -958,38 +964,39 @@ body {
       <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="68th St">
       <div class="proof-cap">
         <div class="proof-cap-name">68th St</div>
-        <div class="proof-cap-meta">Paradise Valley · Appraised at $7.0M</div>
+        <div class="proof-cap-meta">Paradise Valley · Completed home value $7.0M</div>
       </div>
     </a>
     <a class="proof-tile" href="project.html?slug=charter-oak">
       <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Charter Oak">
       <div class="proof-cap">
         <div class="proof-cap-name">Charter Oak</div>
-        <div class="proof-cap-meta">Scottsdale · Appraised at $7.0M</div>
+        <div class="proof-cap-meta">Scottsdale · Completed home value $7.0M</div>
       </div>
     </a>
     <a class="proof-tile" href="project.html?slug=via-estrella">
       <img src="https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0171.jpg" alt="Via Estrella">
       <div class="proof-cap">
         <div class="proof-cap-name">Via Estrella</div>
-        <div class="proof-cap-meta">Scottsdale · Appraised at $5.45M</div>
+        <div class="proof-cap-meta">Scottsdale · Completed home value $5.45M</div>
       </div>
     </a>
     <a class="proof-tile" href="project.html?slug=dc2">
       <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="Desert Cove II">
       <div class="proof-cap">
         <div class="proof-cap-name">Desert Cove II</div>
-        <div class="proof-cap-meta">Arcadia · Appraised at $4.4M</div>
+        <div class="proof-cap-meta">Arcadia · Completed home value $4.4M</div>
       </div>
     </a>
     <a class="proof-tile" href="project.html?slug=earll">
       <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="Earll">
       <div class="proof-cap">
         <div class="proof-cap-name">Earll</div>
-        <div class="proof-cap-meta">Arcadia · Appraised at $3.65M</div>
+        <div class="proof-cap-meta">Arcadia · Completed home value $3.65M</div>
       </div>
     </a>
   </div>
+  <p class="proof-note">The value of the finished home, including the land. Not the construction cost.</p>
 </section>
 
 <!-- CTA -->
