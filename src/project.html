@@ -592,6 +592,13 @@ function thumbSrc(url) {
   return m && !/-480$/.test(m[1]) ? m[1] + '-480.webp' + (m[2] || '') : url;
 }
 
+// A related-project card needs the 960 px copy of an optimised photo (name.webp has name-960.webp beside it).
+// Any other URL, such as the remote photos this page uses today, comes back unchanged.
+function cardSrc(url) {
+  const m = /^(.*uploads\/[wd]\/[^?#]+)\.webp([?#].*)?$/.exec(url);
+  return m && !/-(?:960|480)$/.test(m[1]) ? m[1] + '-960.webp' + (m[2] || '') : url;
+}
+
 // Alt text for every gallery image: "<project name>, photo N of M".
 function photoAlt(project, n) {
   return project.name.replace(/&amp;/g, '&') + ', photo ' + n + ' of ' + project.gallery.length;
@@ -748,7 +755,7 @@ function renderProject() {
     const meta = [has(p.price) && `Completed home value ${p.price}`, has(p.sqft) && `${p.sqft} sqft`].filter(Boolean).join(' · ');
     return `
       <a class="related-card" href="project.html?slug=${s}">
-        <div class="related-card-img"><img src="${p.heroImg}" alt="${p.name.replace(/&amp;/g, '&')}"></div>
+        <div class="related-card-img"><img src="${cardSrc(p.heroImg)}" alt="${p.name.replace(/&amp;/g, '&')}"></div>
         <div class="related-card-loc">${p.location.split(',')[0]}, AZ</div>
         <div class="related-card-name">${p.name}</div>
         ${meta ? `<div class="related-card-price">${meta}</div>` : ''}

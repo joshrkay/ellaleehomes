@@ -61,7 +61,14 @@ Heroes use the 1600 file; there is no separate 2000 px hero, which would add wei
 
 About 1,435 images at these sizes is roughly 240 MB in git (about 26 MB today), so curate to around 40 per home or accept 200 MB or more. GitHub caps a single file at 100 MB; Vercel plan limits and image quotas have not been checked.
 
-Page markup should pick the size with `srcset`/`sizes` (cards and thumbnails use the `-960` and `-480` files); the project page gallery and lightbox are updated with the portfolio data work.
+### Which size a page gets
+
+`--rewrite` points every reference at the full file (`<name>.webp`), which is right for heroes and other full-width pictures. A picture that is not full width opts in to the smaller files with a marker on its `<img>`:
+
+- `data-img="card"` for a card or tile in a grid (a third of the screen on a desktop, half on a tablet, all of it on a phone). The page gets the 960 file, with 480 and 960 offered through `srcset`.
+- `data-img="half"` for a picture that fills about half the screen on a desktop (the pictures in the Developers and Why Us card stacks, the featured story). It offers 480, 960 and the full file.
+
+At build time `scripts/lib/images.mjs` turns the marker into `src`, `srcset` and `sizes`, reading each file's real width from its header, and removes the marker. It only does this when the other sizes exist on disk, so until the migration has run the page is the page as written, and a half-finished migration cannot point a page at a missing file. The generated portfolio cards already carry `data-img="card"`; the related-project cards and the lightbox strip on the project page pick the `-960` and `-480` files in the page script. When you add a card image to a page by hand, add the marker.
 
 ## What is not automated
 

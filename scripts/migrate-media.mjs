@@ -305,7 +305,14 @@ function rewrite({ list }) {
 }
 
 function verify() {
-  // The asset gate looks at the built site, so build first (`npm run build`) when pages changed.
+  // The asset gate reads the built site, and --rewrite has just changed what the pages say, so rebuild first.
+  // Without this the gate would judge the build from before the migration, or find no dist/ on a fresh checkout.
+  const built = spawnSync(process.execPath, [abs('scripts/build-html.mjs')], { stdio: ['ignore', 'ignore', 'inherit'] });
+  if (built.status !== 0) {
+    console.log('verify: the site did not build, so the asset gate was not run');
+    process.exitCode = 1;
+    return;
+  }
   const r = spawnSync(process.execPath, [abs('scripts/check-assets.mjs'), '--strict'], { stdio: 'inherit' });
   if (r.status !== 0) process.exitCode = 1;
 }

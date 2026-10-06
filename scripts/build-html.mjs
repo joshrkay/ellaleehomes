@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { applyReviews } from './lib/reviews.mjs';
+import { applyResponsiveImages } from './lib/images.mjs';
 import { loadProjects, applyProjectRegions, projectUrls as listProjectUrls, ProjectsError } from './lib/projects.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -308,6 +309,7 @@ for (const page of PAGES) {
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(page.file === 'index.html'));
   content = applyFacts(content);
   content = applyReviews(content, page.file); // review cards from data/reviews.json; also the one place they are validated
+  content = applyResponsiveImages(content, root); // data-img="card" or "half" becomes srcset and sizes once the smaller photos exist
   // Brand favicon on every page (monogram on navy, per the style guide).
   if (!content.includes('rel="icon"')) {
     content = content.replace('</head>', FAVICON_TAGS + '</head>');

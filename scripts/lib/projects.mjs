@@ -203,7 +203,7 @@ function renderCard(p) {
   const L = [];
   L.push(`    <div class="proj-card" data-sqft="${cv(p, 'sqft') ?? 0}" data-price="${cv(p, 'value') ?? 0}" data-year="${cv(p, 'year') ?? 0}" data-band="${escHtml(p.band ?? '')}">`);
   if (isPhotosOnly(p)) {
-    L.push(`      <div class="proj-card-img"><a href="${href}" class="proj-card-img-link" aria-label="View ${name} project"><img src="${img}" alt="${name}" loading="lazy"></a></div>`);
+    L.push(`      <div class="proj-card-img"><a href="${href}" class="proj-card-img-link" aria-label="View ${name} project"><img src="${img}" alt="${name}" loading="lazy" data-img="card"></a></div>`);
     L.push('      <div class="proj-card-body">');
     if (loc) L.push(`        <div class="proj-card-location">${loc}</div>`);
     L.push(`        <div class="proj-card-name">${name}</div>`);
@@ -222,7 +222,7 @@ function renderCard(p) {
     const specs = [has(beds) && `${beds} BD`, has(baths) && `${baths} BA`, has(sqft) && `${fmtInt(sqft)} sqft`].filter(Boolean);
     if (has(year)) L.push(`      <div class="proj-card-year">${escHtml(year)}</div>`);
     if (chip) L.push(`      <div class="proj-card-sold">${chip}</div>`);
-    L.push(`      <div class="proj-card-img"><a href="${href}" class="proj-card-img-link" aria-label="View ${name} project"><img src="${img}" alt="${escHtml(alt)}"></a></div>`);
+    L.push(`      <div class="proj-card-img"><a href="${href}" class="proj-card-img-link" aria-label="View ${name} project"><img src="${img}" alt="${escHtml(alt)}" data-img="card"></a></div>`);
     L.push('      <div class="proj-card-body">');
     if (loc) L.push(`        <div class="proj-card-location">${loc}</div>`);
     if (has(styleLabel)) L.push(`        <div class="proj-card-style">${escHtml(styleLabel)}</div>`);
