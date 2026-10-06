@@ -7,6 +7,9 @@
  *   ELH_LAUNCH=1 npm run build                same as --strict, inside the build (set it on the go-live deploy)
  *   --summary                                 one line instead of the list (used inside `npm run build`)
  *
+ * Blocker classes: F facts not supplied, L legal pages, S share image and indexing, M media on the new site,
+ * P portfolio data (the errors scripts/validate-projects.mjs finds in data/projects.json).
+ *
  * Until launch the site is allowed to be incomplete, so the build only reports. On go-live day set
  * ELH_LAUNCH=1 (a Vercel environment variable, not VERCEL_ENV: staging is the Production environment)
  * and the build refuses to ship while any blocker below remains.
@@ -15,6 +18,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { loadProjects, ProjectsError } from './lib/projects.mjs';
+import { validateProjects, errorsOf } from './lib/projects-validate.mjs';
 
 const args = process.argv.slice(2);
 const STRICT = args.includes('--strict') || process.env.ELH_LAUNCH === '1';
@@ -89,6 +94,15 @@ if (!/^Sitemap:\s*https:\/\/ellaleehomes\.com\/sitemap\.xml/m.test(robots)) note
 const assets = spawnSync(process.execPath, [path.join(root, 'scripts', 'check-assets.mjs'), '--summary', '--strict'], { encoding: 'utf8' });
 const assetsLine = (assets.stdout || '').trim().split('\n').pop() || '';
 if (assets.status !== 0) note('M1', 'Off-site or missing media (punch item 62)', assetsLine);
+
+// P: the portfolio data (data/projects.json). One line per error; warnings are advice and never block
+// (`npm run check:projects` lists both). Each project is one line, so a cleared record clears its line.
+try {
+  for (const f of errorsOf(validateProjects(loadProjects()).findings).sort((a, b) => a.code.localeCompare(b.code))) note(f.code, `${f.slug ?? 'data'}.${f.field}: ${f.message}`);
+} catch (err) {
+  if (!(err instanceof ProjectsError)) throw err;
+  note('P0', 'data/projects.json is missing or not valid', err.message);
+}
 
 // Report.
 const label = STRICT ? 'STRICT' : 'report';
