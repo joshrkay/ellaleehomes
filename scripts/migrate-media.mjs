@@ -16,9 +16,10 @@
  *                 Drive     -> uploads/drive/<ID>.<ext>, fetched by ID at up to 2200px; the site already
  *                              hot-links these files, so they are publicly readable. If a file is no longer
  *                              shared, export it by hand into uploads/drive/<ID>.<ext>
- *   --optimize  make the deployable files, each with a -480 thumbnail:
- *                 uploads/w/<year>/<month>/<name>.webp   from a WordPress original
- *                 uploads/d/<ID>.webp                    from a Drive original
+ *   --optimize  make the deployable files from the cached originals, three widths each:
+ *                 <name>.webp (1600w, gallery, lightbox and heroes), <name>-960.webp (cards), <name>-480.webp (thumbnails)
+ *                 uploads/w/<year>/<month>/<name>.*   from a WordPress original
+ *                 uploads/d/<ID>.*                    from a Drive original
  *               Needs sharp, which is not a project dependency: npm i --no-save sharp
  *   --rewrite   repoint a reference at its optimised file whenever that file exists. Relative in
  *               pages and scripts; absolute (https://ellaleehomes.com/...) inside <meta> tags and
@@ -54,11 +55,13 @@ const DRIVE_OUT = 'uploads/d';
 
 const IMAGE_EXT = /\.(?:jpe?g|png|webp|gif)$/i;
 const VIDEO_EXT = /\.(?:mp4|m4v|mov|webm)$/i;
-// Sizes and quality budget (docs/media.md): full 1600w <= 150 KB, thumbnail 480w <= 12 KB.
+// A deliberate three-size set and its byte budgets (docs/media.md). Heroes use the full size.
 const FULL_W = 1600;
+const CARD_W = 960;
 const THUMB_W = 480;
-const FULL_MAX = 150 * 1024;
-const THUMB_MAX = 12 * 1024;
+const FULL_MAX = 160 * 1024;
+const CARD_MAX = 70 * 1024;
+const THUMB_MAX = 20 * 1024;
 
 const CONCURRENCY = 6;
 const RETRIES = 3;
@@ -207,7 +210,7 @@ async function optimize({ list }) {
   }
   const todo = list.filter((i) => i.original && exists(i.original) && !exists(i.derived));
   if (!todo.length) return console.log('optimize: nothing to do');
-  console.log(`optimize: ${todo.length} original(s) -> ${WP_OUT}/ and ${DRIVE_OUT}/ (full ${FULL_W}w, thumbnail ${THUMB_W}w)`);
+  console.log(`optimize: ${todo.length} original(s) -> ${WP_OUT}/ and ${DRIVE_OUT}/ (${FULL_W}w, ${CARD_W}w, ${THUMB_W}w)`);
 
   /** Encode at the best quality that fits the budget (never below 58). */
   async function encode(src, width, max, start) {
@@ -229,13 +232,15 @@ async function optimize({ list }) {
       try {
         const src = abs(item.original);
         const full = await encode(src, FULL_W, FULL_MAX, 76);
+        const card = await encode(src, CARD_W, CARD_MAX, 74);
         const thumb = await encode(src, THUMB_W, THUMB_MAX, 70);
         const out = abs(item.derived);
         fs.mkdirSync(path.dirname(out), { recursive: true });
         fs.writeFileSync(out, full);
+        fs.writeFileSync(out.replace(/\.webp$/, `-${CARD_W}.webp`), card);
         fs.writeFileSync(out.replace(/\.webp$/, `-${THUMB_W}.webp`), thumb);
         before += fs.statSync(src).size;
-        after += full.length + thumb.length;
+        after += full.length + card.length + thumb.length;
         if (full.length > FULL_MAX) over.push(`${item.derived} ${Math.round(full.length / 1024)} KB`);
       } catch (err) {
         console.log('  FAIL', item.original, '-', String(err.message || err));
