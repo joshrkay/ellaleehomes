@@ -57,7 +57,7 @@ Three widths on purpose, so each use has a file that fits it:
 | Social share image | `assets/og-share.jpg` | 1200 x 630 | 150 KB |
 | Home hero video | `uploads/video/` | 1080p H.264 with faststart, no audio, 10 to 20 s | 6 MB (also a 720p copy) |
 
-Heroes use the 1600 file; there is no separate 2000 px hero, which would add weight for little gain. Revisit that if the final hero photos look soft on very large screens. The tool never enlarges a photo and encodes at the best quality that fits the budget (down to quality 58). Measured on the current 1024 px photos: 7 to 20 KB at 480, 22 to 64 KB at 960.
+Heroes use the 1600 file; there is no separate 2000 px hero, which would add weight for little gain. Revisit that if the final hero photos look soft on very large screens. The tool never enlarges a photo and encodes at the best quality that fits the budget (down to quality 58, which is always tried last). Any file of the three that is still over its limit at 58 is listed at the end of the run, so the budgets are checked, not assumed. Measured on the current 1024 px photos: 7 to 20 KB at 480, 22 to 64 KB at 960.
 
 About 1,435 images at these sizes is roughly 240 MB in git (about 26 MB today), so curate to around 40 per home or accept 200 MB or more. GitHub caps a single file at 100 MB; Vercel plan limits and image quotas have not been checked.
 

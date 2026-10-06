@@ -16,7 +16,7 @@ function build() {
 }
 
 chokidar
-  .watch(['src/**/*.html', 'partials/**/*.html', 'assets/**/*.css', 'assets/**/*.js', 'data/**/*.json'], {
+  .watch(['src/**/*.html', 'partials/**/*.html', 'assets/**/*.css', 'assets/**/*.js', 'data/**/*.json', 'site-facts.json'], {
     cwd: root,
     ignoreInitial: true,
   })
@@ -25,5 +25,5 @@ chokidar
     build();
   });
 
-console.log('[watch] Watching src/, partials/, assets/, data/: edit files to rebuild dist/');
+console.log('[watch] Watching src/, partials/, assets/, data/ and site-facts.json: edit files to rebuild dist/');
 build();

@@ -25,6 +25,20 @@ const ROLES = {
 /** A migrated photo at its largest size: uploads/w/... or uploads/d/..., a .webp with no -960 or -480 ending. */
 const MIGRATED = /^(uploads\/[wd]\/.+?)(?<!-960)(?<!-480)\.webp$/;
 
+/** Lowest WebP quality the migration will use. */
+export const MIN_QUALITY = 58;
+
+/**
+ * The qualities to try, best first: start, start - 6, ... and always the floor as the last one, so a photo that only
+ * fits its size limit at the floor is not written over the limit just because the steps skipped it (74, 68, 62, 58).
+ */
+export function qualitySteps(start, floor = MIN_QUALITY) {
+  const steps = [];
+  for (let q = start; q > floor; q -= 6) steps.push(q);
+  steps.push(floor);
+  return steps;
+}
+
 /** Pixel width written in a WebP header (lossy, lossless or extended), or null when it cannot be read. */
 export function webpWidth(buf) {
   if (!buf || buf.length < 30 || buf.toString('latin1', 0, 4) !== 'RIFF' || buf.toString('latin1', 8, 12) !== 'WEBP') return null;

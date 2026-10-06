@@ -46,6 +46,7 @@ import { spawnSync } from 'node:child_process';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
+import { MIN_QUALITY, qualitySteps } from './lib/images.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ORIGIN = 'https://ellaleehomes.com';
@@ -229,10 +230,10 @@ async function optimize({ list }) {
   if (!todo.length) return console.log('optimize: nothing to do');
   console.log(`optimize: ${todo.length} original(s) -> ${WP_OUT}/ and ${DRIVE_OUT}/ (${FULL_W}w, ${CARD_W}w, ${THUMB_W}w)`);
 
-  /** Encode at the best quality that fits the budget (never below 58). */
+  /** Encode at the best quality that fits the budget; the last quality tried is always the floor. */
   async function encode(src, width, max, start) {
     let buf;
-    for (let q = start; q >= 58; q -= 6) {
+    for (const q of qualitySteps(start)) {
       buf = await sharp(src).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: q, effort: 5 }).toBuffer();
       if (buf.length <= max) break;
     }
@@ -259,7 +260,9 @@ async function optimize({ list }) {
         fs.writeFileSync(out, full);
         before += fs.statSync(src).size;
         after += full.length + card.length + thumb.length;
-        if (full.length > FULL_MAX) over.push(`${item.derived} ${Math.round(full.length / 1024)} KB`);
+        for (const [file, buf, max] of [[item.derived, full, FULL_MAX], [variantPath(item.derived, CARD_W), card, CARD_MAX], [variantPath(item.derived, THUMB_W), thumb, THUMB_MAX]]) {
+          if (buf.length > max) over.push(`${file} ${Math.round(buf.length / 1024)} KB (limit ${Math.round(max / 1024)} KB)`);
+        }
       } catch (err) {
         console.log('  FAIL', item.original, '-', String(err.message || err));
         process.exitCode = 1;
@@ -269,7 +272,7 @@ async function optimize({ list }) {
   };
   await Promise.all(Array.from({ length: 4 }, worker));
   console.log(`optimize: ${done} done, ${(before / 1048576).toFixed(1)} MB of originals -> ${(after / 1048576).toFixed(1)} MB committed`);
-  if (over.length) console.log(`optimize: ${over.length} file(s) still over the ${FULL_MAX / 1024} KB budget at the lowest quality:\n  ` + over.slice(0, 10).join('\n  '));
+  if (over.length) console.log(`optimize: ${over.length} file(s) still over their size limit at the lowest quality (${MIN_QUALITY}):\n  ` + over.slice(0, 10).join('\n  '));
 }
 
 /**
