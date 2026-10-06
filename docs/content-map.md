@@ -34,8 +34,8 @@ Sell is not a top-level entry — it is the last item in Learn.
 | File | Role |
 |------|------|
 | [`src/index.html`](../src/index.html) | Home: key intro, hero video, story, experience timeline, project strip, testimonials, giving back, FAQ, "Start your build" |
-| [`src/previous-projects.html`](../src/previous-projects.html) | Portfolio grid, style and sqft filters |
-| [`src/project.html`](../src/project.html) | Project detail shell; content driven by `?slug=` + embedded `PROJECTS` data |
+| [`src/previous-projects.html`](../src/previous-projects.html) | Portfolio grid, style and sqft filters; the cards, counts and ItemList are generated from [`data/projects.json`](../data/projects.json) |
+| [`src/project.html`](../src/project.html) | Project detail shell; content driven by `?slug=` + the `PROJECTS` data, generated from [`data/projects.json`](../data/projects.json) |
 | [`src/build-your-home.html`](../src/build-your-home.html) | Build phases (scroll-scrubbed timeline) |
 | [`src/sell-your-home.html`](../src/sell-your-home.html) | Selling a home through Ella Lee |
 | [`src/our-story.html`](../src/our-story.html) | About / founder |
@@ -75,7 +75,7 @@ Build output: **`dist/`** (run `npm run build`). Preview: `npm run dev`. The for
 
 ## Media that still loads from outside the site
 
-Run `npm run check:assets` for the current count. At the start of the launch work it was 1,572 references to 1,438 unique files: old WordPress (`ellaleehomes.com/wp-content/uploads/...`), Google Drive project galleries, and three Zillow photos. Most sit in the project data block of `project.html`. The plan to move them all on-site is in [`media.md`](media.md).
+Run `npm run check:assets` for the current count. At the start of the launch work it was 1,572 references to 1,438 unique files: old WordPress (`ellaleehomes.com/wp-content/uploads/...`), Google Drive project galleries, and three Zillow photos. Most sit in the project data (`data/projects.json`, which fills the project block of `project.html` and the portfolio cards). The plan to move them all on-site is in [`media.md`](media.md).
 
 **Video:** the home hero still plays `wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v` until Shay's new video arrives.
 

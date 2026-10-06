@@ -14,11 +14,18 @@ npm run check:copy     # banned wording only (also the first step of build)
 npm run launch:report  # everything that still blocks go-live, as a list
 npm run check:launch   # the same, but exits 1 while any blocker remains
 npm run check:assets   # media that still loads from the old WordPress site, Google Drive or Zillow
+npm run check:projects # the portfolio data: errors and warnings
+npm run projects:csv   # data/projects.csv, the sheet for Rebecca
+npm run projects:import -- returned.csv   # her answers: a diff, saved only with --write
 ```
 
 Preview production-like files from **`dist/`** only (paths assume `assets/` and `uploads/` siblings).
 
 Every `.html` in `src/` must appear in the `PAGES` table in `scripts/build-html.mjs`; the build fails if one is missing, so a new page cannot silently stop shipping. Each entry sets which top-level nav entry is current and the page's sitemap URL.
+
+## The portfolio
+
+The homes are written down once, in `data/projects.json`. The build fills the portfolio page's cards, tab counts and ItemList, the project page's `PROJECTS` data and the sitemap's project URLs from it, and `npm run check:projects` checks it (each error is a `[P]` launch blocker). Rebecca's records come in through `npm run projects:csv` and `npm run projects:import`. `data/README.md` has the fields, how to add a home, and the disagreements still to resolve.
 
 ## Guards
 
@@ -38,6 +45,7 @@ The build also prints a launch report (`scripts/check-launch.mjs`). It only repo
 | `partials/nav.html` | Site-wide nav: header bar, Learn panel slot, mobile drawer (`__HREF_*__` / `__ARIA_*__` resolve per page at build) |
 | `partials/nav-dropdown.html` | The "Learn" mega-panel, injected into the nav |
 | `partials/footer.html` | Site-wide footer (`__HOME__` resolves per page at build) |
+| `data/projects.json` | The portfolio: one record per home; see `data/README.md`. `data/projects.csv` is the same list as a sheet |
 | `site-facts.json` | Facts not supplied yet; see above |
 | `data/reviews.json` | The Google reviews: one source for Home, Why Us, Developers and Our Story, filled in and checked by `scripts/lib/reviews.mjs`. How to add one: `data/README.md` |
 | `assets/elh-nav.js` | All nav behaviour: scroll states, `--elh-nav-h`, Learn panel, mobile drawer |
@@ -48,6 +56,7 @@ The build also prints a launch report (`scripts/check-launch.mjs`). It only repo
 | `assets/elh-*.svg` | Monogram and wordmark marks |
 | `scripts/check-copy.mjs` | Banned-wording guard (`scripts/lib/regions.mjs` reads only visible text) |
 | `scripts/check-launch.mjs`, `scripts/check-assets.mjs` | Go-live gate and the off-site media scan |
+| `scripts/validate-projects.mjs`, `scripts/lib/projects*.mjs` | Checks on the portfolio data; the generators, the CSV and the import behind it |
 | `scripts/qa.py` | Full QA against the built site. Writes to `qa-out/` (gitignored), never to `docs/`. |
 | `uploads/home/` | Homepage photography |
 | `docs/` | Plan, fact sheet, open questions, punch list. Older versions are in `docs/archive/`. |

@@ -34,6 +34,8 @@ The plan behind these is `docs/launch-plan.md`. The IDs (S1, R1, B1, L1) match i
 
 ## Rebecca
 
+Her sheet is `data/projects.csv`, written by `npm run projects:csv` with a `check` column that says what to look at on each row. Her answers go back in with `npm run projects:import` (`data/README.md`).
+
 - **R1** The record for every house, in the CSV the build generates (`npm run projects:csv`), and which are the 26 completed and the 21 in progress.
 - **R2** Sq ft definition (livable or total); Charter Oak baths (5 full and 2 half?); the real values for Charter Oak and 68th; the builder of each home.
 - **R3** Main picture for each card and hero (high resolution; today 1024px), the style, and the Drive folder for each project.
