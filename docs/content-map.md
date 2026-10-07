@@ -11,7 +11,7 @@ Top-level nav (`partials/nav.html`):
 | Build | `build-your-home.html` |
 | Our Story | `our-story.html` |
 | Learn | mega-panel (`partials/nav-dropdown.html`), opened by `assets/elh-nav.js` |
-| Get Started | `index.html#inquiry`, or `contact.html` on the help/legal/article pages |
+| Start your build | `contact.html` on every page (the Buildertrend form lives there) |
 
 The Learn panel carries Why Ella Lee, Developers & Investors, Stories & Insights,
 Contact Us, Client Portal, FAQ, Warranty, Homeowner Resources and Sell Your Home.
@@ -23,8 +23,8 @@ Sell is not a top-level entry — it is the last item in Learn.
 
 | Source | Role |
 |--------|------|
-| WordPress media (`https://ellaleehomes.com/wp-content/uploads/...`) | Primary for photography, video, and logo CDN fallback |
-| [`uploads/`](/uploads/) in repo | The footer photo (`footer-bg.jpg`) and the homepage photography in `uploads/home/` |
+| [`uploads/`](/uploads/) in repo | Every image and video the site shows. Hand-placed photos in `uploads/home/` and `uploads/*.jpg`; migrated project and article photos in `uploads/w/` and `uploads/d/` (WebP, three sizes). See [`media.md`](media.md) |
+| Old WordPress media, Google Drive, Zillow | **Not allowed at launch** (Fact Sheet section 6). Still referenced until `scripts/migrate-media.mjs` has run; `npm run check:assets` counts what is left |
 | `assets/elh-*.svg` | Monogram and wordmark; the nav draws its mark from here, not from `uploads/` |
 
 ---
@@ -33,9 +33,9 @@ Sell is not a top-level entry — it is the last item in Learn.
 
 | File | Role |
 |------|------|
-| [`src/index.html`](../src/index.html) | Home: key intro, hero video, story, experience timeline, project strip, testimonials, giving back, inquiry, FAQ |
-| [`src/previous-projects.html`](../src/previous-projects.html) | Portfolio grid, style and sqft filters |
-| [`src/project.html`](../src/project.html) | Project detail shell; content driven by `?slug=` + embedded `PROJECTS` data |
+| [`src/index.html`](../src/index.html) | Home: key intro, hero video, story, experience timeline, project strip, testimonials, giving back, FAQ, "Start your build" |
+| [`src/previous-projects.html`](../src/previous-projects.html) | Portfolio grid, style and sqft filters; the cards, counts and ItemList are generated from [`data/projects.json`](../data/projects.json) |
+| [`src/project.html`](../src/project.html) | Project detail shell; content driven by `?slug=` + the `PROJECTS` data, generated from [`data/projects.json`](../data/projects.json) |
 | [`src/build-your-home.html`](../src/build-your-home.html) | Build phases (scroll-scrubbed timeline) |
 | [`src/sell-your-home.html`](../src/sell-your-home.html) | Selling a home through Ella Lee |
 | [`src/our-story.html`](../src/our-story.html) | About / founder |
@@ -43,8 +43,8 @@ Sell is not a top-level entry — it is the last item in Learn.
 | [`src/why-us.html`](../src/why-us.html) | Differentiators |
 | [`src/developers.html`](../src/developers.html) | Developer / investor offering |
 | [`src/stories.html`](../src/stories.html) | Article index |
-| [`src/contact.html`](../src/contact.html) | Contact form |
-| [`src/client-portal.html`](../src/client-portal.html) | Client portal entry |
+| [`src/contact.html`](../src/contact.html) | Contact: the Buildertrend lead form on a linen panel. The only form on the site |
+| [`src/client-portal.html`](../src/client-portal.html) | Client portal: a button to the Buildertrend login (appears once `buildertrendLoginUrl` is set in `site-facts.json`) |
 | [`src/faq.html`](../src/faq.html), [`warranty`](../src/warranty.html), [`homeowner-resources`](../src/homeowner-resources.html) | Help |
 | [`src/privacy.html`](../src/privacy.html), [`terms`](../src/terms.html), [`disclaimer`](../src/disclaimer.html), [`code-of-conduct`](../src/code-of-conduct.html) | Legal |
 | `src/steps-to-building-a-custom-home.html` | Article |
@@ -61,24 +61,23 @@ Build output: **`dist/`** (run `npm run build`). Preview: `npm run dev`. The for
 
 ---
 
-## Relative `uploads/` assets (must exist or use mapped WP URL)
+## `uploads/` assets
 
 | Path | Status | Notes |
 |------|--------|--------|
-| `uploads/home/*.jpg` | OK | Homepage and hero photography, including `story.jpg` (Our Story hero) |
+| `uploads/home/*.jpg` | OK | Homepage and hero photography, including `story.jpg` (Our Story hero) and `shay.jpg` |
 | `uploads/footer-bg.jpg` | OK | Footer backdrop |
+| `uploads/w/<year>/<month>/` and `uploads/d/` | Created by `scripts/migrate-media.mjs --optimize` | Migrated WordPress and Drive photos, three WebP widths each. Empty until the tool has run with network access |
+| `uploads/video/` | Waiting on Shay (punch item 41) | The new home hero video and its poster |
 | `uploads/Monogram_Navy.png` | Unused | Superseded by `assets/elh-monogram.svg`; kept as a brand original |
-| `uploads/IMG_*.jpg` (legacy) | Replaced | Replaced in templates with equivalent `wp-content` JPEG URLs where local files were missing |
 
 ---
 
-## WordPress media referenced in HTML/JS (representative)
+## Media that still loads from outside the site
 
-Hero and marketing imagery use dates under `wp-content/uploads/2025/` (02, 03, 04, 06, 10, 11, 12). `project.html` embeds large gallery arrays for Mitchell Home and similar projects under `2025/02/` sequential JPEGs.
+Run `npm run check:assets` for the current count. At the start of the launch work it was 1,572 references to 1,438 unique files: old WordPress (`ellaleehomes.com/wp-content/uploads/...`), Google Drive project galleries, and three Zillow photos. Most sit in the project data (`data/projects.json`, which fills the project block of `project.html` and the portfolio cards). The plan to move them all on-site is in [`media.md`](media.md).
 
-**Video:** `wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v` (hero).
-
-**Portfolio cards (`previous-projects.html`):** Mixed dates; placeholders use `2025/01/placeholder.jpg`.
+**Video:** the home hero still plays `wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v` until Shay's new video arrives.
 
 **Logo:** the nav and drawer use `assets/elh-monogram.svg`; the footer and hero lockups use `assets/elh-wordmark.svg`. No CDN round-trip.
 
@@ -93,7 +92,7 @@ Hero and marketing imagery use dates under `wp-content/uploads/2025/` (02, 03, 0
 | Why Us | `#experience` | Pillars / imagery row |
 | Portfolio teaser | featured homes | Links to `project.html?slug=` |
 | About / meet | `#meet` | Team imagery tabs |
-| Inquire | `#inquiry` | Contact CTA — the nav's "Get Started" target |
+| Start your build | the closing band on each page | A button to `contact.html`; the Buildertrend form lives only on the Contact page |
 
 The homepage intro is suppressed on internal trips home: any nav link resolving
 to the homepage sets `sessionStorage.elhSkipIntro`, which `index.html` reads in a
@@ -103,6 +102,6 @@ pre-paint inline script. It still plays on first arrival and on hard reloads.
 
 ## Maintenance
 
-- Prefer **absolute WP URLs** for large rotating galleries to avoid bloating the repo; keep **logo** (and favicons if added) under `uploads/` when you need fully offline builds.
+- Store every image on the site (`uploads/`, optimised by `scripts/migrate-media.mjs`). Do not add new links to WordPress, Google Drive or Zillow; `npm run check:assets` fails the launch build on them.
 - After editing [`partials/nav.html`](../partials/nav.html), run `npm run build` so `dist/` updates.
 - Nav behaviour lives only in [`assets/elh-nav.js`](../assets/elh-nav.js). `assets/home.js` is homepage content behaviour and must not re-bind the drawer or the Learn panel.

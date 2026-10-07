@@ -1,7 +1,7 @@
 /**
  * Homepage behaviour: sticky/hiding nav, mobile drawer, "More" menu, the
- * scroll-driven Experience timeline, the dragging project strip, FAQ
- * accordions and the inquiry form.
+ * scroll-driven Experience timeline, the dragging project strip and FAQ
+ * accordions.
  *
  * Ported from the design-canvas export, which drove all of this from a
  * component class; every effect here is plain DOM work, so it runs as a
@@ -89,6 +89,29 @@
         apply(panel, pArc);
       }
     }
+  }
+
+  /** Auto-scroll speed of the project strip, in pixels per second: the same on a 60 Hz and a 120 Hz screen. */
+  var STRIP_PX_PER_SEC = 15.6;
+  /** Longest frame time the strip counts, so a tab that sat in the background does not make it jump on return. */
+  var STRIP_MAX_DT = 0.1;
+  /** How long the strip waits for its photos to decode before it starts anyway. */
+  var STRIP_DECODE_WAIT_MS = 3000;
+
+  /**
+   * Resolves once every image under `root` has loaded and decoded, or after `ms`, whichever comes first.
+   * Decoding ahead of time keeps a card from scrolling into view before its photo is ready to paint.
+   */
+  function whenDecoded(root, ms) {
+    var jobs = Array.prototype.map.call(root.querySelectorAll('img'), function (img) {
+      // A lazy image never loads until it is near the screen, so it could not be decoded ahead of time.
+      if (img.loading === 'lazy') img.loading = 'eager';
+      return img.decode ? img.decode().catch(function () { /* a broken image must not hold the strip back */ }) : Promise.resolve();
+    });
+    return new Promise(function (resolve) {
+      var timer = setTimeout(resolve, ms);
+      Promise.all(jobs).then(function () { clearTimeout(timer); resolve(); });
+    });
   }
 
   /** Endless, draggable project strip. */
@@ -183,11 +206,16 @@
     }, true);
 
     if (!track.__elhRaf) {
-      var tick = function () {
+      var last = 0;
+      var tick = function (now) {
         if (!track.isConnected) { track.__elhRaf = null; return; }
+        // Seconds since the previous frame, so the speed does not depend on the screen's refresh rate.
+        var dt = last ? Math.min(Math.max((now - last) / 1000, 0), STRIP_MAX_DT) : 0;
+        last = now;
         if (!s.step || s.step < 60) measure();
-        if (!s.paused && !s.dragging) s.target += 0.26;
-        s.x += (s.target - s.x) * 0.07;
+        if (!s.paused && !s.dragging) s.target += STRIP_PX_PER_SEC * dt;
+        // Same 7% per frame at 60 Hz, now as a function of elapsed time.
+        s.x += (s.target - s.x) * (1 - Math.pow(0.93, dt * 60));
         if (s.span > 0) {
           while (s.x >= s.span) { s.x -= s.span; s.target -= s.span; }
           while (s.x < 0) { s.x += s.span; s.target += s.span; }
@@ -196,7 +224,11 @@
         curve(track);
         track.__elhRaf = requestAnimationFrame(tick);
       };
-      track.__elhRaf = requestAnimationFrame(tick);
+      // Hold the loop until the photos (the clones too) have decoded; the flag keeps a second initStrip() from starting another loop.
+      track.__elhRaf = true;
+      whenDecoded(track, STRIP_DECODE_WAIT_MS).then(function () {
+        track.__elhRaf = track.isConnected ? requestAnimationFrame(tick) : null;
+      });
     }
     curve(track);
     requestAnimationFrame(function () { curve(track); });
@@ -312,6 +344,56 @@
     if (t && t.__elhStrip) t.__elhStrip.target += dir * t.__elhStrip.step;
   }
 
+  /** The reviews strip is a native scroller (swipe, wheel and keyboard keep working); the arrows only add a way to move it. */
+  function reviewsParts() {
+    var scroller = document.getElementById('reviews-scroller');
+    if (!scroller) return null;
+    return {
+      scroller: scroller,
+      prev: document.querySelector('[data-elh-click="reviewsPrev"]'),
+      next: document.querySelector('[data-elh-click="reviewsNext"]'),
+      group: document.querySelector('[data-elh-reviews-nav]'),
+    };
+  }
+
+  /** Distance between one card's left edge and the next: card width plus the flex gap. */
+  function reviewsStep(scroller) {
+    var first = scroller.children[0];
+    if (!first) return 0;
+    var gap = parseFloat(getComputedStyle(scroller).columnGap) || 0;
+    return first.getBoundingClientRect().width + gap;
+  }
+
+  /** Hide the arrows when nothing overflows; mark each one aria-disabled at its end of the strip. */
+  function reviewsSync() {
+    var r = reviewsParts();
+    if (!r || !r.prev || !r.next) return;
+    var max = r.scroller.scrollWidth - r.scroller.clientWidth;
+    if (r.group) r.group.hidden = max <= 1;
+    r.prev.setAttribute('aria-disabled', r.scroller.scrollLeft <= 1 ? 'true' : 'false');
+    r.next.setAttribute('aria-disabled', r.scroller.scrollLeft >= max - 1 ? 'true' : 'false');
+  }
+
+  /** One card per press. A card-wide step lands on the next snap point, so scroll-snap stays in charge. */
+  function reviewsGo(dir, btn) {
+    if (btn && btn.getAttribute('aria-disabled') === 'true') return;
+    var r = reviewsParts();
+    if (!r) return;
+    var step = reviewsStep(r.scroller);
+    if (!step) return;
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    r.scroller.scrollBy({ left: dir * step, behavior: calm ? 'auto' : 'smooth' });
+  }
+
+  function initReviews() {
+    var r = reviewsParts();
+    if (!r) return;
+    r.scroller.addEventListener('scroll', reviewsSync, { passive: true });
+    window.addEventListener('resize', reviewsSync);
+    if (window.ResizeObserver) new ResizeObserver(reviewsSync).observe(r.scroller);
+    reviewsSync();
+  }
+
   function toggleFaq(btn) {
     var panel = btn.parentElement.querySelector('[data-elh-faq-panel]');
     var icon = btn.querySelector('[data-elh-faq-icon]');
@@ -325,6 +407,8 @@
   var CLICK = {
     stripPrev: function () { stripNudge(-1); },
     stripNext: function () { stripNudge(1); },
+    reviewsPrev: function (e, el) { reviewsGo(-1, el); },
+    reviewsNext: function (e, el) { reviewsGo(1, el); },
     toggleFaq: function (e, el) { toggleFaq(el); },
   };
 
@@ -332,15 +416,6 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-elh-click]'), function (el) {
       var fn = CLICK[el.getAttribute('data-elh-click')];
       if (fn) el.addEventListener('click', function (e) { fn(e, el); });
-    });
-
-    Array.prototype.forEach.call(document.querySelectorAll('[data-elh-submit]'), function (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var msg = form.querySelector('[data-elh-form-msg]');
-        if (msg) msg.style.display = 'block';
-        form.reset();
-      });
     });
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -369,6 +444,7 @@
 
     requestAnimationFrame(handleScroll);
     initStrip();
+    initReviews();
 
     var hv = document.querySelector('[data-elh-herovid]');
     if (hv && hv.getAttribute('src')) {

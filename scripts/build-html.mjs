@@ -5,6 +5,9 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { applyReviews } from './lib/reviews.mjs';
+import { applyResponsiveImages } from './lib/images.mjs';
+import { loadProjects, applyProjectRegions, projectUrls as listProjectUrls, ProjectsError } from './lib/projects.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
@@ -18,6 +21,8 @@ const FAVICON_TAGS = `<link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 `;
+const INTER_TAG = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+`;
 const PLACEHOLDER = '<!-- NAV_PARTIAL -->';
 const FOOTER_PLACEHOLDER = '<!-- FOOTER_PARTIAL -->';
 const DROPDOWN_PLACEHOLDER = '<!-- NAV_DROPDOWN_PARTIAL -->';
@@ -29,15 +34,58 @@ const dropdownTemplate = fs.readFileSync(dropdownPath, 'utf8');
 /** Canonical origin of the live site, used for sitemap URLs. */
 const SITE_ORIGIN = 'https://ellaleehomes.com';
 
-/** Where the nav's "Get Started" button points. */
-const CTA_HOME = 'index.html#inquiry';
-const CTA_CONTACT = 'contact.html';
+/**
+ * The portfolio: data/projects.json. It fills the marker regions of previous-projects.html and project.html and
+ * lists the project URLs in the sitemap (scripts/lib/projects.mjs; fields in data/README.md).
+ */
+let PROJECTS_DATA;
+try {
+  PROJECTS_DATA = loadProjects();
+} catch (err) {
+  if (!(err instanceof ProjectsError)) throw err;
+  console.error(err.message);
+  process.exit(1);
+}
+console.log('Read', path.join('data', 'projects.json'), `(${PROJECTS_DATA.length} projects)`);
+
+/**
+ * Facts the site cannot invent live in site-facts.json; null means "not supplied yet".
+ *   {{key}}                               filled with the value when it is set
+ *   <!-- fact:key -->...<!-- /fact:key --> kept (with {{key}} filled) when set, dropped when not,
+ *                                          so an unset fact never ships as a placeholder
+ *   [launch date]                         on the legal pages, filled from launchDate
+ * `npm run check:launch` fails until every fact is set.
+ */
+const FACTS = JSON.parse(fs.readFileSync(path.join(root, 'site-facts.json'), 'utf8'));
+const unsetFacts = new Set();
+const isSet = (key) => FACTS[key] != null && FACTS[key] !== '';
+const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+
+/** @param {string} html */
+function applyFacts(html) {
+  html = html.replace(/<!-- fact:(\w+) -->([\s\S]*?)<!-- \/fact:\1 -->/g, (_, key, inner) => {
+    if (isSet(key)) return inner;
+    unsetFacts.add(key);
+    return '';
+  });
+  html = html.replace(/\{\{(\w+)\}\}/g, (token, key) => {
+    if (isSet(key)) return escapeAttr(FACTS[key]);
+    unsetFacts.add(key);
+    return token;
+  });
+  if (html.includes('[launch date]')) {
+    if (isSet('launchDate')) html = html.replaceAll('[launch date]', escapeAttr(FACTS.launchDate));
+    else unsetFacts.add('launchDate');
+  }
+  return html;
+}
 
 /**
  * `active` marks the current top-level nav entry. Every page takes the shared
  * nav — the homepage's own header is what the partial was cut from, so it is
- * no longer a special case. The homepage resolves the logo, "Home" link and
- * CTA to its own in-page anchors; see `renderNav`.
+ * no longer a special case. The homepage resolves the logo and the "Home" link
+ * to its own in-page anchor; see `renderNav`. The "Start your build" buttons in
+ * the nav and footer are fixed links to contact.html, so no page configures one.
  *
  * `url` is the page's path on the live site, which is not the built filename:
  * `vercel.json` serves clean, extension-less URLs, and four pages use a
@@ -51,55 +99,53 @@ const CTA_CONTACT = 'contact.html';
  * and 404 every stylesheet and image on the page.
  *
  * @typedef {'portfolio'|'process'|'about'} NavEntry
- * @typedef {{ file: string; url: string | null; changefreq?: string; priority?: string; cta?: string; active?: Partial<Record<NavEntry, boolean>> }} PageCfg
+ * @typedef {{ file: string; url: string | null; changefreq?: string; priority?: string; active?: Partial<Record<NavEntry, boolean>> }} PageCfg
  */
 
 /** @type {PageCfg[]} */
 const PAGES = [
-  { file: 'index.html', url: '/', changefreq: 'weekly', priority: '1.0', cta: '#inquiry' },
+  { file: 'index.html', url: '/', changefreq: 'weekly', priority: '1.0' },
 
   // Primary pages
-  { file: 'previous-projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', cta: CTA_HOME, active: { portfolio: true } },
+  { file: 'previous-projects.html', url: '/previous-projects', changefreq: 'weekly', priority: '0.9', active: { portfolio: true } },
   // The project detail template renders per-slug; those URLs are listed from
-  // the portfolio's own structured data instead of this entry.
-  { file: 'project.html', url: null, cta: CTA_HOME, active: { portfolio: true } },
-  { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { process: true } },
-  { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
-  { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', cta: CTA_HOME, active: { about: true } },
-  { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', cta: CTA_HOME },
-  { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7', cta: CTA_HOME },
-  { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7', cta: CTA_HOME },
+  // data/projects.json instead of this entry.
+  { file: 'project.html', url: null, active: { portfolio: true } },
+  { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', active: { process: true } },
+  { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7' },
+  { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', active: { about: true } },
+  { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8' },
+  { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7' },
+  { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7' },
   // Carries `robots: noindex` and is disallowed in robots.txt.
-  { file: 'client-portal.html', url: null, cta: CTA_HOME },
-  { file: 'contact.html', url: '/contact', changefreq: 'monthly', priority: '0.8', cta: CTA_CONTACT },
+  { file: 'client-portal.html', url: null },
+  { file: 'contact.html', url: '/contact', changefreq: 'monthly', priority: '0.8' },
 
   // Help / legal
-  { file: 'faq.html', url: '/faq', changefreq: 'monthly', priority: '0.7', cta: CTA_CONTACT },
-  { file: 'warranty.html', url: '/warranty', changefreq: 'yearly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'homeowner-resources.html', url: '/homeowner-resources', changefreq: 'yearly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'code-of-conduct.html', url: '/code-of-conduct', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
-  { file: 'privacy.html', url: '/privacy', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
-  { file: 'terms.html', url: '/terms', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
-  { file: 'disclaimer.html', url: '/disclaimer', changefreq: 'yearly', priority: '0.3', cta: CTA_CONTACT },
+  { file: 'faq.html', url: '/faq', changefreq: 'monthly', priority: '0.7' },
+  { file: 'warranty.html', url: '/warranty', changefreq: 'yearly', priority: '0.6' },
+  { file: 'homeowner-resources.html', url: '/homeowner-resources', changefreq: 'yearly', priority: '0.6' },
+  { file: 'code-of-conduct.html', url: '/code-of-conduct', changefreq: 'yearly', priority: '0.3' },
+  { file: 'privacy.html', url: '/privacy', changefreq: 'yearly', priority: '0.3' },
+  { file: 'terms.html', url: '/terms', changefreq: 'yearly', priority: '0.3' },
+  { file: 'disclaimer.html', url: '/disclaimer', changefreq: 'yearly', priority: '0.3' },
 
   // Articles
-  { file: 'steps-to-building-a-custom-home.html', url: '/steps-to-building-a-custom-home', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'how-to-find-a-custom-home-builder.html', url: '/how-to-find-a-custom-home-builder', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'is-custom-home-building-a-good-investment.html', url: '/is-custom-home-building-a-good-investment', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
-  { file: 'new-luxury-essentials-custom-homes-arizona.html', url: '/new-luxury-essentials-custom-homes-arizona', changefreq: 'monthly', priority: '0.6', cta: CTA_CONTACT },
+  { file: 'steps-to-building-a-custom-home.html', url: '/steps-to-building-a-custom-home', changefreq: 'monthly', priority: '0.6' },
+  { file: 'how-to-find-a-custom-home-builder.html', url: '/how-to-find-a-custom-home-builder', changefreq: 'monthly', priority: '0.6' },
+  { file: 'is-custom-home-building-a-good-investment.html', url: '/is-custom-home-building-a-good-investment', changefreq: 'monthly', priority: '0.6' },
+  { file: 'new-luxury-essentials-custom-homes-arizona.html', url: '/new-luxury-essentials-custom-homes-arizona', changefreq: 'monthly', priority: '0.6' },
   {
     file: 'exploring-the-costs-of-building-your-dream-home-a-comprehensive-guide.html',
     url: '/exploring-the-costs-of-building-your-dream-home-a-comprehensive-guide',
     changefreq: 'monthly',
     priority: '0.6',
-    cta: CTA_CONTACT,
   },
   {
     file: 'why-choosing-a-professional-home-builder-matters-for-your-custom-house.html',
     url: '/why-choosing-a-professional-home-builder-matters-for-your-custom-house',
     changefreq: 'monthly',
     priority: '0.6',
-    cta: CTA_CONTACT,
   },
 ];
 
@@ -117,7 +163,6 @@ function renderNav(page) {
     // The logo and the "Home" link share this token — on the homepage they
     // scroll back to the top rather than reloading the page.
     __HREF_HOME__: isHome ? '#top' : 'index.html',
-    __HREF_CTA__: page.cta ?? CTA_HOME,
     __ARIA_HOME__: aria(isHome),
     __ARIA_PORTFOLIO__: aria(active.portfolio),
     __ARIA_PROCESS__: aria(active.process),
@@ -141,29 +186,19 @@ function renderFooter(isHome) {
 }
 
 /**
- * Project detail URLs, read from the portfolio's own JSON-LD ItemList so the
- * sitemap cannot drift from the projects actually on the site.
+ * Project detail URLs for the sitemap, from data/projects.json: the same list that makes the portfolio's cards
+ * and ItemList, so the sitemap cannot drift from the projects actually on the site. A photos-only project has
+ * no entry until the data says otherwise.
  *
  * @returns {string[]}
  */
 function projectUrls() {
-  const html = fs.readFileSync(path.join(srcDir, 'previous-projects.html'), 'utf8');
-  const blocks = html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g);
-  for (const [, body] of blocks) {
-    let data;
-    try {
-      data = JSON.parse(body);
-    } catch {
-      continue; // not the block we want
-    }
-    if (data['@type'] !== 'ItemList') continue;
-    const urls = (data.itemListElement ?? [])
-      .map((entry) => entry?.url ?? entry?.item?.url)
-      .filter((u) => typeof u === 'string' && u.startsWith(SITE_ORIGIN));
-    if (urls.length) return urls;
+  const urls = listProjectUrls(PROJECTS_DATA, SITE_ORIGIN);
+  if (!urls.length) {
+    console.error('No project URLs for the sitemap: data/projects.json lists no project beyond the photos-only ones.');
+    process.exit(1);
   }
-  console.error('No project URLs found in the ItemList structured data of previous-projects.html');
-  process.exit(1);
+  return urls;
 }
 
 function xmlEscape(s) {
@@ -248,6 +283,14 @@ for (const page of PAGES) {
     process.exit(1);
   }
   let content = fs.readFileSync(srcFile, 'utf8');
+  // First, so the generated text goes through every step below exactly as hand-written text did.
+  try {
+    content = applyProjectRegions(content, page.file, PROJECTS_DATA, { origin: SITE_ORIGIN });
+  } catch (err) {
+    if (!(err instanceof ProjectsError)) throw err;
+    console.error(err.message);
+    process.exit(1);
+  }
   for (const token of [PLACEHOLDER, FOOTER_PLACEHOLDER]) {
     if (!content.includes(token)) {
       console.error('Missing', token, 'in', page.file);
@@ -264,9 +307,17 @@ for (const page of PAGES) {
   }
   content = content.split(DROPDOWN_PLACEHOLDER).join(dropdownTemplate);
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(page.file === 'index.html'));
+  content = applyFacts(content);
+  content = applyReviews(content, page.file); // review cards from data/reviews.json; also the one place they are validated
+  content = applyResponsiveImages(content, root); // data-img="card" or "half" becomes srcset and sizes once the smaller photos exist
   // Brand favicon on every page (monogram on navy, per the style guide).
   if (!content.includes('rel="icon"')) {
     content = content.replace('</head>', FAVICON_TAGS + '</head>');
+  }
+  // site-body.css sets Inter on every page, but 12 pages never loaded it and fell back to the system
+  // font. Make sure every page loads it (a page that already does is left alone).
+  if (!/family=Inter/.test(content)) {
+    content = content.replace('</head>', INTER_TAG + '</head>');
   }
   // One body-copy standard on every page; loaded last so it wins over each page's own styles.
   if (!content.includes('site-body.css')) {
@@ -277,6 +328,10 @@ for (const page of PAGES) {
 }
 
 writeSitemap();
+
+if (unsetFacts.size) {
+  console.warn(`site-facts.json: not set yet (${[...unsetFacts].join(', ')}). The build leaves the slot out; check:launch fails until it is set.`);
+}
 
 // Root-level files that ship as-is.
 for (const name of ['robots.txt']) {

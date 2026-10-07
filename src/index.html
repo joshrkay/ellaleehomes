@@ -159,12 +159,19 @@
   /* Hover states. The elements style themselves inline, so these must win. */
   .elh-h1:hover { background: #EAE5DC !important; color: #001526 !important; }
   .elh-h2:hover { background: #EAE5DC !important; border-color: #EAE5DC !important; color: #001526 !important; }
-  .elh-h3:hover { opacity: .72 !important; }
-  .elh-h4:hover { background: #BFA06A !important; }</style>
+  .elh-h3:hover { opacity: .72 !important; }</style>
 <style>html.elh-no-intro .elh-intro{display:none!important}
 #testimonials div::-webkit-scrollbar { height: 0; width: 0; }
 #testimonials a:hover figure { background: rgba(234,229,220,.09); border-color: rgba(191,160,106,.42); }
 #testimonials figure { transition: background .2s, border-color .2s; }
+/* Reviews arrows (assets/home.js): hidden until the strip overflows; aria-disabled marks either end. */
+#testimonials [data-elh-reviews-nav] { display: flex; gap: 12px; }
+#testimonials [data-elh-reviews-nav][hidden] { display: none; }
+/* The strip is a full-width scroller, so its focus ring sits just inside its edge (the padding above and below the cards holds it). */
+#reviews-scroller:focus-visible { outline: 2px solid #BFA06A !important; outline-offset: -3px !important; }
+#testimonials [data-elh-reviews-nav] button:focus-visible { outline: 2px solid #BFA06A !important; outline-offset: 3px !important; }
+#testimonials [data-elh-reviews-nav] button[aria-disabled="true"] { opacity: .35; cursor: default; }
+#testimonials [data-elh-reviews-nav] button[aria-disabled="true"]:hover { background: rgba(0,21,38,.55) !important; border-color: rgba(234,229,220,.5) !important; color: #EAE5DC !important; }
 </style>
 <script>
 // Runs before paint: an internal trip home skips the intro so it stays a
@@ -251,7 +258,7 @@
 }
 </script>
 </head>
-<body data-elh-nav-clear="1">
+<body>
 <div style="--disp: 'DM Serif Display', Georgia, serif; font-family: Inter, system-ui, sans-serif; font-weight: 300; color: #001526; background: #EAE5DC; overflow-x: clip">
 
   <div class="elh-intro" data-elh-intro="1">
@@ -287,7 +294,7 @@
     <div style="display: flex; flex-direction: column; gap: clamp(48px, 6vw, 88px); max-width: 1500px; margin: 0 auto">
       <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: clamp(24px, 4vw, 64px)">
         <span style="flex: 0 0 auto; padding-top: 14px; font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Our Story</span>
-        <h2 data-elh-sweep="1" style="flex: 1 1 520px; margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(28px, 3.9vw, 62px); font-weight: 400; line-height: 1.14; letter-spacing: -.01em; text-wrap: pretty; color: transparent; background-image: linear-gradient(100deg, #EAE5DC 0%, #EAE5DC 0%, rgba(234,229,220,.3) 14%, rgba(234,229,220,.3) 100%); background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text">Ella Lee Homes was born from a simple, heartfelt promise — to build something that would stand the test of time for our daughter, Ella, and the generations that follow.</h2>
+        <h2 data-elh-sweep="1" style="flex: 1 1 520px; margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(28px, 3.9vw, 62px); font-weight: 400; line-height: 1.14; letter-spacing: -.01em; text-wrap: pretty; color: transparent; background-image: linear-gradient(100deg, #EAE5DC 0%, #EAE5DC 0%, rgba(234,229,220,.3) 14%, rgba(234,229,220,.3) 100%); background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text">Ella Lee Homes was born from a simple, heartfelt promise: to build something that would stand the test of time for our daughter, Ella, and the generations that follow.</h2>
       </div>
       <div style="height: 1px; background: rgba(234,229,220,.18)"></div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(28px, 4vw, 72px)">
@@ -297,7 +304,7 @@
         </div>
         <div style="display: flex; gap: 18px">
           <span style="flex: 0 0 auto; width: 9px; height: 9px; margin-top: 9px; border-radius: 50%; background: #BFA06A"></span>
-          <p style="margin: 0; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.72; color: rgba(234,229,220,.88); font-weight: 300">Every home we build carries that same devotion — a foundation of love, care, and legacy, designed to nurture life's most meaningful moments for the family who lives in it.</p>
+          <p style="margin: 0; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.72; color: rgba(234,229,220,.88); font-weight: 300">Every home we build carries that same devotion: a foundation of love, care, and legacy, designed to nurture life's most meaningful moments for the family who lives in it.</p>
         </div>
         <div data-elh-storyphoto="1" style="position: relative; min-height: 260px">
           <img class="elh-img" id="elh-story-photo" src="uploads/home/shay.jpg" alt="Shay Segev, Founder and Principal of Ella Lee Homes" loading="lazy" decoding="async" style="object-position: 58% 22%">
@@ -385,7 +392,7 @@
               </div>
               <div data-elh-tl-copy="1" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none">
                 <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Personalized Service</h3>
-                <p style="max-width: 46ch; margin: 0; font-size: clamp(16px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">Every Ella Lee home is a one-on-one process built around your lifestyle, your lot, and your vision — never a template. You work directly with the people making the decisions, from the first conversation to the final walkthrough.</p>
+                <p style="max-width: 46ch; margin: 0; font-size: clamp(16px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">Every Ella Lee home is a one-on-one process built around your lifestyle, your lot, and your vision. Never a template. You work directly with the people making the decisions, from the first conversation to the final walkthrough.</p>
               </div>
               <div data-elh-tl-copy="2" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none">
                 <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Builder Warranty</h3>
@@ -393,7 +400,7 @@
               </div>
               <div data-elh-tl-copy="3" style="display: flex; flex-direction: column; gap: 16px; grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none">
                 <h3 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.1; letter-spacing: -.015em; color: #EAE5DC">Proven Craftsmanship</h3>
-                <p style="max-width: 46ch; margin: 0; font-size: clamp(16px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">40+ custom homes built and underway across Paradise Valley, Scottsdale, Arcadia and Phoenix since 2021 — homes that live as beautifully as they look.</p>
+                <p style="max-width: 46ch; margin: 0; font-size: clamp(16px, 1.2vw, 17px); font-weight: 300; line-height: 1.72; color: rgba(234,229,220,.86)">40+ custom homes built and underway across Paradise Valley, Scottsdale, Arcadia and Phoenix since 2021. Homes that live as beautifully as they look.</p>
               </div>
               </div>
 
@@ -512,51 +519,22 @@
           <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Reviews</span>
           <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4.1vw, 60px); font-weight: 400; line-height: 1.08">What homeowners say about us</h2>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px">
           <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="font-size: 12px; letter-spacing: .08em; color: rgba(234,229,220,.72)">Read our reviews on Google</a>
+          <!-- Arrows for the reviews strip: hidden until assets/home.js finds the strip overflows. -->
+          <div data-elh-reviews-nav="1" hidden>
+            <button class="elh-h2" type="button" aria-label="Previous reviews" aria-controls="reviews-scroller" data-elh-click="reviewsPrev" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: clamp(44px, 4vw, 58px); height: clamp(44px, 4vw, 58px); color: #EAE5DC; background: rgba(0,21,38,.55); border: 1px solid rgba(234,229,220,.5); border-radius: 50%; cursor: pointer; transition: background .3s ease, border-color .3s ease">
+              <span style="display: block; width: 9px; height: 9px; border-left: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translate(1px, -1px)"></span>
+            </button>
+            <button class="elh-h2" type="button" aria-label="Next reviews" aria-controls="reviews-scroller" data-elh-click="reviewsNext" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: clamp(44px, 4vw, 58px); height: clamp(44px, 4vw, 58px); color: #EAE5DC; background: rgba(0,21,38,.55); border: 1px solid rgba(234,229,220,.5); border-radius: 50%; cursor: pointer; transition: background .3s ease, border-color .3s ease">
+              <span style="display: block; width: 9px; height: 9px; border-right: 1px solid currentColor; border-top: 1px solid currentColor; transform: rotate(45deg) translate(-1px, 1px)"></span>
+            </button>
+          </div>
         </div>
       </div>
-      <div style="display: flex; gap: clamp(18px, 2.2vw, 32px); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: clamp(20px, 4vw, 64px); scroll-padding-right: clamp(20px, 4vw, 64px); scrollbar-width: none; padding-bottom: 4px; margin: 0 calc(-1 * clamp(20px, 4vw, 64px)); padding-left: clamp(20px, 4vw, 64px); padding-right: clamp(20px, 4vw, 64px)">
-        <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="flex: 0 0 auto; width: min(86vw, 380px); scroll-snap-align: start; text-decoration: none; color: inherit"><figure style="display: flex; flex-direction: column; gap: 24px; margin: 0; height: 100%; padding: 36px 32px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
-          <span aria-hidden="true" style="display: inline-flex; gap: 3px; font-size: 13px; color: #BFA06A; letter-spacing: 2px">★★★★★</span>
-          <blockquote style="margin: 0; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.62; color: #EAE5DC">Ella Lee Homes built our home in 2023, and we couldn’t be happier! The project was completed on time, within budget, and exceeded our expectations.</blockquote>
-          <figcaption style="display: flex; align-items: center; gap: 14px; margin-top: auto">
-            <span style="position: relative; flex: 0 0 auto; width: 46px; height: 46px; overflow: hidden; border-radius: 50%"><span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 15px; font-weight: 400; color: #BFA06A; background: rgba(191,160,106,.14); border: 1px solid rgba(191,160,106,.4); border-radius: 50%">M</span></span>
-            <span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #BFA06A">Mike M</span><span style="font-size: 11px; letter-spacing: .06em; color: rgba(234,229,220,.55)">Google review &middot; a year ago</span></span>
-          </figcaption>
-        </figure></a>
-        <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="flex: 0 0 auto; width: min(86vw, 380px); scroll-snap-align: start; text-decoration: none; color: inherit"><figure style="display: flex; flex-direction: column; gap: 24px; margin: 0; height: 100%; padding: 36px 32px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
-          <span aria-hidden="true" style="display: inline-flex; gap: 3px; font-size: 13px; color: #BFA06A; letter-spacing: 2px">★★★★★</span>
-          <blockquote style="margin: 0; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.62; color: #EAE5DC">As an investor, I’ve entrusted Ella Lee Homes to build 9 custom homes. I could not be more pleased by the outcome.</blockquote>
-          <figcaption style="display: flex; align-items: center; gap: 14px; margin-top: auto">
-            <span style="position: relative; flex: 0 0 auto; width: 46px; height: 46px; overflow: hidden; border-radius: 50%"><span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 15px; font-weight: 400; color: #BFA06A; background: rgba(191,160,106,.14); border: 1px solid rgba(191,160,106,.4); border-radius: 50%">M</span></span>
-            <span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #BFA06A">Michael Wiss</span><span style="font-size: 11px; letter-spacing: .06em; color: rgba(234,229,220,.55)">Google review &middot; 3 years ago</span></span>
-          </figcaption>
-        </figure></a>
-        <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="flex: 0 0 auto; width: min(86vw, 380px); scroll-snap-align: start; text-decoration: none; color: inherit"><figure style="display: flex; flex-direction: column; gap: 24px; margin: 0; height: 100%; padding: 36px 32px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
-          <span aria-hidden="true" style="display: inline-flex; gap: 3px; font-size: 13px; color: #BFA06A; letter-spacing: 2px">★★★★★</span>
-          <blockquote style="margin: 0; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.62; color: #EAE5DC">Shay &amp; team have been so meticulous about all warranty and repair work, which is something most builders completely disregard.</blockquote>
-          <figcaption style="display: flex; align-items: center; gap: 14px; margin-top: auto">
-            <span style="position: relative; flex: 0 0 auto; width: 46px; height: 46px; overflow: hidden; border-radius: 50%"><span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 15px; font-weight: 400; color: #BFA06A; background: rgba(191,160,106,.14); border: 1px solid rgba(191,160,106,.4); border-radius: 50%">A</span></span>
-            <span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #BFA06A">Anastasia Foster</span><span style="font-size: 11px; letter-spacing: .06em; color: rgba(234,229,220,.55)">Google review &middot; 2 years ago</span></span>
-          </figcaption>
-        </figure></a>
-        <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="flex: 0 0 auto; width: min(86vw, 380px); scroll-snap-align: start; text-decoration: none; color: inherit"><figure style="display: flex; flex-direction: column; gap: 24px; margin: 0; height: 100%; padding: 36px 32px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
-          <span aria-hidden="true" style="display: inline-flex; gap: 3px; font-size: 13px; color: #BFA06A; letter-spacing: 2px">★★★★★</span>
-          <blockquote style="margin: 0; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.62; color: #EAE5DC">Attention to detail, quality construction, responsiveness of the warranty team &mdash; owning an Ella Lee home is truly enjoyable.</blockquote>
-          <figcaption style="display: flex; align-items: center; gap: 14px; margin-top: auto">
-            <span style="position: relative; flex: 0 0 auto; width: 46px; height: 46px; overflow: hidden; border-radius: 50%"><span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 15px; font-weight: 400; color: #BFA06A; background: rgba(191,160,106,.14); border: 1px solid rgba(191,160,106,.4); border-radius: 50%">H</span></span>
-            <span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #BFA06A">Heather Wilson</span><span style="font-size: 11px; letter-spacing: .06em; color: rgba(234,229,220,.55)">Google review &middot; 8 months ago</span></span>
-          </figcaption>
-        </figure></a>
-        <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="flex: 0 0 auto; width: min(86vw, 380px); scroll-snap-align: start; text-decoration: none; color: inherit"><figure style="display: flex; flex-direction: column; gap: 24px; margin: 0; height: 100%; padding: 36px 32px; background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
-          <span aria-hidden="true" style="display: inline-flex; gap: 3px; font-size: 13px; color: #BFA06A; letter-spacing: 2px">★★★★★</span>
-          <blockquote style="margin: 0; font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.62; color: #EAE5DC">From the very beginning, communication was easy and stress-free. What stood out most was his honesty and sincerity.</blockquote>
-          <figcaption style="display: flex; align-items: center; gap: 14px; margin-top: auto">
-            <span style="position: relative; flex: 0 0 auto; width: 46px; height: 46px; overflow: hidden; border-radius: 50%"><span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 15px; font-weight: 400; color: #BFA06A; background: rgba(191,160,106,.14); border: 1px solid rgba(191,160,106,.4); border-radius: 50%">G</span></span>
-            <span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #BFA06A">Gordon Yonel</span><span style="font-size: 11px; letter-spacing: .06em; color: rgba(234,229,220,.55)">Google review &middot; 8 months ago</span></span>
-          </figcaption>
-        </figure></a>
+      <div id="reviews-scroller" role="region" aria-label="Client reviews" tabindex="0" style="display: flex; gap: clamp(18px, 2.2vw, 32px); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-left: clamp(20px, 4vw, 64px); scroll-padding-right: clamp(20px, 4vw, 64px); scrollbar-width: none; padding-top: 6px; padding-bottom: 10px; margin: -6px calc(-1 * clamp(20px, 4vw, 64px)) -6px; padding-left: clamp(20px, 4vw, 64px); padding-right: clamp(20px, 4vw, 64px)">
+        <!-- @reviews:home -->
+        <!-- /@reviews:home -->
       </div>
     </div>
   </section>
@@ -575,47 +553,24 @@
   </section>
 
   <section id="inquiry" data-screen-label="Inquiry" style="padding: clamp(80px, 11vw, 160px) clamp(20px, 4vw, 64px); background: #001526; color: #EAE5DC">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(36px, 5vw, 90px); max-width: 1500px; margin: 0 auto">
-      <div style="display: flex; flex-direction: column; gap: 22px">
-        <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Build Your Home</span>
-        <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -.015em">Start your build</h2>
-        <p style="margin: 0; max-width: 46ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.7; color: rgba(234,229,220,.88); font-weight: 300">Tell us about your project. Every inquiry is read personally. If you'd rather talk it through, call <a href="tel:+14803408700" style="color: #EAE5DC; border-bottom: 1px solid rgba(191,160,106,.7)">(480) 340-8700</a>.</p>
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px; font-size: 14px; line-height: 1.6; color: #A5A09D">
-          <span>4408 N 12th St, Ste 200, Phoenix, AZ 85014</span>
-          <a href="mailto:hello@ellaleehomes.com" style="color: #A5A09D">hello@ellaleehomes.com</a>
-        </div>
+    <div style="display: flex; flex-direction: column; gap: 22px; max-width: 1500px; margin: 0 auto">
+      <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Build Your Home</span>
+      <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -.015em">Start your build</h2>
+      <p style="margin: 0; max-width: 46ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.7; color: rgba(234,229,220,.88); font-weight: 300">Tell us about your project. Every inquiry is read personally. If you'd rather talk it through, call <a href="tel:+14803408700" style="color: #EAE5DC; text-decoration: none; border-bottom: 1px solid rgba(191,160,106,.7)">(480) 340-8700</a>.</p>
+      <a class="elh-fh1" href="contact.html" style="align-self: flex-start; margin-top: 8px; padding: 15px 42px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: #EAE5DC; border: 1px solid rgba(191,160,106,.85); border-radius: 100px; transition: background .3s ease, color .3s ease, border-color .3s ease">Start your build</a>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 8px; font-size: 14px; line-height: 1.6; color: #A5A09D">
+        <span>4408 N 12th St, Ste 200, Phoenix, AZ 85014</span>
+        <a href="mailto:hello@ellaleehomes.com" style="color: #A5A09D; text-decoration: none">hello@ellaleehomes.com</a>
       </div>
-      <form data-elh-submit="submitForm" style="display: flex; flex-direction: column; gap: 22px">
-        <label style="display: flex; flex-direction: column; gap: 9px">
-          <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Name</span>
-          <input name="name" type="text" required="required" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none">
-        </label>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 22px">
-          <label style="display: flex; flex-direction: column; gap: 9px">
-            <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Email</span>
-            <input name="email" type="email" required="required" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none">
-          </label>
-          <label style="display: flex; flex-direction: column; gap: 9px">
-            <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Phone</span>
-            <input name="phone" type="tel" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none">
-          </label>
-        </div>
-        <label style="display: flex; flex-direction: column; gap: 9px">
-          <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Tell us about your project</span>
-          <textarea name="project" rows="4" style="padding: 13px 0; font-size: 16px; font-weight: 300; line-height: 1.6; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; resize: vertical"></textarea>
-        </label>
-        <button class="elh-h4" type="submit" style="align-self: flex-start; margin-top: 8px; padding: 17px 40px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #001526; background: #EAE5DC; border: 0; cursor: pointer; transition: background .3s ease">Send Inquiry</button>
-        <p data-elh-form-msg="1" style="display: none; margin: 0; font-size: 14px; color: #BFA06A">Thank you — we’ll be in touch.</p>
-      </form>
     </div>
   </section>
 
   <section id="faq" data-screen-label="FAQs" style="padding: clamp(80px, 11vw, 160px) clamp(20px, 4vw, 64px); background: linear-gradient(#001526 0px, #000D19 260px); color: #EAE5DC">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(36px, 5vw, 84px); align-items: start; max-width: 1500px; margin: 0 auto">
-      <div data-elh-faqhead="1" style="display: flex; flex-direction: column; gap: 24px; position: sticky; top: 108px">
+      <div data-elh-faqhead="1" style="display: flex; flex-direction: column; gap: 24px; position: sticky; top: var(--sticky-top)">
         <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(34px, 4.6vw, 68px); font-weight: 400; line-height: 1.02">FAQs</h2>
-        <p style="margin: 0; max-width: 40ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.7; color: rgba(234,229,220,.82); font-weight: 300">Straight answers on cost, timeline and building on your own lot across Paradise Valley, Scottsdale and Arcadia.</p>
-        <a class="elh-h1" href="#inquiry" style="align-self: flex-start; padding: 14px 30px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #EAE5DC; border: 1px solid rgba(234,229,220,.5); border-radius: 100px; transition: background .3s ease, color .3s ease">Contact</a>
+        <p style="margin: 0; max-width: 40ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.7; color: rgba(234,229,220,.82); font-weight: 300">What it takes to build a custom home in Paradise Valley, Scottsdale, and Arcadia. Investment, timelines, and how the process actually runs.</p>
+        <a class="elh-h1" href="contact.html" style="align-self: flex-start; padding: 14px 30px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #EAE5DC; border: 1px solid rgba(234,229,220,.5); border-radius: 100px; transition: background .3s ease, color .3s ease">Start your build</a>
       </div>
       <div data-elh-faq="1" style="display: flex; flex-direction: column; gap: 2px">
         <div style="background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.12)">
@@ -670,7 +625,7 @@
             <span data-elh-faq-icon="1" style="flex: 0 0 auto; font-size: 20px; font-weight: 300; color: #BFA06A">+</span>
           </button>
           <div data-elh-faq-panel="1" style="display: none; padding: 0 26px 26px">
-            <p style="margin: 0; max-width: 70ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.75; color: rgba(234,229,220,.84); font-weight: 300">Start with a conversation — no drawings or decisions required. We will talk through your lot, how you want to live in the house, and a realistic budget and timeline, then tell you honestly whether we are the right builder for it. Call (480) 340-8700 or send the form above.</p>
+            <p style="margin: 0; max-width: 70ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.75; color: rgba(234,229,220,.84); font-weight: 300">Start with a conversation: no drawings or decisions required. We will talk through your lot, how you want to live in the house, and a realistic budget and timeline, then tell you honestly whether we are the right builder for it. Call (480) 340-8700 or use the Start your build button.</p>
           </div>
         </div>
       </div>

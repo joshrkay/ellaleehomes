@@ -16,7 +16,8 @@ Statuses
   BLOCKED  the item needs an input only Ella Lee Homes can supply (not a code problem)
   MANUAL   a person has to judge it; the evidence says what to look at
 
-Writes docs/qa-report.md.
+Writes qa-report.md, asset-migration.md and portfolio-data-for-rebecca.csv to qa-out/ (gitignored),
+or to $ELH_QA_OUT. It never touches docs/.
 """
 import glob
 import html
@@ -34,6 +35,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, 'dist')
 SRC = os.path.join(ROOT, 'src')
 STATIC_ONLY = '--static' in sys.argv
+OUT = os.environ.get('ELH_QA_OUT') or os.path.join(ROOT, 'qa-out')
+os.makedirs(OUT, exist_ok=True)
 
 RESULTS = []          # dicts: id, title, status, evidence
 SECTIONS = []         # (section title, [ids])
@@ -222,25 +225,27 @@ def static_checks():
         reg('1a', 'Budget dropdown removed from every form', 'FAIL', 'still present on: ' + ', '.join(dropdown))
     else:
         reg('1a', 'Budget dropdown removed from every form', 'PASS', 'no name="budget" / "Target budget range" on any of %d pages' % len(PAGES))
-    if len(forms) == 6 and not deliver and not js_fetch:
-        reg('1', 'Every form delivers to a live inbox or Buildertrend (test each)', 'BLOCKED',
-            '%d forms found (%s); none has an action URL, endpoint, or fetch(). Needs the destination (inbox or Buildertrend lead endpoint).'
-            % (len(forms), ', '.join(sorted({n for n, _ in forms}))))
-    elif deliver or js_fetch:
-        reg('1', 'Every form delivers to a live inbox or Buildertrend (test each)', 'MANUAL',
-            'delivery wiring present (%s%s) but a real test submission is required' % (deliver[:3], js_fetch))
+    cf = PAGES['contact']
+    bt_script = cf.count('https://buildertrend.net/contact-form/btClientContactForm.js')
+    bt_iframe = len(re.findall(r'<iframe[^>]+id="btIframe"', cf))
+    stray = [n for n in PAGES if n != 'contact' and re.search(r'<iframe\b', PAGES[n])]
+    title1 = 'The one contact form is the Buildertrend embed on Contact, no other form on the site (send a real test lead)'
+    if forms or stray or bt_script != 1 or bt_iframe != 1:
+        reg('1', title1, 'FAIL', 'native forms: %d; Buildertrend script x%d, iframe#btIframe x%d; embeds elsewhere: %s' % (len(forms), bt_script, bt_iframe, stray))
     else:
-        reg('1', 'Every form delivers to a live inbox or Buildertrend (test each)', 'FAIL', 'unexpected form count %d' % len(forms))
+        reg('1', title1, 'MANUAL', 'no native form on any page; Contact carries the Buildertrend script once and iframe#btIframe once. Send one test lead and confirm it reaches Buildertrend lead management with every field (open questions B1 to B4).')
     # A2 portal
     cp = PAGES['client-portal']
-    frame = re.search(r'<iframe[^>]+src="(https://buildertrend\.net/[^"]+)"', cp)
-    if frame and 'NewLoginFrame.aspx' in frame.group(1):
-        reg('2', 'Buildertrend login embed installed with the official code (login must be tested)', 'BLOCKED',
-            'page still uses the original frame %s (the one reported as not working); a fallback link to buildertrend.net and the support phone are present. Needs the official embed code from Buildertrend support.' % frame.group(1))
-    elif frame:
-        reg('2', 'Buildertrend login embed installed with the official code (login must be tested)', 'MANUAL', 'embed %s present; test a real login' % frame.group(1))
+    login_url = json.load(open(os.path.join(ROOT, 'site-facts.json'), encoding='utf8')).get('buildertrendLoginUrl')
+    title2 = 'Client Portal is a button to the Buildertrend login page, with no embedded login'
+    if re.search(r'<iframe\b|NewLoginFrame', cp):
+        reg('2', title2, 'FAIL', 'the portal page still embeds a Buildertrend or video frame')
+    elif not login_url:
+        reg('2', title2, 'BLOCKED', 'the embedded login is gone; the button stays out until buildertrendLoginUrl is set in site-facts.json (open questions S2, B3)')
+    elif 'href="%s"' % html.escape(login_url) in cp:
+        reg('2', title2, 'MANUAL', 'the button links to %s; click it once to confirm it is the login page' % login_url)
     else:
-        reg('2', 'Buildertrend login embed installed with the official code (login must be tested)', 'FAIL', 'no Buildertrend iframe on client-portal')
+        reg('2', title2, 'FAIL', 'buildertrendLoginUrl is set but the button is missing from the built page')
     # A3 review links
     links = Counter()
     for n in ('index', 'why-us', 'developers', 'our-story'):
@@ -413,11 +418,11 @@ def static_checks():
     ok_f = re.search(r'since the company was founded', text_of(PAGES['index']))
     reg('38', 'Founder line: "since the company was founded"; singular "Founder"', 'PASS' if (ok_f and not bad) else 'FAIL',
         '"has led every build since the company was founded" on index; no "Founders"' if (ok_f and not bad) else (fmt_hits(bad) or 'index sentence not found'))
-    voice = find_all(r'financial challenges|\bhassle-free\b|\bguarantee[sd]?\b|\bunparalleled\b|\bpremier\b|award[- ]winning|best[- ]in|world[- ]class|second to none', CORE + list(LEGAL))
-    # allowed: client review quotes are the client's words
+    voice = find_all(r'financial challenges|\bhassle-free\b|\bguarantee[sd]?\b|\bunparalleled\b|\bpremier\b|award[- ]winning|best[- ]in|world[- ]class|second to none', CORE)
+    # the legal pages are the client's approved text and are not part of this check; client review quotes are the client's words
     voice = [(n, s) for n, s in voice if 'second to none' not in s]
     reg('39', 'Sitewide voice: none of the banned filler/promise words (guarantee, unparalleled, premier, award-winning, …)', 'FAIL' if voice else 'PASS',
-        fmt_hits(voice) if voice else 'no banned voice words on %d pages. (Tone itself is a human judgement; sampled in the claim audit.)' % (len(CORE) + len(LEGAL)))
+        fmt_hits(voice) if voice else 'no banned voice words on %d pages (the approved legal text is excluded). (Tone itself is a human judgement; sampled in the claim audit.)' % len(CORE))
 
     # ----------------------------------------------------------------- E (static parts)
     section('E. Design and layout (static parts; layout/behaviour checks are in the browser run)')
@@ -428,9 +433,10 @@ def static_checks():
     reg('42', 'Photo of Shay on the home "what began as a dream" section (and Our Story)', 'PASS' if ok else 'FAIL',
         'uploads/home/shay.jpg exists and is referenced by index and our-story' if ok else 'missing')
     hj = rd(os.path.join(ROOT, 'assets/home.js'))
-    sp = re.search(r's\.target \+= ([0-9.]+)', hj)
-    reg('43', 'Project strip slightly faster', 'PASS' if sp and float(sp.group(1)) > 0.17 else 'FAIL',
-        'strip speed constant is %s px/frame (was 0.17)' % (sp.group(1) if sp else '?'))
+    # The strip's speed is a per-second constant (the same on any refresh rate). The original was 0.17 px per frame, which is 10.2 px/s at 60 Hz.
+    sp = re.search(r'STRIP_PX_PER_SEC\s*=\s*([0-9.]+)', hj)
+    reg('43', 'Project strip slightly faster', 'PASS' if sp and float(sp.group(1)) > 10.2 else 'FAIL',
+        'strip speed constant is %s px/s (was 10.2, the old 0.17 px per frame at 60 Hz)' % (sp.group(1) if sp else '?'))
     lazy = re.findall(r'id="elh-proj-\d"[^>]*loading="lazy"', PAGES['index'])
     reg('44-static', '68th card image: strip images are not lazy-loaded', 'FAIL' if lazy else 'PASS', 'lazy strip images: %d' % len(lazy))
     nrev = Counter()
@@ -457,9 +463,12 @@ def static_checks():
     reg('61', 'Footer badges: use "40+ homes", no 5.0 badge, no dollar figure', 'PASS' if all('40+' in text_of(footer_html(h)) and not re.search(r'5\.0|\$\s?\d', text_of(footer_html(h))) for h in PAGES.values()) else 'FAIL',
         'checked footer of %d pages' % len(PAGES))
     pr = PAGES['project']
-    reg('58', 'Hidden "Project not found" text not in the page markup (rendered only when a project is missing)',
-        'PASS' if 'Project not found' not in re.sub(r'<script.*?</script>', '', pr, flags=re.S) else 'FAIL',
-        '"Project not found" is not in the static HTML; it is created by script only for an unknown slug (browser check confirms)')
+    nf_hits = re.findall(r'project not found|#not-found|id=["\']not-found', pr, flags=re.I)
+    redirects = "location.replace('previous-projects.html')" in pr
+    reg('58', 'No hidden "Project not found" text, #not-found element or CSS anywhere in the project page source (scripts and styles included); a missing or unknown slug redirects to the portfolio',
+        'PASS' if (not nf_hits and redirects) else 'FAIL',
+        ('no "Project not found" or #not-found in the source; the script sends a missing or unknown slug to the portfolio with location.replace (browser check 58b confirms)'
+         if (not nf_hits and redirects) else 'found %s; redirect to previous-projects.html present: %s' % (nf_hits[:3], redirects)))
 
     # ----------------------------------------------------------------- F. SEO
     section('F. SEO and AI search')
@@ -554,7 +563,7 @@ def data_audit():
     import csv
     dp = {p: ks for p, ks in dupprice}
     ds = {s: ks for s, ks in dupsq}
-    with open(os.path.join(ROOT, 'docs/portfolio-data-for-rebecca.csv'), 'w', newline='', encoding='utf8') as f:
+    with open(os.path.join(OUT, 'portfolio-data-for-rebecca.csv'), 'w', newline='', encoding='utf8') as f:
         w = csv.writer(f)
         w.writerow(['slug', 'name', 'location_on_site', 'year_on_site', 'status_on_site', 'price_on_site', 'beds_on_site', 'baths_on_site', 'sqft_on_site',
                     'what_looks_wrong', 'CONFIRMED_price', 'CONFIRMED_beds', 'CONFIRMED_baths', 'CONFIRMED_sqft', 'CONFIRMED_year', 'CONFIRMED_status'])
@@ -679,6 +688,15 @@ def norm_ws(s):
     return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', s))).strip()
 
 
+def confirmed_reviews():
+    """The reviews in data/reviews.json that a person has confirmed (open question S5): the only ones the site may show beyond the original five."""
+    try:
+        data = json.loads(rd(os.path.join(ROOT, 'data', 'reviews.json')))
+    except (OSError, ValueError):
+        return []
+    return [r for r in data if isinstance(r, dict) and r.get('confirmed') is True]
+
+
 def factsheet_checks():
     ALL = list(PAGES)
     section('S. Fact Sheet rules, section by section')
@@ -704,7 +722,7 @@ def factsheet_checks():
         'PASS' if (set(yrs) == {'2021'} and fd and fd.group(1) == '2021') else 'FAIL', 'years found: %s; schema foundingDate: %s' % (dict(yrs), fd.group(1) if fd else None))
     # ------------------------------------------------ 3. What we do
     none_found('FS3a', 'Never draws attention to what Ella Lee Homes does not do ("we do not offer…", "no remodels")',
-               r"we (?:do not|don't) (?:offer|do|provide|handle|build)|\bno (?:remodels?|renovations?)\b|not (?:a|an) (?:remodel|renovation|design)", ALL)
+               r"we (?:do not|don't) (?:offer|do|provide|handle|build)|\bno (?:remodels?|renovations?)\b|not (?:a|an) (?:remodel|renovation|design)", [n for n in ALL if n not in LEGAL])
     none_found('FS3b', 'No services beyond custom homes (landscaping, interior design, brokerage, mortgages, property management, solar, flipping)',
                r'\b(?:landscap\w+ (?:services|design)|interior design (?:services|package)|property management|real estate (?:agent|brokerage) services|mortgage (?:services|broker)|solar (?:installation|panels)|house[- ]flipping)\b', ALL)
     none_found('FS3c', 'Contract wording: cost-plus only (no fixed price, no choice of structures, no "open books" in substance)',
@@ -722,27 +740,32 @@ def factsheet_checks():
     reg('FS4a', 'Charitable giving is stated only as "10% of profits" (no "minimum", no "annual")', 'FAIL' if ch else 'PASS',
         fmt_hits(list(dict.fromkeys(ch))) or '10% of profits on home, developers and FAQ; no other giving figure')
     none_found('FS4b', 'No urgency or hard-sell tactics', r"\b(?:act now|limited time|hurry|don't miss|last chance|only \d+ (?:spots|lots|homes) left|before it's too late|today only|call now|don't wait|book now)\b", ALL)
-    # testimonials: every quote must exist verbatim in the original home page (the five real Google reviews)
-    orig = norm_ws(git_show('src/index.html'))
+    # testimonials: a quote is one of the five in the original home page, or a review in data/reviews.json that a person
+    # has confirmed (question S5) and that carries the date and link the Fact Sheet asks for. Anything else is invented.
+    undash = lambda s: re.sub(r'\s*\u2014\s*', ', ', s)  # the client bans em dashes, so a dash inside a quote became a comma
+    orig = undash(norm_ws(git_show('src/index.html')))
+    REVIEWS_CONFIRMED = confirmed_reviews()
+    trusted = {undash(norm_ws(r.get('text', ''))) for r in REVIEWS_CONFIRMED}
+    added = [r for r in REVIEWS_CONFIRMED if undash(norm_ws(r.get('text', ''))) not in orig]
+    unsourced = [r.get('id', '?') for r in added if not (r.get('date') and r.get('url'))]
     quotes = {}
     for n, h in PAGES.items():
         for m in re.finditer(r'<blockquote\b[^>]*>(.*?)</blockquote>', h, re.S):
-            quotes.setdefault(norm_ws(m.group(1)), set()).add(n)
-    invented = [q[:70] for q in quotes if q not in orig]
-    names = Counter()
-    for n, h in PAGES.items():
-        for m in re.finditer(r'class="rv-card[^"]*".*?</figure>|class="rv-card[^"]*".*?</a>', h, re.S):
-            pass
+            quotes.setdefault(undash(norm_ws(m.group(1))), set()).add(n)
+    invented = [q[:70] for q in quotes if q not in orig and q not in trusted]
     reviewers = set()
     for n in ('index', 'why-us', 'developers', 'our-story'):
         for m in re.finditer(r'<figcaption[^>]*>(.*?)</figcaption>', PAGES[n], re.S):
             reviewers.add(norm_ws(m.group(1)).split(' Google review')[0].strip())
     okset = {'M Mike M', 'M Michael Wiss', 'A Anastasia Foster', 'H Heather Wilson', 'G Gordon Yonel'}
+    okset |= {'%s %s' % (r.get('initial', ''), r.get('name', '')) for r in REVIEWS_CONFIRMED}
     odd = [r for r in reviewers if r not in okset]
-    reg('FS4c', 'Testimonials: only the five real Google reviews; every quote is verbatim in the original home page; reviewer names as on Google; none invented',
-        'FAIL' if (invented or odd or len(quotes) != 5) else 'PASS',
-        'quotes on site: %d (expected 5); not in original home page: %s; unexpected reviewer labels: %s' % (len(quotes), invented, odd) if (invented or odd or len(quotes) != 5)
-        else '5 distinct quotes, all verbatim in the original home page, shown on %s; reviewers: Mike M, Michael Wiss, Anastasia Foster, Heather Wilson, Gordon Yonel' % sorted({p for v in quotes.values() for p in v}))
+    n_shown = len(quotes)
+    bad = bool(invented or odd or unsourced or n_shown != len(trusted))
+    reg('FS4c', 'Testimonials: only real Google reviews (the five in the original home page, plus any confirmed in data/reviews.json with a date and link); every quote verbatim; reviewer names as on Google; none invented',
+        'FAIL' if bad else 'PASS',
+        ('quotes on site: %d (data/reviews.json confirms %d); not in the original page or the confirmed data: %s; added without a date or link: %s; unexpected reviewer labels: %s' % (n_shown, len(trusted), invented, unsourced, odd)) if bad
+        else '%d distinct quotes (%d from the original home page, %d added and confirmed in data/reviews.json), shown on %s; reviewers: %s' % (n_shown, n_shown - len(added), len(added), sorted({p for v in quotes.values() for p in v}), ', '.join(sorted(r.split(' ', 1)[1] for r in reviewers))))
     # ------------------------------------------------ 5. Voice (measured, human judges)
     stats = []
     for n in ('index', 'why-us', 'our-story', 'build-your-home', 'faq', 'sell-your-home', 'developers', 'contact', 'warranty'):
@@ -763,7 +786,7 @@ def factsheet_checks():
             missing_kw.append('%s: "%s"' % (n, t))
     reg('FS7a', 'Page titles carry a keyword ("Topic | Ella Lee Homes", e.g. custom home / builder / Arizona / a market) on every public page', 'FAIL' if missing_kw else 'PASS',
         '; '.join(missing_kw) or 'every core page title contains one of: custom home, builder, Arizona, Paradise Valley, Scottsdale, Arcadia, Phoenix')
-    # primary call to action: the closing buttons say "Start Your Build" (Sell keeps its own seller prompt; forms keep "Send")
+    # primary call to action: the closing buttons say "Start your build" (Sell keeps its own seller prompt; forms keep "Send")
     other = []
     for n in ALL:
         if n == 'sell-your-home':
@@ -775,10 +798,10 @@ def factsheet_checks():
         for m in re.finditer(r'<a\b[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*href="(?:contact\.html|index\.html#inquiry)[^"]*"[^>]*>(.*?)</a>|<a\b[^>]*href="(?:contact\.html|index\.html#inquiry)[^"]*"[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*>(.*?)</a>', h, re.S):
             labs.append(norm_ws(m.group(1) or m.group(2)))
         for lab in labs:
-            if lab and lab != 'Start Your Build':
+            if lab and lab != 'Start your build':
                 other.append('%s: "%s"' % (n, lab))
-    reg('FS7b', 'Primary call to action is "Start Your Build" on every button that leads to the inquiry (nav and page-closing buttons)', 'FAIL' if other else 'PASS',
-        '; '.join(other[:8]) or 'all inquiry buttons (outside the Sell page) read "Start Your Build"')
+    reg('FS7b', 'Primary call to action is "Start your build" on every button that leads to the Contact page (nav and page-closing buttons)', 'FAIL' if other else 'PASS',
+        '; '.join(other[:8]) or 'all inquiry buttons (outside the Sell page) read "Start your build"')
     # ------------------------------------------------ 6. Brand
     old = [f for f in glob.glob(os.path.join(ROOT, 'assets', '*.css')) + glob.glob(os.path.join(ROOT, 'assets', '*.js')) + glob.glob(os.path.join(ROOT, 'src', '*.html')) + glob.glob(os.path.join(ROOT, 'partials', '*.html'))
            if re.search(r'#0D2D4E|#002855', rd(f), re.I)]
@@ -908,7 +931,10 @@ def structure_checks2():
     cp = PAGES['client-portal']
     bt = re.findall(r'<a\b[^>]*href="https://buildertrend\.net[^"]*"[^>]*>', cp)
     okbt = bt and all('target="_blank"' in a and 'noopener' in a for a in bt)
-    reg('J4', 'Buildertrend links on the Client Portal open in a new tab with rel="noopener"', 'PASS' if okbt else 'FAIL', '%d Buildertrend link(s): %s' % (len(bt), 'all target=_blank rel=noopener' if okbt else bt))
+    if not bt and not json.load(open(os.path.join(ROOT, 'site-facts.json'), encoding='utf8')).get('buildertrendLoginUrl'):
+        reg('J4', 'Buildertrend links on the Client Portal open in a new tab with rel="noopener"', 'BLOCKED', 'no login button until buildertrendLoginUrl is set in site-facts.json')
+    else:
+        reg('J4', 'Buildertrend links on the Client Portal open in a new tab with rel="noopener"', 'PASS' if okbt else 'FAIL', '%d Buildertrend link(s): %s' % (len(bt), 'all target=_blank rel=noopener' if okbt else bt))
 
 
 # ======================================================================= ASSET INVENTORY (item 62)
@@ -1119,7 +1145,7 @@ def browser_checks(projects):
         for n in PAGES:
             for w in (390, 768, 1440):
                 pgx, ex = newpage(w, 900 if w > 500 else 800)
-                pgx.goto('%s/%s.html' % (base, n), wait_until='load')
+                pgx.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
                 pgx.wait_for_timeout(1200 if n != 'index' else 3300)
                 if w in (390, 1440):
                     pgx.evaluate("""async () => { const H = document.documentElement.scrollHeight; for (let y = 0; y < H; y += 400) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } window.scrollTo(0, H); await new Promise(r => setTimeout(r, 2000)); }""")
@@ -1204,15 +1230,26 @@ def browser_checks(projects):
             'phases %s; active body at scroll 0/50/95%%: %s; scroll zone %dpx tall (viewport %d)' % (phase_names, act, info['zoneH'], info['vh']))
         # ---------------- Project pages
         pgp, ep = newpage()
-        go(pgp, 'project', 600)
-        pgp.goto('%s/project.html?slug=does-not-exist' % base, wait_until='load')
-        pgp.wait_for_timeout(500)
-        nf = pgp.evaluate("() => { const e = document.querySelector('#not-found'); return {disp: getComputedStyle(e).display, text: e.innerText.trim().slice(0, 60)} }")
-        pgp.goto('%s/project.html?slug=68th' % base, wait_until='load')
-        pgp.wait_for_timeout(500)
-        nf2 = pgp.evaluate("() => document.querySelector('#not-found').innerText.trim()")
-        reg('58b', '"Project not found" renders only for an unknown slug', 'PASS' if (nf['disp'] == 'block' and 'not found' in nf['text'].lower() and nf2 == '') else 'FAIL',
-            'unknown slug shows "%s"; a real project has empty #not-found: %s' % (nf['text'], nf2 == ''))
+        # A missing or unknown slug leaves for the portfolio before anything renders; a real slug or an alias stays and renders.
+        landed = {}
+        for label, q in (('no slug', ''), ('unknown slug', '?slug=does-not-exist'), ('prototype key', '?slug=constructor'),
+                         ('real slug', '?slug=68th'), ('alias', '?slug=desert-oasis')):
+            try:
+                pgp.goto('%s/project.html%s' % (base, q), wait_until='load')
+            except Exception:
+                pass  # the page navigates itself; the page it lands on is read below
+            try:
+                pgp.wait_for_function("() => /previous-projects\\.html$/.test(location.pathname) || (document.querySelector('#project-content') || {style: {}}).style.display === 'block'", timeout=5000)
+            except Exception:
+                pass  # neither happened: the evidence below says where it landed
+            pgp.wait_for_load_state('load')
+            pgp.wait_for_timeout(300)
+            landed[label] = pgp.evaluate("() => ({page: location.pathname.split('/').pop(), shown: (document.querySelector('#project-content') || {style: {}}).style.display === 'block'})")
+        went = [k for k in ('no slug', 'unknown slug', 'prototype key') if landed[k]['page'] == 'previous-projects.html']
+        stayed = [k for k in ('real slug', 'alias') if landed[k]['page'] == 'project.html' and landed[k]['shown']]
+        reg('58b', 'A missing or unknown project slug redirects to the portfolio (there is no "not found" page); a real slug and an alias still render the project',
+            'PASS' if (len(went) == 3 and len(stayed) == 2) else 'FAIL',
+            'redirected to previous-projects.html: %s; rendered the project: %s; landed on: %s' % (went, stayed, {k: v['page'] for k, v in landed.items()}))
         # similar projects for every project
         keys = list(projects) if projects else []
         sim, simbad = {}, []
@@ -1244,13 +1281,13 @@ def browser_checks(projects):
           reviews: document.querySelectorAll('#testimonials .rv-card').length,
           homeBtn: [...document.querySelectorAll('#proof .proof-hd-r a')].map(a => a.textContent.trim()),
           pull: !!document.querySelector('#pull')})""")
-        reg('51', 'Why Us: first strip redesigned, review strip like the front page, no halo around the card stack', 'PASS' if (wu['halo'] == 0 and wu['strip'] and wu['reviews'] == 5 and not wu['pull']) else 'FAIL', str(wu))
+        reg('51', 'Why Us: first strip redesigned, review strip like the front page, no halo around the card stack', 'PASS' if (wu['halo'] == 0 and wu['strip'] and wu['reviews'] == sum(1 for r in confirmed_reviews() if 'why-us' in r.get('pages', [])) and not wu['pull']) else 'FAIL', str(wu))
         reg('52', 'Why Us: stray "HOME" button next to "Full Portfolio" removed', 'PASS' if not any(t.strip().lower() == 'home' for t in wu['homeBtn']) else 'FAIL', 'buttons in that header: %s' % wu['homeBtn'])
         pgd, ed = newpage()
         go(pgd, 'developers', 1200)
         dv = pgd.evaluate("""() => ({halo: [...document.querySelectorAll('.pillar-card, .pillar, #pillars > *')].map(e => getComputedStyle(e).boxShadow).filter(s => s !== 'none').length,
                                   reviews: document.querySelectorAll('#testimonials .rv-card').length})""")
-        reg('53', 'Developers: same treatment as Why Us (halo removed, review strip)', 'PASS' if (dv['halo'] == 0 and dv['reviews'] == 5) else 'FAIL', str(dv))
+        reg('53', 'Developers: same treatment as Why Us (halo removed, review strip)', 'PASS' if (dv['halo'] == 0 and dv['reviews'] == sum(1 for r in confirmed_reviews() if 'developers' in r.get('pages', []))) else 'FAIL', str(dv))
         # sell chips below hero
         pgy, ey = newpage()
         go(pgy, 'sell-your-home', 1200)
@@ -1270,13 +1307,13 @@ def browser_checks(projects):
         pgm.click('[data-elh-burger]')
         pgm.wait_for_timeout(700)
         dr = pgm.evaluate("""() => { const d = document.querySelector('[data-elh-drawer]'); const r = d.getBoundingClientRect(); const cta = [...d.querySelectorAll('a')].pop(); return {open: r.left >= -1 && r.width > 100, cta: cta.textContent.trim()} }""")
-        reg('X2d', 'Mobile drawer opens; its button reads "Start Your Build"', 'PASS' if dr['open'] and dr['cta'] == 'Start Your Build' else 'FAIL', str(dr))
+        reg('X2d', 'Mobile drawer opens; its button reads "Start your build"', 'PASS' if dr['open'] and dr['cta'] == 'Start your build' else 'FAIL', str(dr))
         # nav CTA on desktop
         ctas = Counter()
         for n in PAGES:
             m = re.search(r'data-elh-cta="1"[^>]*>([^<]+)<', PAGES[n])
             ctas[m.group(1).strip() if m else 'NONE'] += 1
-        reg('7-cta', 'Primary call to action sitewide is "Start Your Build" (nav button on every page)', 'PASS' if set(ctas) == {'Start Your Build'} else 'FAIL', str(dict(ctas)))
+        reg('7-cta', 'Primary call to action sitewide is "Start your build" (nav button on every page)', 'PASS' if set(ctas) == {'Start your build'} else 'FAIL', str(dict(ctas)))
         sell_links = []
         for n in PAGES:
             b = body_html(PAGES[n]) + footer_html(PAGES[n])
@@ -1334,7 +1371,7 @@ def browser_checks2(projects):
         body_styles, mobile_small, tap = {}, {}, {}
         for n in PAGES:
             pg, st = newpage()
-            pg.goto('%s/%s.html' % (base, n), wait_until='load')
+            pg.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
             pg.wait_for_timeout(3300 if n == 'index' else 1000)
             pg.add_style_tag(content='.elh-intro{display:none!important}')
             settle_scroll(pg)
@@ -1374,27 +1411,37 @@ def browser_checks2(projects):
             'FAIL' if off else 'PASS', ('differs: ' + '; '.join(off[:8])) if off else '%d pages at 1440 = Inter 300 17px and %d pages at 390 = Inter 300 16px' % (len([d for d in dom_d.values() if d]), len([d for d in dom_m.values() if d])))
         # --- project pages
         keys = list(projects) if projects else []
-        titles, canon, issues = {}, {}, []
+        # Waiting on Rebecca (R1, R4, S14), not code: the three photo-only homes still say "Coming Soon", and two homes share the name Desert Cove.
+        PHOTO_ONLY = {'arroyo', 'stanford', 'osborn-south'}
+        SAME_NAME = {'dc1', 'desert-cove'}
+        titles, canon, issues, waiting = {}, {}, [], []
         pg, st = newpage()
         for k in keys:
             pg.goto('%s/project.html?slug=%s' % (base, k), wait_until='load')
             pg.wait_for_timeout(350)
             info = pg.evaluate("""() => ({title: document.title, canon: (document.querySelector('link[rel=canonical]') || {}).href || '', desc: (document.querySelector('meta[name=description]') || {}).content || '', ogt: (document.querySelector('meta[property="og:title"]') || {}).content || '', ogu: (document.querySelector('meta[property="og:url"]') || {}).content || '',
-              h1: document.querySelectorAll('h1').length, content: getComputedStyle(document.querySelector('#project-content')).display, nf: (document.querySelector('#not-found') || {innerText: ''}).innerText.trim(),
+              h1: document.querySelectorAll('h1').length, content: getComputedStyle(document.querySelector('#project-content')).display,
               hero: (document.querySelector('#hero-img') || {}).naturalWidth, text: document.body.innerText})""")
             titles.setdefault(info['title'], []).append(k)
             canon.setdefault(info['canon'], []).append(k)
-            if info['content'] != 'block' or info['nf'] or info['h1'] != 1 or not info['hero']:
-                issues.append('%s: content=%s notfound="%s" h1=%d hero=%s' % (k, info['content'], info['nf'][:20], info['h1'], info['hero']))
-            if re.search(r'See live site|Coming Soon|will be added here|undefined|NaN|\[object', info['text']):
-                issues.append('%s: placeholder or broken text on page' % k)
+            if info['content'] != 'block' or info['h1'] != 1 or not info['hero']:
+                issues.append('%s: content=%s h1=%d hero=%s' % (k, info['content'], info['h1'], info['hero']))
+            if re.search(r'undefined|NaN|\[object', info['text']):
+                issues.append('%s: broken text on page' % k)
+            elif re.search(r'See live site|Coming Soon|will be added here', info['text']):
+                (waiting if k in PHOTO_ONLY else issues).append('%s: placeholder text on page%s' % (k, ' (photos only for now, questions R1 and S14)' if k in PHOTO_ONLY else ''))
             if info['ogt'] != info['title'] or not info['ogu'].endswith('slug=' + k):
                 issues.append('%s: og tags not per-project' % k)
-        dupt = {t: v for t, v in titles.items() if len(v) > 1}
+        dupt_all = {t: v for t, v in titles.items() if len(v) > 1}
+        dupt = {t: v for t, v in dupt_all.items() if not set(v) <= SAME_NAME}
+        for t, v in dupt_all.items():
+            if set(v) <= SAME_NAME:
+                waiting.append('duplicate title "%s" (%s): two homes share a name, question R4' % (t, ', '.join(v)))
         dupc = {t: v for t, v in canon.items() if len(v) > 1}
+        status = 'FAIL' if (issues or dupt or dupc) else ('BLOCKED' if waiting else 'PASS')
         reg('X4g', 'All %d project pages render populated (one h1, hero image, no placeholder text) with their own title, canonical and share tags' % len(keys),
-            'FAIL' if (issues or dupt or dupc) else 'PASS',
-            '; '.join(issues[:4] + ['duplicate titles %s' % list(dupt)[:2]] * bool(dupt) + ['duplicate canonicals'] * bool(dupc)) or '%d projects: unique titles (e.g. "%s"), unique canonicals, og:url per slug' % (len(keys), next(iter(titles))))
+            status,
+            '; '.join(issues[:4] + ['duplicate titles %s' % list(dupt)[:2]] * bool(dupt) + ['duplicate canonicals'] * bool(dupc) + ['waiting on Rebecca: ' + '; '.join(waiting)] * bool(waiting)) or '%d projects: unique titles (e.g. "%s"), unique canonicals, og:url per slug' % (len(keys), next(iter(titles))))
         pg.context.close()
         # portfolio cards: every card opens a real project, no duplicate slugs
         pg, st = newpage()
@@ -1454,7 +1501,7 @@ def browser_checks2(projects):
                 if w == 390 and any(d > 2 for d in lefts):
                     align_bad.append('%s@%d: form field edges differ by %s px' % (n, w, [d for d in lefts if d > 2]))
                 if w == 390:
-                    found = pgr.evaluate("""() => { const out = []; const seen = new Set(); for (const el of document.querySelectorAll('div, section, article, ul, form')) { if (el.closest('header, footer, aside, nav, .elh-intro, [data-elh-track], .rv-grid, svg')) continue; if (!el.getClientRects().length) continue; const kids = [...el.children].filter(k => k.getClientRects().length && (k.innerText || '').trim().length >= 12 && !['absolute', 'fixed'].includes(getComputedStyle(k).position)); if (kids.length < 2) continue; const rects = kids.map(k => k.getBoundingClientRect()); let side = false; for (let i = 0; i < rects.length; i++) for (let j = i + 1; j < rects.length; j++) { const a = rects[i], b = rects[j]; const v = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top); const h = Math.min(a.right, b.right) - Math.max(a.left, b.left); if (v > 20 && h <= 2 && a.width > 40 && b.width > 40) side = true } if (!side) continue; const minw = Math.min(...rects.map(r => r.width)); if (minw < 165) { const key = (el.className || el.tagName) + '|' + Math.round(minw); if (seen.has(key)) continue; seen.add(key); out.push(Math.round(minw) + 'px ' + (el.id ? '#' + el.id + ' ' : '') + (el.className || '').toString().slice(0, 24) + ' | ' + (el.innerText || '').trim().replace(/\s+/g, ' ').slice(0, 40)) } } return out }""")
+                    found = pgr.evaluate("""() => { const out = []; const seen = new Set(); for (const el of document.querySelectorAll('div, section, article, ul, form')) { if (el.closest('header, footer, aside, nav, .elh-intro, [data-elh-track], .rv-grid, svg')) continue; if (!el.getClientRects().length) continue; const kids = [...el.children].filter(k => k.getClientRects().length && (k.innerText || '').trim().length >= 12 && !['absolute', 'fixed'].includes(getComputedStyle(k).position)); if (kids.length < 2) continue; const rects = kids.map(k => k.getBoundingClientRect()); let side = false; for (let i = 0; i < rects.length; i++) for (let j = i + 1; j < rects.length; j++) { const a = rects[i], b = rects[j]; const v = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top); const h = Math.min(a.right, b.right) - Math.max(a.left, b.left); if (v > 20 && h <= 2 && a.width > 40 && b.width > 40) side = true } if (!side) continue; const minw = Math.min(...rects.map(r => r.width)); if (minw < 165) { const key = (el.className || el.tagName) + '|' + Math.round(minw); if (seen.has(key)) continue; seen.add(key); out.push(Math.round(minw) + 'px ' + (el.id ? '#' + el.id + ' ' : '') + (el.className || '').toString().slice(0, 24) + ' | ' + (el.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 40)) } } return out }""")
                     for f in found:
                         if not any(a in f for a in ALLOW):
                             cramped.append('%s: %s' % (n, f))
@@ -1563,13 +1610,12 @@ def browser_checks2(projects):
         reg('X5j', 'No text runs past the screen edge on small phones (320, 360 and 390px), outside the deliberate horizontal scrollers', 'FAIL' if clip_bad else 'PASS',
             '; '.join(clip_bad[:6]) or 'checked all visible text on %d pages at three phone widths' % len(PAGES))
 
-        # ---- states that stay hidden until you act: the Learn menu, the phone drawer, the project lightbox, the form confirmation
+        # ---- states that stay hidden until you act: the Learn menu, the phone drawer, the project lightbox
         open_bad, open_n = [], 0
         for label, n, w, act in (('Learn menu (home, 1440)', 'index', 1440, "document.querySelector('[data-elh-click=\"toggleMore\"]').click()"),
                                  ('Learn menu (article, 1440)', 'steps-to-building-a-custom-home', 1440, "document.querySelector('[data-elh-click=\"toggleMore\"]').click()"),
                                  ('phone drawer (contact, 390)', 'contact', 390, "document.querySelector('[data-elh-burger]').click()"),
-                                 ('project lightbox (1440)', 'project', 1440, "(document.querySelector('#photos-col img, .gallery-main, #gallery img, [onclick*=openLightbox]') || {click(){}}).click()"),
-                                 ('form confirmation (contact, 1440)', 'contact', 1440, "(() => { const f = document.querySelector('form'); [...f.querySelectorAll('input, textarea, select')].forEach(e => { if (e.type === 'email') e.value = 'qa@example.com'; else if (e.tagName === 'SELECT') { if (e.options.length > 1) e.selectedIndex = 1 } else if (e.type !== 'hidden' && e.type !== 'submit') e.value = 'QA test' }); f.querySelector('button[type=submit], button:not([type])').click() })()")):
+                                 ('project lightbox (1440)', 'project', 1440, "(document.querySelector('#photos-col img, .gallery-main, #gallery img, [onclick*=openLightbox]') || {click(){}}).click()")):
             pgo, _ = newpage(w, 900 if w > 500 else 800)
             pgo.goto('%s/%s.html%s' % (base, n, '?slug=charter-oak' if n == 'project' else ''), wait_until='load')
             pgo.wait_for_timeout(3300 if n == 'index' else 1200)
@@ -1581,8 +1627,8 @@ def browser_checks2(projects):
             open_n += len(recs_o)
             open_bad += ['%s: %s "%s" %.2f' % (label, r['sel'], r['text'][:24], r['ratio']) for r in recs_o if not r['image'] and r['ratio'] < (3.0 if r['large'] else 4.5)]
             pgo.context.close()
-        reg('X5k', 'Contrast also holds in the states that stay hidden until you act: the Learn menu, the phone drawer, the project lightbox and the form confirmation',
-            'FAIL' if open_bad else 'PASS', '; '.join(open_bad[:6]) or '%d text elements measured across 5 opened states; none below the threshold' % open_n)
+        reg('X5k', 'Contrast also holds in the states that stay hidden until you act: the Learn menu, the phone drawer, and the project lightbox',
+            'FAIL' if open_bad else 'PASS', '; '.join(open_bad[:6]) or '%d text elements measured across 4 opened states; none below the threshold' % open_n)
 
         # forms: what happens on submit (evidence for item 1)
 
@@ -1623,13 +1669,13 @@ def write_report(inv, urls):
             ev = r['evidence'].replace('|', '\\|').replace('\n', ' ')
             lines.append('| **%s** %s | %s | %s |' % (r['id'], r['title'].replace('|', '\\|'), r['status'], ev))
         lines.append('')
-    with open(os.path.join(ROOT, 'docs/qa-report.md'), 'w', encoding='utf8') as f:
+    with open(os.path.join(OUT, 'qa-report.md'), 'w', encoding='utf8') as f:
         f.write('\n'.join(lines) + '\n')
     inv_lines = ['# Off-site media inventory (punch-list item 62)', '',
                  'Generated by `python3 scripts/qa.py`. Every image/video URL that still points off-site in the built pages and in `assets/*.js|css`. All must be replaced by files stored on the new site before launch.', '']
     for host, us in sorted(urls.items(), key=lambda kv: -len(kv[1])):
         inv_lines += ['## %s (%d unique)' % (host, len(us)), ''] + ['- %s' % u for u in sorted(us)] + ['']
-    with open(os.path.join(ROOT, 'docs/asset-migration.md'), 'w', encoding='utf8') as f:
+    with open(os.path.join(OUT, 'asset-migration.md'), 'w', encoding='utf8') as f:
         f.write('\n'.join(inv_lines) + '\n')
 
 

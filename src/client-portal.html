@@ -10,10 +10,10 @@
 <link rel="canonical" href="https://ellaleehomes.com/client-portal">
 <meta name="google-site-verification" content="mF9sNLbq4MCCSwdlXaE1uobKY4gv_GkxVSgU2_MxGmU">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://ellaleehomes.com/client-portal/">
+<meta property="og:url" content="https://ellaleehomes.com/client-portal">
 <meta property="og:title" content="Client Portal | Ella Lee Homes">
 <meta property="og:description" content="Access your Ella Lee Homes Client Portal to track your custom home progress, view updates, and communicate with your builder easily and securely online.">
-<meta property="og:image" content="https://ellaleehomes.com/wp-content/uploads/2025/03/Ella-Lee-Homes.png">
+<meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
 <meta property="og:site_name" content="Ella Lee Homes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -138,68 +138,8 @@ body {
   color: rgba(234,229,220,.86); max-width: 600px; margin-bottom: 56px;
 }
 
-/* ── PORTAL GRID ── */
-.portal-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: start;
-}
-
-/* Login iframe */
-.login-card {
-  background:#E3DACA;
-  color: #2B2B2B;
-  border: 1px solid rgba(0,21,38,.14);
-  box-shadow: 0 18px 48px rgba(0,0,0,.28);
-}
-.login-card h1, .login-card h2, .login-card h3, .login-card strong { color: #001526; }
-.login-card-head {
-  padding: 20px 24px 18px;
-  border-bottom: 1px solid rgba(0,21,38,.14);
-  display: flex; align-items: center; justify-content: space-between;
-}
-.login-card-label {
-  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: #605C58;
-}
-.login-card-logo {
-  font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
-  text-transform: uppercase; color: #605C58;
-}
-.login-card iframe {
-  width: 100%; height: auto; aspect-ratio: 16/9; border: none; display: block;
-}
-
-/* Video card */
-.video-stack {
-  display: flex; flex-direction: column; gap: 28px;
-}
-.video-card {
-  position: relative;
-  aspect-ratio: 16/9;
-  background: var(--navy);
-  overflow: hidden;
-  box-shadow: 0 4px 28px rgba(234,229,220,.14);
-}
-.video-card iframe {
-  position: absolute; inset: 0; width: 100%; height: 100%; border: none;
-}
-.video-info {
-  padding: 0 2px;
-}
-.video-info-label {
-  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--nickel); margin-bottom: 6px;
-}
-.video-info-title {
-  font-size: 15px; font-weight: 400; letter-spacing: -0.01em;
-  color: var(--paper); margin-bottom: 6px;
-}
-.video-info-desc {
-  font-size: 13px; font-weight: 300; line-height: 1.75;
-  color: rgba(234,229,220,.6);
-}
+/* Login button */
+.portal-login { margin: 0 0 56px; }
 
 /* Help strip */
 .help-strip {
@@ -232,27 +172,8 @@ body {
 }
 .help-phone:hover { color: var(--gold); }
 
-/* ── DIVIDER ── */
-.section-divider {
-  width: 100%; height: 1px;
-  background: rgba(234,229,220,.14);
-  margin: 0;
-}
-
-/* ── FOOTER ── */
-.footer-btm {
-  padding: 20px clamp(18px, 2.4vw, 40px);
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 9px; color: rgba(244,241,234,0.18);
-  letter-spacing: 0.06em;
-  border-top: 1px solid rgba(244,241,234,0.05);
-  background: var(--navy);
-}
-.footer-btm-tagline { font-family: var(--serif); font-style: normal; }
-
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
-  .portal-grid { grid-template-columns: 1fr; }
   .hero-head { flex-direction: column; top: calc(var(--nav-h) + 40px); left: 24px; right: 24px; }
   .hero-meta { text-align: left; }
   #portal-body { padding: 64px 24px 96px; }
@@ -321,7 +242,6 @@ body {
 /* caption keeps the same narrow measure as every other hero */
 #hero-banner > .hero-head > p.hero-meta { width: auto; max-width: 36ch; }
 </style>
-<!-- @localbusiness-schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -421,11 +341,11 @@ body {
       <div class="hero-eyebrow">Client Portal</div>
       <h1 class="hero-title">Log in to your<br><em>project.</em></h1>
       <div class="hero-actions">
-        <a href="contact.html" class="btn-ghost">Start Your Build</a>
+        <a href="contact.html" class="btn-ghost">Start your build</a>
       </div>
     </div>
     <p class="hero-meta">
-      Ella Lee Homes uses Buildertrend to keep every client fully informed and connected throughout their entire build — from any computer, tablet, or smartphone.
+      Ella Lee Homes uses Buildertrend to keep every client fully informed and connected throughout their entire build, from any computer, tablet, or smartphone.
     </p>
   </div>
 </section>
@@ -439,75 +359,34 @@ body {
     <p class="section-body">Our simple online system makes it possible to access your project from any computer, tablet, or smartphone.</p>
   </div>
 
-  <div class="portal-grid">
+  <!-- Login: a button to Buildertrend's own login page, never an embedded login. The URL is
+       buildertrendLoginUrl in site-facts.json; until it is set the button is left out, never guessed. -->
+  <!-- fact:buildertrendLoginUrl -->
+  <div class="portal-login reveal">
+    <a class="btn-primary" href="{{buildertrendLoginUrl}}" target="_blank" rel="noopener">Log in to Buildertrend</a>
+  </div>
+  <!-- /fact:buildertrendLoginUrl -->
 
-    <!-- Buildertrend Login -->
-    <div class="login-card reveal">
-      <div class="login-card-head">
-        <span class="login-card-label">Sign in below</span>
-        <span class="login-card-logo">Buildertrend</span>
+  <!-- Help -->
+  <div class="help-strip reveal">
+      <div class="help-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M2 6.5C2 14.5 9.5 22 17.5 22c.8 0 1.5-.06 2.2-.18a2 2 0 001.4-1.1l1.2-2.7a2 2 0 00-.5-2.3l-2-1.7a2 2 0 00-2.3-.2l-1 .6a10.8 10.8 0 01-5-5l.6-1a2 2 0 00-.2-2.3L9.6 3.7a2 2 0 00-2.3-.5L4.6 4.4a2 2 0 00-1.1 1.4C3.37 6.2 2 7.5 2 6.5z"/>
+        </svg>
       </div>
-      <iframe
-        src="https://buildertrend.net/NewLoginFrame.aspx?color=White"
-        title="Buildertrend Client Login"
-        loading="lazy"
-        sandbox="allow-scripts allow-forms allow-same-origin allow-popups">
-      </iframe>
-      <p class="login-fallback" style="padding:14px 18px; font-size:13px; color:#605C58; border-top:1px solid rgba(0,21,38,.14);">Having trouble logging in? <a href="https://buildertrend.net" target="_blank" rel="noopener" style="color: #6F5628; font-weight:500; text-decoration:underline; text-underline-offset:3px;">Visit buildertrend.net directly.</a></p>
-    </div>
-
-    <!-- Video + Help -->
-    <div class="video-stack">
-      <div class="video-card reveal">
-        <iframe
-          src="https://www.youtube.com/embed/8MGIfFVNv9g?rel=0"
-          title="Buildertrend Client Portal Walkthrough"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+      <div>
+        <div class="help-text-label">Need help?</div>
+        <p class="help-text-body">For login issues, call Buildertrend support at <a href="tel:18773090368" style="color: var(--gold); font-weight:500;">1-877-309-0368</a>. For anything about your project, contact your Ella Lee team:</p>
+        <a href="tel:4803408700" class="help-phone">(480) 340-8700</a>
       </div>
-      <div class="video-info reveal">
-        <p class="video-info-desc">A short walkthrough of the Ella Lee client portal.</p>
-      </div>
-    </div>
-
-    <!-- Help strip full width -->
-    <div class="help-strip reveal" style="grid-column: 1 / -1;">
-        <div class="help-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M2 6.5C2 14.5 9.5 22 17.5 22c.8 0 1.5-.06 2.2-.18a2 2 0 001.4-1.1l1.2-2.7a2 2 0 00-.5-2.3l-2-1.7a2 2 0 00-2.3-.2l-1 .6a10.8 10.8 0 01-5-5l.6-1a2 2 0 00-.2-2.3L9.6 3.7a2 2 0 00-2.3-.5L4.6 4.4a2 2 0 00-1.1 1.4C3.37 6.2 2 7.5 2 6.5z"/>
-          </svg>
-        </div>
-        <div>
-          <div class="help-text-label">Need help?</div>
-          <p class="help-text-body">For login issues, call Buildertrend support at <a href="tel:18773090368" style="color: var(--gold); font-weight:500;">1-877-309-0368</a>. For anything about your project, contact your Ella Lee team:</p>
-          <a href="tel:4803408700" class="help-phone">(480) 340-8700</a>
-        </div>
-    </div>
-
   </div>
 </section>
-
-<div class="section-divider"></div>
 
 <!-- FOOTER -->
 <!-- FOOTER_PARTIAL -->
 
 <script defer src="assets/elh-nav.js"></script>
 <script>
-(function () {
-  const nav = document.getElementById('nav');
-  const hero = document.getElementById('hero-banner');
-  if (!nav) return;
-  function onScroll() {
-    const threshold = hero ? hero.offsetHeight - nav.offsetHeight : 80;
-    nav.classList.toggle('scrolled', window.scrollY > threshold);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));

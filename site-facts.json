@@ -1,0 +1,6 @@
+{
+  "_about": "Facts the site cannot invent. null means not supplied yet: the build leaves the slot out and `npm run check:launch` fails until it is set. See scripts/build-html.mjs (applyFacts).",
+  "sqftBuilt": null,
+  "buildertrendLoginUrl": null,
+  "launchDate": null
+}

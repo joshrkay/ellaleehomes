@@ -257,7 +257,7 @@ body {
    means later ones naturally pile on top of earlier ones. */
 .reason-card {
   position: sticky;
-  top: calc(var(--nav-h) + 24px + var(--i, 0) * 14px);
+  top: calc(var(--sticky-top) + var(--i, 0) * 14px);
   margin-bottom: 32px;
   /* Each card is ~one viewport tall; the surrounding scroll distance
      between sticky-release points is what lets the user pace through
@@ -486,16 +486,13 @@ body {
 .proof-cap-meta {
   font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
   color: rgba(234,229,220,0.75);
+  text-wrap: balance; /* the label is longer now: keep the figure off a line of its own */
 }
-
-/* ── CTA STRIP ── */
-
-.cta-field + .cta-field { padding-top: 18px; }
-.cta-field input, .cta-field textarea, .cta-field select {
-  background: transparent; border: none; outline: none;
-  font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--paper);
+.proof-note {
+  margin-top: 16px;
+  font-size: 14px; line-height: 1.6;
+  color: rgba(234,229,220,.6);
 }
-.cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(234,229,220,.42); }
 
 /* ── REVEALS ── */
 .reveal {
@@ -702,7 +699,7 @@ body {
   <div class="hero-caption">
     <div class="hero-caption-l">
       <div class="eyebrow">Built for Ella · Built for legacy</div>
-      <h2>A foundation of love, care, and <em>legacy</em> &mdash; built into every home.</h2>
+      <h2>A foundation of love, care, and <em>legacy</em>, built into every home.</h2>
     </div>
     <div class="hero-scroll-hint">Scroll</div>
   </div>
@@ -726,8 +723,8 @@ body {
     <h2>Built for Ella.<em>Built for legacy.</em></h2>
   </div>
   <div class="founding-r">
-    <p>Ella Lee Homes was born from a simple, heartfelt promise &mdash; to build something that would <strong>stand the test of time</strong> for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others.</p>
-    <p>Every home we build carries that same devotion &mdash; a foundation of <strong>love, care, and legacy</strong> designed to nurture life's most meaningful moments. The same standards we set for Ella's home are the ones we set for yours.</p>
+    <p>Ella Lee Homes was born from a simple, heartfelt promise: to build something that would <strong>stand the test of time</strong> for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others.</p>
+    <p>Every home we build carries that same devotion: a foundation of <strong>love, care, and legacy</strong> designed to nurture life's most meaningful moments. The same standards we set for Ella's home are the ones we set for yours.</p>
     <div class="founding-sig">
       <span class="name">Shay &amp; the Ella Lee team</span>
       <span class="role">Founder · Phoenix, AZ</span>
@@ -757,7 +754,7 @@ body {
     <article class="reason-card" style="--i:0">
       <div class="rc-inner">
         <div class="rc-visual">
-          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/14-1.jpg" alt="Craftsmanship" loading="lazy">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/14-1.jpg" alt="Craftsmanship" loading="lazy" data-img="half">
           <div class="rc-counter">
             <div>
               <div class="rc-counter-eyebrow">The Reason</div>
@@ -770,7 +767,7 @@ body {
         <div class="rc-text">
           <div class="rc-eyebrow"><strong>The Standard</strong></div>
           <h3>We build it like it's <em>ours.</em></h3>
-          <p>Every joint, every tile line, every transition is done the way it should be &mdash; not the way that's fastest. <strong>The details most builders hide behind trim, we get right underneath.</strong></p>
+          <p>Every joint, every tile line, every transition is done the way it should be, not the way that's fastest. <strong>The details most builders hide behind trim, we get right underneath.</strong></p>
           <div class="rc-tag">Built by hand, to outlast trends</div>
         </div>
       </div>
@@ -779,7 +776,7 @@ body {
     <article class="reason-card" style="--i:1">
       <div class="rc-inner">
         <div class="rc-visual">
-          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0428-1024x682.jpg" alt="A finished home, ready for move-in" loading="lazy">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A0428-1024x682.jpg" alt="A finished home, ready for move-in" loading="lazy" data-img="half">
           <div class="rc-counter">
             <div>
               <div class="rc-counter-eyebrow">The Reason</div>
@@ -801,7 +798,7 @@ body {
     <article class="reason-card" style="--i:2">
       <div class="rc-inner">
         <div class="rc-visual">
-          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6699.jpg" alt="Stress-free project management" loading="lazy">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/IMG_6699.jpg" alt="Stress-free project management" loading="lazy" data-img="half">
           <div class="rc-counter">
             <div>
               <div class="rc-counter-eyebrow">The Reason</div>
@@ -823,7 +820,7 @@ body {
     <article class="reason-card" style="--i:3">
       <div class="rc-inner">
         <div class="rc-visual">
-          <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Charter Oak, built for daily life" loading="lazy">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/imgi_42_IMG_8914.jpg" alt="Charter Oak, built for daily life" loading="lazy" data-img="half">
           <div class="rc-counter">
             <div>
               <div class="rc-counter-eyebrow">The Reason</div>
@@ -845,7 +842,7 @@ body {
     <article class="reason-card" style="--i:4">
       <div class="rc-inner">
         <div class="rc-visual">
-          <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Personalized service" loading="lazy">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Personalized service" loading="lazy" data-img="half">
           <div class="rc-counter">
             <div>
               <div class="rc-counter-eyebrow">The Reason</div>
@@ -858,7 +855,7 @@ body {
         <div class="rc-text">
           <div class="rc-eyebrow"><strong>Direct Access</strong></div>
           <h3>You'll know us by <em>name.</em></h3>
-          <p>You work directly with the people building your home &mdash; not a call center, not a coordinator three steps removed. <strong>Call, text, or walk the site. We're there.</strong></p>
+          <p>You work directly with the people building your home, not a call center, not a coordinator three steps removed. <strong>Call, text, or walk the site. We're there.</strong></p>
           <div class="rc-tag">Same team. Groundbreaking to keys.</div>
         </div>
       </div>
@@ -867,7 +864,7 @@ body {
     <article class="reason-card" style="--i:5">
       <div class="rc-inner">
         <div class="rc-visual">
-          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="Proven reputation" loading="lazy">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="Proven reputation" loading="lazy" data-img="half">
           <div class="rc-counter">
             <div>
               <div class="rc-counter-eyebrow">The Reason</div>
@@ -880,7 +877,7 @@ body {
         <div class="rc-text">
           <div class="rc-eyebrow"><strong>The Track Record</strong></div>
           <h3>Our clients <em>come back.</em></h3>
-          <p>40+ homes built and underway across Paradise Valley, Scottsdale, Arcadia, and Phoenix &mdash; and clients who come back for the next one.</p>
+          <p>40+ homes built and underway across Paradise Valley, Scottsdale, Arcadia, and Phoenix, and clients who come back for the next one.</p>
           <div class="rc-tag">40+ homes built and underway</div>
         </div>
       </div>
@@ -889,7 +886,7 @@ body {
     <article class="reason-card" style="--i:6">
       <div class="rc-inner">
         <div class="rc-visual">
-          <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="A finished custom home" loading="lazy">
+          <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="A finished custom home" loading="lazy" data-img="half">
           <div class="rc-counter">
             <div>
               <div class="rc-counter-eyebrow">The Reason</div>
@@ -918,31 +915,8 @@ body {
     <h2>What homeowners <em>say about us.</em></h2>
   </div>
   <div class="rv-grid reveal">
-      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
-        <span class="rv-stars" aria-hidden="true">★★★★★</span>
-        <blockquote>Ella Lee Homes built our home in 2023, and we couldn’t be happier! The project was completed on time, within budget, and exceeded our expectations.</blockquote>
-        <figcaption><span class="rv-av">M</span><span class="rv-who"><span class="rv-name">Mike M</span><span class="rv-meta">Google review &middot; a year ago</span></span></figcaption>
-      </figure></a>
-      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
-        <span class="rv-stars" aria-hidden="true">★★★★★</span>
-        <blockquote>As an investor, I’ve entrusted Ella Lee Homes to build 9 custom homes. I could not be more pleased by the outcome.</blockquote>
-        <figcaption><span class="rv-av">M</span><span class="rv-who"><span class="rv-name">Michael Wiss</span><span class="rv-meta">Google review &middot; 3 years ago</span></span></figcaption>
-      </figure></a>
-      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
-        <span class="rv-stars" aria-hidden="true">★★★★★</span>
-        <blockquote>Shay &amp; team have been so meticulous about all warranty and repair work, which is something most builders completely disregard.</blockquote>
-        <figcaption><span class="rv-av">A</span><span class="rv-who"><span class="rv-name">Anastasia Foster</span><span class="rv-meta">Google review &middot; 2 years ago</span></span></figcaption>
-      </figure></a>
-      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
-        <span class="rv-stars" aria-hidden="true">★★★★★</span>
-        <blockquote>Attention to detail, quality construction, responsiveness of the warranty team &mdash; owning an Ella Lee home is truly enjoyable.</blockquote>
-        <figcaption><span class="rv-av">H</span><span class="rv-who"><span class="rv-name">Heather Wilson</span><span class="rv-meta">Google review &middot; 8 months ago</span></span></figcaption>
-      </figure></a>
-      <a class="rv-card" href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener"><figure>
-        <span class="rv-stars" aria-hidden="true">★★★★★</span>
-        <blockquote>From the very beginning, communication was easy and stress-free. What stood out most was his honesty and sincerity.</blockquote>
-        <figcaption><span class="rv-av">G</span><span class="rv-who"><span class="rv-name">Gordon Yonel</span><span class="rv-meta">Google review &middot; 8 months ago</span></span></figcaption>
-      </figure></a>
+      <!-- @reviews:rv -->
+      <!-- /@reviews:rv -->
   </div>
   <p class="rv-more"><a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener">Read all of our reviews on Google</a></p>
 </section>
@@ -964,77 +938,55 @@ body {
 
   <div class="proof-grid reveal">
     <a class="proof-tile span-2" href="project.html?slug=68th">
-      <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="68th St">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/02/0H0A5255.jpg" alt="68th St" data-img="half">
       <div class="proof-cap">
         <div class="proof-cap-name">68th St</div>
-        <div class="proof-cap-meta">Paradise Valley · Appraised at $7.0M</div>
+        <div class="proof-cap-meta">Paradise Valley · Completed home value $7.0M</div>
       </div>
     </a>
     <a class="proof-tile" href="project.html?slug=charter-oak">
-      <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Charter Oak">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/12/IMG_2780.jpg" alt="Charter Oak" data-img="card">
       <div class="proof-cap">
         <div class="proof-cap-name">Charter Oak</div>
-        <div class="proof-cap-meta">Scottsdale · Appraised at $7.0M</div>
+        <div class="proof-cap-meta">Scottsdale · Completed home value $7.0M</div>
       </div>
     </a>
     <a class="proof-tile" href="project.html?slug=via-estrella">
-      <img src="https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0171.jpg" alt="Via Estrella">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/06/DJI_0171.jpg" alt="Via Estrella" data-img="card">
       <div class="proof-cap">
         <div class="proof-cap-name">Via Estrella</div>
-        <div class="proof-cap-meta">Scottsdale · Appraised at $5.45M</div>
+        <div class="proof-cap-meta">Scottsdale · Completed home value $5.45M</div>
       </div>
     </a>
     <a class="proof-tile" href="project.html?slug=dc2">
-      <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="Desert Cove II">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_2316-2-1.jpg" alt="Desert Cove II" data-img="card">
       <div class="proof-cap">
         <div class="proof-cap-name">Desert Cove II</div>
-        <div class="proof-cap-meta">Arcadia · Appraised at $4.4M</div>
+        <div class="proof-cap-meta">Arcadia · Completed home value $4.4M</div>
       </div>
     </a>
     <a class="proof-tile" href="project.html?slug=earll">
-      <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="Earll">
+      <img src="https://ellaleehomes.com/wp-content/uploads/2025/10/IMG_8101.jpg" alt="Earll" data-img="card">
       <div class="proof-cap">
         <div class="proof-cap-name">Earll</div>
-        <div class="proof-cap-meta">Arcadia · Appraised at $3.65M</div>
+        <div class="proof-cap-meta">Arcadia · Completed home value $3.65M</div>
       </div>
     </a>
   </div>
+  <p class="proof-note">The value of the finished home, including the land. Not the construction cost.</p>
 </section>
 
 <!-- CTA -->
 <section id="cta" data-screen-label="Inquiry" style="display: block; padding: clamp(80px, 11vw, 160px) clamp(18px, 2.4vw, 40px); background: #001526; color: #EAE5DC">
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(36px, 5vw, 90px); max-width: 1500px; margin: 0 auto">
-    <div style="display: flex; flex-direction: column; gap: 22px">
-      <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Build Your Home</span>
-      <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -.015em">Start your build</h2>
-      <p style="margin: 0; max-width: 46ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.7; color: rgba(234,229,220,.88); font-weight: 300">Tell us about your project. Every inquiry is read personally. If you'd rather talk it through, call <a href="tel:+14803408700" style="color: #EAE5DC; border-bottom: 1px solid rgba(191,160,106,.7)">(480) 340-8700</a>.</p>
-      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px; font-size: 14px; line-height: 1.6; color: #A5A09D">
-        <span>4408 N 12th St, Ste 200, Phoenix, AZ 85014</span>
-        <a href="mailto:hello@ellaleehomes.com" style="color: #A5A09D">hello@ellaleehomes.com</a>
-      </div>
+  <div style="display: flex; flex-direction: column; gap: 22px; max-width: 1500px; margin: 0 auto">
+    <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Build Your Home</span>
+    <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: -.015em">Start your build</h2>
+    <p style="margin: 0; max-width: 46ch; font-size: clamp(16px, 1.2vw, 17px); line-height: 1.7; color: rgba(234,229,220,.88); font-weight: 300">Tell us about your project. Every inquiry is read personally. If you'd rather talk it through, call <a href="tel:+14803408700" style="color: #EAE5DC; text-decoration: none; border-bottom: 1px solid rgba(191,160,106,.7)">(480) 340-8700</a>.</p>
+    <a class="elh-fh1" href="contact.html" style="align-self: flex-start; margin-top: 8px; padding: 15px 42px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: #EAE5DC; border: 1px solid rgba(191,160,106,.85); border-radius: 100px; transition: background .3s ease, color .3s ease, border-color .3s ease">Start your build</a>
+    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 8px; font-size: 14px; line-height: 1.6; color: #A5A09D">
+      <span>4408 N 12th St, Ste 200, Phoenix, AZ 85014</span>
+      <a href="mailto:hello@ellaleehomes.com" style="color: #A5A09D; text-decoration: none">hello@ellaleehomes.com</a>
     </div>
-    <form onsubmit="event.preventDefault(); this.querySelector('[data-msg]').style.display='block'; this.querySelector('button').disabled=true;" style="display: flex; flex-direction: column; gap: 22px">
-      <label style="display: flex; flex-direction: column; gap: 9px">
-        <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Name</span>
-        <input name="name" type="text" required="required" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; font-family: inherit">
-      </label>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 22px">
-        <label style="display: flex; flex-direction: column; gap: 9px">
-          <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Email</span>
-          <input name="email" type="email" required="required" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; font-family: inherit">
-        </label>
-        <label style="display: flex; flex-direction: column; gap: 9px">
-          <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Phone</span>
-          <input name="phone" type="tel" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; font-family: inherit">
-        </label>
-      </div>
-      <label style="display: flex; flex-direction: column; gap: 9px">
-        <span style="font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #A5A09D">Tell us about your project</span>
-        <textarea name="project" rows="4" style="padding: 13px 0; font-size: 16px; font-weight: 300; color: #EAE5DC; background: transparent; border: 0; border-bottom: 1px solid rgba(234,229,220,.28); outline: none; line-height: 1.6; resize: vertical; font-family: inherit"></textarea>
-      </label>
-      <button type="submit" style="align-self: flex-start; margin-top: 8px; padding: 17px 40px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #001526; background: #EAE5DC; border: 0; cursor: pointer; font-family: inherit; transition: background .3s ease">Send Inquiry</button>
-      <p data-msg="1" style="display: none; margin: 0; font-size: 14px; color: #BFA06A">Thank you &mdash; we’ll be in touch.</p>
-    </form>
   </div>
 </section>
 

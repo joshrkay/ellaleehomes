@@ -1,141 +1,84 @@
-# Ella Lee Homes — Punch List, point by point
+# Punch list (live)
 
-Source of truth: the typed **Merged Punch List** and **Website Fact Sheet** (both updated September 29, 2026), plus the handwritten notes. Fact Sheet answers override anything earlier. All 66 items are here, including **24** and **55**, which were unreadable in the scanned copy.
+Source: the Merged Punch List re-checked October 2, 2026 (66 original items, 46 already done and removed). Item numbers are the original ones. This file is kept up to date as work lands on the branch; the archived Oct 1 list is in `docs/archive/`.
 
-**Status:** ✅ done in PR #26 · ⛔ blocked on an input only Ella Lee Homes can supply · 🟡 partly done · ➖ closed in the PDF
+How to read the status:
 
-**Evidence and open questions:** `docs/qa-report.md` has the measured result for every item and every Fact Sheet rule. `docs/needs-confirmation.md` lists exactly what is still needed, which wording on the site is not on the Fact Sheet, and the judgment calls made during QA. `docs/portfolio-data-for-rebecca.csv` is the hand-off sheet for items 11 to 13.
+- **Done** is in the code and checked by a script (`qa.py --static`, `qa:chrome`, or the build guards).
+- **Done, check on screen** is in the code and was checked in a headless browser here, but only a person on staging can judge it (looks, touch, Safari).
+- **Built, waiting on input** is ready; a fact or file from the named person finishes it.
+- **Waiting** has nothing to build until the named person answers. The IDs (S1, R1, B1, L1) are in `docs/needs-confirmation.md`.
 
-Guardrail: `scripts/check-copy.mjs` runs before every build and fails if banned wording returns (design language, open books, fixed price, budget ranges, response promises, "dozens", 5.0 badge, remodel/commercial, design/permitting phases, "Ste 200" missing, warranty@ outside Warranty and Homeowner Resources, and more).
+The plan behind the packages (WP0 to WP9) is `docs/launch-plan.md`. What still blocks launch, by ID: `npm run launch:report`.
+
+## N. New requests from Shay (October 2)
+
+| # | Request | Status | Where and how checked | Waiting on |
+|---|---|---|---|---|
+| N1 | Arrows to scroll the reviews | Done, check on screen | Home reviews strip: Previous and Next buttons, hidden until the strip overflows; keyboard, touch and reduced motion tested (`assets/home.js`) | none |
+| N2 | Budget and property address in the contact form | Waiting | Fields are set inside Buildertrend (N16), not on the site | Shay or the office (B1) |
+| N3 | Sq ft built under the footer's gold line | Built, waiting on input | Footer slot after "40+ homes", fed by `sqftBuilt` in `site-facts.json`; no cell while it is empty (`qa:chrome`) | Shay (S1) |
+| N4 | Home FAQ wording | Done | Home FAQ uses the FAQ page's subhead | none |
+| N5 | One white line in the project hero | Done, check on screen | One rule under the project name (`project.html`) | S16 asks what "two white lines" meant |
+| N6 | Client Portal: a login button instead of the embed | Built, waiting on input | Button appears when `buildertrendLoginUrl` is set; the embed is gone. `check:launch` fails while it is empty | Shay or Buildertrend (S2, B3) |
+| N7 | Portal video shows the wrong phone number | Done, decision open | The video and the blank login embed are removed from the page; the guard blocks the number | Shay: replace or leave out (S3) |
+| N8 | Rebecca's records for every house, main pictures, style | In progress | Portfolio data pipeline (WP5): one data file, a validator and the sheet for Rebecca (`npm run projects:csv`). The records themselves are Rebecca's | Rebecca (R1 to R4) |
+| N9 | Stray "25" after the portfolio hero | Done | The hidden result count that printed it is removed | none |
+| N10 | Em dashes on 14 pages | Done | Removed from copy, titles, meta and structured data on every page. `check-copy` now fails the build on any em dash | none |
+| N11 | No lines between sections on secondary pages | Done, check on screen | Section-level dividers removed on all 23 secondary pages; hero line and gold footer line kept (`qa:chrome` at 1324 and 390px). Lines inside cards, rows and tables remain | S10 asks whether those should go too |
+| N12 | Build timeline back to the earlier style, with a design phase | Waiting | Cannot be built from the documents: needs the phases, the wording and an answer on "architect-led design" against the "never we design" rule. The Build page carries "11 to 18 months" in the meantime | Shay (S4) |
+| N13 | Hide the menu on scroll down, show on scroll up, blue only when Learn is open | Done, check on screen | `data-elh-nav-state` on `<html>`; every page uses the same script and partial; checked on Home, an inner page and an article at 1440 and 390px, with keyboard and reduced motion (`qa:chrome`). Chromium only: please try Safari and a phone | S9 confirms the neutral dark bar |
+| N14 | Centre the menu | Done | Link group is centred to 0px at 1024, 1324, 1440, 1920; burger from 899px (`qa:chrome`) | none |
+| N15 | Buildertrend contact form in place of the site's forms | Built, waiting on input | One embed on Contact, on a linen panel; the five other forms are gone and every "Start your build" goes to Contact. `check-copy` blocks any form or iframe elsewhere | A test lead from staging (B4) |
+| N16 | Fields set up in Buildertrend | Waiting | The exact order and options are in `docs/needs-confirmation.md` B1 | Shay or the office (B1, B2) |
 
 ## A. Blockers
 
-| # | Item | Status | What was done / what is needed |
-|---|---|---|---|
-| 1 | Forms send nowhere (6 forms) | ⛔ | Budget dropdown removed from every form ✅. **Needs:** the destination inbox or Buildertrend lead endpoint, then wire and test each form. |
-| 2 | Buildertrend login not working | ⛔ | **Needs:** the login embed code. Ella Lee Homes requests it from Buildertrend (1-877-309-0368); Josh installs it. |
-| 3 | Review links open Google, not the review | ⛔ | All 20 review cards link to the business's Google Maps listing (one URL). The Fact Sheet allows "the full review profile", so this may already be acceptable. **Needs:** each review's direct URL if you want them; the link could not be opened from the build environment, so it is unverified. |
-| 4 | Placeholder text on legal pages | ⛔ | Untouched on purpose. **Needs:** counsel's final language, then remove the note. |
-| 5 | Designer note in Our Story | ✅ | Note removed. Shay's real copy is tracked in item 50. |
-| 6 | Stray "\n" on Client Portal | ✅ | Removed. |
+| # | Request | Status | Where and how checked | Waiting on |
+|---|---|---|---|---|
+| 1 | Forms send nowhere | Done | Replaced by N15 | B4 |
+| 2 | Buildertrend client login | Built, waiting on input | Replaced by N6 | S2, B3 |
+| 4 | Placeholder text on legal pages | Done | Privacy, Terms and Disclaimer carry the approved draft word for word; the "template" notes are gone and `check-copy` blocks them | Attorney review (L1) |
 
 ## B. Facts and numbers
 
-| # | Item | Status | Notes |
-|---|---|---|---|
-| 7 | Home count | ✅ | "40+ homes" (completed and in progress) sitewide: footer, home, Our Story, Portfolio, Developers, map. 26 completed / 21 in progress appears only in the FAQ answer. |
-| 8 | "10+ years", "fifteen years" | ✅ | Removed. "Since 2021" only. |
-| 9 | Three different timelines | ✅ | 11–18 months, construction only. Design and permitting phases removed from the Build page; "Planning and permitting" wording removed from Home, FAQ, Steps article. |
-| 10 | FAQ implies fixed price | ✅ | "How does pricing work on an Ella Lee home?" states cost-plus plainly. No "open books", no fixed-price comparison. Cost-plus also stated on Build, Home, Code of Conduct. |
-| 11 | Portfolio data copy-pasted | ⛔ | **Needs:** Rebecca's real records. |
-| 12 | Homepage cards identical specs | ⛔ | The identical placeholder specs (5 Bed / 5.5 Bath / 5,214 Sqft) were taken off; each card now shows its location. Real specs return with item 11. Stanford has no project page and is marked Coming soon. |
-| 13 | Charter Oak / 68th same price | ⛔ | **Needs:** the real sale prices. |
-| 14 | "Mark, Paradise Valley, 2024" testimonial | ✅ | Removed. |
-| 15 | Claims needing backup | ✅ | Removed: $200M+, 9 neighborhoods, 5.0 badge (footer, home, contact, schema), "On time. On budget. Always.", "100% transparency". "Dozens" replaced by "40+ homes". Kept: 10% of profits. Real Google reviews kept. |
-| 16 | Warranty page email | ✅ | `warranty@ellaleehomes.com` on Warranty and Homeowner Resources only (enforced). |
-| 17 | Budget ranges mismatch | ✅ | All budget ranges and dropdowns removed. |
-| 18 | "South Arizona" | ✅ | Removed; statewide phrasing is "Arizona" (enforced; "the Phoenix Valley" removed from copy). |
-| 19 | "Ste 200" missing | ✅ | On Contact, Developers, Sell, Home, Our Story; schema address too (enforced). |
-| 20 | ROC in the footer | ✅ | Verified: KB2-333410 in the shared footer on every page. |
-
-## C. Services and positioning
-
-| # | Item | Status | Notes |
-|---|---|---|---|
-| 21 | "Design build" / "we design" | ✅ | Removed sitewide and enforced. |
-| 22 | Why Us "In-House Design" reason | ✅ | Replaced with "Built Around You" ("…and we can work with your architect") and "One team, one point of contact". |
-| 23 | Developers FAQ design package, 3D renderings | ✅ | Removed; FAQ now says only what Ella Lee Homes builds. |
-| 24 | Services contradict (remodel/addition/commercial) | ✅ | Home FAQ, Developers FAQ, Code of Conduct and the Steps article cleaned. "Custom homes only"; no "new homes only" either (enforced). |
-| 25 | Design described two ways | ✅ | One line sitewide: "We can work with your architect." |
+| # | Request | Status | Where and how checked | Waiting on |
+|---|---|---|---|---|
+| 9 | Three different build timelines | Done in part | One range, "11 to 18 months", on Build, FAQ and their structured data. The phase detail waits on N12 | Shay (S4) |
+| 11 | Portfolio data copy-pasted ("5.2 BA", repeated prices and sizes) | In progress | The validator lists every case by name; the values are Rebecca's | Rebecca (R1, R2) |
+| 13 | Charter Oak and 68th both $7,035,000 | Waiting | Flagged by the validator | Rebecca (R2) |
+| 17 | Budget ranges do not match | Done | Ranges and dropdown removed from the site; the budget is a free-text Buildertrend field (N2) | none |
 
 ## D. Copy and wording
 
-| # | Item | Status | Notes |
-|---|---|---|---|
-| 26 | "within one business day" | ✅ | Removed everywhere. "Every inquiry is read personally." |
-| 27 | FAQ subhead | ✅ | Suggested wording applied. |
-| 28 | Warranty line | ✅ | Suggested wording applied. |
-| 29 | "You Dream it" | ✅ | Lowercase on Our Story. |
-| 30 | Nav label "Why Us" | ✅ | Nav, dropdown, footer and page title. |
-| 31 | "Ready to stop reading…" | ✅ | "When you're ready, let's talk." Confirm tone. |
-| 32 | Stories hero wording | ✅ | Rewritten without design language. |
-| 33 | "See the craft yourself" | ⛔ | **Needs:** Shay's notes (rewrite the line, swap the home). |
-| 34 | "In practice" label | ✅ | Josh's pick made: "Recent Homes". Change if you prefer another. |
-| 35 | Portfolio hero wording | ✅ | Josh's pick made: "Custom homes across Paradise Valley, Scottsdale, Arcadia, and Phoenix." No stat text in the hero. |
-| 36 | Sell page reads like a cash-buyer ad | ✅ | Rewritten in brand voice for homes and lots. Line: "Give your home or lot a second life." |
-| 37 | Sell chips | ✅ | Chips kept, moved lower down the page; "trusted local buyer" gone. |
-| 38 | Founder line grammar | ✅ | "since the company was founded"; singular "Founder". |
-| 39 | Sitewide voice | ✅ | Applied to everything rewritten. |
+| # | Request | Status | Where and how checked | Waiting on |
+|---|---|---|---|---|
+| 27 | FAQ subhead | Done | FAQ page and Home | none |
+| 33 | "See the craft for yourself" and the home it points to | Waiting | Line unchanged | Shay (S7) |
 
 ## E. Design and layout
 
-| # | Item | Status | Notes |
-|---|---|---|---|
-| 40 | Hero standard | ✅ | `assets/site-hero.css`. Applied to FAQ, Warranty, Homeowner Resources, Code of Conduct, Privacy, Terms and Disclaimer (all new); Client Portal on local photo; Portfolio, Build, Stories already on it. Each page has its own photo; video on Home only. **Note:** several hero photos still load from the old WordPress host until the Drive upload (item 62). |
-| 41 | New hero video | ⛔ | Shay is working on it. |
-| 42 | Photo of Shay | ✅ | `uploads/home/shay.jpg` placed in the "what began as a dream" section on Home and beside "A Note From Our Founder" on Our Story, captioned Founder and Principal. The photo is 1024px wide; swap in the full-size original when the Drive export arrives. |
-| 43 | Project strip speed | ✅ | Slightly faster. |
-| 44 | Blank 68th card | ✅ | Strip images load eagerly (they were lazy-loaded inside a scrolling strip). |
-| 45 | More Google testimonials | ⛔ | Five real reviews now on Home, Why Us, Developers, Our Story. **Needs:** more real homeowner/client reviews if wanted. |
-| 46 | Our Story review cards | ✅ | Same Google review cards replace the FAQ list; the unverified "Mark" quote is gone. |
-| 47 | Camino footer | ✅ | Shay confirmed done. |
-| 48 | Build contact strip | ✅ | Verified: same "Start your build" block as Home. |
-| 49 | Portfolio blocks too large | ✅ | Four per row on large screens (three mid-size), smaller card text. |
-| 50 | Our Story feels plain | ⛔ | **Needs:** Shay's copywriting. Map size, body fonts and title styling still to do alongside it. |
-| 51 | Why Us layout | ✅ | New first strip, Google review strip like Home, halo around the card stack removed. |
-| 52 | Stray HOME button | ✅ | Removed. |
-| 53 | Developers layout | ✅ | Same treatment as Why Us: halo removed, review strip added. |
-| 54 | Warranty / Homeowner Resources layout | 🟡 | Heroes done. **Needs:** a look at the old site's structure ("follow the old site's structure"); the old site is not reachable from this environment. A screenshot of those two old pages is enough. |
-| 55 | FAQ layout matches the front page | 🟡 | Standard hero added and the list expanded to 17 questions. The list styling is unchanged; say if the front page treatment means more. |
-| 56 | Navy | ➖ | #001526 stays. |
-| 57 | Nav text over bright photos | ✅ | Gradient on the photo (top of the hero image), not behind the header. |
-| 58 | Hidden "Project not found" | ✅ | Now created only when a project is actually missing. |
-| 59 | Similar Projects not similar | ✅ | Matched by price, size and area. |
-| 60 | Keyhole intro delay | ✅ | 3.1s → 1.9s, plus a Skip button. |
-| 61 | Footer stat badges | ✅ | 50+, 200K+, 5.0 removed; ROC license kept. |
-| 62 | Photos load from old sites | ⛔ | Planned. Counted in the built site: 856 images and videos from the old WordPress site, 166 from Google Drive (project pages) and 3 from Zillow; the list is `docs/asset-migration.md`. **Needs:** the Google Drive export. Then confirm nothing loads from the old WordPress site, Drive or Zillow. |
+| # | Request | Status | Where and how checked | Waiting on |
+|---|---|---|---|---|
+| 41 | New hero video | Waiting | Still the earlier drone video. Where the new file goes and the size limits are in `docs/media.md` | Shay (S6) |
+| 43 | Project strip slightly faster | Done, check on screen | 15.6 px per second, the same on any screen refresh rate (it used to run twice as fast on 120 Hz) | none |
+| 44 | Blank 68th card in the strip | Done, check on screen | All strip photos decode before the strip starts. The blank card could not be reproduced, so please look on a phone and in Safari | S11 asks where it appeared |
+| 45 | More Google reviews | Waiting | A shared data file for the reviews is being added (WP8), so adding more will be one edit once they are confirmed | Shay (S5) |
+| 50 | Our Story: dress it up, smaller map | Waiting | Needs the copy and photos | Shay (S8) |
+| 53 | Developers like Why Us | Done, check on screen | Same strip, bordered sticky cards and no section lines; matched by measured styles and side-by-side shots | none |
+| 57 | Nav text hard to read over bright sky | Done, check on screen | Stronger gradient on the project hero photo, not behind the header | none |
+| 58 | Hidden "Project not found" text | Done | An unknown or missing project redirects to the portfolio; the text is gone | none |
+| 61 | Footer stat badges | Done | Footer shows "40+ homes" and, once supplied, sq ft built (N3). `qa:chrome` checks all 24 footers | none |
+| 62 | Photos and videos off the old site, Google Drive and Zillow | In progress | Tooling is built and tested in simulation (`docs/media.md`); it needs network access to the old site and Drive, then a run, then a commit. `check:assets` fails the launch build until it reaches zero. Zillow photos need Rebecca's originals | Network allowlist for this environment (or a machine with access); Rebecca for Zillow (R5) |
 
-## F. SEO and AI search
+## G. Order of work from here
 
-| # | Item | Status | Notes |
-|---|---|---|---|
-| 63 | Business schema on the homepage | ✅ | HomeAndConstructionBusiness JSON-LD on every page incl. Home: name, address (Ste 200), phone, ROC license, founder, areas served. |
-| 64 | FAQ page is thin | ✅ | 17 questions with FAQPage schema, written only from Fact Sheet facts. |
-| 65 | Meta description, share image, titles | ✅ | Every page has a description; branded share image `assets/og-share.jpg` with Open Graph and Twitter tags; titles standardized "Topic \| Ella Lee Homes". |
-| 66 | H1, robots, sitemap | ➖ | Already right. |
-
-## G. Conflicts (all decided September 29)
-
-| # | Decision | Applied |
-|---|---|---|
-| G1 | "40+ homes", built and in progress | ✅ |
-| G2 | 11–18 months of construction; rest of the timeline removed | ✅ |
-| G3 | "We can work with your architect" | ✅ |
-| G4 | Keep Shay's line, add "lot" (home or lot) | ✅ |
-| G5 | No time commitment anywhere | ✅ |
-
-## H. Order of work
-
-1. Decisions made ✅ · 2. Inputs gathered ⛔ (see below) · 3. Forms, Buildertrend, review links ⛔ · 4. Portfolio data ⛔ · 5. Copy rewrites and hero standard ✅ · 6. SEO ✅, legal ⛔ · 7. Photo/video upload ⛔ · 8. Fresh-eyes pass, then cutover.
-
-## Verification against the Sep 29 documents
-
-`python3 scripts/qa.py` checks every item above and every Fact Sheet rule against the built site (all 24 pages and the 22 project pages). It renders each page at 1440, 768 and 390px, plus 360 and 320px for small phones, with the real Inter and DM Serif Display fonts. Latest run: **154 checks: 136 pass, 0 fail, 12 blocked, 6 for a person to judge.** The 12 blocked are the items marked ⛔ above. The 6 for a person are item 47 (Camino footer, Shay confirmed it), items 54 and 55 (partly done), the order of work (H), voice and tone (measured, but a human call) and what the forms do on submit (evidence for item 1). The result of every check, with what it measured, is in `docs/qa-report.md`.
-
-**What the QA pass added:** checks that read colour contrast (text and icons, including the open menu, drawer, lightbox and form confirmation), keep phone numbers on one line, show a keyboard focus ring, catch an empty section or a form field sitting lower than its neighbour, and catch text cut off on 320 to 390px phones; two of them have self-tests that prove they can fail. What it found and fixed beyond the list, and the judgment calls that go with it, is in `docs/needs-confirmation.md`.
-
-**Fixed during the final audit:** the home page's "Plan & Price / Design With You" timeline labels (now match their panels); "permitting" claims on Why Us, Code of Conduct and the articles; "designing and building" on Our Story; "guarantees" language; the Valley/Arizona phrasing; market order (Paradise Valley, Scottsdale, Arcadia, Phoenix) on Home, Sell, Our Story, Portfolio and articles; "40+ homes" added back to the footer; the nav button now reads "Start Your Build"; the home H2 now names Paradise Valley, Scottsdale and Arcadia; "Designed for daily life" caption.
-
-**Enforced by the build** (`scripts/check-copy.mjs`): design language, open books, fixed price, budget ranges, response promises, unverified stats, "dozens", 5.0 badge, remodel/commercial, design/permitting phases, "designing and building", "permitting", "the Valley", "guarantees", market order, timeline numbers, "Ste 200", warranty@ placement.
-
-**Left on purpose (your call):**
-- Real client review quotes still say "completed on time, within budget" (Mike M, Google review). They are the client's words, not our promise.
-- Blog category tags and two article titles still use the word "Design" (Stories page). They are general building topics, not a service claim.
-- The Our Story narrative still says "open-concept floor plan designed with intention" in the dream-home passage; Shay's copywriting (item 50) will replace it.
-- Project prices on the Portfolio are the existing per-home figures; they are replaced when Rebecca's records arrive.
-
-## Still needed from Ella Lee Homes
-
-Form destination · Buildertrend login embed code · direct review URLs and any additional reviews · counsel's legal text · Rebecca's per-home records and sale prices · Shay's notes for "See the craft" and Our Story copy · the new hero video · a screenshot of the old Warranty and Homeowner Resources pages · the Google Drive photo/video export.
-
-`docs/needs-confirmation.md` has the same list with what each page says today, plus the wording on the site that is not on the Fact Sheet and needs a yes.
+| Step | Status |
+|---|---|
+| 1. Buildertrend form on Contact, fields set, test lead | Built; fields and the test lead need Shay or the office (B1 to B4) |
+| 2. Shay's new requests (section N) | Done except the ones waiting on input above |
+| 3. Remaining open items: Disclaimer note, more reviews, project page nav and hidden text | Done except reviews (waiting on Shay) |
+| 4. Rebecca's records and pictures | Pipeline built; waiting on her sheet (R1 to R5) |
+| 5. Shay's items: hero video, Our Story copy, "See the craft" wording, sq ft figure | Waiting |
+| 6. Move all photos and videos onto the site | Tooling ready; run once the hosts are reachable |
+| 7. Fresh-eyes pass on staging, then DNS | `docs/launch-checklist.md` has the order |
