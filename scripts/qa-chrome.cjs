@@ -187,7 +187,7 @@ function checkFooters() {
     if (/href="[^"]*sell-your-home/.test(foot)) sell.push(f);
     if (/\b50\+|\b200K|\b5\.0\b/.test(text)) badges.push(f);
     if (!/>Office:</.test(foot) || /Address:/.test(foot)) label.push(f);
-    const hasCell = /Sq ft built/i.test(foot);
+    const hasCell = /Square feet built/i.test(foot);
     const leaked = /\{\{|fact:/.test(foot);
     if (leaked || (sqft === null ? hasCell : !(hasCell && text.includes(sqft)))) sqftBad.push(f);
   }
@@ -196,7 +196,7 @@ function checkFooters() {
   report(!badges.length, 'footer has no 50+ / 200K / 5.0 badge', badges.join(', '));
   report(!label.length, 'footer label reads "Office:", never "Address:"', label.join(', '));
   report(!sqftBad.length,
-    sqft === null ? 'sq ft slot left out while sqftBuilt is null (no cell, no placeholder, no leaked marker)' : `sq ft slot shows "${sqft}" with the label "Sq ft built"`,
+    sqft === null ? 'sq ft slot left out while sqftBuilt is null (no cell, no placeholder, no leaked marker)' : `sq ft slot shows "${sqft}" with the label "Square feet built"`,
     sqftBad.join(', '));
 }
 
