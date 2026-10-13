@@ -511,19 +511,20 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
 @media (max-width: 1100px) {
   .pillars-hd { grid-template-columns: 1fr; gap: 24px; }
   .pillars-stack { padding: 24px clamp(18px, 2.4vw, 40px) 80px; }
-  /* The stack stops sticking below this width: each card is an ordinary block, photo first. */
+  /* The cards stay sticky and stack on phones too (compact, one screen each). */
   .pillar-card {
-    position: relative;
-    top: auto;
-    height: auto;
-    max-height: none;
+    /* Stays sticky on phones too: a compact card that fits the screen, so the pile-up matches desktop. */
+    height: calc(100vh - var(--sticky-top) - 40px);
+    height: calc(100svh - var(--sticky-top) - 40px);
+    max-height: 720px;
     min-height: 0;
     margin-bottom: 24px;
   }
+  .pc-inner, .pillar-card:nth-child(even) .pc-inner { grid-template-rows: minmax(0, 1fr) auto; }
   .pc-inner, .pillar-card:nth-child(even) .pc-inner { grid-template-columns: 1fr; }
   .pillar-card:nth-child(even) .pc-visual { grid-column: 1; grid-row: 1; }
   .pillar-card:nth-child(even) .pc-text { grid-column: 1; grid-row: 2; }
-  .pc-visual { aspect-ratio: 16/10; }
+  .pc-visual { aspect-ratio: auto; min-height: 0; }
   .pc-counter { top: 28px; left: 28px; right: 28px; }
   .pc-counter-num { font-size: clamp(72px, 16vw, 110px); }
   .pc-text { padding: 48px 32px; }
@@ -550,6 +551,14 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   .inv-grid { grid-template-columns: 1fr; }
   .inv-head { flex-direction: column; align-items: flex-start; }
   .faq-a { padding-left: 0; }
+}
+/* Short phones: the stacked card has to fit one screen, so tighten the text panel. */
+@media (max-width: 700px) and (max-height: 760px) {
+  .pc-text { padding: 22px 20px; }
+  .pillar-title { font-size: 26px; margin-bottom: 10px; }
+  .pillar-text { font-size: 14.5px; line-height: 1.55; }
+  .pc-eyebrow { margin-bottom: 8px; }
+  .pc-counter-num { font-size: 56px; }
 }
 
 /* ── HERO TYPE, matches the homepage h1: display serif, hairline rule, small lede ── */
@@ -895,7 +904,6 @@ a.inv-card { display: block; color: inherit; text-decoration: none; }
   <p class="inv-note">The value of the finished home, including the land. Not the construction cost.</p>
 
   <div class="inv-foot reveal">
-    <p>Looking for off-market or pre-construction opportunities? Our team has additional inventory available privately for qualified investors.</p>
     <a href="previous-projects.html">
       View Full Portfolio
       <svg viewBox="0 0 16 8" fill="none"><path d="M1 4h14m0 0L11 1m4 3l-4 3" stroke="currentColor" stroke-width="1.4"/></svg>

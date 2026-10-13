@@ -43,6 +43,11 @@
 [data-elh-nav] nav a[aria-current="page"] { color: #BFA06A }
 [data-elh-cta]:hover { background: #BFA06A; color: #001526; border-color: #BFA06A }
 [data-elh-drawer] a { text-decoration: none }
+/* Current page in the phone menu: gold and underlined, so it shows even where colour does not. */
+[data-elh-drawer] a[aria-current="page"] {
+  color: #BFA06A !important; text-decoration: underline !important;
+  text-decoration-thickness: 2px; text-underline-offset: 6px;
+}
 
 /* The caret beside "Learn" turns over while the panel is open. !important so a script that wrote an
    inline transform (the homepage's own script does) cannot leave it pointing the wrong way. */
