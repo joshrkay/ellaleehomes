@@ -172,6 +172,11 @@ function renderNav(page) {
   for (const [token, val] of Object.entries(map)) {
     html = html.replaceAll(token, val);
   }
+  // Phone drawer: mark the link for this page (project.html is a Portfolio page). Styled gold and
+  // underlined in assets/site-nav.css, so it still reads on screens that wash colour out.
+  const here = page.file === 'project.html' ? 'previous-projects.html' : page.file;
+  html = html.replace(/(<aside data-elh-drawer[\s\S]*?<\/aside>)/, (drawer) =>
+    drawer.replace(new RegExp(`<a href="${here.replace('.', '\\.')}"`), `<a href="${here}" aria-current="page"`));
   return html;
 }
 
