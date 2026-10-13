@@ -393,18 +393,19 @@ body {
   .reasons-hd { grid-template-columns: 1fr; gap: 24px; }
     .reasons-stack { padding: 24px clamp(18px, 2.4vw, 40px) 80px; }
   .reason-card {
-    position: relative;
-    top: auto;
-    height: auto;
-    max-height: none;
+    /* Stays sticky on phones too: a compact card that fits the screen, so the pile-up matches desktop. */
+    height: calc(100vh - var(--sticky-top) - 40px);
+    height: calc(100svh - var(--sticky-top) - 40px);
+    max-height: 720px;
     min-height: 0;
     margin-bottom: 24px;
   }
+  .rc-inner, .reason-card:nth-child(even) .rc-inner { grid-template-rows: minmax(0, 1fr) auto; }
     .rc-inner, .reason-card:nth-child(even) .rc-inner { grid-template-columns: 1fr; }
   /* even cards put the photo on the right on desktop; stack them photo-first like the odd cards */
   .reason-card:nth-child(even) .rc-visual { grid-column: 1; grid-row: 1; }
   .reason-card:nth-child(even) .rc-text { grid-column: 1; grid-row: 2; }
-  .rc-visual { aspect-ratio: 16/10; }
+  .rc-visual { aspect-ratio: auto; min-height: 0; }
   .rc-counter { top: 28px; left: 28px; right: 28px; }
   .rc-counter-num { font-family: var(--disp); font-size: clamp(72px, 16vw, 110px); }
   .rc-cap { left: 28px; right: 28px; bottom: 28px; }
@@ -416,6 +417,15 @@ body {
   .rc-text { padding: 40px 24px; }
   .rc-counter { top: 24px; left: 24px; right: 24px; }
   .rc-cap { left: 24px; right: 24px; bottom: 24px; }
+}
+/* Short phones: the stacked card has to fit one screen, so tighten the text panel. */
+@media (max-width: 700px) and (max-height: 760px) {
+  .rc-text { padding: 22px 20px; }
+  .rc-text h3 { font-size: 26px; margin-bottom: 10px; }
+  .rc-text p { font-size: 14.5px; line-height: 1.55; }
+  .rc-eyebrow { margin-bottom: 8px; }
+  .rc-tag { margin-top: 14px; }
+  .rc-counter-num { font-size: 56px; }
 }
 
 /* ── PROOF GRID (recent homes — visual receipts) ── */
