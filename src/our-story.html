@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Story: Custom Home Builder in Arizona | Ella Lee Homes</title>
-<meta name="description" content="Ella Lee Homes was born from a promise to build homes that stand the test of time. A custom home builder serving Paradise Valley, Scottsdale, Arcadia, and Phoenix.">
+<title>Our Story | Custom Home Builder in Arizona | Ella Lee Homes</title>
+<meta name="description" content="Ella Lee Homes began with a promise to our daughter, Ella. Custom homes in Paradise Valley, Scottsdale, Arcadia, and Phoenix since 2021.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <link rel="canonical" href="https://ellaleehomes.com/our-story">
 <meta name="google-site-verification" content="mF9sNLbq4MCCSwdlXaE1uobKY4gv_GkxVSgU2_MxGmU">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ellaleehomes.com/our-story">
-<meta property="og:title" content="Our Story: Custom Home Builder in Arizona | Ella Lee Homes">
-<meta property="og:description" content="Ella Lee Homes was born from a promise to build homes that stand the test of time. A custom home builder serving Paradise Valley, Scottsdale, Arcadia, and Phoenix.">
+<meta property="og:title" content="Our Story | Custom Home Builder in Arizona | Ella Lee Homes">
+<meta property="og:description" content="Ella Lee Homes began with a promise to our daughter, Ella. Custom homes in Paradise Valley, Scottsdale, Arcadia, and Phoenix since 2021.">
 <meta property="og:image" content="https://ellaleehomes.com/assets/og-share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,8 +20,8 @@
 <meta property="og:locale" content="en_US">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Our Story: Custom Home Builder in Arizona | Ella Lee Homes">
-<meta name="twitter:description" content="Ella Lee Homes was born from a promise to build homes that stand the test of time. A custom home builder serving Paradise Valley, Scottsdale, Arcadia, and Phoenix.">
+<meta name="twitter:title" content="Our Story | Custom Home Builder in Arizona | Ella Lee Homes">
+<meta name="twitter:description" content="Ella Lee Homes began with a promise to our daughter, Ella. Custom homes in Paradise Valley, Scottsdale, Arcadia, and Phoenix since 2021.">
 <meta name="twitter:image" content="https://ellaleehomes.com/assets/og-share.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -413,6 +413,20 @@ details.story-faq .faq-a p + p {
   }
   .story-pull.reveal { border-left-color: var(--gold) !important; }
 }
+/* Section titles are h2s styled as the homepage's (Oct 12 copy: "match H2 styling to the home page"). */
+.story-section h2.story-display, .pillar-inner > h2.story-display, .conv-inner > h2.story-display {
+  font-size: clamp(30px, 4vw, 58px); line-height: 1.05; margin-bottom: 28px;
+}
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.founder-note { max-width: 760px; margin-top: 10px; }
+.founder-note p { font-size: clamp(16px, 1.2vw, 17px); line-height: 1.72; font-weight: 300; color: rgba(234,229,220,0.86); margin-bottom: 22px; }
+.founder-note p:last-of-type { margin-bottom: 34px; }
+.founder-sig { font-family: var(--disp); font-style: italic; font-size: 30px; line-height: 1; color: var(--gold); }
+.founder-role { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244,241,234,0.5); margin-top: 8px; }
+.story-cta .story-body p { max-width: 46ch; }
+.story-cta-btn { display: inline-block; margin-top: 32px; padding: 15px 42px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: #EAE5DC; border: 1px solid rgba(191,160,106,.85); border-radius: 100px; transition: background .3s ease, color .3s ease, border-color .3s ease; }
+.story-cta-office { margin-top: 28px; font-size: 14px; line-height: 1.6; color: #A5A09D; }
+.story-cta-office a { color: inherit; text-decoration: none; white-space: nowrap; }
 .founder-wrap { display: grid; grid-template-columns: minmax(240px, 380px) 1fr; gap: clamp(32px, 5vw, 80px); align-items: start; margin-top: 10px; }
 .founder-photo { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid rgba(234,229,220,.14); }
 .founder-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 20%; display: block; }
@@ -512,51 +526,42 @@ details.story-faq .faq-a p + p {
 <section id="hero-banner" aria-label="Ella Lee Homes">
   <img src="uploads/home/story.jpg" alt="A finished primary bedroom opening to the backyard">
   <div class="hero-copy">
-    <h1 class="hero-title">Built on a promise,<br>kept in every home.</h1>
-    <p class="hero-lede">A custom home builder building across Paradise Valley, Scottsdale, Arcadia, and Phoenix.</p>
+    <h1 class="hero-title">Our Story</h1>
+    <p class="hero-lede">A promise to our daughter. Kept in every home since 2021.</p>
   </div>
 </section>
 
 <article class="story-article">
-    <section class="story-section" aria-labelledby="h-journey" data-theme="dark">
+    <section class="story-section" aria-labelledby="h-promise" data-theme="dark">
       <div class="story-wrap">
-        <p class="story-kicker reveal reveal-delay-1">Our Story</p>
-        <p class="story-display reveal reveal-delay-2" id="h-journey">You dream it,<br><em>we build it.</em></p>
-        <h2 class="story-h2-sub reveal reveal-delay-3">A custom home builder in Arizona.</h2>
-        <p class="story-lede reveal reveal-delay-4">Ella Lee Homes was born from a simple, heartfelt promise: to build something that would stand the test of time for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others. Every home we build carries that same devotion: a foundation of love, care, and legacy designed to nurture life&rsquo;s most meaningful moments.</p>
+        <p class="story-kicker reveal reveal-delay-1">Where it began</p>
+        <h2 class="story-display reveal reveal-delay-2" id="h-promise">It started with Ella.</h2>
+        <p class="story-lede reveal reveal-delay-3">Ella Lee Homes was born from a simple, heartfelt promise: to build something that would stand the test of time for our daughter, Ella, and the generations that follow. What began as a dream for our own family grew into a mission to create lasting homes for others. Every home we build carries that same devotion. A foundation of love, care, and legacy designed to nurture life&rsquo;s most meaningful moments.</p>
+      </div>
+    </section>
+
+    <section class="story-section" aria-labelledby="h-what" data-theme="dark">
+      <div class="story-wrap">
+        <p class="story-kicker reveal reveal-delay-1">What we do</p>
+        <h2 class="story-display reveal reveal-delay-2" id="h-what">A custom home builder in Arizona.</h2>
         <div class="story-body">
-<p class="story-body reveal" style="font-size: clamp(16px, 1.2vw, 17px);line-height:1.85;margin-top:24px; font-weight: 300">Today, Ella Lee Homes builds luxury custom homes across Paradise Valley, Scottsdale, Arcadia, and Phoenix. We’ve refined our system for a client-focused experience where every project runs on clear communication, and every client has real-time access to their build through our dedicated Buildertrend client portal, where they can see photos, updates, timelines, and costs all in one place.</p>
-          <p class="reveal reveal-delay-5">Close your eyes and imagine your dream home: a beautifully crafted luxury custom home that balances modern elegance with timeless charm. Nestled in one of Arizona&rsquo;s most sought-after neighborhoods, your home is surrounded by thoughtful landscaping and architectural details that invite you in before you ever step through the front door.</p>
-          <p class="reveal reveal-delay-6">Inside, natural light fills an open-concept floor plan designed with intention. A gourmet kitchen becomes the heart of the home, while cozy living areas and serene bedrooms offer both functionality and quiet luxury. Whether it&rsquo;s morning coffee in the sun-drenched kitchen or evenings spent in your private backyard retreat, every square foot is tailored to how you live.</p>
+          <p class="reveal reveal-delay-3">We build custom homes throughout Paradise Valley, Scottsdale, and Phoenix&rsquo;s Arcadia neighborhood. Many of our projects begin with the demolition of an existing home, making way for something entirely new.</p>
+          <p class="reveal reveal-delay-4">Whether you&rsquo;re still working through the design with your architect or already have plans in hand, we work closely with you to bring your vision to life.</p>
+          <p class="reveal reveal-delay-5">Our experience with local municipalities and long-standing relationships with trusted trade partners help us navigate construction efficiently. We focus on exceptional craftsmanship while respecting your budget and timeline. Construction typically takes around 11 months, depending on the home&rsquo;s size, complexity, and location.</p>
         </div>
       </div>
     </section>
 
-    <section class="story-section" aria-labelledby="h-vision" data-theme="dark">
+    <section class="story-section" aria-labelledby="h-how" data-theme="dark">
       <div class="story-wrap">
-        <p class="story-kicker reveal reveal-delay-1">Ella Lee Homes</p>
-        <p class="story-display reveal reveal-delay-2" id="h-vision">A custom <em>home builder.</em></p>
-        <h2 class="story-h2-sub reveal reveal-delay-3">Welcome to Ella Lee Homes, where craftsmanship meets careful project management to bring your dream home to life.</h2>
+        <p class="story-kicker reveal reveal-delay-1">How we work</p>
+        <h2 class="story-display reveal reveal-delay-2" id="h-how">How We Work</h2>
         <div class="story-body">
-          <p class="reveal reveal-delay-4">We are a custom home builder in Arizona, and we take pride in building homes tailored to the way our clients live. Let us be your trusted partner throughout your new home construction journey.</p>
-          <p class="reveal reveal-delay-5">Embarking on a project with Ella Lee Homes means you will <strong>collaborate</strong> with our team of skilled builders; <strong>experience seamless communication</strong> and transparency throughout the entire build; <strong>incorporate</strong> the latest construction techniques; and <strong>enjoy peace of mind</strong> with regular updates, including photos and videos of your project, knowing your home is in the hands of experienced professionals.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="pillar-board" aria-labelledby="h-different" data-theme="dark">
-      <div class="pillar-inner">
-        <p class="story-kicker reveal reveal-delay-1">A Note From Our Founder</p>
-        <p class="story-display reveal reveal-delay-2" id="h-different">Why we <em>do this.</em></p>
-        <div class="founder-wrap reveal reveal-delay-3">
-        <figure class="founder-photo"><img src="uploads/home/shay.jpg" alt="Shay Segev, Founder and Principal of Ella Lee Homes" loading="lazy" decoding="async"></figure>
-        <div class="founder-note" style="max-width:760px; margin-top:10px;">
-          <p style="font-size:clamp(16px, 1.2vw, 17px); line-height:1.72; font-weight:300; color:rgba(234,229,220,0.86); margin-bottom:22px;">Ella Lee Homes started with my daughter, Ella. When we set out to build her home, I realized the standard I wanted held was higher than most builders were willing to meet. So we built it ourselves, and then we kept building.</p>
-          <p style="font-size:clamp(16px, 1.2vw, 17px); line-height:1.72; font-weight:300; color:rgba(234,229,220,0.86); margin-bottom:22px;">Every home we take on gets that same standard. I'm on the sites. I know our trades by name. And when a client calls a year after move-in, they reach our team, not a call center. That isn't a policy. It's simply how I'd want to be treated.</p>
-          <p style="font-size:clamp(16px, 1.2vw, 17px); line-height:1.72; font-weight:300; color:rgba(234,229,220,0.86); margin-bottom:34px;">If you're trusting us with the most important home you'll ever build, you deserve to know who stands behind it.</p>
-          <div style="font-family:'DM Serif Display', Georgia,serif; font-style:italic; font-size:30px; line-height:1; color:var(--gold,#BFA06A);">Shay Segev</div>
-          <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(244,241,234,0.5); margin-top:8px;">Founder and Principal, Ella Lee Homes</div>
-        </div>
+          <p class="reveal reveal-delay-3">We believe building a home should be collaborative and transparent, from the first conversation to the day you move in.</p>
+          <p class="reveal reveal-delay-4">We start by understanding your vision, priorities, and budget. Working alongside your architect, designers, and our trusted trade partners, we plan each stage carefully to keep the project organized and moving forward.</p>
+          <p class="reveal reveal-delay-5">We build on a cost-plus basis, giving you a clear view of what your home actually costs. Through your client portal, you can follow the budget, construction schedule, and weekly progress updates throughout the build.</p>
+          <p class="reveal reveal-delay-6">With hands-on involvement from our leadership team, we stay close to the details, communicate openly, and work to address challenges before they become larger issues.</p>
+          <p class="reveal reveal-delay-7">Our goal is simple: to make the building experience as rewarding as the home itself.</p>
         </div>
       </div>
     </section>
@@ -743,6 +748,11 @@ details.story-faq .faq-a p + p {
           border-right: 1px solid rgba(0,21,38,0.08);
         }
         .where-legend-item:last-child { border-right: none; }
+        /* By the numbers: one small row of four, above the map */
+        .where-legend.stats-row { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin: 0 0 40px; border-top: none; }
+        .stats-row .where-legend-item { padding: 8px 24px; }
+        .stats-row .where-legend-item:first-child { padding-left: 0; }
+        @media (max-width: 760px) { .stats-row .where-legend-item { padding: 16px 0; border-right: none; } }
         .where-legend-num {
           font-family: var(--serif); font-style: normal;
           font-size: 36px; font-weight: 300;
@@ -837,37 +847,84 @@ body[data-active-section="light"] .where-legend-note { color: #2B2B2B; }
 </style>
 
       <div class="where-wrap">
-        <div class="where-hd">
-          <p class="story-kicker reveal reveal-delay-1">Across Arizona</p>
-          <p class="story-display reveal reveal-delay-2" id="h-where">Where we <em>build.</em></p>
-          <p class="where-sub reveal reveal-delay-3">A portfolio rooted in Arizona, from the foothills of Camelback Mountain to the heart of Old Town Scottsdale.</p>
+        <h2 class="visually-hidden" id="h-where">By the numbers</h2>
+        <div class="where-legend stats-row reveal reveal-delay-1">
+          <div class="where-legend-item">
+            <div class="where-legend-num">40+</div>
+            <div class="where-legend-place">Homes built and in progress</div>
+          </div>
+          <div class="where-legend-item">
+            <div class="where-legend-num">2021</div>
+            <div class="where-legend-place">Founded in Phoenix</div>
+          </div>
+          <!-- fact:sqftBuilt -->
+          <div class="where-legend-item">
+            <div class="where-legend-num">{{sqftBuilt}}</div>
+            <div class="where-legend-place">Square feet built</div>
+          </div>
+          <!-- /fact:sqftBuilt -->
+          <div class="where-legend-item">
+            <div class="where-legend-num">4</div>
+            <div class="where-legend-place">Markets</div>
+            <div class="where-legend-note">Paradise Valley, Scottsdale, Arcadia, Phoenix</div>
+          </div>
         </div>
 
-        <div class="where-map-wrap reveal reveal-delay-4">
+        <div class="where-map-wrap reveal reveal-delay-2">
           <div id="where-leaflet" role="img" aria-label="Map of Ella Lee Homes locations across Arizona"></div>
         </div>
 
-        <div class="where-legend reveal reveal-delay-5">
-          <div class="where-legend-item">
-            <div class="where-legend-num">40+</div>
-            <div class="where-legend-place">Homes Built</div>
-            <div class="where-legend-note">Completed and in progress across Arizona</div>
-          </div>
+      </div>
+    </section>
+
+    <section class="story-section" aria-labelledby="h-giving" data-theme="dark">
+      <div class="story-wrap">
+        <p class="story-kicker reveal reveal-delay-1">Giving back</p>
+        <h2 class="story-display reveal reveal-delay-2" id="h-giving">10% of our profits, given back.</h2>
+        <div class="story-body">
+          <p class="reveal reveal-delay-3">We believe building something meaningful goes beyond the homes we create. That&rsquo;s why we dedicate at least 10% of our annual profits to nonprofit organizations, supporting people and communities both locally and around the world.</p>
+          <p class="reveal reveal-delay-4">Giving back is part of who we are and a commitment we carry forward as we grow.</p>
         </div>
       </div>
     </section>
 
     <section id="conversation" aria-labelledby="h-conv" data-theme="dark">
       <div class="conv-inner">
-        <p class="story-kicker reveal reveal-delay-1">Client Stories</p>
-        <p class="story-display reveal reveal-delay-2" id="h-conv">What they <em>say.</em></p>
-        <p class="sub reveal reveal-delay-3">Real reviews from homeowners across Arizona.</p>
+        <h2 class="story-display reveal reveal-delay-1" id="h-conv">What our homeowners say.</h2>
         <div class="rv-grid">
           <!-- @reviews:rv-reveal -->
           <!-- /@reviews:rv-reveal -->
         </div>
         <p class="rv-more reveal reveal-delay-5"><a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener">Read all of our reviews on Google</a></p>
-        <p class="sub reveal reveal-delay-6" style="margin-top:40px">Tell us about your vision. Reach us at <strong style="white-space:nowrap">(480) 340-8700</strong> or <strong>hello@ellaleehomes.com</strong>, or visit our office at <strong>4408 N 12th St, Ste 200, Phoenix, AZ 85014</strong>.</p>
+      </div>
+    </section>
+
+    <section class="pillar-board" aria-labelledby="h-founder" data-theme="dark">
+      <div class="pillar-inner">
+        <p class="story-kicker reveal reveal-delay-1">Our founder</p>
+        <h2 class="story-display reveal reveal-delay-2" id="h-founder">A Note From Our Founder</h2>
+        <div class="founder-wrap reveal reveal-delay-3">
+        <figure class="founder-photo"><img src="uploads/home/shay.jpg" alt="Shay Segev, Founder and Principal of Ella Lee Homes" loading="lazy" decoding="async"></figure>
+        <div class="founder-note">
+          <p>Ella Lee Homes is named after my daughter, Ella. It was founded on something deeply personal: the belief that a home is where a family grows and a legacy begins.</p>
+          <p>To me, a great home is about more than beautiful finishes. It&rsquo;s about how each space flows, how well it&rsquo;s built, and the care that goes into every decision, including the ones you may never see.</p>
+          <p>We approach every home as if it were for our own family. I&rsquo;m proud of the homes we build, the people who help bring them to life, and the relationships we&rsquo;ve made along the way.</p>
+          <p>Thank you for trusting us with something so meaningful.</p>
+          <div class="founder-sig">Shay Segev</div>
+          <div class="founder-role">Founder &amp; Principal | Ella Lee Homes</div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section story-cta" aria-labelledby="h-cta" data-theme="dark">
+      <div class="story-wrap">
+        <h2 class="story-display reveal reveal-delay-1" id="h-cta">Start your build.</h2>
+        <div class="story-body">
+          <p class="reveal reveal-delay-2">Tell us about your project. Every inquiry is read personally.</p>
+        </div>
+        <a class="elh-fh1 story-cta-btn reveal reveal-delay-3" href="contact.html">Start your build</a>
+        <p class="story-cta-office reveal reveal-delay-4">Office: 4408 N 12th St, Ste 200, Phoenix, AZ 85014 &middot; <a href="tel:+14803408700">(480) 340-8700</a> &middot; <a href="mailto:hello@ellaleehomes.com">hello@ellaleehomes.com</a></p>
       </div>
     </section>
   </article>

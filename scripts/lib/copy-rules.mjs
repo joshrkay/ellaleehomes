@@ -30,12 +30,13 @@ export const RULES = [
   [/\bFounders\b/, 'Singular "Founder"'],
   [/on time,? on budget|on budget\. always|100% transparency/i, 'No absolute promises'],
   [/target budget range|\$\d+M\+?\s*(?:to|–|-|&ndash;|&mdash;)\s*\$\d+M/i, 'No budget ranges'],
-  [/\b12 to 18|12\s*(?:–|-|&ndash;)\s*18 months|14(?:–|-|&ndash;)24/i, 'One timeline: construction 11–18 months'],
+  [/\b1[124] to 1[18]\b|\b1[124]\s*(?:–|-|&ndash;)\s*(?:18|24) months|14(?:–|-|&ndash;)24/i, 'One timeline: construction takes "around 11 months" (Oct 12 copy)'],
   [/4408 N 12th St(?!, Ste 200)(?!["'])/, 'Always include "Ste 200"'],
   [/first sketch|4 phases|four (?:clear )?phases/i, 'Construction only: no design/permitting phases'],
   [/\bdozens of\b.{0,40}(?:homes|families|properties)/i, 'Use the real number ("40+ homes"), not "dozens"'],
   [/designing and building|designs and builds/i, 'We do not design'],
-  [/permitting/i, 'We do not do permitting'],
+  // "permitting requirements" describes the towns (Why Us, Oct 12 copy), not a service we offer.
+  [/permitting(?! requirements)/i, 'We do not do permitting'],
   [/\b(?:across|throughout|in) the Valley\b/i, 'Statewide phrasing is "Arizona"'],
   [/\bguarantees? (?:an?|that|every|your)\b/i, 'No absolute promises'],
   [/Arcadia,? (?:and |& |&amp; )?(?:Paradise|Scottsdale)|Scottsdale,? (?:and |& |&amp; )?Paradise Valley/, 'Markets in order: Paradise Valley, Scottsdale, Arcadia, Phoenix'],
@@ -56,7 +57,7 @@ export const RULES = [
   [/more cost-effective than|at a lower price|measurable savings|maximize ROI|better margins|boost your bottom line/i, 'No outcome or comparison promises'],
   [/completely transparent|complete transparency|fully transparent|every invoice|every subcontractor bid/i, 'No "open books" in substance and no absolute transparency claims'],
   [/morning, noon, or night|at your convenience|any ?time, from anywhere|24\/7|around the clock/i, 'No time commitment anywhere'],
-  [/minimum of 10%|annual profits/i, 'Charitable giving is "10% of profits"'],
+  [/minimum of 10%/i, 'Charitable giving is "10% of profits" ("at least 10% of our annual profits" in the Oct 12 Our Story copy)'],
   [/highest (?:safety|quality|standards)/i, 'No superlative promises'],
   [/\bunparalleled\b|\bpremier\b|award[- ]winning|world[- ]class/i, 'Marketing filler / invented distinction'],
   [/\b\d+ reviews? on Google/i, 'Review counts are not on the Fact Sheet'],
@@ -77,6 +78,8 @@ export const RULES = [
   [/\bonsubmit=|data-elh-submit/, 'No form handlers: nothing on the site submits a form'],
   [/href="[^"]*#inquiry/, 'The #inquiry form is gone: "Start your build" links to contact.html'],
   [/<iframe\b/i, 'The only embed is the Buildertrend form on the Contact page', { except: ['src/contact.html'] }],
+  // Oct 12 Our Story copy: wording Shay took out of that page (the home page keeps its own "You dream it" section).
+  [/you dream it|close your eyes and imagine|\btrusted partner\b|gourmet kitchen/i, 'Removed in the Oct 12 Our Story copy', { only: ['src/our-story.html'] }],
 ];
 
 /** Rules that read only visible text (see the header). Each lands with the fix that clears it. */
