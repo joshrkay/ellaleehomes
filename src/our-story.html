@@ -65,7 +65,7 @@ body.theme-our-story[data-active-section="dark"] {
 }
 /* Text & chrome overrides for the dark theme. Kept explicit (rather than
    via CSS variables) so each rule can be transitioned smoothly. */
-body[data-active-section="dark"] .story-kicker { color: rgba(234,229,220,0.66); }
+body[data-active-section="dark"] .story-kicker { color: #BFA06A; }
 body[data-active-section="dark"] .story-display { color: rgba(234,229,220,0.94); }
 body[data-active-section="dark"] .story-display em { color: #BFA06A; }
 body[data-active-section="dark"] .story-h2-sub { color: #EAE5DC; }
@@ -197,30 +197,30 @@ details.story-faq.reveal {
   padding: 96px 0;
 }
 .story-section:last-of-type { border-bottom: none; }
+/* Kickers and titles use the homepage's styles (Punch list 50, Fact Sheet section 6):
+   eyebrow 11px / 500 / .28em, section title clamp(30px, 4vw, 58px) at -.015em. */
 .story-kicker {
-  font-size: 9px;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: #605C58;
   margin-bottom: 16px;
 }
-/* Micro / mega: one display line between kicker and body */
+/* One display line between kicker and body */
 .story-display {
   font-family: var(--disp);
-  font-size: clamp(48px, 8vw, 96px);
+  font-size: clamp(30px, 4vw, 58px);
   font-weight: 400;
   font-style: normal;
-  letter-spacing: -0.045em;
-  line-height: 1.1;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
   margin: 0 0 20px;
   color: rgba(234,229,220,0.94);
 }
 .story-display em {
   font-family: var(--disp); font-style: normal; font-weight: 400;
   color: var(--navy);
-}
-.story-display:has(br) {
-  line-height: 1.06;
 }
 .story-h2-sub {
   font-family: var(--sans);
@@ -551,9 +551,9 @@ details.story-faq .faq-a p + p {
         <div class="founder-wrap reveal reveal-delay-3">
         <figure class="founder-photo"><img src="uploads/home/shay.jpg" alt="Shay Segev, Founder and Principal of Ella Lee Homes" loading="lazy" decoding="async"></figure>
         <div class="founder-note" style="max-width:760px; margin-top:10px;">
-          <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:22px;">Ella Lee Homes started with my daughter, Ella. When we set out to build her home, I realized the standard I wanted held was higher than most builders were willing to meet. So we built it ourselves, and then we kept building.</p>
-          <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:22px;">Every home we take on gets that same standard. I'm on the sites. I know our trades by name. And when a client calls a year after move-in, they reach our team, not a call center. That isn't a policy. It's simply how I'd want to be treated.</p>
-          <p style="font-size:20px; line-height:1.75; color:rgba(244,241,234,0.82); margin-bottom:34px;">If you're trusting us with the most important home you'll ever build, you deserve to know who stands behind it.</p>
+          <p style="font-size:clamp(16px, 1.2vw, 17px); line-height:1.72; font-weight:300; color:rgba(234,229,220,0.86); margin-bottom:22px;">Ella Lee Homes started with my daughter, Ella. When we set out to build her home, I realized the standard I wanted held was higher than most builders were willing to meet. So we built it ourselves, and then we kept building.</p>
+          <p style="font-size:clamp(16px, 1.2vw, 17px); line-height:1.72; font-weight:300; color:rgba(234,229,220,0.86); margin-bottom:22px;">Every home we take on gets that same standard. I'm on the sites. I know our trades by name. And when a client calls a year after move-in, they reach our team, not a call center. That isn't a policy. It's simply how I'd want to be treated.</p>
+          <p style="font-size:clamp(16px, 1.2vw, 17px); line-height:1.72; font-weight:300; color:rgba(234,229,220,0.86); margin-bottom:34px;">If you're trusting us with the most important home you'll ever build, you deserve to know who stands behind it.</p>
           <div style="font-family:'DM Serif Display', Georgia,serif; font-style:italic; font-size:30px; line-height:1; color:var(--gold,#BFA06A);">Shay Segev</div>
           <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(244,241,234,0.5); margin-top:8px;">Founder and Principal, Ella Lee Homes</div>
         </div>
@@ -565,10 +565,11 @@ details.story-faq .faq-a p + p {
     <section id="where" class="story-section" aria-labelledby="h-where" data-theme="light">
       <style>
         #where { padding: 96px 0;}
-        .where-wrap { max-width: 1500px; margin: 0 auto; padding: 0 clamp(18px, 2.4vw, 40px); }
+        /* The map is back to the width it had in the first version (about 900px at a 1324px screen), Punch list 50. */
+        .where-wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(18px, 4.2vw, 56px); }
         .where-hd { text-align: left; margin-bottom: 56px; }
         .where-hd .story-kicker { margin-bottom: 12px; }
-        .where-hd .story-display { font-size: clamp(44px, 7vw, 84px); margin-bottom: 18px; }
+        .where-hd .story-display { margin-bottom: 18px; }
         .where-sub {
           font-family: var(--sans); font-weight: 300;
           font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6;

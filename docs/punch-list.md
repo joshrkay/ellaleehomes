@@ -1,6 +1,6 @@
 # Punch list (live)
 
-Source: the Merged Punch List re-checked October 2, 2026 (66 original items, 46 already done and removed). Item numbers are the original ones. This file is kept up to date as work lands on the branch; the archived Oct 1 list is in `docs/archive/`.
+Source: the Merged Punch List re-checked October 2, 2026 (66 original items, 46 already done and removed). Item numbers are the original ones. This file is kept up to date as work lands on the branch; the archived Oct 1 list is in `docs/archive/`. On October 12 every status was re-checked against the three notes and the code; rows changed that day say so, and the open rulings are S18 to S24 in `docs/needs-confirmation.md`.
 
 How to read the status:
 
@@ -22,11 +22,11 @@ The plan behind the packages (WP0 to WP9) is `docs/launch-plan.md`. What still b
 | N5 | One white line in the project hero | Done, check on screen | One rule under the project name (`project.html`) | S16 asks what "two white lines" meant |
 | N6 | Client Portal: a login button instead of the embed | Built, waiting on input | Button appears when `buildertrendLoginUrl` is set; the embed is gone. `check:launch` fails while it is empty | Shay or Buildertrend (S2, B3) |
 | N7 | Portal video shows the wrong phone number | Done, decision open | The video and the blank login embed are removed from the page; the guard blocks the number | Shay: replace or leave out (S3) |
-| N8 | Rebecca's records for every house, main pictures, style | In progress | Portfolio data pipeline (WP5): one data file, a validator and the sheet for Rebecca (`npm run projects:csv`). The records themselves are Rebecca's | Rebecca (R1 to R4) |
+| N8 | Rebecca's records for every house, main pictures, style | In progress | Portfolio data pipeline (WP5): one data file, a validator and the sheet for Rebecca (`npm run projects:csv`). The records themselves are Rebecca's. The data file feeds the Portfolio and the project pages only: the Home strip (6 cards), Why Us Recent Homes (5 tiles), the Developers inventory (3 cards) and the Our Story map (22 pins) are still typed by hand and need their own edit when her records arrive | Rebecca (R1 to R4) |
 | N9 | Stray "25" after the portfolio hero | Done | The hidden result count that printed it is removed | none |
 | N10 | Em dashes on 14 pages | Done | Removed from copy, titles, meta and structured data on every page. `check-copy` now fails the build on any em dash | none |
 | N11 | No lines between sections on secondary pages | Done, check on screen | Section-level dividers removed on all 23 secondary pages; hero line and gold footer line kept (`qa:chrome` at 1324 and 390px). Lines inside cards, rows and tables remain | S10 asks whether those should go too |
-| N12 | Build timeline back to the earlier style, with a design phase | Waiting | Cannot be built from the documents: needs the phases, the wording and an answer on "architect-led design" against the "never we design" rule. The Build page carries "11 to 18 months" in the meantime | Shay (S4) |
+| N12 | Build timeline back to the earlier style, with a design phase | Waiting | Not restored. The earlier four-bar version is in git (Sep 15, `b447e32`: Design 3 to 5, Permitting 3 to 4, Construction 12 to 18, Move In 1 to 2); it was removed in `3efa842` under the earlier fact-sheet sweep. Bringing it back as it was makes the phases add up to 19 to 29 months, which is what item 9 complained about, and the Fact Sheet bars wording that implies in-house design. The Build page carries "11 to 18 months" in the meantime | Shay (S4, S18) |
 | N13 | Hide the menu on scroll down, show on scroll up, blue only when Learn is open | Done, check on screen | `data-elh-nav-state` on `<html>`; every page uses the same script and partial; checked on Home, an inner page and an article at 1440 and 390px, with keyboard and reduced motion (`qa:chrome`). Chromium only: please try Safari and a phone | S9 confirms the neutral dark bar |
 | N14 | Centre the menu | Done | Link group is centred to 0px at 1024, 1324, 1440, 1920; burger from 899px (`qa:chrome`) | none |
 | N15 | Buildertrend contact form in place of the site's forms | Built, waiting on input | One embed on Contact, on a linen panel; the five other forms are gone and every "Start your build" goes to Contact. `check-copy` blocks any form or iframe elsewhere | A test lead from staging (B4) |
@@ -61,15 +61,15 @@ The plan behind the packages (WP0 to WP9) is `docs/launch-plan.md`. What still b
 | # | Request | Status | Where and how checked | Waiting on |
 |---|---|---|---|---|
 | 41 | New hero video | Waiting | Still the earlier drone video. Where the new file goes and the size limits are in `docs/media.md` | Shay (S6) |
-| 43 | Project strip slightly faster | Done, check on screen | 15.6 px per second, the same on any screen refresh rate (it used to run twice as fast on 120 Hz) | none |
+| 43 | Project strip slightly faster | Done, check on screen | 15.6 px per second, the same on any screen refresh rate. That is 53% faster than the original 10.2 px/s, which may be more than "slightly"; on a 120 Hz screen it is now slower than the Oct 1 version (31 px/s there) | Shay to judge on screen (S11) |
 | 44 | Blank 68th card in the strip | Done, check on screen | All strip photos decode before the strip starts. The blank card could not be reproduced, so please look on a phone and in Safari | S11 asks where it appeared |
 | 45 | More Google reviews | Waiting | A shared data file for the reviews is being added (WP8), so adding more will be one edit once they are confirmed | Shay (S5) |
-| 50 | Our Story: dress it up, smaller map | Waiting | Needs the copy and photos | Shay (S8) |
-| 53 | Developers like Why Us | Done, check on screen | Same strip, bordered sticky cards and no section lines; matched by measured styles and side-by-side shots | none |
+| 50 | Our Story: dress it up, smaller map | Done in part, check on screen | Oct 12: the map is back to its first-version width (about 900px at a 1324px screen), the founder note uses the standard body text and titles and kickers use the homepage styles. "Dress it up like the original front page" still needs Shay's copy and photos | Shay (S8) |
+| 53 | Developers like Why Us | Done in part, check on screen | Same strip, bordered sticky cards and no section lines; hero dimming now equal (Oct 12). Why Us cards also carry photo captions, a "The Reason" counter and an eyebrow rule that Developers does not, and the pages have different sections (stats, inventory and FAQ on one, founding story and recent homes on the other); the note does not say whether those should match | Josh to say (S19) |
 | 57 | Nav text hard to read over bright sky | Done, check on screen | Stronger gradient on the project hero photo, not behind the header | none |
-| 58 | Hidden "Project not found" text | Done | An unknown or missing project redirects to the portfolio; the text is gone | none |
+| 58 | Hidden "Project not found" text | Done differently | The hidden text is gone from every page. The note says to render it only when a project is missing; the page redirects to the portfolio instead and shows no message | Josh to say (S22) |
 | 61 | Footer stat badges | Done | Footer shows "40+ homes" and, once supplied, sq ft built (N3). `qa:chrome` checks all 24 footers | none |
-| 62 | Photos and videos off the old site, Google Drive and Zillow | In progress | Tooling is built and tested in simulation (`docs/media.md`); it needs network access to the old site and Drive, then a run, then a commit. `check:assets` fails the launch build until it reaches zero. Zillow photos need Rebecca's originals | Network allowlist for this environment (or a machine with access); Rebecca for Zillow (R5) |
+| 62 | Photos and videos off the old site, Google Drive and Zillow | In progress | Tooling is built and tested in simulation (`docs/media.md`); it needs network access to the old site and Drive, then a run, then a commit. `check:assets` fails the launch build until it reaches zero. Zillow photos need Rebecca's originals. The note's Oct 2 counts (about 100 old site, 9 Drive, 6 Zillow) are static pages only; the project galleries are built from `data/projects.json`, so the real total is 1,435 unique URLs (853 old site, 579 Drive, 3 Zillow) | Network allowlist for this environment (or a machine with access); Rebecca for Zillow (R5) |
 
 ## G. Order of work from here
 

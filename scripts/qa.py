@@ -679,8 +679,13 @@ def ALL_NAMES():
 
 
 # ======================================================================= FACT SHEET RULES (extra, static)
+# The site as it stood on the Oct 2 staging check, before the launch-work PR moved the five reviews out of src/index.html
+# into data/reviews.json. A fixed commit, because the default branch itself now holds the moved version.
+ORIGINAL_SITE = 'f56504b'
+
+
 def git_show(path):
-    r = subprocess.run(['git', 'show', 'origin/claude/implement-ella-lee-homes-lh0JL:' + path], capture_output=True, text=True, cwd=ROOT)
+    r = subprocess.run(['git', 'show', ORIGINAL_SITE + ':' + path], capture_output=True, text=True, cwd=ROOT)
     return r.stdout if r.returncode == 0 else ''
 
 
