@@ -32,6 +32,8 @@ The plan behind these is `docs/launch-plan.md`. The IDs (S1, R1, B1, L1) match i
 - **S16** Project hero: do "two white lines" mean the rules or text? Do the year and Sold pills count as stat badges?
 - **S17** Go-live date. Any analytics planned (Privacy section 2 must change first)? Does a written warranty document exist (the Disclaimer refers to one)? Keep welcoming AI crawlers in `robots.txt` (GPTBot, CCBot, Google-Extended and ten more)?
 
+- **S18** Oct 12 Our Story and Why Us copy, open before launch: confirm 150,000+ square feet built (Our Story stats and footer, `site-facts.json`); confirm warranty coverage terms (punch list D1), Why Us 07 stays general until then; update the Website Fact Sheet to "around 11 months" (the site already says it). The founder photo should be Shay on a job site, not an office headshot: `uploads/home/shay.jpg` is still the old one.
+
 ## Rebecca
 
 Her sheet is `data/projects.csv`, written by `npm run projects:csv` with a `check` column that says what to look at on each row. Her answers go back in with `npm run projects:import` (`data/README.md`).

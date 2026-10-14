@@ -289,10 +289,10 @@ def static_checks():
     for n in ALL:
         for s in all_strings(n):
             for m in rngs.finditer(s):
-                if (m.group(1), m.group(2)) != ('11', '18') and 'Just exploring' not in s:   # the Sell form's own "timeline to sell" menu is not a build timeline
+                if 'Just exploring' not in s:   # the Sell form's own "timeline to sell" menu is not a build timeline
                     tl.append((n, s[max(0, m.start() - 40):m.end() + 40]))
             rest = rngs.sub(' ', s)
-            for m in re.finditer(r'\b\d+\s+months?\b(?!\s+ago)', rest, re.I):
+            for m in re.finditer(r'(?<![Aa]round )\b\d+\s+months?\b(?!\s+ago)|\b[Aa]round (?!11\b)\d+\s+months?\b', rest):
                 singles.append((n, rest[max(0, m.start() - 40):m.end() + 40]))
     singles = list(dict.fromkeys(singles))
     phases = find_all(r'\b(?:design|permitting|planning)\s+phase\b|\bplanning and permitting\b|\b4 phases\b|first sketch', ALL)
@@ -303,11 +303,11 @@ def static_checks():
         bad.append('single-number timelines: ' + fmt_hits(singles))
     if phases:
         bad.append('design/permit phase wording: ' + fmt_hits(phases))
-    eleven = [n for n in ('index', 'build-your-home', 'faq') if not re.search(r'11\s*(?:–|-|&ndash;|to)\s*18', text_of(PAGES[n]))]
+    eleven = [n for n in ('index', 'build-your-home', 'faq') if not re.search(r'[Aa]round 11 months', text_of(PAGES[n]))]
     if eleven:
-        bad.append('11–18 missing on: ' + ', '.join(eleven))
-    reg('9', 'One timeline sitewide: 11–18 months of construction, no design/permitting phases', 'FAIL' if bad else 'PASS',
-        '; '.join(bad) if bad else 'every month range on %d pages is 11–18; none of 18/19/24/29-month figures; no design/permitting/planning phases' % len(ALL))
+        bad.append('"around 11 months" missing on: ' + ', '.join(eleven))
+    reg('9', 'One timeline sitewide: around 11 months of construction (Oct 12 copy), no design/permitting phases', 'FAIL' if bad else 'PASS',
+        '; '.join(bad) if bad else 'no month ranges on %d pages; the one figure is "around 11 months"; no design/permitting/planning phases' % len(ALL))
     # B10 cost-plus
     faq_t = text_of(PAGES['faq'])
     ok = bool(re.search(r'cost-plus basis', faq_t)) and not re.search(r'fixed[- ]price|open[- ]books?', ' '.join(all_strings('faq')), re.I)
@@ -364,10 +364,11 @@ def static_checks():
     none_found('24', 'Services: custom homes only. No remodel/addition/commercial/"new homes only" (warranty-exclusion wording excepted)',
                r'remodel\w*|renovat\w*|\badditions?\b|commercial (?:work|build\w*|project\w*)|new homes only|kitchen or bath',
                CORE + list(LEGAL), allow=['Work, alterations, or additions performed by others'])
-    ok = [n for n in ('why-us', 'developers', 'faq') if 'we can work with your architect' not in text_of(PAGES[n]).lower()]
+    # Why Us dropped the line in the Oct 12 copy (its 01 to 07 no longer cover the architect); Our Story says "with your architect".
+    ok = [n for n in ('developers', 'faq') if 'we can work with your architect' not in text_of(PAGES[n]).lower()]
     bad = find_all(r'no architect needed|all design in-house|all in-house|first step is (?:usually )?(?:to )?(?:an |collaborate with an )?architect', ALL)
     reg('25', 'One architect line sitewide: "We can work with your architect"; no contradictory versions', 'FAIL' if (ok or bad) else 'PASS',
-        ('missing on: %s; %s' % (ok, fmt_hits(bad))) if (ok or bad) else 'line present on why-us, developers, faq; no contradicting wording anywhere')
+        ('missing on: %s; %s' % (ok, fmt_hits(bad))) if (ok or bad) else 'line present on developers and faq; no contradicting wording anywhere')
 
     # ----------------------------------------------------------------- D. Copy and wording
     section('D. Copy and wording')
@@ -380,9 +381,10 @@ def static_checks():
     ok = 'Describe the issue and send a photo if you can. It helps us understand the problem before we come out.' in html.unescape(PAGES['warranty'])
     reg('28', 'Warranty line uses the suggested wording', 'PASS' if ok else 'FAIL', 'exact suggested sentence present on warranty' if ok else 'not found')
     bad = find_all(r'You Dream it|You Dream It|Dream It, We Build It', ALL, flags=0)
-    ok = all(re.search(r'You dream it,\s*(?:<br>)?\s*(?:<em>)?we build it', PAGES[n], re.I) for n in ('index', 'our-story'))
-    reg('29', '"You dream it, we build it" lowercase (Home and Our Story)', 'PASS' if (ok and not bad) else 'FAIL',
-        'lowercase on index and our-story; no capital-D variants' if (ok and not bad) else fmt_hits(bad) or 'phrase not found')
+    # Our Story dropped the line in the Oct 12 copy; the home page keeps it.
+    ok = bool(re.search(r'You dream it,\s*(?:<br>)?\s*(?:<em>)?we build it', PAGES['index'], re.I)) and not re.search(r'you dream it', text_of(PAGES['our-story']), re.I)
+    reg('29', '"You dream it, we build it" lowercase on Home; gone from Our Story (Oct 12 copy)', 'PASS' if (ok and not bad) else 'FAIL',
+        'lowercase on index; not on our-story; no capital-D variants' if (ok and not bad) else fmt_hits(bad) or 'phrase not found on index, or still on our-story')
     bad = []
     for n in ALL:
         nav = nav_html(PAGES[n]); ft = footer_html(PAGES[n])
@@ -396,9 +398,12 @@ def static_checks():
     reg('32', 'Stories hero wording below the line adjusted (no design-trends line)',
         'PASS' if ('For anyone planning a custom home in Arizona' in st and 'Notes on building, lessons from the field' in st and 'design trends' not in ' '.join(all_strings('stories'))) else 'FAIL',
         'hero reads "Notes on building, lessons from the field, and stories from our Arizona team." / "For anyone planning a custom home in Arizona."; "design trends" gone from text, description and og')
-    reg('33', '"See the craft yourself" rewritten and home swapped', 'BLOCKED', 'waiting for Shay\'s notes (punch list: "See Shay\'s notes")')
-    reg('34', '"In practice" label changed (Josh to choose)', 'PASS' if re.search(r'>Recent Homes<', PAGES['why-us']) and 'In Practice' not in PAGES['why-us'] else 'FAIL',
-        'label now "Recent Homes" (Josh\'s pick; change if you prefer another)')
+    wu = text_of(PAGES['why-us'])
+    ok = 'See the work.' in wu and 'See the craft' not in wu
+    reg('33', '"See the craft yourself" rewritten (Oct 12 copy: "See the work.", cards kept)', 'PASS' if ok else 'FAIL',
+        'Why Us reads "See the work."; "See the craft" gone' if ok else '"See the work." missing or "See the craft" still on why-us')
+    reg('34', '"In practice" label changed', 'PASS' if 'In Practice' not in PAGES['why-us'] and 'See the work.' in wu else 'FAIL',
+        'the label is gone; the section is titled "See the work." (Oct 12 copy)')
     lede = re.search(r'class="hero-lede">(.*?)</p>', PAGES['previous-projects'], re.S)
     reg('35', 'Portfolio hero wording: new copy, no design language (Josh to choose)',
         'PASS' if lede and 'design' not in lede.group(1).lower() else 'FAIL',
@@ -714,7 +719,7 @@ def factsheet_checks():
         ('; '.join(filter(None, [fmt_hits(wrong_legal), ('footer lacks LLC on: %s' % foot_missing) if foot_missing else '', '' if idx_legal else 'home schema lacks legalName']))) or
         'footer of all %d pages reads "Copyright © 2026 Ella Lee Homes LLC"; schema legalName on home; no Inc/Co/Corp variants' % len(ALL))
     bad_owner = find_all(r'\bco-?founders?\b|\bFounders\b|Shay Segev,? (?:CEO|President|Owner)', ALL)
-    has_title = 'Founder and Principal' in text_of(PAGES['our-story']) and 'Shay Segev, Founder and Principal' in html.unescape(PAGES['index'])
+    has_title = re.search(r'Founder (?:and|&) Principal', html.unescape(text_of(PAGES['our-story']))) is not None and 'Shay Segev, Founder and Principal' in html.unescape(PAGES['index'])
     reg('FS1b', 'Owner is Shay Segev, "Founder and Principal"; singular Founder, never Founders / co-founder / CEO',
         'FAIL' if (bad_owner or not has_title) else 'PASS', fmt_hits(bad_owner) or ('title missing' if not has_title else 'home photo alt and Our Story caption read "Founder and Principal"; no plural or other titles'))
     yrs = Counter()
@@ -738,11 +743,12 @@ def factsheet_checks():
         for st in all_strings(n):
             for m in re.finditer(r'(\d+)\s?%', st):
                 near = st[max(0, m.start() - 70):m.end() + 40]
-                if re.search(r'profit', near, re.I) and not re.match(r'10\s?% of (?:our |its )?profits', st[m.start():m.start() + 40]):
+                # Oct 12 Our Story copy: "at least 10% of our annual profits"
+                if re.search(r'profit', near, re.I) and not re.match(r'10\s?% of (?:our |its )?(?:annual )?profits', st[m.start():m.start() + 40]):
                     ch.append((n, near.strip()))
-            for m in re.finditer(r'minimum of 10|annual profits', st, re.I):
+            for m in re.finditer(r'minimum of 10', st, re.I):
                 ch.append((n, st[max(0, m.start() - 40):m.end() + 40]))
-    reg('FS4a', 'Charitable giving is stated only as "10% of profits" (no "minimum", no "annual")', 'FAIL' if ch else 'PASS',
+    reg('FS4a', 'Charitable giving is stated only as "10% of profits" (no "minimum"; Our Story says "at least 10% of our annual profits")', 'FAIL' if ch else 'PASS',
         fmt_hits(list(dict.fromkeys(ch))) or '10% of profits on home, developers and FAQ; no other giving figure')
     none_found('FS4b', 'No urgency or hard-sell tactics', r"\b(?:act now|limited time|hurry|don't miss|last chance|only \d+ (?:spots|lots|homes) left|before it's too late|today only|call now|don't wait|book now)\b", ALL)
     # testimonials: a quote is one of the five in the original home page, or a review in data/reviews.json that a person
@@ -1694,7 +1700,7 @@ def decisions_and_order():
         st = 'FAIL' if 'FAIL' in sts else ('PASS' if sts and all(s == 'PASS' for s in sts) else 'MANUAL')
         reg(cid, title, st, 'decided by checks ' + ', '.join('%s = %s' % (i, by[i]['status']) for i in srcs if i in by))
     derive('G1', 'Conflict G1: "40+ homes", built and in progress, one figure everywhere', ['7', 'FS1a'])
-    derive('G2', 'Conflict G2: 11 to 18 months of construction; the rest of the timeline removed', ['9', '9b'])
+    derive('G2', 'Conflict G2: around 11 months of construction (was 11 to 18 until Oct 12); the rest of the timeline removed', ['9', '9b'])
     derive('G3', 'Conflict G3: "We can work with your architect", no design language', ['22', '25', 'FS3a'])
     derive('G4', 'Conflict G4: Shay\'s line kept, with "lot" added (home or lot)', ['36a', '36b'])
     derive('G5', 'Conflict G5: no time commitment anywhere', ['26', '26b'])
