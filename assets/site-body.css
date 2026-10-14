@@ -44,3 +44,15 @@ h2, h3 { text-wrap: balance; }
    (top | shown | hidden | open) and --elh-nav-h to the measured header height. Use: top: var(--sticky-top). */
 :root { --sticky-top: calc(var(--elh-nav-h, 88px) + 12px); }
 html[data-elh-nav-state="hidden"] { --sticky-top: 24px; }
+
+/* Mobile heroes take Our Story's proportions (Oct 14): 92% of the screen, with the title, its line and the text
+   under it about two-thirds of the way down, so all of it shows before scrolling, even on a short phone. Most pages
+   set the hero's size inline or in their own <style>, hence !important. Pages pad either the hero itself, its
+   .hero-copy (Our Story, Portfolio) or its .hero-caption (project pages); each is matched below. */
+@media (max-width: 760px) {
+  #hero-banner, #top[data-screen-label="Hero"] { min-height: 92vh !important; }
+  #hero-banner:not(:has(> .hero-copy, > .hero-caption)) { padding-bottom: calc(10vh + 32px) !important; }
+  #hero-banner > .hero-copy { padding-bottom: calc(10vh + 32px) !important; }
+  #hero-banner > .hero-caption { margin-bottom: calc(10vh + 32px) !important; }
+  #top[data-screen-label="Hero"] > div:has(> [data-elh-h1]) { padding-bottom: calc(10vh + 32px) !important; }
+}
