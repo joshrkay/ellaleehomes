@@ -1,25 +1,25 @@
 slug,name,status,market,neighborhood,year_completed,beds,baths,sqft,completed_home_value,style,card_photo,hero_photo,photo_folder,builder,featured,check
-mitchell,Mitchell,sold,Scottsdale,,2024,4,3.5,3957,2171500,contemporary,uploads/w/2025/02/0H0A6650.webp,uploads/w/2025/02/0H0A6650.webp,,,no,
-apache,Apache,sold,Scottsdale,,2025,5,5,3527,2300500,contemporary,uploads/w/2025/02/0H0A0350.webp,uploads/w/2025/02/0H0A0350.webp,,,no,
-2nd-st,2nd St,sold,Scottsdale,,2023,5,4.5,3841,1700000,contemporary,uploads/d/1bca7xJSbdLkVRwydZopnsyHGwNzqlEBf.webp,uploads/d/1bca7xJSbdLkVRwydZopnsyHGwNzqlEBf.webp,,,no,
-41st,41st,sold,,,2026,4,4.5,2970,2150000,contemporary,uploads/w/2025/02/4-2.webp,uploads/w/2025/02/4-2.webp,,,no,
-5th-st,5th St,sold,Scottsdale,,2023,5,5,3934,2100000,contemporary,uploads/w/2025/02/0H0A3895.webp,uploads/w/2025/02/0H0A3895.webp,,,no,same value as 4th St
-glenrosa,Glenrosa,for-sale,Arcadia,,2025,5,6,3689,2450000,farmhouse,uploads/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT.webp,uploads/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT.webp,,,yes,
+mitchell,Mitchell,sold,Scottsdale,,2024,4,3.5,3957,2171500,contemporary,uploads/w/2025/02/0H0A6650.webp,uploads/w/2025/02/0H0A6650.webp,https://drive.google.com/drive/folders/12r9LhSUWE7A2ziOYwcMuFvxu7r9m8VvU,,no,
+apache,Apache,sold,Scottsdale,,2025,5,5,3527,2300500,contemporary,uploads/w/2025/02/0H0A0350.webp,uploads/w/2025/02/0H0A0350.webp,https://drive.google.com/drive/folders/1KtpGufuFAuKkSy2z4KMuYGQxSfgq5qel,,no,
+2nd-st,2nd St,sold,Scottsdale,,2023,5,4.5,3841,1700000,contemporary,uploads/d/1bca7xJSbdLkVRwydZopnsyHGwNzqlEBf.webp,uploads/d/1bca7xJSbdLkVRwydZopnsyHGwNzqlEBf.webp,https://drive.google.com/drive/folders/1cZ-nwXK65n9wlG6lAnO6vuNk1T4--U62,,no,
+41st,41st,sold,,,2026,4,4.5,2970,2150000,contemporary,uploads/w/2025/02/4-2.webp,uploads/w/2025/02/4-2.webp,https://drive.google.com/drive/folders/1VX8J8Y1auWtZXZrg_j0t8njGZtyNMg_1,,no,
+5th-st,5th St,sold,Scottsdale,,2023,5,5,3934,2100000,contemporary,uploads/w/2025/02/0H0A3895.webp,uploads/w/2025/02/0H0A3895.webp,https://drive.google.com/drive/folders/1nsVP0qxOitkvYW3gVFno0OgQ8PkcdDDU,,no,same value as 4th St
+glenrosa,Glenrosa,for-sale,Arcadia,,2025,5,6,3689,2450000,farmhouse,uploads/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT.webp,uploads/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT.webp,https://drive.google.com/drive/folders/1IQ-U_mRzPe6Y6zQkHGYzhp-N_vnwxn7p,,yes,
 5th-st-2,5th St 2,sold,Scottsdale,,2023,5,4,3480,1850000,contemporary,https://photos.zillowstatic.com/fp/97bd9efd44d0083b51918b51c8523452-cc_ft_1536.jpg,https://photos.zillowstatic.com/fp/97bd9efd44d0083b51918b51c8523452-cc_ft_1536.jpg,,,no,
-charter-oak,Charter Oak,sold,Scottsdale,,2024,5,5.2,4833,7035000,farmhouse,uploads/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO.webp,uploads/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO.webp,,,yes,"baths shown as 5.2: use a whole or half number (5, 5.5, 6); same value as 68th St"
-68th,68th St,sold,Paradise Valley,,2024,5,5.5,5214,7035000,farmhouse,uploads/w/2025/02/0H0A5254.webp,uploads/w/2025/02/0H0A5254.webp,,,yes,same value as Charter Oak
-dc2,Desert Cove II,sold,Arcadia,,2023,6,7.5,5874,4400000,contemporary,uploads/w/2025/10/IMG_2330-2.webp,uploads/w/2025/10/IMG_2330-2.webp,,,no,
-osborn-south,Osborn South,photos-only,,,,,,4604,,farmhouse,uploads/d/1AqwZUfukfXQbD8dEid5FSLsmhmPM_-GL.webp,uploads/d/1AqwZUfukfXQbD8dEid5FSLsmhmPM_-GL.webp,,,no,
-68th-2,68th II,sold,Scottsdale,,2025,6,7,5197,3750000,contemporary,uploads/w/2025/02/IMG_6759.webp,uploads/w/2025/02/IMG_6759.webp,,,no,
-dc1,Desert Cove,sold,Scottsdale,,2024,6,7.5,5547,4365000,farmhouse,uploads/w/2025/10/IMG_6059.webp,uploads/w/2025/10/IMG_6059.webp,,,no,
-earll,Earll,sold,Arcadia,,2025,5,7,4650,3645000,farmhouse,uploads/w/2025/10/IMG_8101.webp,uploads/w/2025/10/IMG_8101.webp,,,no,same sq ft as Coolidge (and the same beds and baths)
-hazelwood-1,Hazelwood,sold,Scottsdale,,2024,5,5.5,5578,3200000,farmhouse,uploads/w/2025/02/0H0A2493.webp,uploads/w/2025/02/0H0A2493.webp,,,no,same value as Hazelwood II; same sq ft as Larkspur
-hazelwood-2,Hazelwood II,sold,Arcadia,,2024,5,6,4153,3200000,farmhouse,uploads/w/2025/02/1.webp,uploads/w/2025/02/1.webp,,,no,same value as Hazelwood
-4th-st,4th St,sold,Scottsdale,,2024,5,5,4691,2100000,contemporary,uploads/d/168hvjJY61A77iCjc4Zykrd1-2NWNWbnV.webp,uploads/d/168hvjJY61A77iCjc4Zykrd1-2NWNWbnV.webp,,,no,same value as 5th St
-larkspur,Larkspur,sold,Scottsdale,,2025,3,3.5,5578,3975000,farmhouse,uploads/w/2025/11/DJI_0797.webp,uploads/w/2025/11/DJI_0797.webp,,,no,same sq ft as Hazelwood
-coolidge,Coolidge,sold,,,2025,5,7,4650,3780000,farmhouse,uploads/w/2025/10/IMG_4680.webp,uploads/w/2025/10/IMG_4680.webp,,,no,same sq ft as Earll (and the same beds and baths)
+charter-oak,Charter Oak,sold,Scottsdale,,2024,5,5.2,4833,7035000,farmhouse,uploads/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO.webp,uploads/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO.webp,https://drive.google.com/drive/folders/1fxFZ2vRKL5rQhCXsXSpLInMejl7RBDsP,,yes,"baths shown as 5.2: use a whole or half number (5, 5.5, 6); same value as 68th St"
+68th,68th St,sold,Paradise Valley,,2024,5,5.5,5214,7035000,farmhouse,uploads/w/2025/02/0H0A5254.webp,uploads/w/2025/02/0H0A5254.webp,https://drive.google.com/drive/folders/1nj-xP7GozCIrSA_pcSivN9XzWqWLN8CJ,,yes,same value as Charter Oak
+dc2,Desert Cove II,sold,Arcadia,,2023,6,7.5,5874,4400000,contemporary,uploads/w/2025/10/IMG_2330-2.webp,uploads/w/2025/10/IMG_2330-2.webp,https://drive.google.com/drive/folders/1rh0ySHt0rPgVn0VT6bMEGq1itMk8TR6K,,no,
+osborn-south,Osborn South,photos-only,,,,,,4604,,farmhouse,uploads/d/1AqwZUfukfXQbD8dEid5FSLsmhmPM_-GL.webp,uploads/d/1AqwZUfukfXQbD8dEid5FSLsmhmPM_-GL.webp,https://drive.google.com/drive/folders/1-rnopPyAdzBwvw1NqQFnm2fRdieAWHxu,,no,
+68th-2,68th II,sold,Scottsdale,,2025,6,7,5197,3750000,contemporary,uploads/w/2025/02/IMG_6759.webp,uploads/w/2025/02/IMG_6759.webp,https://drive.google.com/drive/folders/1VTkWo02i5xTy0r7bh7oVekm0MV4_HacR,,no,
+dc1,Desert Cove,sold,Scottsdale,,2024,6,7.5,5547,4365000,farmhouse,uploads/w/2025/10/IMG_6059.webp,uploads/w/2025/10/IMG_6059.webp,https://drive.google.com/drive/folders/1NP7G55HjjMYSPuYe6wSWot2kKx7Oa60G,,no,
+earll,Earll,sold,Arcadia,,2025,5,7,4650,3645000,farmhouse,uploads/w/2025/10/IMG_8101.webp,uploads/w/2025/10/IMG_8101.webp,https://drive.google.com/drive/folders/1eNSSkPsjlbPqWAeDus_tqm_x1lrzcFhb,,no,same sq ft as Coolidge (and the same beds and baths)
+hazelwood-1,Hazelwood,sold,Scottsdale,,2024,5,5.5,5578,3200000,farmhouse,uploads/w/2025/02/0H0A2493.webp,uploads/w/2025/02/0H0A2493.webp,https://drive.google.com/drive/folders/1-K0p0uveYxxH1_fQxellE2ZTPTQASOlj,,no,same value as Hazelwood II; same sq ft as Larkspur
+hazelwood-2,Hazelwood II,sold,Arcadia,,2024,5,6,4153,3200000,farmhouse,uploads/w/2025/02/1.webp,uploads/w/2025/02/1.webp,https://drive.google.com/drive/folders/1L_hTqX_SKJdAJYrWEmXthf6f8JhADSEg,,no,same value as Hazelwood
+4th-st,4th St,sold,Scottsdale,,2024,5,5,4691,2100000,contemporary,uploads/d/168hvjJY61A77iCjc4Zykrd1-2NWNWbnV.webp,uploads/d/168hvjJY61A77iCjc4Zykrd1-2NWNWbnV.webp,https://drive.google.com/drive/folders/13CmwNru1rGV9X_Yb0er-0O_TfK6wrIpc,,no,same value as 5th St
+larkspur,Larkspur,sold,Scottsdale,,2025,3,3.5,5578,3975000,farmhouse,uploads/w/2025/11/DJI_0797.webp,uploads/w/2025/11/DJI_0797.webp,https://drive.google.com/drive/folders/1QC1_FVbcNt4-eyDmf3R7CQEh53z1zF2w,,no,same sq ft as Hazelwood
+coolidge,Coolidge,sold,,,2025,5,7,4650,3780000,farmhouse,uploads/w/2025/10/IMG_4680.webp,uploads/w/2025/10/IMG_4680.webp,https://drive.google.com/drive/folders/1ZLKLKyC6jkvkbcojbvTyciqm2k1eZnWK,,no,same sq ft as Earll (and the same beds and baths)
 cudia,Cudia City,sold,Phoenix,,2024,6,7,4258,4940000,farmhouse,https://photos.zillowstatic.com/fp/7b74a0e5540fc8e59e48cbb69806d577-cc_ft_1536.jpg,https://photos.zillowstatic.com/fp/7b74a0e5540fc8e59e48cbb69806d577-cc_ft_1536.jpg,,,no,
-via-estrella,Via Estrella,sold,Scottsdale,,2023,5,6.5,6222,5450000,contemporary,uploads/w/2025/06/DJI_0171.webp,uploads/w/2025/06/DJI_0171.webp,,,yes,
-arroyo,Arroyo,photos-only,,,,,,6422,8500000,contemporary,uploads/d/1784gP0GggV8zpKYA7Kql9w9IGduXinT_.webp,uploads/d/1784gP0GggV8zpKYA7Kql9w9IGduXinT_.webp,,,no,
-camino-sin-nombre,Camino,sold,Paradise Valley,,2024,6,8,8002,10000000,contemporary,uploads/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF.webp,uploads/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF.webp,,,yes,
-stanford,Stanford,photos-only,,,,,,6169,5750000,farmhouse,uploads/d/1zqcKIpPs4DJ249PaaMJP4F-wi-1tqHoT.webp,uploads/d/1zqcKIpPs4DJ249PaaMJP4F-wi-1tqHoT.webp,,,yes,
+via-estrella,Via Estrella,sold,Scottsdale,,2023,5,6.5,6222,5450000,contemporary,uploads/w/2025/06/DJI_0171.webp,uploads/w/2025/06/DJI_0171.webp,https://drive.google.com/drive/folders/1uMkzhe5aC-m-0jSeJtugFKoudYCzIRwt,,yes,
+arroyo,Arroyo,photos-only,,,,,,6422,8500000,contemporary,uploads/d/1784gP0GggV8zpKYA7Kql9w9IGduXinT_.webp,uploads/d/1784gP0GggV8zpKYA7Kql9w9IGduXinT_.webp,https://drive.google.com/drive/folders/1HOO-mZ94gPatiQhAJN4N1AJUgsvqfl51,,no,
+camino-sin-nombre,Camino,sold,Paradise Valley,,2024,6,8,8002,10000000,contemporary,uploads/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF.webp,uploads/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF.webp,https://drive.google.com/drive/folders/10lWKgFTnktKXVRXMXZZvIKnp4iLiJkem,,yes,
+stanford,Stanford,photos-only,,,,,,6169,5750000,farmhouse,uploads/d/1zqcKIpPs4DJ249PaaMJP4F-wi-1tqHoT.webp,uploads/d/1zqcKIpPs4DJ249PaaMJP4F-wi-1tqHoT.webp,https://drive.google.com/drive/folders/1XpdiUzFOIDOVAjUGboMbxtzcz-gDCzhC,,yes,
