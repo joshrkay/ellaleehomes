@@ -22,8 +22,10 @@ def simp_any(pts, tol):
 def P(lonlats, tol, close=False):
     pts = simp_any([(X(a), Y(b)) for a, b in lonlats], tol)
     if len(pts) < 2: return ''
-    # drop paths entirely outside a margin around the view
-    if all(x < -60 or x > W_PX + 60 or y < -60 or y > H_PX + 60 for x, y in pts): return ''
+    # drop a path only when every point is beyond the same edge (a path can cross the view with all points outside)
+    m = 60
+    if (all(x < -m for x, _ in pts) or all(x > W_PX + m for x, _ in pts)
+            or all(y < -m for _, y in pts) or all(y > H_PX + m for _, y in pts)): return ''
     return 'M' + 'L'.join('%.0f %.0f' % p for p in pts) + ('Z' if close else '')
 def chain(lines):
     """Join line pieces that share endpoints (coords rounded to 1e-6)."""
