@@ -15,6 +15,7 @@ const distDir = path.join(root, 'dist');
 const srcDir = path.join(root, 'src');
 const partialPath = path.join(root, 'partials', 'nav.html');
 const footerPath = path.join(root, 'partials', 'footer.html');
+const reviewsPath = path.join(root, 'partials', 'reviews.html');
 const dropdownPath = path.join(root, 'partials', 'nav-dropdown.html');
 
 const FAVICON_TAGS = `<link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -26,10 +27,12 @@ const INTER_TAG = `<link rel="stylesheet" href="https://fonts.googleapis.com/css
 const PLACEHOLDER = '<!-- NAV_PARTIAL -->';
 const FOOTER_PLACEHOLDER = '<!-- FOOTER_PARTIAL -->';
 const DROPDOWN_PLACEHOLDER = '<!-- NAV_DROPDOWN_PARTIAL -->';
+const REVIEWS_PLACEHOLDER = '<!-- REVIEWS_PARTIAL -->';
 
 const partialTemplate = fs.readFileSync(partialPath, 'utf8');
 const footerTemplate = fs.readFileSync(footerPath, 'utf8');
 const dropdownTemplate = fs.readFileSync(dropdownPath, 'utf8');
+const reviewsTemplate = fs.readFileSync(reviewsPath, 'utf8').trimEnd();
 
 /** Canonical origin of the live site, used for sitemap URLs. */
 const SITE_ORIGIN = 'https://ellaleehomes.com';
@@ -315,6 +318,8 @@ for (const page of PAGES) {
   content = content.split(DROPDOWN_PLACEHOLDER).join(
     dropdownTemplate.replace(`<a href="${page.file}">`, `<a href="${page.file}" aria-current="page">`));
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(page.file === 'index.html'));
+  // The Google reviews section: the homepage's, the same wherever a page has one (partials/reviews.html).
+  content = content.split(REVIEWS_PLACEHOLDER).join(reviewsTemplate);
   content = applyFacts(content);
   content = applyReviews(content, page.file); // review cards from data/reviews.json; also the one place they are validated
   content = applyResponsiveImages(content, root); // data-img="card" or "half" becomes srcset and sizes once the smaller photos exist

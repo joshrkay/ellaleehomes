@@ -6,11 +6,9 @@
  *   <!-- /@reviews:NAME -->    ... up to this marker. Both markers are removed from the output.
  *
  * The page a card goes on comes from the file being built (index.html is "home") and from the
- * review's `pages`. The markup comes from NAME:
- *
- *   home        the inline-styled card in Home's scrolling strip
- *   rv          the .rv-card on Why Us and Developers (the markup is byte-identical on both)
- *   rv-reveal   the same card with the scroll-reveal classes, which is how Our Story has it
+ * review's `pages`. The markup comes from NAME. There is one, `home`: the inline-styled card in the
+ * homepage's scrolling strip. The markers live in partials/reviews.html, the homepage's review section,
+ * which the build places on every page that shows reviews.
  *
  * A review is shown only when it is valid and `confirmed` is true. A person sets `confirmed` after Shay
  * confirms the reviewer is a client or homeowner (docs/needs-confirmation.md, S5).
@@ -89,21 +87,8 @@ function homeCard(r) {
   ];
 }
 
-/** Why Us, Developers and Our Story: the .rv-card, styled by each page's own CSS. */
-function rvCard(r, cardClass) {
-  return [
-    `<a class="${cardClass}" href="${hrefOf(r)}" target="_blank" rel="noopener"><figure>`,
-    `  <span class="rv-stars" aria-hidden="true">${starsOf(r)}</span>`,
-    `  <blockquote>${esc(r.text)}</blockquote>`,
-    `  <figcaption><span class="rv-av">${esc(r.initial)}</span><span class="rv-who"><span class="rv-name">${esc(r.name)}</span><span class="rv-meta">${metaOf(r)}</span></span></figcaption>`,
-    `</figure></a>`,
-  ];
-}
-
 const VARIANTS = {
   home: homeCard,
-  rv: (r) => rvCard(r, 'rv-card'),
-  'rv-reveal': (r) => rvCard(r, 'rv-card reveal reveal-delay-4'),
 };
 
 /* ---------------------------------------------------------------- validation */

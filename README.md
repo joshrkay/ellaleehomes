@@ -50,9 +50,10 @@ The build also prints a launch report (`scripts/check-launch.mjs`). It only repo
 | `partials/nav.html` | Site-wide nav: header bar, Learn panel slot, mobile drawer (`__HREF_*__` / `__ARIA_*__` resolve per page at build) |
 | `partials/nav-dropdown.html` | The "Learn" mega-panel, injected into the nav |
 | `partials/footer.html` | Site-wide footer (`__HOME__` resolves per page at build) |
+| `partials/reviews.html` | The Google reviews section, the homepage's, placed at `<!-- REVIEWS_PARTIAL -->` on Home, Why Us, Developers and Our Story. Styles in `assets/site-reviews.css`, the strip and arrows in `assets/site-reviews.js` |
 | `data/projects.json` | The portfolio: one record per home; see `data/README.md`. `data/projects.csv` is the same list as a sheet |
 | `site-facts.json` | Facts not supplied yet; see above |
-| `data/reviews.json` | The Google reviews: one source for Home, Why Us, Developers and Our Story, filled in and checked by `scripts/lib/reviews.mjs`. How to add one: `data/README.md` |
+| `data/reviews.json` | The Google reviews: one source for Home, Why Us, Developers and Our Story, filled in and checked by `scripts/lib/reviews.mjs` (the section around them is `partials/reviews.html`). How to add one: `data/README.md` |
 | `assets/elh-nav.js` | All nav behaviour: scroll states, `--elh-nav-h`, Learn panel, mobile drawer |
 | `assets/site-nav.css` | Shared nav / header styles |
 | `assets/site-footer.css` | Shared footer styles, plus the `.grain` page texture |
