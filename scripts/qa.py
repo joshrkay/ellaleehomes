@@ -265,7 +265,7 @@ def static_checks():
     # ----------------------------------------------------------------- B. Facts and numbers
     section('B. Facts and numbers')
     # B7 home count
-    need = {'index': 'home', 'our-story': 'Our Story', 'previous-projects': 'Portfolio', 'developers': 'Developers'}
+    need = {'index': 'home', 'our-story': 'Our Story + map', 'previous-projects': 'Portfolio', 'developers': 'Developers'}
     miss = [n for n in need if not re.search(r'\b40\+\s*(custom\s+)?(homes|residences)', text_of(PAGES[n]), re.I)]
     foot_missing = [n for n in ALL if not re.search(r'\b40\+', text_of(footer_html(PAGES[n])))]
     wrong = find_all(r'\b(?:nearly|almost|over)\s+\d+|\b(?:50|35|47|45)\+?\s+(?:custom\s+)?(?:homes|residences|builds)|\b26 completed|\b21 in progress', CORE)
@@ -277,9 +277,9 @@ def static_checks():
     if wrong:
         bad.append('other counts: ' + fmt_hits(wrong))
     if not re.search(r'os-stat-num">40\+', PAGES['our-story']):
-        bad.append('Our Story numbers row lacks 40+')
-    reg('7', 'Home count: "40+ homes" everywhere (footer, home, Our Story, Portfolio, Developers); no other figure',
-        'FAIL' if bad else 'PASS', '; '.join(bad) if bad else '"40+" on index, our-story (+numbers row), previous-projects, developers and in the footer of all %d pages; no 50+/nearly/26/21 variants' % len(ALL))
+        bad.append('Our Story numbers row (above the map) lacks 40+')
+    reg('7', 'Home count: "40+ homes" everywhere (footer, home, Our Story, Portfolio, Developers, map); no other figure',
+        'FAIL' if bad else 'PASS', '; '.join(bad) if bad else '"40+" on index, our-story (+numbers row over the map), previous-projects, developers and in the footer of all %d pages; no 50+/nearly/26/21 variants' % len(ALL))
     # B8
     none_found('8', 'No "10+ years" / "fifteen years"', r'\b10\+?\s+years|\bfifteen years|\b15\+?\s+years', ALL)
     # B9 timeline
