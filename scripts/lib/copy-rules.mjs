@@ -80,6 +80,9 @@ export const RULES = [
   [/<iframe\b/i, 'The only embed is the Buildertrend form on the Contact page', { except: ['src/contact.html'] }],
   // Oct 12 Our Story copy: wording Shay took out of that page (the home page keeps its own "You dream it" section).
   [/you dream it|close your eyes and imagine|\btrusted partner\b|gourmet kitchen/i, 'Removed in the Oct 12 Our Story copy', { only: ['src/our-story.html'] }],
+  // Oct 14 (Josh): no home's street address or ZIP code anywhere on the site. The office (4408 N 12th St, 85014) is the one address shown.
+  [/\b(?!4408 N 12th)\d{2,6} [NSEW]\.? [0-9A-Za-z]+ (?:St|Street|Pl|Place|Ave|Avenue|Rd|Road|Dr|Drive|Way|Ln|Lane|Ct|Court|Blvd|Cir|Trl)\b/, 'No home street addresses: name the home and its area only'],
+  [/(?<![\d.\-\/])\b85(?!014)\d{3}\b(?![\d.])/, 'No home ZIP codes: name the area ("North Scottsdale"), not the ZIP'],
 ];
 
 /** Rules that read only visible text (see the header). Each lands with the fix that clears it. */
