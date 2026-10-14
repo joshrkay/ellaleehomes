@@ -46,9 +46,8 @@ A field with no value is `null` and renders as nothing, never as a placeholder.
 | `sqft` | Floor area (livable or total is open: R2). Sets the band, the card's specs and the ItemList's `floorSize`. | Rebecca (R2) |
 | `beds`, `baths` | Whole numbers; baths are whole or half (5, 5.5). | Rebecca (R2) |
 | `builder` | Not shown yet. | Rebecca (R2) |
-| `styleLabel` | The card's style words ("Modern Farmhouse"). | Rebecca (R3), Shay (S15) |
-| `style` | `farmhouse` or `contemporary`. Required for every home that is not photos-only. See "Style" below. | Rebecca (R3), Shay (S15) |
-| `band` | `small`, `mid`, `large` or `new`. Follows `sqft` ("up to 4,000", "under 6,000", else); `new` for photos-only. The importer keeps it in step. | Derived |
+| `style` | `farmhouse` or `contemporary`. Required for every home, photos-only included. The card shows it as "Farmhouse" or "Contemporary". See "Style" below. | Rebecca (R3), Shay (S15) |
+| `band` | `small`, `mid`, `large` or `new`. Follows `sqft` ("up to 4,000", "under 6,000", else); `new` only for a photos-only home whose sq ft is not known yet. A band with no cards is hidden. The importer keeps it in step. | Derived |
 | `cardOrder` | Position in its band on the portfolio page, 1 first. This is the order on load; the Sort menu reorders after a click. | Developer |
 | `featured` | `true` for the six cards on the Home "Our projects" strip. Why Us (5 tiles) and Developers (3 cards) pick their own homes by hand. | Developer |
 | `photoFolder` | The Drive folder for the project's photos. Not used by the build. | Rebecca (R3) |
@@ -61,12 +60,14 @@ A field with no value is `null` and renders as nothing, never as a placeholder.
 
 #### Style
 
-The portfolio's Style filter has two buttons. Today it shows a card under a button when the card's `styleLabel` contains the word "farmhouse" or "contemporary", and `style` records that same answer. A card whose label has neither word ("Modern", "Transitional", "Desert Estate") shows under neither button, so its `style` is `null` and the validator calls it an error until someone decides (S15). The page will read `style` instead of the label in phase B; until then, when `style` and the label disagree the validator warns.
+Every home is Contemporary or Farmhouse, and nothing else (Shay, Oct 14). The card's style line is made from `style` ("Farmhouse" or "Contemporary"), so it can say nothing else, and the portfolio's two Style buttons read the card's `data-style`. A home without a `style` is an error.
+
+Ten homes had no style on record and were placed from their photographs on Oct 14, for Shay or Rebecca to correct (S15): Farmhouse for `earll`, `hazelwood-1`, `hazelwood-2`, `cudia`, `stanford` and `osborn-south` (pitched and gabled roofs, board-and-batten, dormers); Contemporary for `4th-st`, `camino-sin-nombre` and `arroyo` (flat roofs, boxy massing), and `41st`, whose photos are all interiors (flat ceilings, slab cabinets, a slatted fireplace wall).
 
 ### Adding or changing a project
 
 1. Append an object to `projects.json`. Copy a photos-only entry (`osborn-south`) and keep the key order. The `slug` becomes the address, so choose it once.
-2. Fill what is known. `status`, `band` (`new` while photos-only, otherwise from `sqft`) and `cardOrder` are needed to place the card.
+2. Fill what is known. `status`, `style`, `band` (from `sqft`; `new` while a photos-only home has no sq ft) and `cardOrder` are needed to place the card. A photos-only card shows whatever of style, value and sq ft is known.
 3. `npm run check:projects` lists what is still missing, `npm run build` shows the result in `dist/`, and `npm run projects:csv` refreshes the sheet.
 4. Four pages still repeat projects by hand and are not generated: the Home strip (`src/index.html`), Why Us "Recent homes", Developers "Investment inventory", and the Our Story map pins. The validator reads each and warns when a name, value, bed, bath or sqft disagrees, when a tile uses another project's photo, and when a portfolio project has no pin.
 
@@ -129,30 +130,28 @@ Everything else on the cards (name, value, sqft, beds, baths, year, photo) match
 **Other pages that repeat a project by hand** (the validator reads them and warns)
 
 - Home strip, `src/index.html`: calls `68th` "68th"; the data says "68th St". The Stanford card is not linked and says "Coming soon", though a Stanford page exists (photos only); `stanford` is flagged `featured` because the strip shows it.
-- Our Story map, `src/our-story.html`: calls `5th-st-2` "5th St II"; the data says "5th St 2". Its place text for `desert-cove` is "North Scottsdale (85260)" and for `larkspur` "North Scottsdale (85254)"; the data says "Scottsdale, Arizona" and "North Scottsdale".
+- Our Story map, `src/our-story.html`: calls `5th-st-2` "5th St II"; the data says "5th St 2". Its place text for `larkspur` is "North Scottsdale (85254)"; the data says "North Scottsdale".
 - Developers, `src/developers.html`: the Via Estrella card shows `0H0A0350.jpg`, which is Apache's photo.
 
 **Names and meaning** (R4)
 
-- Three records carry the Desert Cove name: `dc1` "Desert Cove" (Scottsdale, sold 2024), `dc2` "Desert Cove II" (Arcadia, sold 2023) and `desert-cove` "Desert Cove" (Scottsdale, for sale, 2025). Is the for-sale one a third home?
+- The for-sale `desert-cove` record (5,644 sq ft, $4,950,000, relabelled "Camino" in an earlier pass) was removed on Oct 14: Shay said Camino showed twice and the one under 8,000 sq ft was wrong. Camino is `camino-sin-nombre` (8,002 sq ft, $10,000,000).
 - `hazelwood-1` "Hazelwood" (Scottsdale) and `hazelwood-2` "Hazelwood II" (Arcadia): confirm the naming.
 - `year`: completed or sold? `41st` is "Sold 2026".
 - `earll`'s story says it was "built by Milco Development" (S14). `builder` stays blank until Rebecca answers R2.
-- Both for-sale homes (`glenrosa`, `desert-cove`) show "Completed home value" with what looks like a list price (S15).
+- The for-sale home (`glenrosa`) shows "Completed home value" with what looks like a list price (S15).
 
 **Left blank because the pages do not say** (R4)
 
 - `market` is blank for `41st` and `coolidge` ("Arcadia Lite, Phoenix": Arcadia or Phoenix?) and for the three photos-only homes ("Arizona"). The other 20 were read from the plain wording of the location text.
 - `neighborhood`, `builder` and `photoFolder` are blank everywhere.
-- `style` is `null` for nine homes whose card label has neither word: `68th`, `mitchell`, `earll`, `hazelwood-1`, `hazelwood-2`, `41st`, `4th-st`, `cudia`, `camino-sin-nombre` (S15).
 
 ### Phase A leftovers
 
 Phase A reproduces the old pages byte for byte, so a few oddities are kept on purpose. Each is one line to remove in phase B.
 
-- Five projects (`5th-st-2`, `camino-sin-nombre`, `cudia`, `desert-cove`, `glenrosa`) write their en dashes in `PROJECTS` as `–`; the other twenty write the character. `LEGACY_ASCII_ESCAPES` in `scripts/lib/projects.mjs` keeps that. Removing it changes five strings in `dist/project.html` and nothing a visitor sees.
+- Four projects (`5th-st-2`, `camino-sin-nombre`, `cudia`, `glenrosa`) write their en dashes in `PROJECTS` as `–`; the other twenty write the character. `LEGACY_ASCII_ESCAPES` in `scripts/lib/projects.mjs` keeps that. Removing it changes four strings in `dist/project.html` and nothing a visitor sees.
 - The "Similar Projects" cards on the project pages print `<first part of the location>, AZ`, so a photos-only home reads "Arizona, AZ" there today, and blanking its `locationLabel` would leave ", AZ". That line is in the project page's script, which phase A does not touch.
-- The portfolio's Style filter still reads the card label, not `style`.
 - The seeding script, `scripts/seed-projects.mjs`, is gone from the tree; it is in the history (commit "Portfolio data: seed data/projects.json from the pages").
 
 ## Reviews

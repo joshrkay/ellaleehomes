@@ -124,14 +124,16 @@ for (let r = 1; r < rows.length && slugAt >= 0; r++) {
   if (changed.has('value')) derive('valueLabel', p.value == null ? null : fmtMoney(p.value));
   if (changed.has('status')) {
     derive('statusLabel', standardStatusLabel(p.status, p.year));
-    if (p.status === 'photos-only') derive('band', 'new');
-    else if (old.status === 'photos-only' && Number.isFinite(p.sqft)) derive('band', bandFromSqft(p.sqft));
   } else if (changed.has('year') && old.statusLabel && old.statusLabel === standardStatusLabel(old.status, old.year)) {
     derive('statusLabel', standardStatusLabel(p.status, p.year));
   } else if (changed.has('year') && old.statusLabel && String(old.statusLabel).includes(String(old.year))) {
     entry.notes.push(`statusLabel "${old.statusLabel}" still names ${old.year}: edit it in data/projects.json if the year changed on purpose`);
   }
-  if (changed.has('sqft') && !isPhotosOnly(p) && Number.isFinite(p.sqft)) derive('band', bandFromSqft(p.sqft));
+  // The band follows sq ft whatever the status; only a photos-only home with no sq ft yet waits under "new".
+  if (changed.has('sqft') || changed.has('status')) {
+    if (Number.isFinite(p.sqft)) derive('band', bandFromSqft(p.sqft));
+    else if (isPhotosOnly(p)) derive('band', 'new');
+  }
   if (p.card) {
     for (const key of changed) {
       for (const k of OVERRIDES[key] ?? []) {
@@ -142,9 +144,6 @@ for (let r = 1; r < rows.length && slugAt >= 0; r++) {
       }
     }
     if (!Object.keys(p.card).length) delete p.card;
-  }
-  if (changed.has('style') && p.style && p.styleLabel && !String(p.styleLabel).toLowerCase().includes(p.style)) {
-    entry.notes.push(`style is now ${p.style}, but the card label "${p.styleLabel}" does not say so, and the portfolio's Style filter reads the label: change styleLabel in data/projects.json too`);
   }
   changes.push(entry);
 }

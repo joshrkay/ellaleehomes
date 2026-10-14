@@ -18,7 +18,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  ROOT, STATUSES, STYLES, MARKETS, BAND_KEYS, CARD_FIELDS, bandFromSqft, styleFromLabel,
+  ROOT, STATUSES, STYLES, MARKETS, BAND_KEYS, CARD_FIELDS, bandFromSqft,
   fmtInt, fmtMoney, isPhotosOnly, listedProjects, portfolioOrder,
 } from './projects.mjs';
 import { lineOf } from './regions.mjs';
@@ -54,14 +54,13 @@ const REQUIRED = [
   ['sqft', 'sq ft is blank'],
   ['beds', 'beds is blank'],
   ['baths', 'baths is blank'],
-  ['styleLabel', 'the card style label is blank'],
   ['style', null], // worded per project, below
   ['cardPhoto', 'the card photo is missing'],
   ['heroPhoto', 'the hero photo is missing'],
   ['gallery', 'there are no gallery photos'],
 ];
 /** A project that is only photographs needs just enough to draw its card and its page. */
-const REQUIRED_PHOTOS_ONLY = new Set(['name', 'status', 'cardPhoto', 'heroPhoto', 'gallery']);
+const REQUIRED_PHOTOS_ONLY = new Set(['name', 'status', 'style', 'cardPhoto', 'heroPhoto', 'gallery']);
 
 /* ------------------------------------------------------------------ photos */
 
@@ -126,11 +125,8 @@ export function validateProjects(projects, opts = {}) {
       const v = p[field];
       const empty = field === 'gallery' ? !Array.isArray(v) || v.length === 0 : blank(v);
       if (!empty) continue;
-      const words =
-        field === 'style'
-          ? `style is blank: ${blank(p.styleLabel) ? 'choose farmhouse or contemporary' : `the card says "${p.styleLabel}"; choose farmhouse or contemporary (the two filters on the portfolio)`}`
-          : plain;
-      const note = field === 'style' && !blank(p.styleLabel) ? `; the card label is "${p.styleLabel}", so choose farmhouse or contemporary (the two Style filters)` : ' (required)';
+      const words = field === 'style' ? 'style is blank: choose farmhouse or contemporary (the only two on the portfolio)' : plain;
+      const note = field === 'style' ? '; choose farmhouse or contemporary' : ' (required)';
       error('P1', p, field, `empty${note}`, words);
     }
 
@@ -161,17 +157,12 @@ export function validateProjects(projects, opts = {}) {
       error('P3', p, 'baths', `baths ${p.baths} is not a whole or half number`, `baths shown as ${p.baths}: use a whole or half number (5, 5.5, 6)`);
     }
 
-    // ---- the style filter reads the card's label
-    const derived = styleFromLabel(p.styleLabel);
-    if (!blank(p.style) && STYLES.includes(p.style) && !blank(p.styleLabel) && derived !== p.style) {
-      warn('W3', p, 'style', `style is "${p.style}" but the card label "${p.styleLabel}" ${derived ? `reads as ${derived}` : 'has neither word'}: the portfolio's Style filter reads the label, so the card ${derived ? `will show under ${derived}` : 'will show under neither button'}`, `style is ${p.style} but the card says "${p.styleLabel}", so the card will not show under the ${p.style} filter until its label does`);
-    }
-
     // ---- band
     if (BAND_KEYS.includes(p.band)) {
-      if (photosOnly && p.band !== 'new') warn('W4', p, 'band', `band "${p.band}" but the project is photos-only (its card belongs under "new")`, null);
-      else if (!photosOnly && p.band === 'new') warn('W4', p, 'band', `band "new" but the status is ${p.status} (the card belongs in a size band)`, null);
-      else if (!photosOnly && isNum(p.sqft) && bandFromSqft(p.sqft) !== p.band) warn('W4', p, 'band', `band "${p.band}" but ${fmtInt(p.sqft)} sqft belongs in "${bandFromSqft(p.sqft)}"`, null);
+      // A photos-only home waits under "new" until its sq ft is known, then joins its size band.
+      if (photosOnly && !isNum(p.sqft) && p.band !== 'new') warn('W4', p, 'band', `band "${p.band}" but the project is photos-only with no sqft yet (its card belongs under "new")`, null);
+      else if ((!photosOnly || isNum(p.sqft)) && p.band === 'new') warn('W4', p, 'band', `band "new" but ${isNum(p.sqft) ? `${fmtInt(p.sqft)} sqft is known` : `the status is ${p.status}`} (the card belongs in a size band)`, null);
+      else if (isNum(p.sqft) && bandFromSqft(p.sqft) !== p.band) warn('W4', p, 'band', `band "${p.band}" but ${fmtInt(p.sqft)} sqft belongs in "${bandFromSqft(p.sqft)}"`, null);
     }
 
     // ---- plausibility (a number that looks off; never an error)

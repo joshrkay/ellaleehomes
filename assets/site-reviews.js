@@ -29,6 +29,7 @@
   function reviewsSync() {
     var r = reviewsParts();
     if (!r) return;
+    reviewsLoop(r.scroller);
     var set = reviewsSetWidth(r.scroller);
     if (set > 0) {
       var x = r.scroller.scrollLeft;
@@ -49,25 +50,42 @@
     r.scroller.scrollBy({ left: dir * step, behavior: calm ? 'auto' : 'smooth' });
   }
 
+  /** Keep the loop's copies only while the real cards overflow. Copies of cards that already fit would manufacture
+      overflow, show the arrows and let a visitor scroll through duplicates (wide screens, or a page given only a few
+      reviews), so this runs at load and on every resize: it adds the copies once the cards overflow and takes them
+      away again if the strip widens until they fit. The copies are exactly two sets of cards wide, so the real
+      cards' overflow is the strip's overflow minus that. */
+  function reviewsLoop(sc) {
+    var looped = !!sc.dataset.elhOriginals;
+    var overflow = sc.scrollWidth - sc.clientWidth - (looped ? 2 * reviewsSetWidth(sc) : 0);
+    if (looped && overflow <= 1) {
+      Array.prototype.forEach.call(sc.querySelectorAll('[data-elh-clone]'), function (c) { c.remove(); });
+      delete sc.dataset.elhOriginals;
+      sc.scrollLeft = 0;
+      return;
+    }
+    if (looped || overflow <= 1) return;
+    var originals = Array.prototype.slice.call(sc.children);
+    sc.dataset.elhOriginals = String(originals.length);
+    for (var k = 0; k < 2; k++) {
+      originals.forEach(function (card) {
+        var c = card.cloneNode(true);
+        c.setAttribute('aria-hidden', 'true');
+        c.setAttribute('data-elh-clone', '');
+        Array.prototype.forEach.call(c.querySelectorAll('a,button'), function (n) { n.setAttribute('tabindex', '-1'); });
+        if (c.matches('a,button')) c.setAttribute('tabindex', '-1');
+        sc.appendChild(c);
+      });
+    }
+    // Start on the middle copy so there is room to scroll both ways.
+    sc.scrollLeft = reviewsSetWidth(sc);
+  }
+
   function initReviews() {
     var r = reviewsParts();
     if (!r) return;
     var sc = r.scroller;
-    if (!sc.dataset.elhOriginals) {
-      var originals = Array.prototype.slice.call(sc.children);
-      sc.dataset.elhOriginals = String(originals.length);
-      for (var k = 0; k < 2; k++) {
-        originals.forEach(function (card) {
-          var c = card.cloneNode(true);
-          c.setAttribute('aria-hidden', 'true');
-          Array.prototype.forEach.call(c.querySelectorAll('a,button'), function (n) { n.setAttribute('tabindex', '-1'); });
-          if (c.matches('a,button')) c.setAttribute('tabindex', '-1');
-          sc.appendChild(c);
-        });
-      }
-      // Start on the middle copy so there is room to scroll both ways.
-      sc.scrollLeft = reviewsSetWidth(sc);
-    }
+    reviewsLoop(sc);
     sc.addEventListener('scroll', reviewsSync, { passive: true });
     window.addEventListener('resize', reviewsSync);
     if (window.ResizeObserver) new ResizeObserver(reviewsSync).observe(sc);
