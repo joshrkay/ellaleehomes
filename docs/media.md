@@ -14,6 +14,17 @@ Run `npm run check:assets` for the live count. At the start of the launch work (
 
 92% of them are the project photographs: the card, hero and gallery of every home, which live in `data/projects.json` (it fills the `PROJECTS` block in `src/project.html` and the cards on the portfolio page when the site is built; see `data/README.md`).
 
+## Oct 14, 2026: moved on-site
+
+`ellaleehomes.com` moved to Vercel on Oct 14, which took the WordPress uploads offline, so the WordPress originals were rebuilt from Rebecca's Drive folder **ELH PROFESSIONAL PHOTOS** (`1m0gr08n0mHQoz1YBfvAx7n3CE2nFPpwE`, one subfolder per home):
+
+- 781 of the 852 WordPress files matched a Drive file by name (WordPress size suffixes such as `-1024x682` and `-scaled` ignored), always from the same home's folder, full-size over web-size, never the "moody" grade. They were cached in `uploads/wp/` under their WordPress names and run through `--optimize --rewrite`.
+- 2nd St and 4th St are PDFs in Drive; the WordPress names (`img51.jpg`...) had no link to them. Both galleries were rebuilt from the full set in their folders (the photo embedded in each PDF, 3002x2000): 2nd St 34 photos with `608A6138` as card and hero as before, 4th St 21 photos with the front exterior `0H0A1348` as card and hero.
+- The 579 Drive references were downloaded by ID.
+- 13 blog and article images were not in Drive (made for the old blog). Each was replaced by a project photo, with the alt text rewritten where it described something the new photo does not show: How to Find a Builder (4), New Luxury Essentials (3), Steps to Building (2), Is Custom Home Building a Good Investment (2), Stories cards, and one on Developers.
+
+Left off-site: the three Zillow photos (open question R5).
+
 ## The pipeline
 
 `scripts/migrate-media.mjs` does it. Originals are a cache and are never committed; only the optimised files are.
