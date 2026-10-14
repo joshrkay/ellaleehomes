@@ -1306,9 +1306,9 @@ def browser_checks(projects):
         # our story: founder photo + reviews
         pgo, eo = newpage()
         go(pgo, 'our-story', 1200)
-        pgo.evaluate("() => document.querySelector('.founder-photo').scrollIntoView()")
+        pgo.evaluate("() => document.querySelector('[data-os-fnd-pt]').scrollIntoView()")
         pgo.wait_for_timeout(1200)
-        os_ = pgo.evaluate("""() => ({founder: !!document.querySelector('.founder-photo img'), loaded: (document.querySelector('.founder-photo img')||{}).naturalWidth > 0,
+        os_ = pgo.evaluate("""() => ({founder: !!document.querySelector('[data-os-fnd-pt] img'), loaded: (document.querySelector('[data-os-fnd-pt] img')||{}).naturalWidth > 0,
                                    cards: document.querySelectorAll('.rv-card').length, faq: document.querySelectorAll('#reviews details').length})""")
         reg('42b', 'Our Story: Shay portrait renders next to the founder note', 'PASS' if os_['founder'] and os_['loaded'] else 'FAIL', str(os_))
         # mobile drawer
