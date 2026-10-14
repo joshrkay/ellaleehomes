@@ -1394,13 +1394,10 @@
       ["3 Bedrooms", "Private retreats with thoughtful storage"],
       ["3.5 Bathrooms", "Designer fixtures and finishes"],
       ["4,153 sq ft livable", "5,578 sq ft total"],
-      ["0.56 Acre Lot", "Corner lot in 85254"],
+      ["0.56 Acre Lot", "Corner lot in North Scottsdale"],
       ["Covered Patio", "520 sq ft of covered outdoor area"],
       ["2-Car Garage", "488 sq ft attached, RV gate access"]
-    ],
-    "card": {
-      "locationLabel": "85254, Scottsdale"
-    }
+    ]
   },
   {
     "slug": "4th-st",

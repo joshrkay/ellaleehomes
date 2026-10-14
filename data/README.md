@@ -104,7 +104,6 @@ Nothing here was decided. The pages as they stood on 937be86 are reproduced exac
 
 **Portfolio card against project page** (kept as `card` overrides so the output is unchanged)
 
-- `larkspur`, location: the project page says "North Scottsdale", the card says "85254, Scottsdale". The card's wording is also the ItemList's `addressLocality`, so Search sees "85254", a ZIP code. Closes with R4 (market and neighborhood).
 
 Everything else on the cards (name, value, sqft, beds, baths, year, photo) matches the project page for all 22 homes.
 
@@ -130,7 +129,7 @@ Everything else on the cards (name, value, sqft, beds, baths, year, photo) match
 **Other pages that repeat a project by hand** (the validator reads them and warns)
 
 - Home strip, `src/index.html`: calls `68th` "68th"; the data says "68th St". The Stanford card is not linked and says "Coming soon", though a Stanford page exists (photos only); `stanford` is flagged `featured` because the strip shows it.
-- Our Story map, `src/our-story.html`: calls `5th-st-2` "5th St II"; the data says "5th St 2". Its place text for `larkspur` is "North Scottsdale (85254)"; the data says "North Scottsdale".
+- Our Story map, `src/our-story.html`: calls `5th-st-2` "5th St II"; the data says "5th St 2".
 - Developers, `src/developers.html`: the Via Estrella card shows `0H0A0350.jpg`, which is Apache's photo.
 
 **Names and meaning** (R4)
