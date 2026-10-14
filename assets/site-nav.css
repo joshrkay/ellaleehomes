@@ -40,7 +40,7 @@
 [data-elh-cta], [data-elh-burger] { justify-self: end }
 [data-elh-nav] nav a, [data-elh-nav] nav button, [data-elh-cta] { white-space: nowrap }
 [data-elh-nav] a { text-decoration: none }
-[data-elh-nav] nav a[aria-current="page"] { color: #BFA06A }
+[data-elh-nav] nav a[aria-current="page"] { color: #BFA06A !important } /* beats the links' inline colour */
 [data-elh-cta]:hover { background: #BFA06A; color: #001526; border-color: #BFA06A }
 [data-elh-drawer] a { text-decoration: none }
 /* Current page in the phone menu: gold and underlined, so it shows even where colour does not. */
@@ -146,6 +146,8 @@ html[data-elh-nav-state="open"] [data-elh-nav] {
   transition: opacity 0.18s, background-color 0.18s;
 }
 .nav-dd-col a:hover { color: #fff; }
+.nav-dd-col a[aria-current="page"] { color: var(--gold-nav); }
+.nav-dd-col a[aria-current="page"]::before { opacity: 1; background-color: var(--gold-nav); }
 .nav-dd-col a:hover::before { opacity: 1; background-color: var(--gold-nav); }
 
 /* ── RESPONSIVE ──────────────────────────────────────── */
