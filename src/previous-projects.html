@@ -481,13 +481,14 @@ function sortCards(val) {
   ['grid-small','grid-mid','grid-large','grid-new'].forEach(id => {
     const grid = document.getElementById(id);
     const cards = Array.from(grid.querySelectorAll('.proj-card'));
+    const [field, dir] = val.split('-');
+    const key = { year: 'year', price: 'price', sqft: 'sqft' }[field];
+    if (!key) return;
     cards.sort((a,b) => {
-      if (val === 'year-desc') return b.dataset.year - a.dataset.year;
-      if (val === 'year-asc') return a.dataset.year - b.dataset.year;
-      if (val === 'price-desc') return b.dataset.price - a.dataset.price;
-      if (val === 'price-asc') return a.dataset.price - b.dataset.price;
-      if (val === 'sqft-desc') return b.dataset.sqft - a.dataset.sqft;
-      return 0;
+      // 0 means not known yet (a photos-only home): those go last in either direction.
+      const x = +a.dataset[key] || 0, y = +b.dataset[key] || 0;
+      if (!x || !y) return (!x) - (!y);
+      return dir === 'asc' ? x - y : y - x;
     });
     cards.forEach(c => grid.appendChild(c));
   });
