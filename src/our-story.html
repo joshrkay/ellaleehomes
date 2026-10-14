@@ -190,12 +190,6 @@ main { overflow-x: clip; }
 .os-gframe::before { top: 0; background: linear-gradient(#E3DACA, rgba(227,218,202,0)); }
 .os-gframe::after { bottom: 0; background: linear-gradient(rgba(227,218,202,0), #E3DACA); }
 
-/* ── 7. Reviews (cards come from data/reviews.json) ── */
-.os-rv-head { display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; }
-.os-rv-head .os-h2 { font-size: clamp(30px, 4.1vw, 60px); line-height: 1.08; letter-spacing: 0; }
-#reviews .rv-grid { margin-top: clamp(44px, 5vw, 68px); gap: clamp(18px, 2.2vw, 32px); }
-#reviews .rv-more { text-align: center; }
-
 /* ── 8. A note from our founder: layered photos with parallax ── */
 #founder { position: relative; overflow: hidden; }
 .os-fnd { position: relative; width: 100%; aspect-ratio: 1 / 1.08; }
@@ -217,11 +211,6 @@ main { overflow-x: clip; }
 .os-sig-name { font-family: var(--disp); font-style: italic; font-size: clamp(26px, 2.4vw, 36px); line-height: 1.1; color: var(--navy); }
 .os-sig-role { font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); }
 
-/* Review cards fade up as they arrive */
-.reveal { opacity: 0; transform: translate3d(0, 32px, 0); transition: opacity .85s var(--ease), transform .95s var(--ease); }
-.reveal.is-visible { opacity: 1; transform: none; }
-.reveal-delay-4 { transition-delay: .3s; }
-
 /* Phone */
 @media (max-width: 767px) {
   .os-how-head { position: static; }
@@ -231,7 +220,6 @@ main { overflow-x: clip; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-pan { animation: none; transform: scale(1.06); }
-  .reveal { opacity: 1; transform: none; transition: none; }
 }
 </style>
 <script type="application/ld+json">
@@ -435,20 +423,8 @@ main { overflow-x: clip; }
     </div>
   </section>
 
-  <!-- 7. REVIEWS -->
-  <section id="reviews" class="os-sec os-dark" aria-labelledby="h-reviews">
-    <div class="os-wrap">
-      <div class="os-rv-head">
-        <span class="os-kicker">Google Reviews</span>
-        <h2 class="os-h2" id="h-reviews">What our homeowners say.</h2>
-      </div>
-      <div class="rv-grid">
-        <!-- @reviews:rv-reveal -->
-        <!-- /@reviews:rv-reveal -->
-      </div>
-      <p class="rv-more"><a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener">Read all of our reviews on Google</a></p>
-    </div>
-  </section>
+  <!-- 7. REVIEWS (the homepage section, partials/reviews.html) -->
+  <!-- REVIEWS_PARTIAL -->
 
   <!-- 8. A NOTE FROM OUR FOUNDER — layered photos drift apart on scroll -->
   <section id="founder" class="os-sec os-cream" aria-labelledby="h-founder">
@@ -482,22 +458,6 @@ main { overflow-x: clip; }
 <!-- FOOTER_PARTIAL -->
 
 <script>
-/* Review cards fade up as they arrive. */
-(function () {
-  const nodes = document.querySelectorAll('.reveal');
-  if (!nodes.length) return;
-  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    nodes.forEach((el) => el.classList.add('is-visible'));
-    return;
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
-    });
-  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
-  nodes.forEach((el) => io.observe(el));
-})();
-
 /* Scroll effects (docs/our-story-notes.md). One passive scroll + resize listener, one frame per change;
    each effect turns the element's position into a progress p from 0 to 1 and writes transforms inline.
    Nothing is hidden until this runs, so without script the page shows every photo and line in place.
@@ -808,5 +768,6 @@ main { overflow-x: clip; }
   s.async = true; document.head.appendChild(s);
 })();
 </script>
+<script defer src="assets/site-reviews.js"></script>
 </body>
 </html>

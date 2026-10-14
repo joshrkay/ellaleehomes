@@ -201,11 +201,13 @@ The build checks the file once and prints it in the style of `npm run launch:rep
 
 ### Where the cards are made
 
-`scripts/lib/reviews.mjs` renders the cards. A page marks where its cards go with a marker pair, each on its own line:
+`scripts/lib/reviews.mjs` renders the cards. The review section itself is one shared piece, `partials/reviews.html`: the homepage's section (heading, "Read our reviews on Google", arrows and the scrolling strip). A page shows it by carrying `<!-- REVIEWS_PARTIAL -->` where the section goes; Home, Why Us, Developers and Our Story do. Its styles are in `assets/site-reviews.css` and the strip and arrows in `assets/site-reviews.js`, which each of those pages loads.
+
+Inside the partial, the cards go between a marker pair, each on its own line:
 
 ```html
-<!-- @reviews:rv -->
-<!-- /@reviews:rv -->
+<!-- @reviews:home -->
+<!-- /@reviews:home -->
 ```
 
-Leave the space between the markers empty: the build fills it and removes both markers. The name picks the markup. `home` is the inline-styled card in the Home strip, `rv` is the card on Why Us and Developers, and `rv-reveal` is the same card with the scroll-reveal classes that Our Story uses. The Home strip's wrapper and arrow buttons, and each page's "Read all of our reviews on Google" link, stay in the page.
+Leave the space between the markers empty: the build fills it and removes both markers. `home` is the only card markup. Which reviews appear on a page comes from each review's `pages`.

@@ -449,9 +449,18 @@ def static_checks():
     reg('45', 'More testimonials from Google, confirmed real clients/homeowners only', 'BLOCKED',
         'review cards per page: %s (all five are the pre-existing Google reviews). More real reviews must come from Ella Lee Homes.' % dict(nrev))
     os_h = PAGES['our-story']
+    review_cards = lambda h: len(re.findall(r'<a href="[^"]*" target="_blank" rel="noopener" style="[^"]*scroll-snap-align[^"]*"><figure', h))
     reg('46', 'Our Story "What they say" shows the home page\'s Google review cards, not FAQ questions',
-        'PASS' if os_h.count('class="rv-card') >= 5 and 'story-faq' not in re.search(r'id="reviews".*?</section>', os_h, re.S).group(0) else 'FAIL',
-        '%d review cards; FAQ <details> in that section: %d' % (os_h.count('class="rv-card'), re.search(r'id="reviews".*?</section>', os_h, re.S).group(0).count('story-faq')))
+        'PASS' if review_cards(os_h) >= 5 and 'story-faq' not in re.search(r'id="testimonials".*?</section>', os_h, re.S).group(0) else 'FAIL',
+        '%d review cards; FAQ <details> in that section: %d' % (review_cards(os_h), re.search(r'id="testimonials".*?</section>', os_h, re.S).group(0).count('story-faq')))
+    # The review section is the homepage's on every page that has one (partials/reviews.html)
+    def rv_section(h):
+        m = re.search(r'<section id="testimonials".*?</section>', h, re.S)
+        return re.sub(r'<a href="[^"]*"[^>]*><figure.*?</figure></a>', '', m.group(0), flags=re.S) if m else None
+    secs = {n: rv_section(PAGES[n]) for n in ('index', 'why-us', 'developers', 'our-story')}
+    odd = [n for n, v in secs.items() if v is None or v != secs['index']]
+    reg('46b', 'Google review section is the homepage\'s on Home, Why Us, Developers and Our Story', 'FAIL' if odd else 'PASS',
+        ('differs or missing on: ' + ', '.join(odd)) if odd else 'same section markup (header, link, arrows, strip) on all four pages')
     reg('47', 'Camino as the footer background', 'MANUAL', 'Shay confirmed "Done". Footer uses uploads/footer-bg.jpg (courtyard photo) on %d/%d pages.' % (sum('uploads/footer-bg.jpg' in p for p in PAGES.values()), len(PAGES)))
     bi, bb = PAGES['index'], PAGES['build-your-home']
     ok = all(re.search(r'<h2[^>]*>Start your build</h2>', x, re.I) for x in (bi, bb))
@@ -1288,7 +1297,7 @@ def browser_checks(projects):
         wu = pgw.evaluate("""() => ({
           halo: [...document.querySelectorAll('.rc-inner')].map(e => getComputedStyle(e).boxShadow).filter(s => s !== 'none').length,
           strip: !!document.querySelector('.wu-strip'), stripAfterHero: document.querySelector('#hero-banner').nextElementSibling.className.includes('wu-strip') || !!document.querySelector('#hero-banner ~ .wu-strip'),
-          reviews: document.querySelectorAll('#testimonials .rv-card').length,
+          reviews: document.querySelectorAll('#reviews-scroller > a:not([aria-hidden])').length,
           homeBtn: [...document.querySelectorAll('#proof .proof-hd-r a')].map(a => a.textContent.trim()),
           pull: !!document.querySelector('#pull')})""")
         reg('51', 'Why Us: first strip redesigned, review strip like the front page, no halo around the card stack', 'PASS' if (wu['halo'] == 0 and wu['strip'] and wu['reviews'] == sum(1 for r in confirmed_reviews() if 'why-us' in r.get('pages', [])) and not wu['pull']) else 'FAIL', str(wu))
@@ -1296,7 +1305,7 @@ def browser_checks(projects):
         pgd, ed = newpage()
         go(pgd, 'developers', 1200)
         dv = pgd.evaluate("""() => ({halo: [...document.querySelectorAll('.pillar-card, .pillar, #pillars > *')].map(e => getComputedStyle(e).boxShadow).filter(s => s !== 'none').length,
-                                  reviews: document.querySelectorAll('#testimonials .rv-card').length})""")
+                                  reviews: document.querySelectorAll('#reviews-scroller > a:not([aria-hidden])').length})""")
         reg('53', 'Developers: same treatment as Why Us (halo removed, review strip)', 'PASS' if (dv['halo'] == 0 and dv['reviews'] == sum(1 for r in confirmed_reviews() if 'developers' in r.get('pages', []))) else 'FAIL', str(dv))
         # sell chips below hero
         pgy, ey = newpage()
@@ -1309,7 +1318,7 @@ def browser_checks(projects):
         pgo.evaluate("() => document.querySelector('[data-os-fnd-pt]').scrollIntoView()")
         pgo.wait_for_timeout(1200)
         os_ = pgo.evaluate("""() => ({founder: !!document.querySelector('[data-os-fnd-pt] img'), loaded: (document.querySelector('[data-os-fnd-pt] img')||{}).naturalWidth > 0,
-                                   cards: document.querySelectorAll('.rv-card').length, faq: document.querySelectorAll('#reviews details').length})""")
+                                   cards: document.querySelectorAll('#reviews-scroller > a:not([aria-hidden])').length, faq: document.querySelectorAll('#testimonials details').length})""")
         reg('42b', 'Our Story: Shay portrait renders next to the founder note', 'PASS' if os_['founder'] and os_['loaded'] else 'FAIL', str(os_))
         # mobile drawer
         pgm, em = newpage(390, 800)

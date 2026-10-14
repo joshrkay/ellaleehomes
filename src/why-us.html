@@ -302,11 +302,6 @@ body {
 /* hairline spans the measure, like the homepage's */
 #hero-banner > .hero-head > *, #hero-banner .hero-head-l { width: 100%; max-width: none; }
 #hero-banner .hero-title { width: 100%; }
-/* ── First strip after the hero ── */
-.wu-eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
-.rv-head h2 { font-family: var(--disp); font-weight: 400; font-size: clamp(32px, 4vw, 58px); line-height: 1.08; letter-spacing: -.015em; color: var(--paper); }
-#testimonials .rv-head { text-align: center; }
-
 /* ── Why Us layout (design export of Oct 13; see the developer notes) ── */
 .wd-eyebrow { display: flex; align-items: center; gap: 14px; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
 .wd-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--gold); }
@@ -634,18 +629,8 @@ body {
   </div>
 </section>
 
-<!-- TESTIMONIALS (same cards as the front page) -->
-<section id="testimonials">
-  <div class="rv-head reveal">
-    <div class="wu-eyebrow">Google reviews</div>
-    <h2>What our homeowners say.</h2>
-  </div>
-  <div class="rv-grid reveal">
-      <!-- @reviews:rv -->
-      <!-- /@reviews:rv -->
-  </div>
-  <p class="rv-more"><a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener">Read all of our reviews on Google</a></p>
-</section>
+<!-- TESTIMONIALS (the homepage's section: partials/reviews.html) -->
+<!-- REVIEWS_PARTIAL -->
 
 <!-- PROOF GRID -->
 <section id="proof">
@@ -803,5 +788,6 @@ body {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { lastW = 0; resize(); });
 })();
 </script>
+<script defer src="assets/site-reviews.js"></script>
 </body>
 </html>

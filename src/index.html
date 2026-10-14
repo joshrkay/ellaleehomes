@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap">
 <link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-reviews.css">
 <link rel="stylesheet" href="assets/site-footer.css">
 <style>
 
@@ -67,8 +68,6 @@
       min-height: 0 !important;
       padding: 72px 0 34px !important;
     }
-    [data-elh-testi] { padding-top: 34px !important; }
-    [data-elh-testi] > div { gap: 28px !important; }
   }
       /* very small phones: the nowrap hero title (29px minimum) ran past the screen edge at 320px */
   @media (max-width: 400px) { [data-elh-h1] { font-size: max(24px, 7.4vw) !important; } }
@@ -153,17 +152,6 @@
   .elh-h2:hover { background: #EAE5DC !important; border-color: #EAE5DC !important; color: #001526 !important; }
   .elh-h3:hover { opacity: .72 !important; }</style>
 <style>html.elh-no-intro .elh-intro{display:none!important}
-#testimonials div::-webkit-scrollbar { height: 0; width: 0; }
-#testimonials a:hover figure { background: rgba(234,229,220,.09); border-color: rgba(191,160,106,.42); }
-#testimonials figure { transition: background .2s, border-color .2s; }
-/* Reviews arrows (assets/home.js): hidden until the strip overflows; aria-disabled marks either end. */
-#testimonials [data-elh-reviews-nav] { display: flex; gap: 12px; }
-#testimonials [data-elh-reviews-nav][hidden] { display: none; }
-/* The strip is a full-width scroller, so its focus ring sits just inside its edge (the padding above and below the cards holds it). */
-#reviews-scroller:focus-visible { outline: 2px solid #BFA06A !important; outline-offset: -3px !important; }
-#testimonials [data-elh-reviews-nav] button:focus-visible { outline: 2px solid #BFA06A !important; outline-offset: 3px !important; }
-#testimonials [data-elh-reviews-nav] button[aria-disabled="true"] { opacity: .35; cursor: default; }
-#testimonials [data-elh-reviews-nav] button[aria-disabled="true"]:hover { background: rgba(0,21,38,.55) !important; border-color: rgba(234,229,220,.5) !important; color: #EAE5DC !important; }
 </style>
 <script>
 // Runs before paint: an internal trip home skips the intro so it stays a
@@ -498,32 +486,7 @@
     </div>
   </section>
 
-  <section id="testimonials" data-elh-testi="1" data-screen-label="Testimonials" style="padding: clamp(48px, 6vw, 96px) clamp(20px, 4vw, 64px) clamp(80px, 11vw, 160px); background: linear-gradient(#001526 0px, #000D19 260px); color: #EAE5DC">
-    <div style="display: flex; flex-direction: column; gap: clamp(44px, 5vw, 68px); max-width: 1500px; margin: 0 auto">
-      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px">
-        <div style="display: flex; flex-direction: column; gap: 16px">
-          <span style="font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: #BFA06A">Reviews</span>
-          <h2 style="margin: 0; font-family: var(--disp, 'DM Serif Display', Georgia, serif); font-size: clamp(30px, 4.1vw, 60px); font-weight: 400; line-height: 1.08">What our homeowners say.</h2>
-        </div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px">
-          <a href="https://www.google.com/maps/place/Ella+Lee+Homes/@33.5004403,-112.0567192,15z/data=!4m2!3m1!1s0x0:0x944a316da291c221" target="_blank" rel="noopener" style="font-size: 12px; letter-spacing: .08em; color: rgba(234,229,220,.72)">Read our reviews on Google</a>
-          <!-- Arrows for the reviews strip: hidden until assets/home.js finds the strip overflows. -->
-          <div data-elh-reviews-nav="1" hidden>
-            <button class="elh-h2" type="button" aria-label="Previous reviews" aria-controls="reviews-scroller" data-elh-click="reviewsPrev" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: clamp(44px, 4vw, 58px); height: clamp(44px, 4vw, 58px); color: #EAE5DC; background: rgba(0,21,38,.55); border: 1px solid rgba(234,229,220,.5); border-radius: 50%; cursor: pointer; transition: background .3s ease, border-color .3s ease">
-              <span style="display: block; width: 9px; height: 9px; border-left: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translate(1px, -1px)"></span>
-            </button>
-            <button class="elh-h2" type="button" aria-label="Next reviews" aria-controls="reviews-scroller" data-elh-click="reviewsNext" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: clamp(44px, 4vw, 58px); height: clamp(44px, 4vw, 58px); color: #EAE5DC; background: rgba(0,21,38,.55); border: 1px solid rgba(234,229,220,.5); border-radius: 50%; cursor: pointer; transition: background .3s ease, border-color .3s ease">
-              <span style="display: block; width: 9px; height: 9px; border-right: 1px solid currentColor; border-top: 1px solid currentColor; transform: rotate(45deg) translate(-1px, 1px)"></span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div id="reviews-scroller" role="region" aria-label="Client reviews" tabindex="0" style="display: flex; gap: clamp(18px, 2.2vw, 32px); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-left: clamp(20px, 4vw, 64px); scroll-padding-right: clamp(20px, 4vw, 64px); scrollbar-width: none; padding-top: 6px; padding-bottom: 10px; margin: -6px calc(-1 * clamp(20px, 4vw, 64px)) -6px; padding-left: clamp(20px, 4vw, 64px); padding-right: clamp(20px, 4vw, 64px)">
-        <!-- @reviews:home -->
-        <!-- /@reviews:home -->
-      </div>
-    </div>
-  </section>
+  <!-- REVIEWS_PARTIAL -->
 
   <section id="giving" data-screen-label="Giving Back" style="padding: clamp(80px, 11vw, 160px) clamp(20px, 4vw, 64px); background: #E3DACA">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(32px, 5vw, 80px); align-items: center; max-width: 1500px; margin: 0 auto">
@@ -609,6 +572,7 @@
 </div>
 
 <script defer src="assets/home.js"></script>
+<script defer src="assets/site-reviews.js"></script>
 <script defer src="assets/elh-nav.js"></script>
 </body>
 </html>
