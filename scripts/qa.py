@@ -229,11 +229,13 @@ def static_checks():
     bt_script = cf.count('https://buildertrend.net/contact-form/btClientContactForm.js')
     bt_iframe = len(re.findall(r'<iframe[^>]+id="btIframe"', cf))
     stray = [n for n in PAGES if n != 'contact' and re.search(r'<iframe\b', PAGES[n])]
-    title1 = 'The one contact form is the Buildertrend embed on Contact, no other form on the site (send a real test lead)'
-    if forms or stray or bt_script != 1 or bt_iframe != 1:
-        reg('1', title1, 'FAIL', 'native forms: %d; Buildertrend script x%d, iframe#btIframe x%d; embeds elsewhere: %s' % (len(forms), bt_script, bt_iframe, stray))
+    # Oct 14: sellers have their own form on Sell (id="sell-form"), apart from the client form on Contact.
+    other = [(n, a) for n, a in forms if not (n == 'sell-your-home' and 'id="sell-form"' in a)]
+    title1 = 'Client form: the Buildertrend embed on Contact; the only other form is the seller form on Sell (send a real test lead to each)'
+    if other or stray or bt_script != 1 or bt_iframe != 1:
+        reg('1', title1, 'FAIL', 'other native forms: %s; Buildertrend script x%d, iframe#btIframe x%d; embeds elsewhere: %s' % ([n for n, _ in other], bt_script, bt_iframe, stray))
     else:
-        reg('1', title1, 'MANUAL', 'no native form on any page; Contact carries the Buildertrend script once and iframe#btIframe once. Send one test lead and confirm it reaches Buildertrend lead management with every field (open questions B1 to B4).')
+        reg('1', title1, 'MANUAL', 'Contact carries the Buildertrend script once and iframe#btIframe once; Sell has the seller form and no other page has a form. Send one test lead through each and confirm it arrives (open questions B1 to B4; the seller form needs sellFormEndpoint, F4).')
     # A2 portal
     cp = PAGES['client-portal']
     login_url = json.load(open(os.path.join(ROOT, 'site-facts.json'), encoding='utf8')).get('buildertrendLoginUrl')

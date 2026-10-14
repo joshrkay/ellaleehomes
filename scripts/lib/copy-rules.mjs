@@ -74,7 +74,8 @@ export const RULES = [
   [/938-4113/, 'That phone number is not ours: the site phone is (480) 340-8700'],
   // One contact form for the whole site: Buildertrend's, on the Contact page (N15). Every other
   // "Start your build" section is a button to that page.
-  [/<form\b/i, 'No native forms: the one form is the Buildertrend form on the Contact page'],
+  // Oct 14 (Josh): sellers get their own short form on the Sell page, apart from the client Contact page.
+  [/<form\b/i, 'No native forms: the client form is the Buildertrend form on the Contact page; the only other is the seller form on Sell', { except: ['src/sell-your-home.html'] }],
   [/\bonsubmit=|data-elh-submit/, 'No form handlers: nothing on the site submits a form'],
   [/href="[^"]*#inquiry/, 'The #inquiry form is gone: "Start your build" links to contact.html'],
   [/<iframe\b/i, 'The only embed is the Buildertrend form on the Contact page', { except: ['src/contact.html'] }],

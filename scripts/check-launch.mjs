@@ -47,6 +47,7 @@ const MONTHS = 'January|February|March|April|May|June|July|August|September|Octo
 const FACTS = {
   sqftBuilt: [/^\d{1,3}(,\d{3})+\+?$/, 'F1', 'Sq ft built (N3): Shay supplies the figure, written like 1,250,000+'],
   buildertrendLoginUrl: [/^https:\/\/\S+$/, 'F2', 'Buildertrend client login URL (N6): from Shay or Buildertrend support'],
+  sellFormEndpoint: [/^https:\/\/\S+$/, 'F4', 'Sell page form (Oct 14): the address the seller form posts to, such as a form service URL; until set, Send opens the visitor\'s email app'],
   launchDate: [new RegExp(`^(${MONTHS}) \\d{1,2}, 20\\d\\d$`), 'F3', 'Go-live date: replaces [launch date] on Privacy, Terms and Disclaimer, written like October 21, 2026'],
 };
 let facts = {};

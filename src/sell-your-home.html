@@ -242,6 +242,19 @@ details.faq .faq-a {
 .cta-meta { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; font-size: 13px; color: rgba(234,229,220,.86); }
 .cta-meta-row { display: flex; align-items: center; gap: 14px; }
 .cta-meta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(234,229,220,.55); width: 64px; }
+/* Seller form: three fields and one button */
+#sell-form { scroll-margin-top: calc(var(--elh-nav-h, 88px) + 24px); }
+.sell-form { margin-top: 32px; display: grid; gap: 18px; max-width: 520px; }
+.sf-field { display: flex; flex-direction: column; gap: 8px; }
+.sf-field span { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: rgba(234,229,220,.7); }
+.sf-field input { width: 100%; padding: 14px 16px; font: inherit; font-size: 16px; font-weight: 300; color: var(--paper); background: rgba(234,229,220,.05); border: 1px solid rgba(234,229,220,.28); border-radius: 0; }
+.sf-field input:focus { outline: none; border-color: var(--gold); background: rgba(234,229,220,.08); }
+.sf-field input[aria-invalid="true"] { border-color: #E08A7A; }
+.sf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.sf-send { justify-self: start; margin-top: 8px; padding: 15px 42px; font: inherit; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: #EAE5DC; background: transparent; border: 1px solid rgba(191,160,106,.85); border-radius: 100px; cursor: pointer; transition: background .3s ease, color .3s ease, border-color .3s ease; }
+.sf-send:hover, .sf-send:focus-visible { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.sf-send[disabled] { opacity: .6; cursor: default; }
+.sf-status { min-height: 1.5em; font-size: 14px; line-height: 1.6; color: rgba(234,229,220,.86); }
 
 /* ── Responsive ── */
 @media (max-width: 1000px) {
@@ -457,7 +470,7 @@ details.faq .faq-a {
     </div>
     <div>
       <p style="font-size: clamp(16px, 1.2vw, 17px); line-height:1.8; color:rgba(234,229,220,.86); margin-bottom:28px; font-weight: 300">As a custom builder actively building in Paradise Valley, Scottsdale, Arcadia, and Phoenix, Ella Lee Homes often acquires teardown properties and infill lots directly from owners. No agents, no listings, no open houses. Just a direct conversation.</p>
-      <a href="contact.html" style="display:inline-block; background:var(--gold); color:var(--navy); text-decoration:none; padding:16px 36px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; font-weight:500;">Start the conversation</a>
+      <a href="#sell-form" style="display:inline-block; background:var(--gold); color:var(--navy); text-decoration:none; padding:16px 36px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; font-weight:500;">Start the conversation</a>
       <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:28px;"><span style="padding:9px 18px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper); border:1px solid rgba(234,229,220,.35); border-radius:100px;">No Hassle</span><span style="padding:9px 18px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper); border:1px solid rgba(234,229,220,.35); border-radius:100px;">No Repairs</span><span style="padding:9px 18px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper); border:1px solid rgba(234,229,220,.35); border-radius:100px;">No Waiting</span></div>
     </div>
   </div>
@@ -681,7 +694,7 @@ details.faq .faq-a {
       <div class="area reveal">Paradise Valley</div> <div class="area reveal reveal-d1">Scottsdale</div> <div class="area reveal reveal-d2">Arcadia</div>
       <div class="area reveal reveal-d3">Phoenix</div>
     </div>
-    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size: clamp(16px, 1.2vw, 17px); color:rgba(234,229,220,0.72); max-width:60ch; font-weight: 300">And additional communities throughout Arizona. <a href="contact.html" style="color:var(--gold); font-weight:500; text-decoration:underline; text-underline-offset:3px;">Contact us</a> to confirm your area.</p>
+    <p class="areas-note reveal reveal-d3" style="margin-top:28px; font-size: clamp(16px, 1.2vw, 17px); color:rgba(234,229,220,0.72); max-width:60ch; font-weight: 300">And additional communities throughout Arizona. <a href="#sell-form" style="color:var(--gold); font-weight:500; text-decoration:underline; text-underline-offset:3px;">Contact us</a> to confirm your area.</p>
   </div>
 </section>
 
@@ -721,7 +734,16 @@ details.faq .faq-a {
     <div class="cta-eyebrow">Tell Us About Your Property</div>
     <div class="cta-text">Start a private <em>conversation.</em></div>
     <p class="cta-sub">Tell us about your property. Every inquiry is read personally.</p>
-    <a class="elh-fh1" href="contact.html" style="display: inline-block; margin-top: 32px; padding: 15px 42px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: #EAE5DC; border: 1px solid rgba(191,160,106,.85); border-radius: 100px; transition: background .3s ease, color .3s ease, border-color .3s ease">Start the conversation</a>
+    <!-- The seller's own form (Oct 14): separate from the client Contact page. It posts to sellFormEndpoint in
+         site-facts.json once that is set; until then Send opens the visitor's email app with the details filled in. -->
+    <form id="sell-form" class="sell-form" data-endpoint="{{sellFormEndpoint}}" novalidate>
+      <label class="sf-field"><span>Property address</span><input type="text" name="address" autocomplete="street-address" required></label>
+      <label class="sf-field"><span>Email</span><input type="email" name="email" autocomplete="email" required></label>
+      <label class="sf-field"><span>Phone</span><input type="tel" name="phone" autocomplete="tel" required></label>
+      <input type="text" name="company" class="sf-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="elh-fh1 sf-send" type="submit">Start the conversation</button>
+      <p class="sf-status" role="status" aria-live="polite"></p>
+    </form>
     <div class="cta-meta">
       <div class="cta-meta-row"><span class="cta-meta-label">Phone</span><span class="cta-meta-val">(480) 340-8700</span></div>
       <div class="cta-meta-row"><span class="cta-meta-label">Email</span><span class="cta-meta-val">hello@ellaleehomes.com</span></div>
@@ -731,6 +753,44 @@ details.faq .faq-a {
 </section>
 
 <!-- FOOTER_PARTIAL -->
+
+<script>
+/* Seller form. With an endpoint set it posts the three fields; without one (or if posting fails) it opens the
+   visitor's email app with a message to us already written. */
+(function () {
+  var form = document.getElementById('sell-form');
+  if (!form) return;
+  var status = form.querySelector('.sf-status');
+  var send = form.querySelector('.sf-send');
+  var endpoint = form.getAttribute('data-endpoint') || '';
+  if (!/^https:\/\//.test(endpoint)) endpoint = '';
+  function mailto(d) {
+    var body = 'I would like to talk about selling my property.\n\nProperty address: ' + d.address + '\nEmail: ' + d.email + '\nPhone: ' + d.phone + '\n';
+    window.location.href = 'mailto:hello@ellaleehomes.com?subject=' + encodeURIComponent('Selling my property') + '&body=' + encodeURIComponent(body);
+    status.textContent = 'Your email app should open with your details filled in. Press send and we will be in touch.';
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (form.company.value) return; // filled only by bots
+    var ok = true, first = null;
+    ['address', 'email', 'phone'].forEach(function (n) {
+      var el = form[n], bad = !el.value.trim() || (n === 'email' && !el.checkValidity());
+      el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+      if (bad && !first) first = el;
+      ok = ok && !bad;
+    });
+    if (!ok) { status.textContent = 'Please fill in your property address, email and phone.'; first.focus(); return; }
+    var d = { address: form.address.value.trim(), email: form.email.value.trim(), phone: form.phone.value.trim() };
+    if (!endpoint) { mailto(d); return; }
+    send.disabled = true; status.textContent = 'Sending\u2026';
+    var fd = new FormData(); fd.append('address', d.address); fd.append('email', d.email); fd.append('phone', d.phone); fd.append('_subject', 'Selling my property');
+    fetch(endpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); form.reset(); status.textContent = 'Thank you. We have your details and will be in touch.'; })
+      .catch(function () { mailto(d); })
+      .then(function () { send.disabled = false; });
+  });
+})();
+</script>
 
 <script>
 /* Scroll reveals */
