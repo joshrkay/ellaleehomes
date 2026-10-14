@@ -457,6 +457,7 @@ main { overflow-x: clip; }
 <!-- FOOTER (injected on every page by scripts/build-html.mjs) -->
 <!-- FOOTER_PARTIAL -->
 
+<script src="assets/our-story-map.js"></script>
 <script>
 /* Scroll effects (docs/our-story-notes.md). One passive scroll + resize listener, one frame per change;
    each effect turns the element's position into a progress p from 0 to 1 and writes transforms inline.
@@ -638,40 +639,32 @@ main { overflow-x: clip; }
     const angle = (i / total) * Math.PI * 2 + total * 0.37;
     return [Math.cos(angle) * r, Math.sin(angle) * r];
   }
-  // Keyless illustrative map: hand-drawn SVG of the Valley (parks, canal, main roads, freeways) with the same pins.
-  // Positions are neighbourhood-level, not addresses.
+  // Keyless map: the real geography (town lines, parks, canal, freeways, main roads) from OpenStreetMap, drawn from
+  // assets/our-story-map.js with the home pins on top. Pins sit at neighbourhood centres, never at addresses.
   function drawSample() {
-    const B = { s: 33.32, w: -112.30, n: 33.78, e: -111.58 }, W = 800, H = 500;
+    const M = window.ELH_STORY_MAP;
+    if (!M) return;
+    const V = M.view, W = V.w, H = V.h;
+    const B = { s: V.S, w: V.W, n: V.N, e: V.E };
     const X = (lng) => ((lng - B.w) / (B.e - B.w) * W).toFixed(1);
     const Y = (lat) => ((B.n - lat) / (B.n - B.s) * H).toFixed(1);
-    const P = (pts) => pts.map((p, k) => (k ? 'L' : 'M') + X(p[1]) + ' ' + Y(p[0])).join(' ');
-    const hRoad = (lat, w) => '<path d="M0 ' + Y(lat) + ' H' + W + '" stroke="#fff" stroke-width="' + w + '"/>';
-    const vRoad = (lng, w) => '<path d="M' + X(lng) + ' 0 V' + H + '" stroke="#fff" stroke-width="' + w + '"/>';
-    const blob = (lat, lng, rx, ry, rot, fill) => '<ellipse cx="' + X(lng) + '" cy="' + Y(lat) + '" rx="' + rx + '" ry="' + ry + '" transform="rotate(' + rot + ' ' + X(lng) + ' ' + Y(lat) + ')" fill="' + fill + '"/>';
+    const path = (d, attrs) => d ? '<path d="' + d + '" ' + attrs + '/>' : '';
     const lbl = (lat, lng, t, cls) => '<text x="' + X(lng) + '" y="' + Y(lat) + '" class="sm-' + (cls || 'st') + '" text-anchor="middle">' + t + '</text>';
     let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">';
     s += '<rect width="' + W + '" height="' + H + '" fill="#EFE9DD"/>';
-    // parks and preserves
-    s += blob(33.515, -111.965, 34, 16, -20, '#D6DDC4') + blob(33.540, -111.990, 22, 12, 25, '#D6DDC4') + blob(33.545, -112.020, 24, 14, -10, '#D6DDC4') + blob(33.455, -111.950, 22, 14, 10, '#D6DDC4') + blob(33.700, -111.880, 60, 30, 15, '#DCE1CB');
-    // light street grid
-    s += '<g stroke="#F8F5EE" stroke-width="1">';
-    for (let la = 33.34; la < 33.78; la += 0.02) s += '<path d="M0 ' + Y(la) + ' H' + W + '"/>';
-    for (let lo = -112.28; lo < -111.58; lo += 0.025) s += '<path d="M' + X(lo) + ' 0 V' + H + '"/>';
+    s += path(M.towns['Paradise Valley'], 'fill="#E7DFCB"');
+    M.parks.forEach((pk) => { s += path(pk[1], 'fill="#D6DDC4"'); });
+    s += '<g fill="none" stroke-linecap="round" stroke-linejoin="round">';
+    Object.keys(M.roads).forEach((k) => { s += path(M.roads[k], 'stroke="#FBF9F4" stroke-width="2.2"'); });
+    s += path(M.canal, 'stroke="#BCD0D6" stroke-width="2.6"');
+    s += path(M.motorways, 'stroke="#E2C48B" stroke-width="3.4"');
+    Object.keys(M.towns).forEach((k) => { s += path(M.towns[k], 'stroke="#B8A888" stroke-width="1" stroke-dasharray="4 3"'); });
     s += '</g>';
-    // arterial roads
-    s += '<g fill="none" stroke-linecap="round">';
-    [[33.5095, 3], [33.4947, 3], [33.480, 3], [33.4663, 3], [33.580, 3], [33.640, 3]].forEach((r) => { s += hRoad(r[0], r[1]); });
-    [[-112.074, 3], [-112.030, 3], [-111.985, 3], [-111.926, 3.5], [-111.890, 3]].forEach((r) => { s += vRoad(r[0], r[1]); });
-    // canal, freeways
-    s += '<path d="' + P([[33.43, -112.30], [33.47, -112.10], [33.515, -111.97], [33.545, -111.86], [33.58, -111.70]]) + '" stroke="#C9D6DA" stroke-width="4"/>';
-    s += '<path d="' + P([[33.32, -112.16], [33.45, -112.07], [33.50, -112.04], [33.545, -112.02], [33.64, -112.01], [33.78, -112.01]]) + '" stroke="#E7C98F" stroke-width="5"/>';
-    s += '<path d="' + P([[33.32, -111.90], [33.50, -111.89], [33.62, -111.90], [33.78, -111.90]]) + '" stroke="#E7C98F" stroke-width="5"/>';
-    s += '<path d="' + P([[33.45, -112.30], [33.46, -112.10], [33.45, -111.93], [33.40, -111.80], [33.32, -111.60]]) + '" stroke="#E7C98F" stroke-width="5"/>';
-    s += '</g>';
-    // labels
-    s += '<g>' + lbl(33.566, -112.005, 'PARADISE VALLEY', 'area') + lbl(33.660, -111.95, 'SCOTTSDALE', 'area') + lbl(33.470, -112.14, 'PHOENIX', 'area') + lbl(33.468, -112.005, 'ARCADIA', 'area') +
-         lbl(33.455, -111.905, 'Old Town', 'town') + lbl(33.538, -111.955, 'Camelback Mtn', 'park') + lbl(33.458, -111.950, 'Papago Park', 'park') + lbl(33.547, -112.035, 'Piestewa Peak', 'park') +
-         lbl(33.5115, -112.15, 'Camelback Rd', 'st') + lbl(33.4965, -112.15, 'Indian School Rd', 'st') + lbl(33.5815, -112.15, 'Shea Blvd', 'st') + lbl(33.641, -112.15, 'Bell Rd', 'st') + '</g>';
+    // labels, each at the place itself
+    s += '<g>' + lbl(33.552, -111.952, 'PARADISE VALLEY', 'area') + lbl(33.600, -111.875, 'SCOTTSDALE', 'area') + lbl(33.585, -112.090, 'PHOENIX', 'area') + lbl(33.482, -111.990, 'ARCADIA', 'area') +
+         lbl(33.484, -111.912, 'Old Town', 'town') + lbl(33.524, -111.962, 'Camelback Mtn', 'park') + lbl(33.447, -111.946, 'Papago Park', 'park') + lbl(33.560, -112.032, 'Phoenix Mtns Preserve', 'park') +
+         lbl(33.5125, -112.120, 'Camelback Rd', 'st') + lbl(33.4977, -112.120, 'Indian School Rd', 'st') + lbl(33.5845, -112.120, 'Shea Blvd', 'st') + lbl(33.6430, -112.120, 'Bell Rd', 'st') +
+         lbl(33.625, -112.000, 'SR 51', 'st') + lbl(33.560, -111.880, 'Loop 101', 'st') + '</g>';
     s += '</svg>';
     // pins
     let pins = '';
@@ -684,7 +677,7 @@ main { overflow-x: clip; }
     Object.keys(byNbr).forEach((nbrId) => {
       const c = NBR[nbrId];
       byNbr[nbrId].forEach((h, i) => {
-        const o = ringOffset(i, byNbr[nbrId].length, 0.022);
+        const o = ringOffset(i, byNbr[nbrId].length, 0.004);
         pins += mk(c.lat + o[0], c.lng + o[1], 'sm-home', h.name, h.loc, 'project.html?slug=' + h.slug);
       });
     });
@@ -695,7 +688,7 @@ main { overflow-x: clip; }
       '<a class="sm-open" href="' + LISTING + '" target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">&rarr;</span></a>';
     const cap = document.createElement('p');
     cap.className = 'sm-note';
-    cap.textContent = 'Illustrative map. Pins show neighborhoods, not addresses.';
+    cap.textContent = 'Pins show neighborhoods, not addresses. Map data \u00a9 OpenStreetMap contributors.';
     el.insertAdjacentElement('afterend', cap);
     // Spread pins apart (in pixels) so every one can be hovered, focused or tapped on its own.
     const items = [].slice.call(el.querySelectorAll('.sm-pin'));
@@ -736,7 +729,7 @@ main { overflow-x: clip; }
     const bounds = { south: 33.32, west: -112.30, north: 33.78, east: -111.58 };
     // Fixed zoom, centred on the Valley, panning limited to the bounds; scroll needs ctrl so the page still scrolls.
     const map = new g.Map(el, {
-      center: { lat: 33.520, lng: -111.93 }, zoom: 11, minZoom: 11, maxZoom: 11,
+      center: { lat: 33.545, lng: -111.96 }, zoom: 11, minZoom: 11, maxZoom: 11,
       disableDefaultUI: true, gestureHandling: 'cooperative', keyboardShortcuts: false,
       restriction: { latLngBounds: bounds, strictBounds: true },
       styles: [{ stylers: [{ saturation: -85 }, { lightness: 8 }] }, { featureType: 'poi', stylers: [{ visibility: 'off' }] }, { featureType: 'transit', stylers: [{ visibility: 'off' }] }],
