@@ -18,7 +18,7 @@
     "band": "mid",
     "cardOrder": 1,
     "featured": true,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1fxFZ2vRKL5rQhCXsXSpLInMejl7RBDsP",
     "cardPhoto": "uploads/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO.webp",
     "heroPhoto": "uploads/d/1mbmQTKDq74aXItTCf1EAVaA7i2tD9ofO.webp",
     "gallery": [
@@ -133,7 +133,7 @@
     "band": "mid",
     "cardOrder": 2,
     "featured": true,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1nj-xP7GozCIrSA_pcSivN9XzWqWLN8CJ",
     "cardPhoto": "uploads/w/2025/02/0H0A5254.webp",
     "heroPhoto": "uploads/w/2025/02/0H0A5254.webp",
     "gallery": [
@@ -236,7 +236,7 @@
     "band": "mid",
     "cardOrder": 3,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1rh0ySHt0rPgVn0VT6bMEGq1itMk8TR6K",
     "cardPhoto": "uploads/w/2025/10/IMG_2330-2.webp",
     "heroPhoto": "uploads/w/2025/10/IMG_2330-2.webp",
     "gallery": [
@@ -346,7 +346,7 @@
     "band": "large",
     "cardOrder": 1,
     "featured": true,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1uMkzhe5aC-m-0jSeJtugFKoudYCzIRwt",
     "cardPhoto": "uploads/w/2025/06/DJI_0171.webp",
     "heroPhoto": "uploads/w/2025/06/DJI_0171.webp",
     "gallery": [
@@ -463,7 +463,7 @@
     "band": "mid",
     "cardOrder": 4,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1VTkWo02i5xTy0r7bh7oVekm0MV4_HacR",
     "cardPhoto": "uploads/w/2025/02/IMG_6759.webp",
     "heroPhoto": "uploads/w/2025/02/IMG_6759.webp",
     "gallery": [
@@ -596,7 +596,7 @@
     "band": "mid",
     "cardOrder": 5,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1NP7G55HjjMYSPuYe6wSWot2kKx7Oa60G",
     "cardPhoto": "uploads/w/2025/10/IMG_6059.webp",
     "heroPhoto": "uploads/w/2025/10/IMG_6059.webp",
     "gallery": [
@@ -709,7 +709,7 @@
     "band": "small",
     "cardOrder": 1,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/12r9LhSUWE7A2ziOYwcMuFvxu7r9m8VvU",
     "cardPhoto": "uploads/w/2025/02/0H0A6650.webp",
     "heroPhoto": "uploads/w/2025/02/0H0A6650.webp",
     "gallery": [
@@ -782,7 +782,7 @@
     "band": "mid",
     "cardOrder": 6,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1eNSSkPsjlbPqWAeDus_tqm_x1lrzcFhb",
     "cardPhoto": "uploads/w/2025/10/IMG_8101.webp",
     "heroPhoto": "uploads/w/2025/10/IMG_8101.webp",
     "gallery": [
@@ -883,7 +883,7 @@
     "band": "mid",
     "cardOrder": 7,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1-K0p0uveYxxH1_fQxellE2ZTPTQASOlj",
     "cardPhoto": "uploads/w/2025/02/0H0A2493.webp",
     "heroPhoto": "uploads/w/2025/02/0H0A2493.webp",
     "gallery": [
@@ -969,7 +969,7 @@
     "band": "mid",
     "cardOrder": 8,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1L_hTqX_SKJdAJYrWEmXthf6f8JhADSEg",
     "cardPhoto": "uploads/w/2025/02/1.webp",
     "heroPhoto": "uploads/w/2025/02/1.webp",
     "gallery": [
@@ -1051,7 +1051,7 @@
     "band": "small",
     "cardOrder": 2,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1KtpGufuFAuKkSy2z4KMuYGQxSfgq5qel",
     "cardPhoto": "uploads/w/2025/02/0H0A0350.webp",
     "heroPhoto": "uploads/w/2025/02/0H0A0350.webp",
     "gallery": [
@@ -1154,7 +1154,7 @@
     "band": "small",
     "cardOrder": 4,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1VX8J8Y1auWtZXZrg_j0t8njGZtyNMg_1",
     "cardPhoto": "uploads/w/2025/02/4-2.webp",
     "heroPhoto": "uploads/w/2025/02/4-2.webp",
     "gallery": [
@@ -1215,7 +1215,7 @@
     "band": "small",
     "cardOrder": 5,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1nsVP0qxOitkvYW3gVFno0OgQ8PkcdDDU",
     "cardPhoto": "uploads/w/2025/02/0H0A3895.webp",
     "heroPhoto": "uploads/w/2025/02/0H0A3895.webp",
     "gallery": [
@@ -1274,7 +1274,7 @@
     "band": "mid",
     "cardOrder": 10,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1QC1_FVbcNt4-eyDmf3R7CQEh53z1zF2w",
     "cardPhoto": "uploads/w/2025/11/DJI_0797.webp",
     "heroPhoto": "uploads/w/2025/11/DJI_0797.webp",
     "gallery": [
@@ -1421,7 +1421,7 @@
     "band": "mid",
     "cardOrder": 9,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/13CmwNru1rGV9X_Yb0er-0O_TfK6wrIpc",
     "cardPhoto": "uploads/d/168hvjJY61A77iCjc4Zykrd1-2NWNWbnV.webp",
     "heroPhoto": "uploads/d/168hvjJY61A77iCjc4Zykrd1-2NWNWbnV.webp",
     "gallery": [
@@ -1479,7 +1479,7 @@
     "band": "small",
     "cardOrder": 3,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1cZ-nwXK65n9wlG6lAnO6vuNk1T4--U62",
     "cardPhoto": "uploads/d/1bca7xJSbdLkVRwydZopnsyHGwNzqlEBf.webp",
     "heroPhoto": "uploads/d/1bca7xJSbdLkVRwydZopnsyHGwNzqlEBf.webp",
     "gallery": [
@@ -1551,7 +1551,7 @@
     "band": "mid",
     "cardOrder": 11,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1ZLKLKyC6jkvkbcojbvTyciqm2k1eZnWK",
     "cardPhoto": "uploads/w/2025/10/IMG_4680.webp",
     "heroPhoto": "uploads/w/2025/10/IMG_4680.webp",
     "gallery": [
@@ -1650,7 +1650,7 @@
     "band": "small",
     "cardOrder": 6,
     "featured": true,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1IQ-U_mRzPe6Y6zQkHGYzhp-N_vnwxn7p",
     "cardPhoto": "uploads/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT.webp",
     "heroPhoto": "uploads/d/1rc6nTz1PFyzqZ6v1k5DY7YLvYZ6dVrtT.webp",
     "gallery": [
@@ -1883,7 +1883,7 @@
     "band": "large",
     "cardOrder": 2,
     "featured": true,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/10lWKgFTnktKXVRXMXZZvIKnp4iLiJkem",
     "cardPhoto": "uploads/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF.webp",
     "heroPhoto": "uploads/d/1nys_mGyOqAlr0g6F8IasLssSZm_VqnKF.webp",
     "gallery": [
@@ -2040,7 +2040,7 @@
     "band": "large",
     "cardOrder": 1,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1HOO-mZ94gPatiQhAJN4N1AJUgsvqfl51",
     "cardPhoto": "uploads/d/1784gP0GggV8zpKYA7Kql9w9IGduXinT_.webp",
     "heroPhoto": "uploads/d/1784gP0GggV8zpKYA7Kql9w9IGduXinT_.webp",
     "gallery": [
@@ -2130,7 +2130,7 @@
     "band": "large",
     "cardOrder": 2,
     "featured": true,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1XpdiUzFOIDOVAjUGboMbxtzcz-gDCzhC",
     "cardPhoto": "uploads/d/1zqcKIpPs4DJ249PaaMJP4F-wi-1tqHoT.webp",
     "heroPhoto": "uploads/d/1zqcKIpPs4DJ249PaaMJP4F-wi-1tqHoT.webp",
     "gallery": [
@@ -2220,7 +2220,7 @@
     "band": "mid",
     "cardOrder": 3,
     "featured": false,
-    "photoFolder": null,
+    "photoFolder": "https://drive.google.com/drive/folders/1-rnopPyAdzBwvw1NqQFnm2fRdieAWHxu",
     "cardPhoto": "uploads/d/1AqwZUfukfXQbD8dEid5FSLsmhmPM_-GL.webp",
     "heroPhoto": "uploads/d/1AqwZUfukfXQbD8dEid5FSLsmhmPM_-GL.webp",
     "gallery": [
