@@ -77,7 +77,7 @@ Build output: **`dist/`** (run `npm run build`). Preview: `npm run dev`. The for
 
 Run `npm run check:assets` for the current count. At the start of the launch work it was 1,572 references to 1,438 unique files: old WordPress (`ellaleehomes.com/wp-content/uploads/...`), Google Drive project galleries, and three Zillow photos. Most sit in the project data (`data/projects.json`, which fills the project block of `project.html` and the portfolio cards). The plan to move them all on-site is in [`media.md`](media.md).
 
-**Video:** the home hero still plays `wp-content/uploads/2025/03/Elh-Website-Vid-5-11.m4v` until Shay's new video arrives.
+**Video:** the home hero plays `uploads/home/hero.mp4`, the old site's `Elh-Website-Vid-5-11.m4v` moved onto this site (re-encoded without its unused audio track, 720p, 13 MB, fast-start). It stays until Shay's new video arrives (punch list 41).
 
 **Logo:** the nav and drawer use `assets/elh-monogram.svg`; the footer and hero lockups use `assets/elh-wordmark.svg`. No CDN round-trip.
 
