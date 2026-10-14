@@ -29,6 +29,7 @@
   function reviewsSync() {
     var r = reviewsParts();
     if (!r) return;
+    reviewsLoop(r.scroller);
     var set = reviewsSetWidth(r.scroller);
     if (set > 0) {
       var x = r.scroller.scrollLeft;
@@ -49,25 +50,31 @@
     r.scroller.scrollBy({ left: dir * step, behavior: calm ? 'auto' : 'smooth' });
   }
 
+  /** Copy the cards for the loop, but only once the real ones overflow: copies of cards that already fit would
+      manufacture overflow, show the arrows and let a visitor scroll through duplicates (wide screens, or a page
+      given only a few reviews). Runs at load and on every resize until it has copied once. */
+  function reviewsLoop(sc) {
+    if (sc.dataset.elhOriginals || sc.scrollWidth - sc.clientWidth <= 1) return;
+    var originals = Array.prototype.slice.call(sc.children);
+    sc.dataset.elhOriginals = String(originals.length);
+    for (var k = 0; k < 2; k++) {
+      originals.forEach(function (card) {
+        var c = card.cloneNode(true);
+        c.setAttribute('aria-hidden', 'true');
+        Array.prototype.forEach.call(c.querySelectorAll('a,button'), function (n) { n.setAttribute('tabindex', '-1'); });
+        if (c.matches('a,button')) c.setAttribute('tabindex', '-1');
+        sc.appendChild(c);
+      });
+    }
+    // Start on the middle copy so there is room to scroll both ways.
+    sc.scrollLeft = reviewsSetWidth(sc);
+  }
+
   function initReviews() {
     var r = reviewsParts();
     if (!r) return;
     var sc = r.scroller;
-    if (!sc.dataset.elhOriginals) {
-      var originals = Array.prototype.slice.call(sc.children);
-      sc.dataset.elhOriginals = String(originals.length);
-      for (var k = 0; k < 2; k++) {
-        originals.forEach(function (card) {
-          var c = card.cloneNode(true);
-          c.setAttribute('aria-hidden', 'true');
-          Array.prototype.forEach.call(c.querySelectorAll('a,button'), function (n) { n.setAttribute('tabindex', '-1'); });
-          if (c.matches('a,button')) c.setAttribute('tabindex', '-1');
-          sc.appendChild(c);
-        });
-      }
-      // Start on the middle copy so there is room to scroll both ways.
-      sc.scrollLeft = reviewsSetWidth(sc);
-    }
+    reviewsLoop(sc);
     sc.addEventListener('scroll', reviewsSync, { passive: true });
     window.addEventListener('resize', reviewsSync);
     if (window.ResizeObserver) new ResizeObserver(reviewsSync).observe(sc);
