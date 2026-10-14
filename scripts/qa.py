@@ -276,11 +276,10 @@ def static_checks():
         bad.append('footer lacks 40+ on: ' + ', '.join(foot_missing))
     if wrong:
         bad.append('other counts: ' + fmt_hits(wrong))
-    map_ok = re.search(r'where-legend-num">40\+', PAGES['our-story'])
-    if not map_ok:
-        bad.append('map legend lacks 40+')
+    if not re.search(r'os-stat-num">40\+', PAGES['our-story']):
+        bad.append('Our Story numbers row (above the map) lacks 40+')
     reg('7', 'Home count: "40+ homes" everywhere (footer, home, Our Story, Portfolio, Developers, map); no other figure',
-        'FAIL' if bad else 'PASS', '; '.join(bad) if bad else '"40+" on index, our-story (+map legend), previous-projects, developers and in the footer of all %d pages; no 50+/nearly/26/21 variants' % len(ALL))
+        'FAIL' if bad else 'PASS', '; '.join(bad) if bad else '"40+" on index, our-story (+numbers row over the map), previous-projects, developers and in the footer of all %d pages; no 50+/nearly/26/21 variants' % len(ALL))
     # B8
     none_found('8', 'No "10+ years" / "fifteen years"', r'\b10\+?\s+years|\bfifteen years|\b15\+?\s+years', ALL)
     # B9 timeline
@@ -451,8 +450,8 @@ def static_checks():
         'review cards per page: %s (all five are the pre-existing Google reviews). More real reviews must come from Ella Lee Homes.' % dict(nrev))
     os_h = PAGES['our-story']
     reg('46', 'Our Story "What they say" shows the home page\'s Google review cards, not FAQ questions',
-        'PASS' if os_h.count('class="rv-card') >= 5 and 'story-faq' not in re.search(r'id="conversation".*?</section>', os_h, re.S).group(0) else 'FAIL',
-        '%d review cards; FAQ <details> in that section: %d' % (os_h.count('class="rv-card'), re.search(r'id="conversation".*?</section>', os_h, re.S).group(0).count('story-faq')))
+        'PASS' if os_h.count('class="rv-card') >= 5 and 'story-faq' not in re.search(r'id="reviews".*?</section>', os_h, re.S).group(0) else 'FAIL',
+        '%d review cards; FAQ <details> in that section: %d' % (os_h.count('class="rv-card'), re.search(r'id="reviews".*?</section>', os_h, re.S).group(0).count('story-faq')))
     reg('47', 'Camino as the footer background', 'MANUAL', 'Shay confirmed "Done". Footer uses uploads/footer-bg.jpg (courtyard photo) on %d/%d pages.' % (sum('uploads/footer-bg.jpg' in p for p in PAGES.values()), len(PAGES)))
     bi, bb = PAGES['index'], PAGES['build-your-home']
     ok = all(re.search(r'<h2[^>]*>Start your build</h2>', x, re.I) for x in (bi, bb))
@@ -1307,10 +1306,10 @@ def browser_checks(projects):
         # our story: founder photo + reviews
         pgo, eo = newpage()
         go(pgo, 'our-story', 1200)
-        pgo.evaluate("() => document.querySelector('.founder-photo').scrollIntoView()")
+        pgo.evaluate("() => document.querySelector('[data-os-fnd-pt]').scrollIntoView()")
         pgo.wait_for_timeout(1200)
-        os_ = pgo.evaluate("""() => ({founder: !!document.querySelector('.founder-photo img'), loaded: (document.querySelector('.founder-photo img')||{}).naturalWidth > 0,
-                                   cards: document.querySelectorAll('.rv-card').length, faq: document.querySelectorAll('#conversation details').length})""")
+        os_ = pgo.evaluate("""() => ({founder: !!document.querySelector('[data-os-fnd-pt] img'), loaded: (document.querySelector('[data-os-fnd-pt] img')||{}).naturalWidth > 0,
+                                   cards: document.querySelectorAll('.rv-card').length, faq: document.querySelectorAll('#reviews details').length})""")
         reg('42b', 'Our Story: Shay portrait renders next to the founder note', 'PASS' if os_['founder'] and os_['loaded'] else 'FAIL', str(os_))
         # mobile drawer
         pgm, em = newpage(390, 800)
