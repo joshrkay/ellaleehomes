@@ -98,7 +98,7 @@ function applyFacts(html) {
  * relatively, so a trailing slash would resolve `assets/…` one level too deep
  * and 404 every stylesheet and image on the page.
  *
- * @typedef {'portfolio'|'process'|'about'} NavEntry
+ * @typedef {'portfolio'|'process'|'whyus'|'about'} NavEntry
  * @typedef {{ file: string; url: string | null; changefreq?: string; priority?: string; active?: Partial<Record<NavEntry, boolean>> }} PageCfg
  */
 
@@ -114,7 +114,7 @@ const PAGES = [
   { file: 'build-your-home.html', url: '/build-your-home', changefreq: 'monthly', priority: '0.9', active: { process: true } },
   { file: 'sell-your-home.html', url: '/sell-your-home', changefreq: 'monthly', priority: '0.7' },
   { file: 'our-story.html', url: '/our-story', changefreq: 'monthly', priority: '0.9', active: { about: true } },
-  { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8' },
+  { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', active: { whyus: true } },
   { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7' },
   { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7' },
   // Carries `robots: noindex` and is disallowed in robots.txt.
@@ -166,6 +166,7 @@ function renderNav(page) {
     __ARIA_HOME__: aria(isHome),
     __ARIA_PORTFOLIO__: aria(active.portfolio),
     __ARIA_PROCESS__: aria(active.process),
+    __ARIA_WHYUS__: aria(active.whyus),
     __ARIA_ABOUT__: aria(active.about),
   };
   let html = partialTemplate;
@@ -310,7 +311,9 @@ for (const page of PAGES) {
     console.error('Missing', DROPDOWN_PLACEHOLDER, '— partials/nav.html no longer carries it');
     process.exit(1);
   }
-  content = content.split(DROPDOWN_PLACEHOLDER).join(dropdownTemplate);
+  // Mark this page's link in the Learn panel too (Our Story, FAQ and the rest live there).
+  content = content.split(DROPDOWN_PLACEHOLDER).join(
+    dropdownTemplate.replace(`<a href="${page.file}">`, `<a href="${page.file}" aria-current="page">`));
   content = content.split(FOOTER_PLACEHOLDER).join(renderFooter(page.file === 'index.html'));
   content = applyFacts(content);
   content = applyReviews(content, page.file); // review cards from data/reviews.json; also the one place they are validated
