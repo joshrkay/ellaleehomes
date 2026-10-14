@@ -40,8 +40,6 @@ const LOAD_ALLOW = {
   'fonts.googleapis.com': { why: 'Google Fonts (named in the draft Privacy Policy)' },
   'fonts.gstatic.com': { why: 'Google Fonts files' },
   'buildertrend.net': { pages: ['contact'], why: 'Buildertrend contact form script + iframe (N15), Contact page only' },
-  'maps.googleapis.com': { pages: ['our-story'], why: 'Google Maps script for the Our Story map (needs a key; draft Privacy Policy names Google Maps)' },
-  'maps.gstatic.com': { pages: ['our-story'], why: 'Google Maps tiles/assets' },
 };
 // Hosts that may appear only as a link a visitor can click (never auto-loaded).
 const LINK_ALLOW = [

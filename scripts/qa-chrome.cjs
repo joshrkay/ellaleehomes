@@ -462,7 +462,6 @@ async function checkContrast() {
 
 /* ── 7. Section lines (N11) ────────────────────────────── */
 const SECTION_LINE_RULES = [
-  { page: 'our-story.html', sel: '.pillar-board', what: 'Our Story pillar board top rule' },
   { page: 'previous-projects.html', sel: '.section-band-line', what: 'Previous Projects size-band line' },
   { pageMatch: ARTICLES, sel: '.article-related', what: 'article "related stories" rule' },
   { pageMatch: ['privacy.html', 'terms.html', 'disclaimer.html', 'code-of-conduct.html', 'warranty.html', 'homeowner-resources.html'], sel: 'p', text: /^\s*Last updated/, what: '"Last updated" rule' },
@@ -494,7 +493,7 @@ async function scanLines(page, rules, pendingRules, name) {
     // generic: hr, and drawn rule elements (1 to 3px, empty), outside the site chrome and controls
     const generic = [];
     document.querySelectorAll('body hr, body *').forEach((el) => {
-      if (el.closest('[data-elh-nav], [data-elh-drawer], .nav-dd-panel, footer, button, svg, [data-elh-track]')) return;
+      if (el.closest('[data-elh-nav], [data-elh-drawer], .nav-dd-panel, footer, button, svg, [data-elh-track], [data-os-collage]')) return; // [data-os-collage]: Our Story's gold plan lines are part of the photo collage, not section dividers
       const isHr = el.tagName === 'HR';
       const r = el.getBoundingClientRect();
       const cs = getComputedStyle(el);
