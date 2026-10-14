@@ -32,6 +32,8 @@ export const DATA_FILE = path.join(ROOT, 'data', 'projects.json');
 /** The vocabulary the data uses. The validator and the CSV importer check against these. */
 export const STATUSES = ['sold', 'for-sale', 'in-progress', 'photos-only'];
 export const STYLES = ['farmhouse', 'contemporary'];
+/** The words a card shows for each style. Every card reads exactly one of these two (the Fact Sheet's rule). */
+export const STYLE_LABELS = { farmhouse: 'Farmhouse', contemporary: 'Contemporary' };
 /** The four markets the Fact Sheet names, in its order. */
 export const MARKETS = ['Paradise Valley', 'Scottsdale', 'Arcadia', 'Phoenix'];
 
@@ -52,12 +54,12 @@ export const BAND_KEYS = BANDS.map((b) => b.key);
 export const STATUS_CHIP = { sold: 'Sold', 'for-sale': 'For Sale', 'in-progress': 'In Progress' };
 
 /** Fields a project's `card` object may override, because the portfolio card and the project page disagree. */
-export const CARD_FIELDS = ['name', 'locationLabel', 'year', 'value', 'valueLabel', 'sqft', 'beds', 'baths', 'styleLabel'];
+export const CARD_FIELDS = ['name', 'locationLabel', 'year', 'value', 'valueLabel', 'sqft', 'beds', 'baths'];
 
 /** Key order in data/projects.json. A key not listed here is kept, after these, in the order it was found. */
 export const KEY_ORDER = [
   'slug', 'name', 'status', 'statusLabel', 'market', 'neighborhood', 'locationLabel', 'year',
-  'value', 'valueLabel', 'sqft', 'beds', 'baths', 'builder', 'styleLabel', 'style', 'band', 'cardOrder',
+  'value', 'valueLabel', 'sqft', 'beds', 'baths', 'builder', 'style', 'band', 'cardOrder',
   'featured', 'photoFolder', 'cardPhoto', 'heroPhoto', 'gallery', 'storyTitle', 'storyParas', 'amenities', 'card',
 ];
 
@@ -67,7 +69,7 @@ export const KEY_ORDER = [
  * only if each block is written the way it was. Delete this set and the five en dashes become literal: no change
  * in what a visitor sees, five strings change in dist.
  */
-export const LEGACY_ASCII_ESCAPES = new Set(['5th-st-2', 'camino-sin-nombre', 'cudia', 'desert-cove', 'glenrosa']);
+export const LEGACY_ASCII_ESCAPES = new Set(['5th-st-2', 'camino-sin-nombre', 'cudia', 'glenrosa']);
 
 export class ProjectsError extends Error {}
 
@@ -158,19 +160,6 @@ export function bandFromSqft(sqft) {
   return 'large';
 }
 
-/**
- * The style the portfolio's Style filter places a card under. The filter reads the card's label for the word
- * "farmhouse" or "contemporary" (it does not read the `style` field yet), so this is what a card does today.
- * A label with neither word, or with both, belongs under neither button: null.
- */
-export function styleFromLabel(label) {
-  const t = String(label ?? '').toLowerCase();
-  const f = t.includes('farmhouse');
-  const c = t.includes('contemporary');
-  if (f === c) return null;
-  return f ? 'farmhouse' : 'contemporary';
-}
-
 /** The projects in the order the portfolio lists them: by band, then `cardOrder`, then file order. */
 export function portfolioOrder(projects) {
   const rank = (p) => BAND_KEYS.indexOf(p.band);
@@ -201,17 +190,22 @@ function renderCard(p) {
   const loc = has(cv(p, 'locationLabel')) ? escHtml(cv(p, 'locationLabel')) : '';
   const img = has(photo) ? escHtml(photo) : '';
   const L = [];
-  L.push(`    <div class="proj-card" data-sqft="${cv(p, 'sqft') ?? 0}" data-price="${cv(p, 'value') ?? 0}" data-year="${cv(p, 'year') ?? 0}" data-band="${escHtml(p.band ?? '')}">`);
+  const styleLabel = STYLE_LABELS[p.style];
+  L.push(`    <div class="proj-card" data-sqft="${cv(p, 'sqft') ?? 0}" data-price="${cv(p, 'value') ?? 0}" data-year="${cv(p, 'year') ?? 0}" data-band="${escHtml(p.band ?? '')}" data-style="${escHtml(p.style ?? '')}">`);
   if (isPhotosOnly(p)) {
+    // Photographs first: the figures known so far (style, sq ft, value) show; the rest is still to come.
+    const value = cv(p, 'valueLabel') ?? (cv(p, 'value') != null ? fmtMoney(cv(p, 'value')) : null);
+    const sqft = cv(p, 'sqft');
     L.push(`      <div class="proj-card-img"><a href="${href}" class="proj-card-img-link" aria-label="View ${name} project"><img src="${img}" alt="${name}" loading="lazy" data-img="card"></a></div>`);
     L.push('      <div class="proj-card-body">');
     if (loc) L.push(`        <div class="proj-card-location">${loc}</div>`);
+    if (styleLabel) L.push(`        <div class="proj-card-style">${styleLabel}</div>`);
     L.push(`        <div class="proj-card-name">${name}</div>`);
-    L.push('        <div class="proj-card-price">Details coming soon</div>');
+    L.push(has(value) ? `        <div class="proj-card-price"><span class="proj-card-price-label">Completed home value</span>${escHtml(value)}</div>` : '        <div class="proj-card-price">Details coming soon</div>');
+    if (has(sqft)) L.push('        <div class="proj-card-specs">', `          <span>${fmtInt(sqft)} sqft</span>`, '        </div>');
     L.push(`        <a href="${href}" class="proj-card-link">View Project</a>`);
     L.push('      </div>');
   } else {
-    const styleLabel = cv(p, 'styleLabel');
     const alt = `${has(styleLabel) ? `${styleLabel} custom home` : 'Custom home'} by Ella Lee Homes${loc ? ` in ${cv(p, 'locationLabel')}` : ''}, ${cv(p, 'name') ?? p.slug}`;
     const year = cv(p, 'year');
     const chip = STATUS_CHIP[p.status];
@@ -225,7 +219,7 @@ function renderCard(p) {
     L.push(`      <div class="proj-card-img"><a href="${href}" class="proj-card-img-link" aria-label="View ${name} project"><img src="${img}" alt="${escHtml(alt)}" data-img="card"></a></div>`);
     L.push('      <div class="proj-card-body">');
     if (loc) L.push(`        <div class="proj-card-location">${loc}</div>`);
-    if (has(styleLabel)) L.push(`        <div class="proj-card-style">${escHtml(styleLabel)}</div>`);
+    if (styleLabel) L.push(`        <div class="proj-card-style">${styleLabel}</div>`);
     L.push(`        <div class="proj-card-name">${name}</div>`);
     if (has(valueLabel)) L.push(`        <div class="proj-card-price"><span class="proj-card-price-label">Completed home value</span>${escHtml(valueLabel)}</div>`);
     if (specs.length) {
@@ -247,13 +241,15 @@ export function renderCards(projects) {
   const ordered = portfolioOrder(projects);
   return BANDS.map((band) => {
     const cards = ordered.filter((p) => p.band === band.key);
+    // A band with no cards stays in the page (the filter script looks it up) but hidden.
+    const hide = cards.length ? '' : ' style="display: none"';
     const L = [
       `  <!-- SECTION: ${band.comment} -->`,
-      `  <div class="section-band" id="band-${band.key}">`,
+      `  <div class="section-band" id="band-${band.key}"${hide}>`,
       `    <span class="section-band-title">${band.title}</span>`,
       `    <span class="section-band-count">${homes(cards.length)}</span>`,
       '  </div>',
-      `  <div class="projects-grid" id="grid-${band.key}">`,
+      `  <div class="projects-grid" id="grid-${band.key}"${hide}>`,
       '',
     ];
     for (const p of cards) L.push(renderCard(p), '');
@@ -262,13 +258,13 @@ export function renderCards(projects) {
   }).join('\n\n');
 }
 
-/** The "All Homes" tab and one tab per size band, each with its count. */
+/** The "All Homes" tab and one tab per size band, each with its count. "All Homes" counts every card on the page. */
 export function renderTabs(projects) {
   const ordered = portfolioOrder(projects);
   const tab = (filter, label, count, active) =>
     [`  <button class="sqft-tab${active ? ' active' : ''}" data-filter="${filter}" onclick="filterTab(this,'${filter}')">`, `    ${label} <span class="sqft-tab-count" id="count-${filter}">${count}</span>`, '  </button>'].join('\n');
   return [
-    tab('all', 'All Homes', listedProjects(projects).length, true),
+    tab('all', 'All Homes', ordered.length, true),
     ...BANDS.filter((b) => b.key !== 'new').map((b) => tab(b.key, b.title, ordered.filter((p) => p.band === b.key).length, false)),
   ].join('\n');
 }

@@ -1430,9 +1430,9 @@ def browser_checks2(projects):
             'FAIL' if off else 'PASS', ('differs: ' + '; '.join(off[:8])) if off else '%d pages at 1440 = Inter 300 17px and %d pages at 390 = Inter 300 16px' % (len([d for d in dom_d.values() if d]), len([d for d in dom_m.values() if d])))
         # --- project pages
         keys = list(projects) if projects else []
-        # Waiting on Rebecca (R1, R4, S14), not code: the three photo-only homes still say "Coming Soon", and two homes share the name Desert Cove.
+        # Waiting on Rebecca (R1, R4, S14), not code: the three photo-only homes still say "Coming Soon".
         PHOTO_ONLY = {'arroyo', 'stanford', 'osborn-south'}
-        SAME_NAME = {'dc1', 'desert-cove'}
+        SAME_NAME = set()
         titles, canon, issues, waiting = {}, {}, [], []
         pg, st = newpage()
         for k in keys:

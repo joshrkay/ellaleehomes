@@ -143,9 +143,6 @@ for (let r = 1; r < rows.length && slugAt >= 0; r++) {
     }
     if (!Object.keys(p.card).length) delete p.card;
   }
-  if (changed.has('style') && p.style && p.styleLabel && !String(p.styleLabel).toLowerCase().includes(p.style)) {
-    entry.notes.push(`style is now ${p.style}, but the card label "${p.styleLabel}" does not say so, and the portfolio's Style filter reads the label: change styleLabel in data/projects.json too`);
-  }
   changes.push(entry);
 }
 

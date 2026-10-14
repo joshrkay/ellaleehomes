@@ -425,12 +425,10 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
 </style>
 <script>
 function styleFilter(btn, cat) {
+  // Every card carries data-style: contemporary or farmhouse (data/projects.json).
   document.querySelectorAll('.sf-btn').forEach(b => b.classList.toggle('on', b===btn));
   document.querySelectorAll('.proj-card').forEach(c => {
-    var style = (c.querySelector('.proj-card-style')||{}).textContent||'';
-    c.closest('.proj-card-wrap')
-      ? (c.closest('.proj-card-wrap').style.display = (cat==='all'||style.toLowerCase().indexOf(cat)!==-1)?'':'none')
-      : (c.style.display = (cat==='all'||style.toLowerCase().indexOf(cat)!==-1)?'':'none');
+    c.style.display = (cat === 'all' || c.dataset.style === cat) ? '' : 'none';
   });
 }
 </script>
@@ -466,7 +464,8 @@ function filterTab(btn, filter) {
   bands.forEach(band => {
     const bandEl = document.getElementById(`band-${band}`);
     const gridEl = document.getElementById(`grid-${band}`);
-    const show = filter === 'all' || filter === band;
+    // A band with no cards (e.g. "More projects" once every home has its sq ft) stays hidden.
+    const show = (filter === 'all' || filter === band) && !!gridEl.querySelector('.proj-card');
     bandEl.style.display = show ? 'flex' : 'none';
     gridEl.style.display = show ? 'grid' : 'none';
   });
