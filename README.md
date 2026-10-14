@@ -34,6 +34,8 @@ The homes are written down once, in `data/projects.json`. The build fills the po
 
 `npm run build` fails on banned wording (`scripts/check-copy.mjs`, rules from `docs/fact-sheet.md`). Add a rule in the same commit that removes the wording it bans, because Vercel runs the same build.
 
+Staging (`ellaleehomes-kappa.vercel.app`) and every preview are kept out of search engines by an `X-Robots-Tag: noindex, nofollow` header in `vercel.json`, sent only to `*.vercel.app` hosts. The custom domain does not match it, so `ellaleehomes.com` is indexable the moment it is attached; nothing has to be removed at launch. `robots.txt` stays open, because a crawler has to fetch a page to see its noindex.
+
 The build also prints a launch report (`scripts/check-launch.mjs`). It only reports until go-live. On the go-live deploy set `ELH_LAUNCH=1` as a Vercel environment variable (not `VERCEL_ENV`: staging is the Production environment) and the build refuses to ship while any blocker remains.
 
 ## Facts the site cannot invent
