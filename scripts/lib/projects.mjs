@@ -185,7 +185,7 @@ export function absoluteUrl(u, origin) {
 /** One .proj-card. Every part that has no data is left out, never replaced by a placeholder. */
 function renderCard(p) {
   const name = escHtml(cv(p, 'name') ?? p.slug);
-  const href = `project.html?slug=${encodeURIComponent(p.slug)}`;
+  const href = `homes/${encodeURIComponent(p.slug)}.html`;
   const photo = cv(p, 'cardPhoto') ?? p.cardPhoto;
   const loc = has(cv(p, 'locationLabel')) ? escHtml(cv(p, 'locationLabel')) : '';
   const img = has(photo) ? escHtml(photo) : '';
@@ -283,7 +283,7 @@ export function itemListObject(projects, origin) {
         item: {
           '@type': 'SingleFamilyResidence',
           name: cv(p, 'name'),
-          url: `${origin}/project?slug=${encodeURIComponent(p.slug)}`,
+          url: `${origin}/homes/${encodeURIComponent(p.slug)}`,
           image: absoluteUrl(cv(p, 'cardPhoto') ?? p.cardPhoto, origin) ?? undefined,
           numberOfRooms: cv(p, 'beds') ?? undefined,
           numberOfBathroomsTotal: cv(p, 'baths') ?? undefined,
@@ -303,7 +303,7 @@ export function renderItemList(projects, origin) {
 
 /** Each listed project's canonical page URL, in portfolio order (the sitemap's project entries). */
 export function projectUrls(projects, origin) {
-  return listedProjects(projects).map((p) => `${origin}/project?slug=${encodeURIComponent(p.slug)}`);
+  return listedProjects(projects).map((p) => `${origin}/homes/${encodeURIComponent(p.slug)}`);
 }
 
 /* ------------------------------------------------------------------ the project page's data block */

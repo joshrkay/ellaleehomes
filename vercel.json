@@ -24,6 +24,220 @@
       "source": "/investors",
       "destination": "/developers",
       "permanent": true
+    },
+    {
+      "source": "/project",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "(?<slug>.+)"
+        }
+      ],
+      "destination": "/homes/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/project.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "(?<slug>.+)"
+        }
+      ],
+      "destination": "/homes/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/homes/68th-camelback",
+      "destination": "/homes/68th",
+      "permanent": true
+    },
+    {
+      "source": "/homes/earll-drive",
+      "destination": "/homes/earll",
+      "permanent": true
+    },
+    {
+      "source": "/homes/mitchell-home",
+      "destination": "/homes/mitchell",
+      "permanent": true
+    },
+    {
+      "source": "/homes/desert-oasis",
+      "destination": "/homes/apache",
+      "permanent": true
+    },
+    {
+      "source": "/homes/desert-contemporary-ii",
+      "destination": "/homes/dc2",
+      "permanent": true
+    },
+    {
+      "source": "/homes/hazelwood-estate",
+      "destination": "/homes/hazelwood-1",
+      "permanent": true
+    },
+    {
+      "source": "/homes/oak-street",
+      "destination": "/homes/hazelwood-1",
+      "permanent": true
+    },
+    {
+      "source": "/homes/silverleaf-retreat",
+      "destination": "/homes/41st",
+      "permanent": true
+    },
+    {
+      "source": "/homes/arcadia-crest",
+      "destination": "/homes/dc2",
+      "permanent": true
+    },
+    {
+      "source": "/homes/paradise-ridge",
+      "destination": "/homes/68th-2",
+      "permanent": true
+    },
+    {
+      "source": "/homes/sierra-vista-modern",
+      "destination": "/homes/earll",
+      "permanent": true
+    },
+    {
+      "source": "/homes/oakwood-contemporary",
+      "destination": "/homes/charter-oak",
+      "permanent": true
+    },
+    {
+      "source": "/homes/hawthorne-residence",
+      "destination": "/homes/via-estrella",
+      "permanent": true
+    },
+    {
+      "source": "/homes/canyon-edge-estate",
+      "destination": "/homes/5th-st",
+      "permanent": true
+    },
+    {
+      "source": "/homes/scottsdale-summit",
+      "destination": "/homes/dc1",
+      "permanent": true
+    },
+    {
+      "source": "/homes/4th-street",
+      "destination": "/homes/4th-st",
+      "permanent": true
+    },
+    {
+      "source": "/homes/camelback-vista",
+      "destination": "/homes/via-estrella",
+      "permanent": true
+    },
+    {
+      "source": "/homes/camino",
+      "destination": "/homes/mitchell",
+      "permanent": true
+    },
+    {
+      "source": "/homes/moody",
+      "destination": "/homes/hazelwood-1",
+      "permanent": true
+    },
+    {
+      "source": "/homes/glenrosa-arcadia",
+      "destination": "/homes/glenrosa",
+      "permanent": true
+    },
+    {
+      "source": "/homes/desert-cove",
+      "destination": "/homes/camino-sin-nombre",
+      "permanent": true
+    },
+    {
+      "source": "/mitchell",
+      "destination": "/homes/mitchell",
+      "permanent": true
+    },
+    {
+      "source": "/hazelwood-1",
+      "destination": "/homes/hazelwood-1",
+      "permanent": true
+    },
+    {
+      "source": "/hazelwood-2",
+      "destination": "/homes/hazelwood-2",
+      "permanent": true
+    },
+    {
+      "source": "/apache",
+      "destination": "/homes/apache",
+      "permanent": true
+    },
+    {
+      "source": "/68th",
+      "destination": "/homes/68th",
+      "permanent": true
+    },
+    {
+      "source": "/68th-2",
+      "destination": "/homes/68th-2",
+      "permanent": true
+    },
+    {
+      "source": "/41st",
+      "destination": "/homes/41st",
+      "permanent": true
+    },
+    {
+      "source": "/5th-st",
+      "destination": "/homes/5th-st",
+      "permanent": true
+    },
+    {
+      "source": "/4th-st",
+      "destination": "/homes/4th-st",
+      "permanent": true
+    },
+    {
+      "source": "/2nd-st",
+      "destination": "/homes/2nd-st",
+      "permanent": true
+    },
+    {
+      "source": "/via-estrella",
+      "destination": "/homes/via-estrella",
+      "permanent": true
+    },
+    {
+      "source": "/dc2",
+      "destination": "/homes/dc2",
+      "permanent": true
+    },
+    {
+      "source": "/dc1",
+      "destination": "/homes/dc1",
+      "permanent": true
+    },
+    {
+      "source": "/earll",
+      "destination": "/homes/earll",
+      "permanent": true
+    },
+    {
+      "source": "/coolidge",
+      "destination": "/homes/coolidge",
+      "permanent": true
+    },
+    {
+      "source": "/larkspur",
+      "destination": "/homes/larkspur",
+      "permanent": true
+    },
+    {
+      "source": "/previous-projects/charter-oak",
+      "destination": "/homes/charter-oak",
+      "permanent": true
     }
   ],
   "headers": [

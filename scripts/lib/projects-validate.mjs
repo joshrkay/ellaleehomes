@@ -108,7 +108,7 @@ export function validateProjects(projects, opts = {}) {
   const seen = new Map();
   projects.forEach((p, i) => {
     if (typeof p.slug !== 'string' || !SLUG_RX.test(p.slug)) {
-      error('P2', p, 'slug', `slug "${p.slug}" is not lower-case kebab (a to z, 0 to 9, hyphens): the page URL is project?slug=${p.slug}`, null);
+      error('P2', p, 'slug', `slug "${p.slug}" is not lower-case kebab (a to z, 0 to 9, hyphens): the page URL is homes/${p.slug}`, null);
     } else if (encodeURIComponent(p.slug) !== p.slug) {
       error('P2', p, 'slug', `slug "${p.slug}" changes when put in a URL`, null);
     }
@@ -260,7 +260,7 @@ export function crossCheckPages(projects, root, info = []) {
   };
   const known = (rel, text, at, slug) => {
     if (bySlug.has(slug)) return bySlug.get(slug);
-    warnAt(rel, text, at, null, 'slug', `links to project.html?slug=${slug}, which is not in data/projects.json`);
+    warnAt(rel, text, at, null, 'slug', `links to homes/${slug}, which is not in data/projects.json`);
     return null;
   };
   const same = (rel, text, at, p, field, shown, want, show = (x) => (typeof x === 'string' ? JSON.stringify(x) : String(x))) => {
@@ -282,7 +282,7 @@ export function crossCheckPages(projects, root, info = []) {
     const text = read(rel);
     if (text) {
       let n = 0;
-      for (const m of text.matchAll(/<a class="inv-card[^"]*" href="project\.html\?slug=([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
+      for (const m of text.matchAll(/<a class="inv-card[^"]*" href="homes\/([^"]+)\.html"[^>]*>([\s\S]*?)<\/a>/g)) {
         n++;
         const p = known(rel, text, m.index, m[1]);
         if (!p) continue;
@@ -309,7 +309,7 @@ export function crossCheckPages(projects, root, info = []) {
     const text = read(rel);
     if (text) {
       let n = 0;
-      for (const m of text.matchAll(/<a class="proof-tile[^"]*" href="project\.html\?slug=([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
+      for (const m of text.matchAll(/<a class="proof-tile[^"]*" href="homes\/([^"]+)\.html"[^>]*>([\s\S]*?)<\/a>/g)) {
         n++;
         const p = known(rel, text, m.index, m[1]);
         if (!p) continue;
@@ -347,7 +347,7 @@ export function crossCheckPages(projects, root, info = []) {
           if (!title) continue;
           n++;
           const at = from + m.index + m[0].indexOf(title[0]);
-          const slug = (/href="project\.html\?slug=([^"]+)"/.exec(m[1]) || [])[1];
+          const slug = (/href="homes\/([^"]+)\.html"/.exec(m[1]) || [])[1];
           const shown = unesc(title[1]);
           if (slug) {
             const p = known(rel, text, at, slug);

@@ -70,15 +70,17 @@ for (const f of ['privacy.html', 'terms.html', 'disclaimer.html']) {
   if (/general template|not legal advice|reviewed by counsel|For Josh|For Shay|Claude is not a lawyer/i.test(t)) note('L2', 'Draft or template note on a legal page', f);
 }
 
-// S: share image and canonical hygiene, indexing.
+// S: share image and canonical hygiene, indexing. These are meant to carry noindex: the portal, the 404 page,
+// and the project shell (each home is served from its own page, dist/homes/<slug>.html).
+const NOINDEX_OK = new Set(['client-portal.html', '404.html', 'project.html']);
 for (const f of pages) {
   const t = read(f);
   const og = (t.match(/<meta property="og:image" content="([^"]+)"/) || [])[1];
-  if (!og || !/^https:\/\/ellaleehomes\.com\/(assets|uploads)\//.test(og)) note('S1', 'og:image is not a file on the new site', `${f}: ${og}`);
+  if (!NOINDEX_OK.has(f) && (!og || !/^https:\/\/ellaleehomes\.com\/(assets|uploads)\//.test(og))) note('S1', 'og:image is not a file on the new site', `${f}: ${og}`);
   const canon = (t.match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
   const ogu = (t.match(/<meta property="og:url" content="([^"]+)"/) || [])[1];
   if (canon && ogu && canon !== ogu) note('S2', 'og:url differs from canonical', `${f}: ${ogu}`);
-  if (/<meta name="robots" content="[^"]*noindex/i.test(t) && f !== 'client-portal.html') note('S3', 'noindex on an indexable page', f);
+  if (/<meta name="robots" content="[^"]*noindex/i.test(t) && !NOINDEX_OK.has(f)) note('S3', 'noindex on an indexable page', f);
 }
 try {
   const vj = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));

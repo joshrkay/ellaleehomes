@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found | Ella Lee Homes</title>
+<meta name="robots" content="noindex, follow">
+<base href="/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap">
+<link rel="stylesheet" href="assets/site-nav.css">
+<link rel="stylesheet" href="assets/site-hero.css">
+<link rel="stylesheet" href="assets/site-footer.css">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --serif: 'DM Serif Display', Georgia, serif;
+  --disp: 'DM Serif Display', Georgia, serif;
+  --ink: #001526; --paper: #EAE5DC; --nickel: #A5A09D;
+  --navy: #001526; --gold: #BFA06A;
+  --sans: 'Inter', Helvetica, sans-serif;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --dim: rgba(234,229,220,0.45);
+  --ease: cubic-bezier(0.16,1,0.3,1);
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--navy); color: var(--paper); -webkit-font-smoothing: antialiased; }
+em { font-style: normal; color: var(--gold); font-weight: 500; }
+
+/* ── HERO ── */
+.faq-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
+
+/* ── LIST ── */
+#faq { max-width: 1500px; margin: 0 auto; padding: 100px clamp(18px, 2.4vw, 40px) 40px; }
+.faq-intro { margin-bottom: 60px; }
+.faq-intro .faq-eyebrow { color: rgba(0,21,38,0.5); }
+.faq-intro h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 4vw, 54px); line-height: 1.05; letter-spacing: -0.01em; }
+.faq-intro p { margin-top: 18px; max-width: 62ch; font-size: 18px; line-height: 1.7; color: rgba(0,21,38,0.72); }
+.faq-list { border-top: 1px solid rgba(0,21,38,0.16); }
+.faq-item { border-bottom: 1px solid rgba(0,21,38,0.16); }
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer; text-align: left;
+  display: flex; justify-content: space-between; align-items: center; gap: 28px;
+  padding: 32px 0; font-family: var(--sans); font-size: clamp(18px, 2vw, 24px); font-weight: 400;
+  color: var(--ink); letter-spacing: -0.01em; line-height: 1.35; transition: color 0.2s;
+}
+.faq-q:hover { color: var(--navy); }
+.faq-icon { position: relative; flex-shrink: 0; width: 20px; height: 20px; margin-top: 4px; }
+.faq-icon::before, .faq-icon::after { content: ''; position: absolute; background: var(--gold); transition: transform 0.3s var(--ease); }
+.faq-icon::before { top: 9px; left: 0; width: 20px; height: 2px; }
+.faq-icon::after { top: 0; left: 9px; width: 2px; height: 20px; }
+.faq-item.open .faq-icon::after { transform: scaleY(0); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
+.faq-a p { padding: 0 clamp(18px, 2.4vw, 40px) 32px 0; max-width: 72ch; font-size: 18px; line-height: 1.8; color: rgba(0,21,38,0.74); }
+.faq-a a { color: var(--gold); }
+
+/* ── CTA STRIP ── */
+#faq-cta { background: var(--navy); color: var(--paper); text-align: left; padding: 120px 24px; margin-top: 72px; }
+#faq-cta h2 { font-family: var(--sans); font-weight: 300; font-size: clamp(34px, 4.6vw, 62px); letter-spacing: -0.035em; line-height: 1.0; }
+#faq-cta p { margin: 26px 0 0; max-width: 48ch; font-size: 18px; line-height: 1.7; color: rgba(234,229,220,0.6); }
+.faq-btn { display: inline-block; margin-top: 42px; background: var(--gold); color: #1a1a1a; text-decoration: none; padding: 18px 46px; border-radius: 100px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: background 0.2s, transform 0.2s; }
+.faq-btn:hover { background:#E3DACA; transform: translateY(-2px); }
+
+@media (max-width: 700px) {
+  #faq { padding: 64px 24px 24px; }
+  .faq-a p { padding-right: 0; }
+  #faq-cta { padding: 84px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<!-- NAV_PARTIAL -->
+
+<section id="hero-banner" aria-label="Page not found">
+  <img src="uploads/home/dream.jpg" alt="An Ella Lee interior" loading="eager">
+  <div class="hero-head">
+    <div class="hero-head-l">
+      <h1 class="hero-title">Page not <em>found.</em></h1>
+    </div>
+  </div>
+  <div class="hero-caption">
+    <p>That address does not lead anywhere on this site. Our homes and our process are a click away.</p>
+  </div>
+</section>
+<section style="max-width:840px; margin:0 auto; padding: 90px clamp(18px, 2.4vw, 40px) 100px; font-size:18px; line-height:1.8; color: rgba(234,229,220,.86);">
+  <p><a href="previous-projects.html" style="color: var(--gold);">See our previous projects</a>, read <a href="build-your-home.html" style="color: var(--gold);">how we build</a>, or <a href="contact.html" style="color: var(--gold);">start a conversation</a>.</p>
+</section>
+
+<!-- FOOTER -->
+<!-- FOOTER_PARTIAL -->
+
+<script defer src="assets/elh-nav.js"></script>
+</body>
+</html>
