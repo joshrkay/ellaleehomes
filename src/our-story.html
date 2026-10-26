@@ -678,7 +678,7 @@ main { overflow-x: clip; }
       const c = NBR[nbrId];
       byNbr[nbrId].forEach((h, i) => {
         const o = ringOffset(i, byNbr[nbrId].length, 0.004);
-        pins += mk(c.lat + o[0], c.lng + o[1], 'sm-home', h.name, h.loc, 'project.html?slug=' + h.slug);
+        pins += mk(c.lat + o[0], c.lng + o[1], 'sm-home', h.name, h.loc, 'homes/' + h.slug + '.html');
       });
     });
     pins += mk(studio.lat, studio.lng, 'sm-studio', studio.name, studio.meta, '');
@@ -741,7 +741,7 @@ main { overflow-x: clip; }
       const c = NBR[nbrId];
       byNbr[nbrId].forEach((h, i) => {
         const [dLat, dLng] = ringOffset(i, byNbr[nbrId].length, 0.022);
-        const href = 'project.html?slug=' + h.slug;
+        const href = 'homes/' + h.slug + '.html';
         const marker = new g.Marker({ map: map, position: { lat: c.lat + dLat, lng: c.lng + dLng }, icon: pin(22, '#EAE5DC'), title: h.name + ', ' + h.loc, optimized: false });
         const html = '<a class="pin-pop-link" href="' + href + '"><div class="pin-pop-name">' + h.name + '</div><div class="pin-pop-meta">' + h.loc + '</div><div class="pin-pop-cta">View project <span aria-hidden="true">&rarr;</span></div></a>';
         marker.addListener('mouseover', () => { info.setContent(html); info.open({ map: map, anchor: marker }); });

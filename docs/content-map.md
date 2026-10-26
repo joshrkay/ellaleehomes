@@ -35,7 +35,7 @@ Sell is not a top-level entry — it is the last item in Learn.
 |------|------|
 | [`src/index.html`](../src/index.html) | Home: key intro, hero video, story, experience timeline, project strip, testimonials, giving back, FAQ, "Start your build" |
 | [`src/previous-projects.html`](../src/previous-projects.html) | Portfolio grid, style and sqft filters; the cards, counts and ItemList are generated from [`data/projects.json`](../data/projects.json) |
-| [`src/project.html`](../src/project.html) | Project detail shell; content driven by `?slug=` + the `PROJECTS` data, generated from [`data/projects.json`](../data/projects.json) |
+| [`src/project.html`](../src/project.html) | Project detail shell; template for every home: the build writes one page per project to `dist/homes/<slug>.html` (own title, canonical and heading) from the `PROJECTS` data, generated from [`data/projects.json`](../data/projects.json) |
 | [`src/build-your-home.html`](../src/build-your-home.html) | Build phases (scroll-scrubbed timeline) |
 | [`src/sell-your-home.html`](../src/sell-your-home.html) | Selling a home through Ella Lee |
 | [`src/our-story.html`](../src/our-story.html) | About / founder |
@@ -90,7 +90,7 @@ Run `npm run check:assets` for the current count. At the start of the launch wor
 | Intro | `.elh-intro` | Brand intro; plays on first arrival only (see `elhSkipIntro` below) |
 | Hero | `#hero`, `#hero-scroll-zone` | Video + scroll narrative |
 | Why Us | `#experience` | Pillars / imagery row |
-| Portfolio teaser | featured homes | Links to `project.html?slug=` |
+| Portfolio teaser | featured homes | Links to `homes/<slug>.html` |
 | About / meet | `#meet` | Team imagery tabs |
 | Start your build | the closing band on each page | A button to `contact.html`; the Buildertrend form lives only on the Contact page |
 

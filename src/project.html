@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Custom Home Project in Arizona | Ella Lee Homes</title>
+<meta name="robots" content="noindex, follow"><!-- @project:shell-only (the build drops this from each home's own page) -->
 <meta name="description" content="A custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ella Lee Homes">
@@ -613,7 +614,8 @@ const escAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').
 // The project named in the address (?slug=), after the aliases above. Null when there is no slug or it is unknown.
 function resolveSlug() {
   const own = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
-  const raw = new URLSearchParams(window.location.search).get('slug') || '';
+  // The built page for a home (dist/homes/<slug>.html) carries its slug; the bare shell reads ?slug= (local previews, old links).
+  const raw = window.__PROJECT_SLUG__ || new URLSearchParams(window.location.search).get('slug') || '';
   const slug = own(SLUG_ALIASES, raw) ? SLUG_ALIASES[raw] : raw;
   return own(PROJECTS, slug) ? slug : null;
 }
@@ -631,7 +633,7 @@ function renderProject() {
   const plainName = project.name.replace(/&amp;/g, '&');
   const pageTitle = `${plainName}: Custom Home in Arizona | Ella Lee Homes`;
   const pageDesc = `${plainName}, a custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.`;
-  const pageUrl = `https://ellaleehomes.com/project?slug=${encodeURIComponent(slug)}`;
+  const pageUrl = `https://ellaleehomes.com/homes/${encodeURIComponent(slug)}`;
   document.title = pageTitle;
   // Each project gets its own title, description and share tags (the shell ships generic ones).
   const setMeta = (sel, val, attrs) => {
@@ -757,7 +759,7 @@ function renderProject() {
     // "Completed home value $X · N sqft". A figure that is missing is left out; with neither there is no line.
     const meta = [has(p.price) && `Completed home value ${p.price}`, has(p.sqft) && `${p.sqft} sqft`].filter(Boolean).join(' · ');
     return `
-      <a class="related-card" href="project.html?slug=${s}">
+      <a class="related-card" href="homes/${s}.html">
         <div class="related-card-img"><img src="${cardSrc(p.heroImg)}" alt="${p.name.replace(/&amp;/g, '&')}"></div>
         <div class="related-card-loc">${p.location.split(',')[0]}, AZ</div>
         <div class="related-card-name">${p.name}</div>

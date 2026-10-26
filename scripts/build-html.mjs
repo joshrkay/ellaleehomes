@@ -120,6 +120,8 @@ const PAGES = [
   { file: 'why-us.html', url: '/why-us', changefreq: 'monthly', priority: '0.8', active: { whyus: true } },
   { file: 'developers.html', url: '/developers', changefreq: 'monthly', priority: '0.7' },
   { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7' },
+  // Vercel serves dist/404.html, with a 404 status, for any address that matches nothing. Never listed.
+  { file: '404.html', url: null },
   // Carries `robots: noindex` and is disallowed in robots.txt.
   { file: 'client-portal.html', url: null },
   { file: 'contact.html', url: '/contact', changefreq: 'monthly', priority: '0.8' },
@@ -241,6 +243,66 @@ ${urls}
 `;
 }
 
+/**
+ * One built page per home: dist/homes/<slug>.html, served as /homes/<slug>. The shell (project.html) fills itself
+ * in with JavaScript, so every home used to share one identical first-pass HTML at project?slug=...; Search Console
+ * reports that as duplicates or "crawled, not indexed". Each home now ships its own title, description,
+ * canonical, share tags and heading in the HTML itself; the script still renders the rest.
+ *
+ * The pages sit one folder down, so `<base href="/">` keeps every relative asset and link pointing at the root.
+ *
+ * @param {string} shell the finished dist/project.html
+ */
+function writeHomePages(shell) {
+  const dir = path.join(distDir, 'homes');
+  fs.mkdirSync(dir, { recursive: true });
+  const unescape = (s) => String(s).replace(/&amp;/g, '&');
+  for (const p of PROJECTS_DATA) {
+    const name = unescape(p.name ?? p.slug);
+    const title = `${name}: Custom Home in Arizona | Ella Lee Homes`;
+    const desc = `${name}, a custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.`;
+    const url = `${SITE_ORIGIN}/homes/${encodeURIComponent(p.slug)}`;
+    const swap = (re, to) => {
+      if (!re.test(shell)) {
+        console.error('project.html lost a tag the per-home pages rewrite:', re);
+        process.exit(1);
+      }
+      return (html) => html.replace(re, () => to);
+    };
+    let html = shell;
+    for (const edit of [
+      swap(/<title>[^<]*<\/title>/, `<title>${escapeAttr(title)}</title>`),
+      swap(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeAttr(desc)}">`),
+      swap(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeAttr(title)}">`),
+      swap(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeAttr(desc)}">`),
+      swap(/<meta name="robots" content="noindex, follow"><!-- @project:shell-only[^>]*-->/,
+        `<meta property="og:url" content="${url}">\n<link rel="canonical" href="${url}">\n<base href="/">\n<script>window.__PROJECT_SLUG__ = ${JSON.stringify(p.slug)};</script>`),
+      swap(/<h1 class="hero-name" id="hero-name"><\/h1>/, `<h1 class="hero-name" id="hero-name">${escapeAttr(name)}</h1>`),
+    ]) html = edit(html);
+    fs.writeFileSync(path.join(dir, `${p.slug}.html`), html, 'utf8');
+  }
+  console.log('Wrote', path.join('dist', 'homes', '*.html'), `(${PROJECTS_DATA.length} homes)`);
+}
+
+/**
+ * vercel.json must redirect every old project address (SLUG_ALIASES in project.html) to the real home page,
+ * or an old link lands on a 404 now that each home has its own URL.
+ */
+function checkAliasRedirects() {
+  const shell = fs.readFileSync(path.join(srcDir, 'project.html'), 'utf8');
+  const block = /const SLUG_ALIASES = \{([\s\S]*?)\n\};/.exec(shell);
+  const vercel = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const redirected = new Map(vercel.redirects.map((r) => [r.source, r.destination]));
+  let bad = 0;
+  for (const m of block ? block[1].matchAll(/"([^"]+)":\s*"([^"]+)"/g) : []) {
+    if (redirected.get(`/homes/${m[1]}`) !== `/homes/${m[2]}`) {
+      console.error(`vercel.json: missing redirect /homes/${m[1]} -> /homes/${m[2]} (SLUG_ALIASES in src/project.html)`);
+      bad++;
+    }
+  }
+  if (bad) process.exit(1);
+}
+
 function writeSitemap() {
   for (const page of PAGES) {
     if (!('url' in page)) {
@@ -338,7 +400,10 @@ for (const page of PAGES) {
   }
   fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
   console.log('Wrote', path.join('dist', page.file));
+  if (page.file === 'project.html') writeHomePages(content);
 }
+
+checkAliasRedirects();
 
 writeSitemap();
 

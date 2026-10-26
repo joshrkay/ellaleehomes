@@ -21,7 +21,7 @@ Files the build reads. Edit the data here, not the pages: the pages only carry m
 | | `@projects:tabs` | the "All Homes" tab and the three size tabs, with their counts |
 | | `@projects:cards` | the four bands, their "N homes" counts and every `.proj-card` |
 | `src/project.html` | `@projects:data` | the `const PROJECTS = {...}` block the page script reads |
-| `sitemap.xml` | (no marker) | one `project?slug=` URL per listed project |
+| `sitemap.xml` | (no marker) | one `/homes/<slug>` URL per listed project |
 
 The bands are `small` (up to 4,000 sqft), `mid` (4,000 to 6,000), `large` (6,000 and over) and `new` ("More projects"). The cards, the counts, the ItemList and the sitemap all come from the same sorted list, so they always agree. A project with `status: "photos-only"` gets the short "Details coming soon" card and stays out of the ItemList, the "All Homes" count and the sitemap.
 
@@ -33,7 +33,7 @@ A field with no value is `null` and renders as nothing, never as a placeholder.
 
 | Field | Meaning | Who supplies it |
 |---|---|---|
-| `slug` | The page address, `project.html?slug=<slug>`. Lower-case kebab. Do not change one that is live: old links and the sitemap use it. | Developer |
+| `slug` | The page address, `/homes/<slug>` (built to `dist/homes/<slug>.html`). Lower-case kebab. Do not change one that is live: old links and the sitemap use it. | Developer |
 | `name` | The name on the card, the page and the photo descriptions. Plain text. | Rebecca (R4) |
 | `status` | `sold`, `for-sale`, `in-progress` or `photos-only`. | Rebecca (R1) |
 | `statusLabel` | The words under the name on the project page ("Sold 2024"). The card's corner chip is not this: it follows `status` (Sold, For Sale, In Progress). | Developer |
