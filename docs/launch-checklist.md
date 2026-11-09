@@ -31,7 +31,7 @@ Work through this in order on launch day. Each line says who does it and how to 
 2. Add a 301 for every old URL that has no equivalent path to `vercel.json`. Check each on a preview before cutover.
 3. Make Search Console verification survive the move: verify by DNS, or put the tag on every page (today it is only on Our Story and Client Portal).
 4. Submit `https://ellaleehomes.com/sitemap.xml`. The sitemap currently omits the three photo-only project pages.
-5. Decide `robots.txt`: it welcomes 13 named AI crawlers and disallows `/client-portal`, which hides that page's `noindex` from Google. Pick one for the portal.
+5. `robots.txt` no longer disallows `/client-portal`; the page's own `noindex` keeps it out of Google. Still decide whether the 13 named AI crawlers should stay welcomed.
 6. Analytics: the Privacy text says there are none. Adding any (including Vercel Analytics) means the Privacy section 2 changes first.
 
 ## 4. After the switch

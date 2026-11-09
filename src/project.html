@@ -641,9 +641,12 @@ function renderProject() {
     if (!el && attrs) { el = document.createElement('meta'); Object.keys(attrs).forEach((k) => el.setAttribute(k, attrs[k])); document.head.appendChild(el); }
     if (el) el.setAttribute('content', val);
   };
-  setMeta('meta[name="description"]', pageDesc);
+  // A built home page (dist/homes/<slug>.html) already carries its own, more specific description; only the bare shell needs these.
+  if (!window.__PROJECT_SLUG__) {
+    setMeta('meta[name="description"]', pageDesc);
+    setMeta('meta[property="og:description"]', pageDesc);
+  }
   setMeta('meta[property="og:title"]', pageTitle);
-  setMeta('meta[property="og:description"]', pageDesc);
   setMeta('meta[property="og:url"]', pageUrl, { property: 'og:url' });
 
   // Every project renders from this one shell, and the aliases above mean
