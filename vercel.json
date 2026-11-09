@@ -6,6 +6,17 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.ellaleehomes.com"
+        }
+      ],
+      "destination": "https://ellaleehomes.com/$1",
+      "permanent": true
+    },
+    {
       "source": "/process",
       "destination": "/build-your-home",
       "permanent": true

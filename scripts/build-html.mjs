@@ -7,7 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { applyReviews } from './lib/reviews.mjs';
 import { applyResponsiveImages } from './lib/images.mjs';
-import { loadProjects, applyProjectRegions, projectUrls as listProjectUrls, ProjectsError } from './lib/projects.mjs';
+import { loadProjects, applyProjectRegions, projectUrls as listProjectUrls, ProjectsError, isPhotosOnly, fmtInt, fmtMoney, escHtml } from './lib/projects.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
@@ -122,7 +122,7 @@ const PAGES = [
   { file: 'stories.html', url: '/stories', changefreq: 'weekly', priority: '0.7' },
   // Vercel serves dist/404.html, with a 404 status, for any address that matches nothing. Never listed.
   { file: '404.html', url: null },
-  // Carries `robots: noindex` and is disallowed in robots.txt.
+  // Carries `robots: noindex`. Not disallowed in robots.txt: a blocked page hides its own noindex from Google.
   { file: 'client-portal.html', url: null },
   { file: 'contact.html', url: '/contact', changefreq: 'monthly', priority: '0.8' },
 
@@ -245,9 +245,13 @@ ${urls}
 
 /**
  * One built page per home: dist/homes/<slug>.html, served as /homes/<slug>. The shell (project.html) fills itself
- * in with JavaScript, so every home used to share one identical first-pass HTML at project?slug=...; Search Console
- * reports that as duplicates or "crawled, not indexed". Each home now ships its own title, description,
- * canonical, share tags and heading in the HTML itself; the script still renders the rest.
+ * in with JavaScript, so every home used to share one near-identical first-pass HTML; Search Console reports that
+ * as "Duplicate, Google chose different canonical" or "crawled, not indexed". Each home now ships its own title,
+ * description, canonical, share tags, heading, facts, amenities and story in the HTML itself. The script still
+ * renders the page on top (photos, related homes, lightbox) and writes the same text over what is here.
+ *
+ * Photos-only homes have no facts or story yet and are not in the sitemap or linked from anywhere, so their
+ * pages carry `noindex, follow` until the data gives them something to say.
  *
  * The pages sit one folder down, so `<base href="/">` keeps every relative asset and link pointing at the root.
  *
@@ -257,11 +261,23 @@ function writeHomePages(shell) {
   const dir = path.join(distDir, 'homes');
   fs.mkdirSync(dir, { recursive: true });
   const unescape = (s) => String(s).replace(/&amp;/g, '&');
+  const has = (v) => v !== null && v !== undefined && String(v).trim() !== '';
   for (const p of PROJECTS_DATA) {
     const name = unescape(p.name ?? p.slug);
     const title = `${name}: Custom Home in Arizona | Ella Lee Homes`;
-    const desc = `${name}, a custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.`;
+    const photosOnly = isPhotosOnly(p);
+    // A description that names this home's size, rooms and place, so no two homes share one.
+    const facts = [
+      has(p.sqft) && `${fmtInt(p.sqft)} sqft`,
+      has(p.beds) && `${p.beds} bed`,
+      has(p.baths) && `${p.baths} bath`,
+    ].filter(Boolean);
+    const place = has(p.locationLabel) && p.locationLabel !== 'Arizona' ? p.locationLabel : 'Arizona';
+    const desc = photosOnly || !facts.length
+      ? `${name}, a custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.`
+      : `${name}: a ${facts.join(', ')} custom home in ${place}, built by Ella Lee Homes. See photos, specs, and details.`;
     const url = `${SITE_ORIGIN}/homes/${encodeURIComponent(p.slug)}`;
+    const money = p.valueLabel ?? (p.value != null ? fmtMoney(p.value) : '');
     const swap = (re, to) => {
       if (!re.test(shell)) {
         console.error('project.html lost a tag the per-home pages rewrite:', re);
@@ -269,6 +285,13 @@ function writeHomePages(shell) {
       }
       return (html) => html.replace(re, () => to);
     };
+    // The stat boxes stay in place (the page script removes an empty one), so only the value is filled.
+    const stat = (id, value, unit) =>
+      swap(new RegExp(`<div class="stat-val" id="${id}"></div>`),
+        `<div class="stat-val" id="${id}">${has(value) ? `${escHtml(String(value).trim())}${unit ? `<span class="stat-unit">${unit}</span>` : ''}` : ''}</div>`);
+    const amenityRows = (p.amenities ?? []).map((a) =>
+      `<div class="amenity-row"><div class="amenity-icon"></div><div><div class="amenity-name">${a[0]}</div><div class="amenity-detail">${a[1]}</div></div></div>`).join('\n');
+    const robots = photosOnly ? '<meta name="robots" content="noindex, follow">\n' : '';
     let html = shell;
     for (const edit of [
       swap(/<title>[^<]*<\/title>/, `<title>${escapeAttr(title)}</title>`),
@@ -276,8 +299,19 @@ function writeHomePages(shell) {
       swap(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeAttr(title)}">`),
       swap(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeAttr(desc)}">`),
       swap(/<meta name="robots" content="noindex, follow"><!-- @project:shell-only[^>]*-->/,
-        `<meta property="og:url" content="${url}">\n<link rel="canonical" href="${url}">\n<base href="/">\n<script>window.__PROJECT_SLUG__ = ${JSON.stringify(p.slug)};</script>`),
+        `${robots}<meta property="og:url" content="${url}">\n<link rel="canonical" href="${url}">\n<base href="/">\n<script>window.__PROJECT_SLUG__ = ${JSON.stringify(p.slug)};</script>`),
       swap(/<h1 class="hero-name" id="hero-name"><\/h1>/, `<h1 class="hero-name" id="hero-name">${escapeAttr(name)}</h1>`),
+      swap(/<div class="hero-tag" id="hero-tag">[^<]*<\/div>/, `<div class="hero-tag" id="hero-tag">${p.year ? `Completed · ${p.year}` : 'Previous Project'}</div>`),
+      swap(/<div class="hero-location" id="hero-location"><\/div>/, `<div class="hero-location" id="hero-location">${escHtml(p.locationLabel ?? '')}</div>`),
+      swap(/<div class="hero-status" id="hero-status">[^<]*<\/div>/, `<div class="hero-status" id="hero-status">${escHtml(p.statusLabel ?? '')}</div>`),
+      stat('stat-price', money),
+      stat('stat-sqft', has(p.sqft) ? fmtInt(p.sqft) : '', ' sqft'),
+      stat('stat-baths', has(p.baths) ? String(p.baths) : ''),
+      stat('stat-beds', has(p.beds) ? String(p.beds) : ''),
+      swap(/<div class="amenities-list" id="amenities-list"><\/div>/, `<div class="amenities-list" id="amenities-list">${amenityRows}</div>`),
+      swap(/<div class="section-title" id="story-title"><\/div>/, `<div class="section-title" id="story-title">${p.storyTitle ?? ''}</div>`),
+      swap(/<div class="story-cols" id="story-body"><\/div>/,
+        `<div class="story-cols" id="story-body">${(p.storyParas ?? []).map((t) => `<p class="description">${t}</p>`).join('')}</div>`),
     ]) html = edit(html);
     fs.writeFileSync(path.join(dir, `${p.slug}.html`), html, 'utf8');
   }

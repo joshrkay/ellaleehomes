@@ -1,60 +1,48 @@
 # Ella Lee Homes — robots.txt
-# Allow all standard search engines
+# Allow all standard search engines.
+# /client-portal is kept out of the index by its own noindex tag. It is not disallowed here,
+# because a page Google cannot crawl is a page whose noindex Google cannot read.
 User-agent: *
 Allow: /
-Disallow: /client-portal
 
 # ─── AI search & answer engines (explicitly welcomed) ───
 User-agent: GPTBot
 Allow: /
-Disallow: /client-portal
 
 User-agent: OAI-SearchBot
 Allow: /
-Disallow: /client-portal
 
 User-agent: ChatGPT-User
 Allow: /
-Disallow: /client-portal
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /client-portal
 
 User-agent: Claude-Web
 Allow: /
-Disallow: /client-portal
 
 User-agent: anthropic-ai
 Allow: /
-Disallow: /client-portal
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /client-portal
 
 User-agent: Perplexity-User
 Allow: /
-Disallow: /client-portal
 
 User-agent: Google-Extended
 Allow: /
-Disallow: /client-portal
 
 User-agent: Applebot
 Allow: /
-Disallow: /client-portal
 
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /client-portal
 
 User-agent: Bingbot
 Allow: /
-Disallow: /client-portal
 
 User-agent: CCBot
 Allow: /
-Disallow: /client-portal
 
 Sitemap: https://ellaleehomes.com/sitemap.xml
