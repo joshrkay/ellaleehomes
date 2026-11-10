@@ -26,6 +26,10 @@ Preview production-like files from **`dist/`** only (paths assume `assets/` and 
 
 Every `.html` in `src/` must appear in the `PAGES` table in `scripts/build-html.mjs`; the build fails if one is missing, so a new page cannot silently stop shipping. Each entry sets which top-level nav entry is current and the page's sitemap URL.
 
+The sitemap's `<lastmod>` dates live in `data/lastmod.json`. The build rewrites that file when a page's own content changes (not the shared nav or footer): commit it together with the change.
+
+Pages link each other by file name (`contact.html`), which is what a local preview and the QA scripts open. A build on Vercel, or one run with `ELH_CLEAN_URLS=1`, writes those links without the extension (`contact`, `homes/mitchell`), the way the live site serves them, so no link goes through a redirect.
+
 ## The portfolio
 
 The homes are written down once, in `data/projects.json`. The build fills the portfolio page's cards, tab counts and ItemList, the project page's `PROJECTS` data and the sitemap's project URLs from it, and `npm run check:projects` checks it (each error is a `[P]` launch blocker). Rebecca's records come in through `npm run projects:csv` and `npm run projects:import`. `data/README.md` has the fields, how to add a home, and the disagreements still to resolve.

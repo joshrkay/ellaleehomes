@@ -103,6 +103,10 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
   color: rgba(234,229,220,0.6); margin-bottom: 12px;
 }
+/* The h1 holds the place and the name, so the page's main heading says where the home is. It only wraps:
+   the two lines keep their own type. */
+.hero-h1 { font: inherit; letter-spacing: inherit; }
+.hero-h1 > span { display: block; }
 .hero-name { font-family: var(--disp);
   font-size: clamp(40px, 6vw, 80px); font-weight: 400;
   line-height: 1.1; letter-spacing: -0.02em; color: var(--paper);
@@ -444,6 +448,17 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
       "name": "Arizona"
     }
   ],
+  "sameAs": [
+    "https://www.facebook.com/1EllaLeeHomes",
+    "https://www.instagram.com/ellaleehomes/",
+    "https://www.youtube.com/@ellaleehomes1888"
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "08:00",
+    "closes": "17:00"
+  },
   "knowsAbout": [
     "Custom home building",
     "Luxury home construction",
@@ -471,8 +486,10 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
     <a href="previous-projects.html" class="hero-back">← All Projects</a>
     <div class="hero-tag" id="hero-tag">Completed</div>
     <div class="hero-title">
-      <div class="hero-location" id="hero-location"></div>
-      <h1 class="hero-name" id="hero-name"></h1>
+      <h1 class="hero-h1">
+        <span class="hero-location" id="hero-location"></span>
+        <span class="hero-name" id="hero-name"></span>
+      </h1>
     </div>
     <div class="hero-status" id="hero-status">Sold</div>
   </section>
@@ -502,13 +519,13 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   <div id="content">
     <div id="amenities-col">
       <div class="section-label">Amenities &amp; Features</div>
-      <div class="section-title">Included in <em>This Home</em></div>
+      <h2 class="section-title">Included in <em>This Home</em></h2>
       <div class="amenities-list" id="amenities-list"></div>
     </div>
 
     <div id="photos-col">
       <div class="section-label">Photo Gallery</div>
-      <div class="section-title">Inside the <em>Home</em></div>
+      <h2 class="section-title">Inside the <em>Home</em></h2>
       <div class="gallery-grid" id="gallery-grid"></div>
     </div>
   </div>
@@ -517,7 +534,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   <div id="story">
     <div class="story-inner">
       <div class="section-label">About This Home</div>
-      <div class="section-title" id="story-title"></div>
+      <h2 class="section-title" id="story-title"></h2>
       <div class="story-cols" id="story-body"></div>
     </div>
   </div>
@@ -538,7 +555,7 @@ body { font-family: var(--sans); background: var(--navy); color: var(--paper); -
   <!-- RELATED -->
   <section id="related">
     <div class="section-label">More From Ella Lee Homes</div>
-    <div class="section-title">Similar <em>Projects</em></div>
+    <h2 class="section-title">Similar <em>Projects</em></h2>
     <div class="related-grid" id="related-grid"></div>
   </section>
 
@@ -634,7 +651,8 @@ function renderProject() {
   const pageTitle = `${plainName}: Custom Home in Arizona | Ella Lee Homes`;
   const pageDesc = `${plainName}, a custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.`;
   const pageUrl = `https://ellaleehomes.com/homes/${encodeURIComponent(slug)}`;
-  document.title = pageTitle;
+  // A built home page (dist/homes/<slug>.html) ships its own title, which names the home's place; only the bare shell needs this one.
+  if (!window.__PROJECT_SLUG__) document.title = pageTitle;
   // Each project gets its own title, description and share tags (the shell ships generic ones).
   const setMeta = (sel, val, attrs) => {
     let el = document.querySelector(sel);
@@ -645,8 +663,8 @@ function renderProject() {
   if (!window.__PROJECT_SLUG__) {
     setMeta('meta[name="description"]', pageDesc);
     setMeta('meta[property="og:description"]', pageDesc);
+    setMeta('meta[property="og:title"]', pageTitle);
   }
-  setMeta('meta[property="og:title"]', pageTitle);
   setMeta('meta[property="og:url"]', pageUrl, { property: 'og:url' });
 
   // Every project renders from this one shell, and the aliases above mean
@@ -710,7 +728,7 @@ function renderProject() {
     // the two-column layout still balances visually.
     amCol.innerHTML = `
       <div class="section-label">Amenities &amp; Features</div>
-      <div class="section-title">Coming <em>Soon</em></div>
+      <h2 class="section-title">Coming <em>Soon</em></h2>
       <p class="description">Detailed feature list and amenities for this home will be added here.</p>
     `;
   }

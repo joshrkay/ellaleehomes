@@ -2,12 +2,13 @@
 /**
  * Injects partials (nav, footer) into src/*.html and emits dist/.
  */
+import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { applyReviews } from './lib/reviews.mjs';
 import { applyResponsiveImages } from './lib/images.mjs';
-import { loadProjects, applyProjectRegions, projectUrls as listProjectUrls, ProjectsError, isPhotosOnly, fmtInt, fmtMoney, escHtml } from './lib/projects.mjs';
+import { loadProjects, applyProjectRegions, projectUrls as listProjectUrls, ProjectsError, isPhotosOnly, fmtInt, fmtMoney, escHtml, residenceObject, absoluteUrl } from './lib/projects.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
@@ -212,19 +213,82 @@ function projectUrls() {
   return urls;
 }
 
+/**
+ * The sitemap's <lastmod>: the day each page's own content last changed, kept in data/lastmod.json.
+ *
+ * Git cannot answer this on Vercel, which builds from a shallow clone, and the build date would claim every page
+ * changed on every deploy, which teaches Google to ignore the field. So the build fingerprints what each page says
+ * (its source after the portfolio regions are filled in, or the home's record in data/projects.json; not the
+ * shared nav and footer) and compares it with the fingerprint on file. A page whose content changed gets today's
+ * date, and the file is rewritten: commit it with the change. On Vercel nothing is written; a page the committed
+ * file does not match is dated the day of that build.
+ */
+const LASTMOD_FILE = path.join(root, 'data', 'lastmod.json');
+const lastmodOnFile = fs.existsSync(LASTMOD_FILE) ? JSON.parse(fs.readFileSync(LASTMOD_FILE, 'utf8')) : {};
+/** @type {Record<string, { hash: string; lastmod: string }>} */
+const lastmodNow = {};
+const TODAY = new Date().toISOString().slice(0, 10);
+
+/**
+ * @param {string} urlPath the page's path on the live site, such as "/contact"
+ * @param {string} content what the page says, before the shared partials go in
+ */
+function recordLastmod(urlPath, content) {
+  const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 16);
+  const was = lastmodOnFile[urlPath];
+  lastmodNow[urlPath] = { hash, lastmod: was && was.hash === hash ? was.lastmod : TODAY };
+}
+
+function saveLastmod() {
+  const sorted = Object.fromEntries(Object.keys(lastmodNow).sort().map((k) => [k, lastmodNow[k]]));
+  const text = JSON.stringify(sorted, null, 2) + '\n';
+  if (process.env.VERCEL || (fs.existsSync(LASTMOD_FILE) && fs.readFileSync(LASTMOD_FILE, 'utf8') === text)) return;
+  fs.writeFileSync(LASTMOD_FILE, text, 'utf8');
+  console.log('Wrote', path.join('data', 'lastmod.json'), '(a page changed: commit it with the change)');
+}
+
+/**
+ * Internal links as the live site serves them. The pages link each other by file name (contact.html), which is
+ * what a local preview and the QA scripts open. On Vercel `cleanUrls` answers every such address with a redirect
+ * to the extension-less one, so each internal link would cost a visitor and a crawler one extra hop and point at
+ * an address that is not the canonical. A deploy build (Vercel sets VERCEL; ELH_CLEAN_URLS=1 does the same by
+ * hand) writes the links the way the canonicals and the sitemap already spell them: contact.html → contact,
+ * index.html → ./, homes/x.html → homes/x. The bare project shell keeps its own ?slug= fallback redirect.
+ */
+const CLEAN_URLS = Boolean(process.env.VERCEL) || process.env.ELH_CLEAN_URLS === '1';
+
+function cleanInternalLinks(html) {
+  if (!CLEAN_URLS) return html;
+  const out = html
+    .replace(/href="((?:homes\/)?[a-z0-9-]+)\.html([#?][^"]*)?"/g, (m, file, rest = '') => {
+      if (file === 'index') return `href="./${rest}"`;
+      return `href="${file}${rest}"`;
+    })
+    // The two links a page script writes: the related homes on a home page, and the pins of the Our Story map.
+    .replace(/href="homes\/\$\{s\}\.html"/g, 'href="homes/${s}"')
+    .replace(/'homes\/' \+ h\.slug \+ '\.html'/g, "'homes/' + h.slug");
+  const left = out.match(/(?:href="|')homes\/[^"'\s]*\.html/);
+  if (left) {
+    console.error('A link to a home still carries .html after cleanInternalLinks:', left[0]);
+    process.exit(1);
+  }
+  return out;
+}
+
 function xmlEscape(s) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 /**
- * @param {{ loc: string; changefreq?: string; priority?: string }[]} entries
+ * @param {{ loc: string; lastmod?: string; changefreq?: string; priority?: string }[]} entries
  */
 function renderSitemap(entries) {
   const urls = entries
-    .map(({ loc, changefreq, priority }) =>
+    .map(({ loc, lastmod, changefreq, priority }) =>
       [
         '  <url>',
         `    <loc>${xmlEscape(loc)}</loc>`,
+        lastmod ? `    <lastmod>${lastmod}</lastmod>` : null,
         changefreq ? `    <changefreq>${changefreq}</changefreq>` : null,
         priority ? `    <priority>${priority}</priority>` : null,
         '  </url>',
@@ -264,8 +328,16 @@ function writeHomePages(shell) {
   const has = (v) => v !== null && v !== undefined && String(v).trim() !== '';
   for (const p of PROJECTS_DATA) {
     const name = unescape(p.name ?? p.slug);
-    const title = `${name}: Custom Home in Arizona | Ella Lee Homes`;
     const photosOnly = isPhotosOnly(p);
+    // The title names the home's place. The neighbourhood wording is tried first; if that runs past what a search
+    // result shows (about 60 characters), the market city is used instead.
+    const titleFor = (where) => `${name}: Custom Home in ${where} | Ella Lee Homes`;
+    const withState = (where) => (/\b(Arizona|AZ)$/.test(where) ? where.replace(/\bArizona$/, 'AZ') : `${where}, AZ`);
+    const places = [
+      has(p.locationLabel) && p.locationLabel !== 'Arizona' && withState(p.locationLabel),
+      has(p.market) && withState(p.market),
+    ].filter(Boolean);
+    const title = titleFor(places.find((w) => titleFor(w).length <= 60) ?? places.at(-1) ?? 'Arizona');
     // A description that names this home's size, rooms and place, so no two homes share one.
     const facts = [
       has(p.sqft) && `${fmtInt(p.sqft)} sqft`,
@@ -277,6 +349,24 @@ function writeHomePages(shell) {
       ? `${name}, a custom home by Ella Lee Homes, a custom home builder in Arizona. See photos, specs, and details.`
       : `${name}: a ${facts.join(', ')} custom home in ${place}, built by Ella Lee Homes. See photos, specs, and details.`;
     const url = `${SITE_ORIGIN}/homes/${encodeURIComponent(p.slug)}`;
+    // The home's own photo on a shared link, and its own structured data: the residence (the portfolio ItemList's
+    // entry for it, with its description and photos) and the trail back to the portfolio.
+    // Only photos this site hosts: one still borrowed from another site keeps the default share image.
+    const onSite = (u) => has(u) && !/^(?:[a-z][a-z0-9+.-]*:)?\/\//i.test(u);
+    const shareImage = [p.heroPhoto, p.cardPhoto].filter(onSite).map((u) => absoluteUrl(u, SITE_ORIGIN))[0];
+    const photos = [...new Set([p.heroPhoto, ...(p.gallery ?? [])].filter(onSite))].slice(0, 6).map((u) => absoluteUrl(u, SITE_ORIGIN));
+    const schema = photosOnly ? '' : [
+      { '@context': 'https://schema.org', ...residenceObject(p, SITE_ORIGIN), '@id': `${url}#home`, description: desc, image: photos.length ? photos : undefined },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_ORIGIN}/` },
+          { '@type': 'ListItem', position: 2, name: 'Portfolio', item: `${SITE_ORIGIN}/previous-projects` },
+          { '@type': 'ListItem', position: 3, name, item: url },
+        ],
+      },
+    ].map((o) => `<script type="application/ld+json">\n${JSON.stringify(o, null, 2).replace(/</g, '\\u003c')}\n</script>\n`).join('');
     const money = p.valueLabel ?? (p.value != null ? fmtMoney(p.value) : '');
     const swap = (re, to) => {
       if (!re.test(shell)) {
@@ -299,21 +389,26 @@ function writeHomePages(shell) {
       swap(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeAttr(title)}">`),
       swap(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeAttr(desc)}">`),
       swap(/<meta name="robots" content="noindex, follow"><!-- @project:shell-only[^>]*-->/,
-        `${robots}<meta property="og:url" content="${url}">\n<link rel="canonical" href="${url}">\n<base href="/">\n<script>window.__PROJECT_SLUG__ = ${JSON.stringify(p.slug)};</script>`),
-      swap(/<h1 class="hero-name" id="hero-name"><\/h1>/, `<h1 class="hero-name" id="hero-name">${escapeAttr(name)}</h1>`),
+        `${robots}<meta property="og:url" content="${url}">\n<link rel="canonical" href="${url}">\n<base href="/">\n${schema}<script>window.__PROJECT_SLUG__ = ${JSON.stringify(p.slug)};</script>`),
+      ...(has(shareImage) ? [
+        swap(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${escapeAttr(shareImage)}">`),
+        swap(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${escapeAttr(shareImage)}">`),
+      ] : []),
+      swap(/<span class="hero-name" id="hero-name"><\/span>/, `<span class="hero-name" id="hero-name">${escapeAttr(name)}</span>`),
       swap(/<div class="hero-tag" id="hero-tag">[^<]*<\/div>/, `<div class="hero-tag" id="hero-tag">${p.year ? `Completed · ${p.year}` : 'Previous Project'}</div>`),
-      swap(/<div class="hero-location" id="hero-location"><\/div>/, `<div class="hero-location" id="hero-location">${escHtml(p.locationLabel ?? '')}</div>`),
+      swap(/<span class="hero-location" id="hero-location"><\/span>/, `<span class="hero-location" id="hero-location">${escHtml(p.locationLabel ?? '')}</span>`),
       swap(/<div class="hero-status" id="hero-status">[^<]*<\/div>/, `<div class="hero-status" id="hero-status">${escHtml(p.statusLabel ?? '')}</div>`),
       stat('stat-price', money),
       stat('stat-sqft', has(p.sqft) ? fmtInt(p.sqft) : '', ' sqft'),
       stat('stat-baths', has(p.baths) ? String(p.baths) : ''),
       stat('stat-beds', has(p.beds) ? String(p.beds) : ''),
       swap(/<div class="amenities-list" id="amenities-list"><\/div>/, `<div class="amenities-list" id="amenities-list">${amenityRows}</div>`),
-      swap(/<div class="section-title" id="story-title"><\/div>/, `<div class="section-title" id="story-title">${p.storyTitle ?? ''}</div>`),
+      swap(/<h2 class="section-title" id="story-title"><\/h2>/, `<h2 class="section-title" id="story-title">${p.storyTitle ?? ''}</h2>`),
       swap(/<div class="story-cols" id="story-body"><\/div>/,
         `<div class="story-cols" id="story-body">${(p.storyParas ?? []).map((t) => `<p class="description">${t}</p>`).join('')}</div>`),
     ]) html = edit(html);
-    fs.writeFileSync(path.join(dir, `${p.slug}.html`), html, 'utf8');
+    if (!photosOnly) recordLastmod(`/homes/${encodeURIComponent(p.slug)}`, JSON.stringify(p));
+    fs.writeFileSync(path.join(dir, `${p.slug}.html`), cleanInternalLinks(html), 'utf8');
   }
   console.log('Wrote', path.join('dist', 'homes', '*.html'), `(${PROJECTS_DATA.length} homes)`);
 }
@@ -346,14 +441,16 @@ function writeSitemap() {
   }
   const entries = PAGES.filter((p) => p.url).map((p) => ({
     loc: SITE_ORIGIN + p.url,
+    lastmod: lastmodNow[p.url]?.lastmod,
     changefreq: p.changefreq,
     priority: p.priority,
   }));
   for (const loc of projectUrls()) {
-    entries.push({ loc, changefreq: 'yearly', priority: '0.5' });
+    entries.push({ loc, lastmod: lastmodNow[loc.slice(SITE_ORIGIN.length)]?.lastmod, changefreq: 'yearly', priority: '0.5' });
   }
   fs.writeFileSync(path.join(distDir, 'sitemap.xml'), renderSitemap(entries), 'utf8');
   console.log('Wrote', path.join('dist', 'sitemap.xml'), `(${entries.length} urls)`);
+  saveLastmod();
 }
 
 function copyDir(from, to) {
@@ -396,6 +493,7 @@ for (const page of PAGES) {
     console.error(err.message);
     process.exit(1);
   }
+  if (page.url) recordLastmod(page.url, content);
   for (const token of [PLACEHOLDER, FOOTER_PLACEHOLDER]) {
     if (!content.includes(token)) {
       console.error('Missing', token, 'in', page.file);
@@ -432,9 +530,10 @@ for (const page of PAGES) {
   if (!content.includes('site-body.css')) {
     content = content.replace('</head>', '<link rel="stylesheet" href="assets/site-body.css">\n</head>');
   }
-  fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
-  console.log('Wrote', path.join('dist', page.file));
+  // The homes are cut from the shell as written; each cleans its own links.
   if (page.file === 'project.html') writeHomePages(content);
+  fs.writeFileSync(path.join(distDir, page.file), cleanInternalLinks(content), 'utf8');
+  console.log('Wrote', path.join('dist', page.file));
 }
 
 checkAliasRedirects();

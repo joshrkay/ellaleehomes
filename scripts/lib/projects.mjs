@@ -274,24 +274,23 @@ export function itemListObject(projects, origin) {
   const listed = listedProjects(projects);
   return {
     numberOfItems: listed.length,
-    itemListElement: listed.map((p, i) => {
-      const sqft = cv(p, 'sqft');
-      const loc = String(cv(p, 'locationLabel') ?? '').split(',')[0].trim();
-      return {
-        '@type': 'ListItem',
-        position: i + 1,
-        item: {
-          '@type': 'SingleFamilyResidence',
-          name: cv(p, 'name'),
-          url: `${origin}/homes/${encodeURIComponent(p.slug)}`,
-          image: absoluteUrl(cv(p, 'cardPhoto') ?? p.cardPhoto, origin) ?? undefined,
-          numberOfRooms: cv(p, 'beds') ?? undefined,
-          numberOfBathroomsTotal: cv(p, 'baths') ?? undefined,
-          floorSize: sqft != null ? { '@type': 'QuantitativeValue', value: sqft, unitCode: 'FTK' } : undefined,
-          address: { '@type': 'PostalAddress', addressLocality: loc || undefined, addressRegion: 'AZ', addressCountry: 'US' },
-        },
-      };
-    }),
+    itemListElement: listed.map((p, i) => ({ '@type': 'ListItem', position: i + 1, item: residenceObject(p, origin) })),
+  };
+}
+
+/** One home as a schema.org SingleFamilyResidence: an entry of the portfolio's ItemList, and the base of the home's own page schema. */
+export function residenceObject(p, origin) {
+  const sqft = cv(p, 'sqft');
+  const loc = String(cv(p, 'locationLabel') ?? '').split(',')[0].trim();
+  return {
+    '@type': 'SingleFamilyResidence',
+    name: cv(p, 'name'),
+    url: `${origin}/homes/${encodeURIComponent(p.slug)}`,
+    image: absoluteUrl(cv(p, 'cardPhoto') ?? p.cardPhoto, origin) ?? undefined,
+    numberOfRooms: cv(p, 'beds') ?? undefined,
+    numberOfBathroomsTotal: cv(p, 'baths') ?? undefined,
+    floorSize: sqft != null ? { '@type': 'QuantitativeValue', value: sqft, unitCode: 'FTK' } : undefined,
+    address: { '@type': 'PostalAddress', addressLocality: loc || undefined, addressRegion: 'AZ', addressCountry: 'US' },
   };
 }
 

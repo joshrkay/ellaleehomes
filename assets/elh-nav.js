@@ -211,7 +211,7 @@
     document.querySelectorAll('[data-elh-nav] a, [data-elh-drawer] a'),
     function (a) {
       var href = a.getAttribute('href') || '';
-      if (!/^(index\.html|\/|#top)/.test(href)) return;
+      if (!/^(index\.html|\.\/|\/|#top)/.test(href)) return;
       a.addEventListener('click', function () {
         try { sessionStorage.setItem('elhSkipIntro', '1'); } catch (e) {}
       });
