@@ -257,6 +257,21 @@ ${urls}
  *
  * @param {string} shell the finished dist/project.html
  */
+/**
+ * Templates link to pages by file name (contact.html, homes/mitchell.html) so they work from dist/ on disk, but
+ * Vercel (cleanUrls) answers every *.html address with a 308 to the address without it. Google followed those links
+ * and filed each one under "Page with redirect", and the real pages were only ever reached through a redirect.
+ * Every relative link to a page is written as the root-relative clean URL the sitemap and canonicals use:
+ * contact.html → /contact, homes/mitchell.html → /homes/mitchell, index.html#giving → /#giving.
+ * Links inside page scripts (e.g. the related-home cards) are rewritten the same way.
+ */
+function cleanPageLinks(html) {
+  return html.replace(/href="(?![a-z][a-z0-9+.-]*:|\/|#)([^"#?]*?)\.html((?:[?#][^"]*)?)"/gi, (_, file, rest) => {
+    const clean = file === 'index' ? '/' : `/${file}`;
+    return `href="${clean}${rest}"`;
+  });
+}
+
 function writeHomePages(shell) {
   const dir = path.join(distDir, 'homes');
   fs.mkdirSync(dir, { recursive: true });
@@ -432,6 +447,7 @@ for (const page of PAGES) {
   if (!content.includes('site-body.css')) {
     content = content.replace('</head>', '<link rel="stylesheet" href="assets/site-body.css">\n</head>');
   }
+  content = cleanPageLinks(content);
   fs.writeFileSync(path.join(distDir, page.file), content, 'utf8');
   console.log('Wrote', path.join('dist', page.file));
   if (page.file === 'project.html') writeHomePages(content);

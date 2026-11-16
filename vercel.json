@@ -249,6 +249,106 @@
       "source": "/previous-projects/charter-oak",
       "destination": "/homes/charter-oak",
       "permanent": true
+    },
+    {
+      "source": "/previous-projects/apache-4200-sq-ft",
+      "destination": "/homes/apache",
+      "permanent": true
+    },
+    {
+      "source": "/previous-projects/5th-street",
+      "destination": "/homes/5th-st",
+      "permanent": true
+    },
+    {
+      "source": "/previous-projects/4th-street",
+      "destination": "/homes/4th-st",
+      "permanent": true
+    },
+    {
+      "source": "/previous-projects/hazelwood-1-5578-sq-ft",
+      "destination": "/homes/hazelwood-1",
+      "permanent": true
+    },
+    {
+      "source": "/previous-projects/41st-street-4606-sq-ft",
+      "destination": "/homes/41st",
+      "permanent": true
+    },
+    {
+      "source": "/previous-projects/68th-6871-sq-ft",
+      "destination": "/homes/68th",
+      "permanent": true
+    },
+    {
+      "source": "/previous-projects/:slug",
+      "destination": "/homes/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/projects-portfolio",
+      "destination": "/previous-projects",
+      "permanent": true
+    },
+    {
+      "source": "/past-projects",
+      "destination": "/previous-projects",
+      "permanent": true
+    },
+    {
+      "source": "/arcadia-az",
+      "destination": "/previous-projects",
+      "permanent": true
+    },
+    {
+      "source": "/Arcadia-az",
+      "destination": "/previous-projects",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/testimonials",
+      "destination": "/why-us",
+      "permanent": true
+    },
+    {
+      "source": "/terms-of-service",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/homeowners",
+      "destination": "/homeowner-resources",
+      "permanent": true
+    },
+    {
+      "source": "/blogs",
+      "destination": "/stories",
+      "permanent": true
+    },
+    {
+      "source": "/build-as-investment",
+      "destination": "/is-custom-home-building-a-good-investment",
+      "permanent": true
+    },
+    {
+      "source": "/all_helpie_faq_page",
+      "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/helpie_faq/:path*",
+      "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/helpie_faq_group/:path*",
+      "destination": "/faq",
+      "permanent": true
     }
   ],
   "headers": [

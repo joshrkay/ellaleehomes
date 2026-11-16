@@ -615,8 +615,12 @@ def structure_checks():
             path = path.split('?')[0]
             if path == '':
                 target = n + '.html'
+            elif path == '/':
+                target = 'index.html'  # the build writes index.html links as / (Vercel cleanUrls)
             else:
-                target = path
+                target = path.lstrip('/')
+                if not os.path.splitext(target)[1] and os.path.exists(os.path.join(DIST, target + '.html')):
+                    target += '.html'  # clean URL: /contact is contact.html, /homes/mitchell is homes/mitchell.html
             tp = os.path.join(DIST, target)
             if not os.path.exists(tp):
                 missing.append('%s -> %s' % (n, u))
@@ -816,7 +820,7 @@ def factsheet_checks():
         labs = []
         for blk in re.finditer(r'<div class="article-cta-inline">(.*?)</div>', h, re.S):
             labs += [norm_ws(x) for x in re.findall(r'<a\b[^>]*>(.*?)</a>', blk.group(1), re.S)]
-        for m in re.finditer(r'<a\b[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*href="(?:contact\.html|index\.html#inquiry)[^"]*"[^>]*>(.*?)</a>|<a\b[^>]*href="(?:contact\.html|index\.html#inquiry)[^"]*"[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*>(.*?)</a>', h, re.S):
+        for m in re.finditer(r'<a\b[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*href="(?:/?contact(?:\.html)?|(?:index\.html|/)#inquiry)[^"]*"[^>]*>(.*?)</a>|<a\b[^>]*href="(?:/?contact(?:\.html)?|(?:index\.html|/)#inquiry)[^"]*"[^>]*class="[^"]*(?:btn|button|cta)[^"]*"[^>]*>(.*?)</a>', h, re.S):
             labs.append(norm_ws(m.group(1) or m.group(2)))
         for lab in labs:
             if lab and lab != 'Start your build':
