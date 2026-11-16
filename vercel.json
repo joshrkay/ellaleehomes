@@ -281,6 +281,11 @@
       "permanent": true
     },
     {
+      "source": "/previous-projects/hazelwood-2-5578-sq-ft",
+      "destination": "/homes/hazelwood-2",
+      "permanent": true
+    },
+    {
       "source": "/previous-projects/:slug",
       "destination": "/homes/:slug",
       "permanent": true
@@ -348,6 +353,21 @@
     {
       "source": "/helpie_faq_group/:path*",
       "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/helpie_faq_page",
+      "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/paradise-valley-az",
+      "destination": "/previous-projects",
       "permanent": true
     }
   ],
