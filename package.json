@@ -11,7 +11,7 @@
     "check:launch": "node scripts/check-launch.mjs --strict",
     "qa:chrome": "node scripts/qa-chrome.cjs",
     "watch": "node scripts/watch.mjs",
-    "dev": "npm run build && concurrently -k \"npm run watch\" \"browser-sync start --server dist --files dist --no-open\"",
+    "dev": "npm run build && concurrently -k \"npm run watch\" \"browser-sync start --server dist --files dist --extensions html --no-open\"",
     "projects:csv": "node scripts/export-projects-csv.mjs",
     "projects:import": "node scripts/import-projects.mjs"
   },
