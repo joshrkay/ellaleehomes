@@ -286,6 +286,21 @@
       "permanent": true
     },
     {
+      "source": "/previous-projects/mitchell-3957-sq-ft",
+      "destination": "/homes/mitchell",
+      "permanent": true
+    },
+    {
+      "source": "/previous-projects/2nd-street",
+      "destination": "/homes/2nd-st",
+      "permanent": true
+    },
+    {
+      "source": "/download/:path*",
+      "destination": "/homeowner-resources",
+      "permanent": true
+    },
+    {
       "source": "/previous-projects/:slug",
       "destination": "/homes/:slug",
       "permanent": true
